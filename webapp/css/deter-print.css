@@ -1,0 +1,39 @@
+
+body { background-color: #fff !important;  -webkit-print-color-adjust: exact;}
+#sidebar  { display: none}
+.box-grafico { width: 100%; margin-left: 0px; zoom: 65%;}
+.boxtables { display: none;}
+.tituloprint {font-size: 16px !important; color: #00796b;}
+.boxtitlepanel {display: none; height: 0px; margin: 0px;}
+.boxnote {display: none;}
+#txt15 {display: none;}
+.boxtop {display:block !important; }
+.boxtitulo { display: none;}
+.modal-backdrop { display: none !important;}
+.footer {font-size: 12px;}
+.footer a { text-decoration: none;}
+.material-icons { display: none;}
+input[type=radio],
+input.radio {
+	display: none;
+}
+
+@page {
+ size: A4 landscape;
+ margin: 15px;
+}
+
+@media screen  {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+  }
+	
+}
+

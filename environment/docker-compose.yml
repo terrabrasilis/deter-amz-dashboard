@@ -1,0 +1,10 @@
+# To run in detached mode
+# docker-compose -f environment/docker-compose.yml up -d
+
+version: "3"
+
+services:
+
+  # Dashboards for Cerrado
+  dashboardcerrado:
+    image: terrabrasilis/dashboard-server:alpha

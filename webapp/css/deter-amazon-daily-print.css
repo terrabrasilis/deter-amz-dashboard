@@ -1,0 +1,55 @@
+body{
+	background-color: #FFF;
+	width: 100%;
+	height: 95%;
+}
+#charts-panel{
+	width: 98%;
+}
+.all-charts {
+	fill: #000;
+	font-weight: bold;
+}
+#totalized-area,#totalized-alerts {
+	margin: 0px !important;
+	background: #c4d8e7!important;
+	text-align: center;
+	border: 1px solid #ccc;
+	width: 50%;
+}
+#download_data,#footer_page,#print_information,.input_radio{display:none;}
+.info{margin: 0px;}
+#footer_print{
+	display: block;
+	text-align: center;
+	color: #635e5e;
+	border-top: rgb(187, 224, 123) solid 1px;
+	width: 98%;
+}
+.p_break{
+	page-break-after: always;
+}
+.p_zoom{
+	zoom: 80%;
+}
+.ring-charts,.bar-charts{
+	width: 50%;
+	height: 35%;
+}
+.timeline-charts{
+	width: 98%;
+	zoom: 80%;
+}
+.row_print{
+	margin-top: 35%;
+}
+.dc-chart path.line {
+	stroke-width: 3px;
+}
+.dc-chart .axis .grid-line, .dc-chart .axis .grid-line line, .dc-chart .grid-line, .dc-chart .grid-line line{
+	stroke: #909090;
+}
+.reset, .dc-chart, .dc-chart .pie-slice, .dc-chart g.row text{
+	fill: black;
+	font-size: 11px;
+}
