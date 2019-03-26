@@ -10,7 +10,7 @@ var graph={
 	totalizedAreaInfoBox:undefined,// totalized area info box
 	totalizedAlertsInfoBox:undefined,// totalized alerts info box
 	lineDistributionByMonth:undefined,
-	//ringTotalizedByClass:undefined,
+	ringTotalizedByClass:undefined,
     histTopByCounties:undefined,
     ringTotalizedByState:undefined,
 	histTopByUCs:undefined,
@@ -61,7 +61,7 @@ var graph={
 			this.totalizedAreaInfoBox = dc.numberDisplay("#totalized-area");
 			this.totalizedAlertsInfoBox = dc.numberDisplay("#totalized-alerts");
 			this.lineDistributionByMonth = dc.barChart("#chart-line-by-month");
-			//this.ringTotalizedByClass = dc.pieChart("#chart-ring-by-class");
+			this.ringTotalizedByClass = dc.pieChart("#chart-ring-by-class");
 			this.histTopByCounties = dc.rowChart("#chart-hist-top-counties");
 			this.ringTotalizedByState = dc.pieChart("#chart-ring-by-state");
 			this.histTopByUCs = dc.rowChart("#chart-hist-top-ucs");
@@ -117,7 +117,7 @@ var graph={
 	
 	resetFilters:function() {
 		graph.lineDistributionByMonth.filterAll();
-		//graph.ringTotalizedByClass.filterAll();
+		graph.ringTotalizedByClass.filterAll();
 		graph.histTopByCounties.filterAll();
 		graph.ringTotalizedByState.filterAll();
 		graph.histTopByUCs.filterAll();
@@ -221,7 +221,8 @@ var graph={
             var auxDate = new Date(d.properties.g + 'T04:00:00.000Z');
             o.timestamp = auxDate.getTime();
             o.areaKm = numberFormat(d.properties.e)*1;// area municipio
-            o.areaUcKm = ((d.properties.f)?(numberFormat(d.properties.f)*1):(0));
+			o.areaUcKm = ((d.properties.f)?(numberFormat(d.properties.f)*1):(0));
+			o.className = d.properties.c;
 		    json.push(o);
 		});
 		
@@ -236,7 +237,7 @@ var graph={
 		var alerts = crossfilter(this.jsonData);
 		dimensions["area"] = alerts.dimension(function(d) {return d.areaKm;});
 		dimensions["county"] = alerts.dimension(function(d) {return d.county+"/"+d.uf;});
-		//dimensions["class"] = alerts.dimension(function(d) {return d.className;});
+		dimensions["class"] = alerts.dimension(function(d) {return d.className;});
 		dimensions["date"] = alerts.dimension(function(d) {return d.timestamp;});
 		dimensions["uf"] = alerts.dimension(function(d) {return d.uf;});
 		dimensions["uc"] = alerts.dimension(function(d) {return d.uc+"/"+d.uf;});
@@ -272,13 +273,13 @@ var graph={
 		
 		var groups=[];
 		if(graph.config.defaultDataDimension=="area") {
-			//groups["class"] = dimensions["class"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["class"] = dimensions["class"].group().reduceSum(function(d) {return +d.areaKm;});
 			groups["county"] = dimensions["county"].group().reduceSum(function(d) {return +d.areaKm;});
 			groups["uf"] = dimensions["uf"].group().reduceSum(function(d) {return +d.areaKm;});
 			groups["date"] = dimensions["date"].group().reduceSum(function(d) {return +d.areaKm;});
 			groups["uc"] = dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(+d.areaUcKm):(0);});
 		}else{
-			//groups["class"] = dimensions["class"].group().reduceCount(function(d) {return d.className;});
+			groups["class"] = dimensions["class"].group().reduceCount(function(d) {return d.className;});
 			groups["county"] = dimensions["county"].group().reduceCount(function(d) {return d.county;});
 			groups["uf"] = dimensions["uf"].group().reduceCount(function(d) {return d.uf;});
 			groups["date"] = dimensions["date"].group().reduceCount(function(d) {return +d.timestamp;});
@@ -453,28 +454,6 @@ var graph={
 			.ordering(dc.pluck('key'))
 			.ordinalColors((graph.cssDefault)?(graph.pallet):(graph.darkPallet))
 			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35));
-			//.legend(dc.legend().x(50).y(0).itemHeight(13).gap(7).horizontal(1).legendWidth(100).itemWidth(100));
-			//.legend(dc.legend());
-
-		// this.ringTotalizedByState
-		// 	.on('postRender', function(chart) {
-		// 		var lh=chart.height();
-		// 		var ph=(chart.selectAll('g.pie-slice-group')).node().getBBox().height;
-				
-		// 		var cy=lh-ph/2;
-		// 		chart.cy(cy);
-		// 		chart.redraw();
-		// 	});
-
-		// this.ringTotalizedByState
-		// 	.on('postRender', function(chart) {
-		// 		var lw=chart.width();
-		// 		var pw=(chart.selectAll('g.pie-slice-group')).node().getBBox().width;
-				
-		// 		var cx=(lw-pw/2)-10;
-		// 		chart.cx(cx);
-		// 		chart.redraw();
-		// 	});
 		
 		this.ringTotalizedByState
 			.on('preRender', function(chart) {
@@ -503,6 +482,53 @@ var graph={
 		if(!graph.ctlFirstLoading) {
 			dc.override(this.ringTotalizedByState, 'legendables', function() {
 				var legendables = this._legendables();
+				return legendables.filter(function(l) {
+					return l.data > 0;
+				});
+			});
+		}
+
+		// build graph areas or alerts by class
+		graph.utils.setTitle('class',Translation[Lang.language].title_tot_class);
+
+		this.ringTotalizedByClass
+	        .height(graph.defaultHeight)
+	        .innerRadius(10)
+			.externalRadiusPadding(30)
+	        .dimension(dimensions["class"])
+			.group(this.utils.removeLittlestValues(groups["class"]))
+			.ordinalColors(["#FFD700","#FF4500","#FF8C00","#FFA500","#6B8E23","#8B4513","#D2691E","#FF0000"])
+			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35));
+			//.ordinalColors((graph.cssDefault)?(graph.pallet):(graph.darkPallet))
+
+		this.ringTotalizedByClass
+			.on('preRender', function(chart) {
+				chart.height(graph.defaultHeight);
+				chart.legend().legendWidth(window.innerWidth/2);
+			});
+
+		this.ringTotalizedByClass.title(function(d) {
+			return (d.key!='empty')?(d.key + ': ' + graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without); 
+		});
+
+		// .externalLabels(30) and .drawPaths(true) to enable external labels
+		this.ringTotalizedByClass
+			.renderLabel(true)
+	        .minAngleForLabel(0.5);
+		
+		this.ringTotalizedByClass.label(function(d) {
+			var txtLabel=(d.key!='empty')?(graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
+			if(graph.ringTotalizedByClass.hasFilter()) {
+				var f=graph.ringTotalizedByClass.filters();
+				return (f.indexOf(d.key)>=0)?(txtLabel):('');
+			}else{
+				return txtLabel;
+			}
+		});
+
+		if(!graph.ctlFirstLoading) {
+			dc.override(this.ringTotalizedByClass, 'legendables', function() {
+				var legendables = (this._legendables!=undefined)?(this._legendables()):(this.legendables());
 				return legendables.filter(function(l) {
 					return l.data > 0;
 				});
