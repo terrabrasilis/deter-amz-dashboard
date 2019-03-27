@@ -21,9 +21,14 @@ body{
     color: grey;
 }
 .btn-chart-info a a:hover ,.btn-chart-info a a:focus{
-    color: black !important;
+    color: black;
     text-decoration: none;
     transition: all 0.3s;
+}
+.modal-body a, .modal-body a a:hover, .modal-body a a:focus{
+	color: green !important;
+	text-decoration: underline;
+	transition: all 0.3s;
 }
 #info_container{
 	padding: 25%;

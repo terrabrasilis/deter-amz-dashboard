@@ -94,13 +94,13 @@ var utils = {
         return false;
 	},
 	mappingClassNames: function(cl) {
-		if(utils.config.layerConfig===undefined) {
+		if(graph.legendOriginal===undefined) {
 			return cl;
 		}
-		var l = utils.config.layerConfig.legendOriginal.length;
+		var l = graph.legendOriginal.length;
 		for (var i = 0; i < l; i++) {
-			if(utils.config.layerConfig.legendOriginal[i]===cl) {
-				cl=utils.config.layerConfig.legendOverlay[Lang.language][i];
+			if(graph.legendOriginal[i]===cl) {
+				cl=graph.legendOverlay[Lang.language][i];
 				break;
 			}
 		}
@@ -196,6 +196,8 @@ var graph={
 					graph.barTop10Color=conf.barTop10Color?conf.barTop10Color:graph.barTop10Color;
 					graph.darkBarTop10Color=conf.darkBarTop10Color?conf.darkBarTop10Color:graph.darkBarTop10Color;
 					graph.defaultHeight=conf.defaultHeight?conf.defaultHeight:graph.defaultHeight;
+					graph.legendOriginal=conf.legendOriginal?conf.legendOriginal:undefined;
+					graph.legendOverlay=conf.legendOverlay?conf.legendOverlay:undefined;
 				}
 			}
 			callback();

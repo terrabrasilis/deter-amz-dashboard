@@ -3,7 +3,7 @@ var Translation={
 		/* texts into HTML entities */
 		'goto_about':'Ver informações sobre o projeto e a equipe.',
 		'goto_video':'Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.',
-		'title-chart': 'Alertas diários de desmatamento na Amazônia Legal Brasileira.',
+		'title-chart': 'Análise - Amazônia Legal',
 		'txt1':'Painel DETER - diário',
 		'txt1f':'Pesquisa de municípios',
 		'txt1g':'Encontre um município.',
@@ -89,6 +89,7 @@ var Translation={
 		'toDailyChart':'Abrir o painel de alertas de desmatamento.',
 		'toAggregatedChart':'Abrir o painel de agregado de alertas de desmatamento.',
 		'tituloprint':' | Alertas diários de desmatamento na Amazônia Legal Brasileira.',
+		'header-panel':'| Alertas',
 		/* For about modal window  */
 		'andre-role':'Desenvolvedor de Software Sênior',
         'co-team-role':'EQUIPE DE COORDENADORES',
@@ -124,7 +125,7 @@ var Translation={
 		/* texts into HTML entities */
 		'goto_about':'See informations about the project and team.',
 		'goto_video':'Watch the introductory video to see how an user interact with dashboard tools.',
-		'title-chart': 'Daily deforestation alerts in the Brazilian Legal Amazon.',
+		'title-chart': 'Analyses - Legal Amazon',
 		'txt1':'DETER panel - daily',
 		'txt1f':'Search for municipalities',
 		'txt1g':'Find a county.',
@@ -180,7 +181,7 @@ var Translation={
 		'alertas':'alert(s)',
 		'timeline_header':'Distribution of %dim% over time (daily granularity).',
 		'timeline_desc':'Interval available (maximum 365 days):',
-		'title_tot_class':'Classes by %dim%',
+		'title_tot_class':'%Dim% by Classes',
 		'title_top_county':'Municipalities with the greatest deforestation %dim%',
 		'title_tot_state':'%Dim% by States',
 		'title_top_uc':'Protected areas with the greatest deforestation %dim%',
@@ -210,6 +211,7 @@ var Translation={
 		'toDailyChart':'Open the panel of the deforestation daily alerts.',
 		'toAggregatedChart':'Open the panel of the deforestation aggregate alerts.',
 		'tituloprint':' | Daily alerts of the deforestation in Brazilian Legal Amazon.',
+		'header-panel':'| Alerts',
 		/* For about modal window  */
 		'andre-role':'Senior Software Development',
 		'co-team-role':'Team of Coordinators',

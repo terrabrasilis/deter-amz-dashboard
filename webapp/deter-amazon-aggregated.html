@@ -98,14 +98,14 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#graficos" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">dashboard</i><span id="nv-chart">Gráficos - desmatamento</span></a>
+						<i class="material-icons">dashboard</i><span id="nv-chart">Gráficos - alertas</span></a>
 				</li>
 				<li>
-					<a href="/dashboard/alerts/legal/amazon/daily/" id="toDailyChart" title="Abrir o painel de alertas de desmatamento." aria-expanded="false">
+					<a href="/dashboard/alerts/legal/amazon/daily/" id="toDailyChart" title="Abrir o painel de alertas." aria-expanded="false">
 						<i class="material-icons">insert_chart</i><span id="nv-daily">Alertas diários</span></a>
 				</li>
 				<li>
-					<a href="/dashboard/alerts/legal/amazon/aggregated/" id="toAggregatedChart" title="Abrir o painel de agregado de alertas de desmatamento." aria-expanded="false">
+					<a href="/dashboard/alerts/legal/amazon/aggregated/" id="toAggregatedChart" title="Abrir o painel de agregado de alertas." aria-expanded="false">
 						<i class="material-icons">insert_chart</i><span id="nv-aggreg">Agregado de alertas</span></a>
 				</li>
 			</ul>
@@ -119,9 +119,9 @@
 				</li>
 
 				<li>
-					<a href="http://terrabrasilis.dpi.inpe.br" id="toMap" target="_blank" title="Abrir o mapa interativo."
+					<a href="http://terrabrasilis.dpi.inpe.br/map/alert" id="toMap" target="_blank" title="Abrir o mapa interativo de alertas."
 					 aria-expanded="false">
-						<i class="material-icons">map</i><span id="nv-map">Mapa Interativo</span></a>
+						<i class="material-icons">map</i><span id="nv-map">Mapa de Alertas</span></a>
 				</li>
 				<li>
 					<a href="http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/deter" id="toHome" target="_blank" title="Abrir a página inicial com informações sobre o projeto de detecção de desmatamento - DETER."
@@ -148,7 +148,7 @@
 			<a class="navbar-brand" href="#"><span class="amarelo">Terra</span><span class="verde">Brasilis</span></a>
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link" href="#">| Amazônia Legal</a>
+					<a class="nav-item nav-link" href="#" id="header-panel">| Alertas</a>
 				</div>
 				<ul class="navbar-nav  navbar-right">
 					<li class="nav-item active">
@@ -193,13 +193,13 @@
 
 		<div id="charts-panel">
 			<div id="title-chart" class="all-charts-title boxtitlepanel">
-				<div id="txt15">Variação da detecção de área do projeto DETER, com granularidade mensal, com sazonalidade ano PRODES
-					(Agosto a Julho)</div>
+				<div id="txt15">Análise - Amazônia Legal</div>
 			</div>
 			<div class="row box">
 
 				<div class="col-md-12">
-					<div class="box-grafico text-center">
+					<div class="all-charts box-grafico text-center">
+						<div id="title-chart-agreg" class="all-charts-title boxtitle">Variação da detecção de área do projeto DETER, com granularidade mensal e sazonalidade ano PRODES (Agosto a Julho)</div>
 						<div id="agreg">
 							<div class="reset" style="display: none;">
 								<b><span id="txt8b">Filtro:</span></b> <span class="filter"></span>
@@ -221,7 +221,8 @@
 
 			<div class="row box">
 				<div class="col-md-4">
-					<div class="box-grafico text-center" style="padding-top: 25px;">
+					<div class="box-grafico text-center">
+						<div id="title-chart-by-state" class="all-charts-title boxtitle">Area by State</div>
 						<div id="chart-by-state">
 							<div class="keep-space">
 								<div class="reset" style="display: none;">
@@ -238,7 +239,8 @@
 				</div>
 
 				<div class="col-md-4">
-					<div class="box-grafico text-center" style="padding-top: 25px;">
+					<div class="box-grafico text-center">
+						<div id="title-chart-by-class" class="all-charts-title boxtitle">Area by Classes</div>
 						<a id="modal-718053" href="#modal-container-718053" role="button" class="btn btn-chart-info" data-toggle="modal">
 							<i class="material-icons" id="display_warning" title="Mais informações sobre a classe Corte Seletivo.">info</i>
 						</a>
@@ -258,7 +260,8 @@
 				</div>
 
 				<div class="col-md-4">
-					<div class="box-grafico text-center" style="padding-top: 25px;">
+					<div class="all-charts box-grafico text-center">
+						<div id="title-chart-by-year" class="all-charts-title boxtitle">Area by Year</div>
 						<div id="chart-by-year">
 							<div class="keep-space">
 								<div class="reset" style="display: none;">
@@ -291,17 +294,12 @@
 				<div id="footer_print"></div>
 
 				<!--Start of modal information about classes-->
-				<div class="modal fade" id="modal-container-718053" role="dialog" aria-labelledby="areaXclass" aria-hidden="true">
+				<div class="modal fade" id="modal-container-718053">
 					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								 
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-									×
-								</button>
-								<h4 class="modal-title" id="areaXclass">
-									<span id="txt22">Informações complementares</span>
-								</h4>
+						<div class="modal-content modalinf">
+							<div class="modal-header fechar">
+								<h5 class="modal-title boxtitletable"><span id="txt22">Informações complementares</span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
 							</div>
 							<div class="modal-body">
 								<div class="alert alert-info">
@@ -313,10 +311,13 @@
 								<a target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php" id="txt22c">Informações completas sobre o projeto DETER-B</a>
 							</div>
 							<div class="modal-footer">
-								 
-								<button type="button" class="btn btn-default" data-dismiss="modal">
-									<span id="txt22d">Fechar</span>
-								</button> 
+								<div class="checkbox pull-right">
+									<label>
+										<button type="button" class="btn btngreen" data-dismiss="modal">
+											<span id="txt22d">Fechar</span>
+										</button>
+									</label>
+								</div>
 							</div>
 						</div>
 					</div>

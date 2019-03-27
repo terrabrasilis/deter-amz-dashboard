@@ -203,6 +203,19 @@ var graph={
 				iframe.src=url;
 				//window.setTimeout(function() {graph.utils.setStateAnimateIcon('animateIconSHPd', false);}, 2000);
 			}, 200);
+		},
+		mappingClassNames: function(cl) {
+			if(graph.config.dataConfig.legendOriginal===undefined) {
+				return cl;
+			}
+			var l = graph.config.dataConfig.legendOriginal.length;
+			for (var i = 0; i < l; i++) {
+				if(graph.config.dataConfig.legendOriginal[i]===cl) {
+					cl=graph.config.dataConfig.legendOverlay[Lang.language][i];
+					break;
+				}
+			}
+			return cl;
 		}
 	},
 	doResize:function() {
@@ -499,7 +512,6 @@ var graph={
 			.group(this.utils.removeLittlestValues(groups["class"]))
 			.ordinalColors(["#FFD700","#FF4500","#FF8C00","#FFA500","#6B8E23","#8B4513","#D2691E","#FF0000"])
 			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35));
-			//.ordinalColors((graph.cssDefault)?(graph.pallet):(graph.darkPallet))
 
 		this.ringTotalizedByClass
 			.on('preRender', function(chart) {
@@ -507,15 +519,26 @@ var graph={
 				chart.legend().legendWidth(window.innerWidth/2);
 			});
 
+		this.ringTotalizedByClass.legend(function(d) {
+			var t=graph.utils.mappingClassNames(d.key);
+			return (d.key!='empty')?(t):(Translation[Lang.language].without);
+		});
+
 		this.ringTotalizedByClass.title(function(d) {
-			return (d.key!='empty')?(d.key + ': ' + graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without); 
+			var v=graph.utils.numberByUnit(d.value);
+			v=localeBR.numberFormat(',1f')(v);
+			var t=graph.utils.mappingClassNames(d.key) + ": " + v + " " + graph.utils.wildcardExchange(" %unit%");
+			if(d.key==="CORTE_SELETIVO") {
+				t=graph.utils.mappingClassNames(d.key) + "*: " + v + " " + graph.utils.wildcardExchange(" %unit%") + " ("+Translation[Lang.language].warning_class+")";
+			}
+			return (d.key!='empty')?(t):(Translation[Lang.language].without);
 		});
 
 		// .externalLabels(30) and .drawPaths(true) to enable external labels
 		this.ringTotalizedByClass
 			.renderLabel(true)
 	        .minAngleForLabel(0.5);
-		
+
 		this.ringTotalizedByClass.label(function(d) {
 			var txtLabel=(d.key!='empty')?(graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
 			if(graph.ringTotalizedByClass.hasFilter()) {
