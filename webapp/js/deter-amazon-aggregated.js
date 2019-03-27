@@ -92,7 +92,20 @@ var utils = {
             return true;
         }
         return false;
-    },
+	},
+	mappingClassNames: function(cl) {
+		if(utils.config.layerConfig===undefined) {
+			return cl;
+		}
+		var l = utils.config.layerConfig.legendOriginal.length;
+		for (var i = 0; i < l; i++) {
+			if(utils.config.layerConfig.legendOriginal[i]===cl) {
+				cl=utils.config.layerConfig.legendOverlay[Lang.language][i];
+				break;
+			}
+		}
+		return cl;
+	},
 	xaxis:function(d) {
 		var list=Translation[Lang.language].months_of_prodes_year;
 		return list[d-8];
@@ -142,6 +155,7 @@ var graph={
 	focusChart: null,
 	overviewChart: null,
 	ringTotalizedByState: null,
+	rowTotalizedByClass: null,
 	barAreaByYear: null,
 	
 	monthDimension: null,
@@ -215,6 +229,7 @@ var graph={
 		this.focusChart = dc.seriesChart("#agreg", "agrega");
 		this.overviewChart = dc.seriesChart("#agreg-overview", "agrega");
 		this.ringTotalizedByState = dc.pieChart("#chart-by-state", "filtra");
+		this.rowTotalizedByClass = dc.rowChart("#chart-by-class", "filtra");
 		this.barAreaByYear = dc.barChart("#chart-by-year", "filtra");
 	},
 	loadData: function(url) {
@@ -242,7 +257,7 @@ var graph={
 			if(month >=8 && month<=12) {
 				year = "20"+year+"/20"+(year+1);
 			}
-			o.push({Year:year,Month:month,Area:+((fet.properties.ar).toFixed(1)),uf:fet.properties.uf});
+			o.push({Year:year,Month:month,Area:+((fet.properties.ar).toFixed(1)),uf:fet.properties.uf,className:fet.properties.cl});
 		}
 		data = o;
 		graph.registerDataOnCrossfilter(data);
@@ -271,6 +286,9 @@ var graph={
 		this.ufDimension0 = ndx0.dimension(function(d) {
 			return d.uf;
 		});
+		this.classDimension0 = ndx0.dimension(function(d) {
+			return d.className;
+		});
 		this.yearDimension = ndx1.dimension(function(d) {
 			return d.Year;
 		});
@@ -281,6 +299,12 @@ var graph={
 			return d.uf;
 		});
 		this.ufGroup = this.ufDimension.group().reduceSum(function(d) {
+			return d.Area;
+		});
+		this.classDimension = ndx1.dimension(function(d) {
+			return d.className;
+		});
+		this.classGroup = this.classDimension.group().reduceSum(function(d) {
 			return d.Area;
 		});
 	},
@@ -445,6 +469,51 @@ var graph={
 			return Math.abs(+(d.value.toFixed(2)));
 		});
 
+		// start chart by classes
+		this.rowTotalizedByClass
+			.height(this.defaultHeight)
+			.dimension(this.classDimension)
+			.group(utils.snapToZero(this.classGroup))
+			.title(function(d) {
+				var v=Math.abs(+(parseFloat(d.value).toFixed(2)));
+				v=localeBR.numberFormat(',1f')(v);
+				var t=Translation[Lang.language].area+": " + v + " " + Translation[Lang.language].unit;
+				if(d.key==="CORTE_SELETIVO") {
+					t=Translation[Lang.language].area+": " + v + " " + Translation[Lang.language].unit + " ("+Translation[Lang.language].warning_class+")";
+				}
+				return t;
+			})
+			.label(function(d) {
+				var v=Math.abs(+(parseFloat(d.value).toFixed(1)));
+				v=localeBR.numberFormat(',1f')(v);
+				var t=utils.mappingClassNames(d.key) + ": " + v + " " + Translation[Lang.language].unit;
+				if(d.key==="CORTE_SELETIVO") {
+					t=utils.mappingClassNames(d.key) + "*: " + v + " " + Translation[Lang.language].unit + " ("+Translation[Lang.language].warning_class+")";
+				}
+				return t;
+			})
+			.elasticX(true)
+			.ordinalColors(["#FF0000","#FFFF00","#FF00FF","#F8B700","#78CC00","#00FFFF","#56B2EA","#0000FF","#00FF00"])
+			.ordering(function(d) {
+				return -d.value;
+			})
+			.controlsUseVisibility(true);
+
+		this.rowTotalizedByClass.xAxis().tickFormat(function(d) {
+			var t=parseInt(d/1000);
+			t=(t<1?parseInt(d):t+"k");
+			return t;
+		}).ticks(5);
+		
+		this.rowTotalizedByClass
+		.filterPrinter(function(f) {
+			var l=[];
+			f.forEach(function(cl){
+				l.push(utils.mappingClassNames(cl));
+			});
+			return l.join(",");
+		});
+
 		this.barAreaByYear
 			.height(this.defaultHeight)
 			.yAxisLabel(Translation[Lang.language].area+" ("+Translation[Lang.language].unit+")")
@@ -484,39 +553,37 @@ var graph={
 		dc.chartRegistry.list("filtra").forEach(function(c,i){
 			c.on('filtered', function(chart, filter) {
 				var filters = chart.filters();
+				var commonFilterFunction = function (d) {
+					for (var i = 0; i < filters.length; i++) {
+						var f = filters[i];
+						if (f.isFiltered && f.isFiltered(d)) {
+							return true;
+						} else if (f <= d && f >= d) {
+							return true;
+						}
+					}
+					return false;
+				};
 
 				if(chart.anchorName()=="chart-by-year"){
 					if(!filters.length) {
 						graph.yearDimension0.filterAll();
 					}else {
-						graph.yearDimension0.filterFunction(function (d) {
-							for (var i = 0; i < filters.length; i++) {
-								var f = filters[i];
-								if (f.isFiltered && f.isFiltered(d)) {
-									return true;
-								} else if (f <= d && f >= d) {
-									return true;
-								}
-							}
-							return false;
-						});
+						graph.yearDimension0.filterFunction(commonFilterFunction);
 					}
 				}
 				if(chart.anchorName()=="chart-by-state"){
 					if(!filters.length) {
 						graph.ufDimension0.filterAll();
 					}else {
-						graph.ufDimension0.filterFunction(function (d) {
-							for (var i = 0; i < filters.length; i++) {
-								var f = filters[i];
-								if (f.isFiltered && f.isFiltered(d)) {
-									return true;
-								} else if (f <= d && f >= d) {
-									return true;
-								}
-							}
-							return false;
-						});
+						graph.ufDimension0.filterFunction(commonFilterFunction);
+					}
+				}
+				if(chart.anchorName()=="chart-by-class"){
+					if(!filters.length) {
+						graph.classDimension0.filterAll();
+					}else {
+						graph.classDimension0.filterFunction(commonFilterFunction);
 					}
 				}
 				dc.redrawAll("agrega");
@@ -547,6 +614,8 @@ var graph={
 			graph.ringTotalizedByState.filterAll();
 		}else if(who=='year'){
 			graph.barAreaByYear.filterAll();
+		}else if(who=='class'){
+			graph.rowTotalizedByClass.filterAll();
 		}else if(who=='agreg'){
 			graph.overviewChart.filterAll();
 			graph.focusChart.filterAll();
@@ -557,6 +626,7 @@ var graph={
 	},
 	resetFilters: function() {
 		graph.ringTotalizedByState.filterAll();
+		graph.rowTotalizedByClass.filterAll();
 		graph.barAreaByYear.filterAll();
 		graph.overviewChart.filterAll();
 		graph.focusChart.filterAll();

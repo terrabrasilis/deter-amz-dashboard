@@ -37,7 +37,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="./libs/dc-2.1/dc.min.css" />
 	<link rel="stylesheet" type="text/css" href="" id="stylesheet_dark" />
-	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-daily.css" />
+	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated.css" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated-print.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-print.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="./css/terrabrasilis.css" />
@@ -189,12 +189,13 @@
 	</div>
 
 	<div class="container-fluid" id="panel_container" style="display:none;">
-		<div id="title-chart" class="all-charts-title boxtitlepanel">
-			<div id="txt15">Variação da detecção de área do projeto DETER, com granularidade mensal, com sazonalidade ano PRODES
-				(Agosto a Julho)</div>
-		</div>
+		
 
 		<div id="charts-panel">
+			<div id="title-chart" class="all-charts-title boxtitlepanel">
+				<div id="txt15">Variação da detecção de área do projeto DETER, com granularidade mensal, com sazonalidade ano PRODES
+					(Agosto a Julho)</div>
+			</div>
 			<div class="row box">
 
 				<div class="col-md-12">
@@ -213,31 +214,61 @@
 					</div>
 				</div>
 			</div>
+
+			<div id="title-chart" class="all-charts-title boxtitle and-border">
+				<div id="txt16">Filtros por Estados, Classes e ano PRODES (Agosto a Julho)</div>
+			</div>
+
 			<div class="row box">
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="box-grafico text-center" style="padding-top: 25px;">
 						<div id="chart-by-state">
-							<div class="reset" style="display: none;">
-								<b><span id="txt9">Filtro:</span></b> <span class="filter"></span>
-								<a href="javascript:graph.resetFilter('state');">
-									<span aria-hidden="true" id="txt19" title="Limpar este filtro.">
-										<i class="material-icons md-icon-16 icongreen">delete</i>
-									</span>
-								</a>
+							<div class="keep-space">
+								<div class="reset" style="display: none;">
+									<b><span id="txt9">Filtro:</span></b> <span class="filter"></span>
+									<a href="javascript:graph.resetFilter('state');">
+										<span aria-hidden="true" id="txt19" title="Limpar este filtro.">
+											<i class="material-icons md-icon-16 icongreen">delete</i>
+										</span>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+
+				<div class="col-md-4">
+					<div class="box-grafico text-center" style="padding-top: 25px;">
+						<a id="modal-718053" href="#modal-container-718053" role="button" class="btn btn-chart-info" data-toggle="modal">
+							<i class="material-icons" id="display_warning" title="Mais informações sobre a classe Corte Seletivo.">info</i>
+						</a>
+						<div id="chart-by-class">
+							<div class="keep-space">
+								<div class="reset" style="visibility: hidden;">
+									<b><span id="txt11">Filtro:</span></b> <span class="filter"></span>
+									<a href="javascript:graph.resetFilter('class');">
+										<span aria-hidden="true" id="txt21" title="Limpar este filtro.">
+											<i class="material-icons md-icon-16 icongreen">delete</i>
+										</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
 					<div class="box-grafico text-center" style="padding-top: 25px;">
 						<div id="chart-by-year">
-							<div class="reset" style="display: none;">
-								<b><span id="txt11">Filtro:</span></b> <span class="filter"></span>
-								<a href="javascript:graph.resetFilter('year');">
-									<span aria-hidden="true" id="txt21" title="Limpar este filtro.">
-										<i class="material-icons md-icon-16 icongreen">delete</i>
-									</span>
-								</a>
+							<div class="keep-space">
+								<div class="reset" style="display: none;">
+									<b><span id="txt11">Filtro:</span></b> <span class="filter"></span>
+									<a href="javascript:graph.resetFilter('year');">
+										<span aria-hidden="true" id="txt21" title="Limpar este filtro.">
+											<i class="material-icons md-icon-16 icongreen">delete</i>
+										</span>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -258,107 +289,38 @@
 		<div class="row box">
 			<div class="col-md-12">
 				<div id="footer_print"></div>
-				<!-- modal window with information dados rates -->
-				<div class="modal fade" id="modal-container-info-rates">
+
+				<!--Start of modal information about classes-->
+				<div class="modal fade" id="modal-container-718053" role="dialog" aria-labelledby="areaXclass" aria-hidden="true">
 					<div class="modal-dialog">
-						<div class="modal-content modalinf">
-							<div class="modal-header fechar">
-								<h5 class="modal-title boxtitletable"> <span id="txt19">Informações complementares</span></h5>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+						<div class="modal-content">
+							<div class="modal-header">
+								 
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									×
+								</button>
+								<h4 class="modal-title" id="areaXclass">
+									<span id="txt22">Informações complementares</span>
+								</h4>
 							</div>
-							<!-- / modal-header -->
-							<div class="modal-body ">
-								<div class="alert alert-success" role="alert">
-									<span id="txt20"></span>
+							<div class="modal-body">
+								<div class="alert alert-info">
+									<span id="txt22a">As classes que representam alertas de desmatamento são Mineração, Desmatamento com vegetação e Desmatamento com solo exposto.</span>
 								</div>
-
-								<div class="alert alert-light" role="alert">
-									<span id="txt2b">Texto de aviso sobre os dados</span>
+								<div class="alert alert-warning">
+									<strong><span>* </span></strong><span id="txt22b">A classe <strong>Corte Seletivo</strong> refere-se ao somatório das classes Corte Seletivo Geométrico e Corte Seletivo Desordenado para o ano PRODES 2015/2016, quando estas classes ainda não eram discretizadas.</span>
 								</div>
-								<div class="boxtitle"><a target="_blank" href="http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/deter" id="txt23">Mais informações
-										sobre o projeto DETER - Amazônia Legal</a> </div>
+								<a target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php" id="txt22c">Informações completas sobre o projeto DETER-B</a>
 							</div>
-
-							<!-- / modal-body -->
 							<div class="modal-footer">
-								<div class="checkbox pull-right">
-									<label>
-										<button type="button" class="btn btngreen" data-dismiss="modal">
-											<span id="txt1e">Fechar</span>
-										</button>
-									</label>
-								</div>
-								<!--/ checkbox -->
+								 
+								<button type="button" class="btn btn-default" data-dismiss="modal">
+									<span id="txt22d">Fechar</span>
+								</button> 
 							</div>
-							<!--/ modal-footer -->
 						</div>
-						<!-- / modal-content -->
 					</div>
-					<!--/ modal-dialog -->
-				</div>
-				<!-- / modal -->
-
-
-
-				<!-- Modal Download-->
-				<div class="modal fade" id="modal-container-download">
-					<div class="modal-dialog">
-						<div class="modal-content modalinf">
-							<div class="modal-header fechar">
-								<h5 class="modal-title boxtitletable"> <span id="txt26">Baixar a tabela com os incremento de desmatamento em
-										formato CSV.</span></h5>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
-							</div>
-							<!-- / modal-header -->
-							<div class="modal-body ">
-								<div class="dwn-tool">
-									<div class="alert alert-success alert-labeled">
-										<div class="alert-labeled-row">
-											<span class="alert-label alert-label-left alert-labelled-cell">
-												<i class="material-icons">save_alt</i>
-											</span>
-											<p class="alert-body alert-body-right alert-labelled-cell">
-												<a href="#" id="download-csv-filtered">
-													<span id="txt27" class="alerttitle">Com filtros.</span>
-												</a>
-											</p>
-										</div>
-									</div>
-
-									<div class="alert alert-success alert-labeled">
-										<div class="alert-labeled-row">
-											<span class="alert-label alert-label-left alert-labelled-cell">
-												<i class="material-icons">save_alt</i>
-											</span>
-											<p class="alert-body alert-body-right alert-labelled-cell">
-												<a href="#" id="download-csv-all">
-													<span id="txt28" class="alerttitle">Sem filtros.</span>
-												</a>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- / modal-body -->
-							<div class="modal-footer">
-								<div class="checkbox pull-right">
-									<label>
-										<button type="button" class="btn btngreen" data-dismiss="modal">
-											<span id="txt29">Fechar</span>
-										</button>
-									</label>
-								</div>
-								<!--/ checkbox -->
-							</div>
-							<!--/ modal-footer -->
-						</div>
-						<!-- / modal-content -->
-					</div>
-					<!--/ modal-dialog -->
-				</div>
-				<!-- / modal -->
-
+				</div><!--End of modal information about classes-->
 
 				<!-- modal window with an introductory video of this panel -->
 				<div class="modal fade" id="modal-container-video">

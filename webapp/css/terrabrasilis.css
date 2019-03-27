@@ -77,7 +77,8 @@ a, a:hover, a:focus {
 .groupbox { width: 100%!important; margin-right: 15px;}
 
 .boxtitlepanel { text-align: left; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #49bc95;  margin:90px 5px 0px 20px;}
-.boxtitle { text-align: left; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #eeeeee; margin: 25px;} 
+.boxtitle { text-align: left; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #eeeeee; margin: 25px;}
+.and-border, .boxtitle {margin-bottom: 0px; border-bottom: 1px solid #49bc95;}
 .boxtitletable { text-align: left !important; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #eeeeee; margin:25px 0px 25px 0px; width: 100%;} 
 .boxtitletable a[aria-expanded="true"] {color: #00796b; background-color:transparent!important;}
 
