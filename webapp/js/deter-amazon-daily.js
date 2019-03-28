@@ -392,7 +392,7 @@ var graph={
 			     .attr('transform', 'translate(-10,20) rotate(315)');
 		});
 		
-         this.lineDistributionByMonth
+		this.lineDistributionByMonth
 			.filterPrinter(function(f) {
 				//return dateFormat(f[0][0]) + ' - ' + dateFormat(f[0][1]);
 				var dt=new Date(f[0][0]);
@@ -511,18 +511,18 @@ var graph={
 	        .dimension(dimensions["class"])
 			.group(this.utils.removeLittlestValues(groups["class"]))
 			.ordinalColors(["#FFD700","#FF4500","#FF8C00","#FFA500","#6B8E23","#8B4513","#D2691E","#FF0000"])
-			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35));
+			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35).legendText(
+				function(d) {
+					var t=graph.utils.mappingClassNames(d.name);
+					return (d.name!='empty')?(t):(Translation[Lang.language].without);
+				}
+			));
 
 		this.ringTotalizedByClass
 			.on('preRender', function(chart) {
 				chart.height(graph.defaultHeight);
 				chart.legend().legendWidth(window.innerWidth/2);
 			});
-
-		this.ringTotalizedByClass.legend(function(d) {
-			var t=graph.utils.mappingClassNames(d.key);
-			return (d.key!='empty')?(t):(Translation[Lang.language].without);
-		});
 
 		this.ringTotalizedByClass.title(function(d) {
 			var v=graph.utils.numberByUnit(d.value);
@@ -532,6 +532,15 @@ var graph={
 				t=graph.utils.mappingClassNames(d.key) + "*: " + v + " " + graph.utils.wildcardExchange(" %unit%") + " ("+Translation[Lang.language].warning_class+")";
 			}
 			return (d.key!='empty')?(t):(Translation[Lang.language].without);
+		});
+
+		this.ringTotalizedByClass
+			.filterPrinter(function(f) {
+				var t=[];
+				f.forEach(function(cl) {
+					t.push(graph.utils.mappingClassNames(cl));
+				});
+				return (f.length)?(t):([Translation[Lang.language].without]);
 		});
 
 		// .externalLabels(30) and .drawPaths(true) to enable external labels
@@ -548,6 +557,8 @@ var graph={
 				return txtLabel;
 			}
 		});
+
+		this.ringTotalizedByClass.fil
 
 		if(!graph.ctlFirstLoading) {
 			dc.override(this.ringTotalizedByClass, 'legendables', function() {
