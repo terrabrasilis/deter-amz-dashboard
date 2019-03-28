@@ -10,13 +10,13 @@ To load data with more efficience we generate this JSON files using automated ta
 To build image for this dockerfile use this command:
 
 ```bash
-docker build -t terrabrasilis/dashboard-<name>:alpha -f environment/Dockerfile .
+docker build -t terrabrasilis/amazon-<name>:v2.0-beta -f environment/Dockerfile .
 ```
 
 To run without compose and without shell terminal use this command:
 
 ```bash
-docker run -d --rm -p 80:80 --name terrabrasilis_dashboard_amazon terrabrasilis/dashboard-<name>:alpha
+docker run -d --rm -p 80:80 --name terrabrasilis_alerts_amazon terrabrasilis/amazon-<name>:v2.0-beta
 ```
 
 ## Run using compose
@@ -26,13 +26,13 @@ Are two ways for run this service using docker-compose.
 ### To run in atached mode
 
 ```bash
-docker-compose -f amazon-deter-environment/docker-compose.yml up
+docker-compose -f environment/docker-compose.yml up
 ```
 
 ### To run in detached mode
 
 ```bash
-docker-compose -f amazon-deter-environment/docker-compose.yml up -d
+docker-compose -f environment/docker-compose.yml up -d
 ```
 
 ## Run in your stack like Swarm
