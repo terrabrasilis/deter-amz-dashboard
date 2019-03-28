@@ -48,6 +48,10 @@ var Translation={
 		'txt24':'Com filtros.',
 		'txt25':'Sem filtros.',
 		'txt33':'Procurar por Municípios',
+		'txt26':'Baixar a tabela com os alertas em formato CSV.',
+		'txt27':'Com filtros.',
+		'txt28':'Sem filtros.',
+		'txt29':'Fechar',
 		/* titles for HTML entities */
 		'aggregate_monthly':'Alternar para o painel de consulta agregada mensal.',
 		'modal-718053':'Baixar os dados com granularidade diária.',
@@ -176,6 +180,10 @@ var Translation={
 		'txt24':'With filters.',
 		'txt25':'Without filters.',
 		'txt33':'Search for Municipalities',
+		'txt26':'Download the table with the alerts in CSV format.',
+		'txt27':'With filters.',
+		'txt28':'Without filters.',
+		'txt29':'Close',
 		/* titles for HTML entities */
 		'aggregate_monthly':'Exchange by the monthly aggregation analysis panel.',
 		'modal-718053':'Download the data with daily granularity.',
