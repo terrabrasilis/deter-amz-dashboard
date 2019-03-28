@@ -601,8 +601,8 @@ var graph={
 
 		this.loadConfigurations(function(){
 			Lang.apply();
-			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_month_d.json";
-			var dataUrl = "./data/deter-amazon-month.json";
+			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_month_d.json";
+			//var dataUrl = "./data/deter-amazon-month.json";
 			graph.loadData(dataUrl);
 			utils.attachEventListeners();
 		});
