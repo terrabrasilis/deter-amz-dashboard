@@ -12,4 +12,4 @@ Including dockerized environment to run it into our swarm cluster.
 Link to online instance for alerts dashboard:
 
 - http://terrabrasilis.dpi.inpe.br/dashboard/alerts/legal/amazon/daily/
-- http://terrabrasilis.dpi.inpe.br/dashboard/alerts/legal/amazon/monthly/
+- http://terrabrasilis.dpi.inpe.br/dashboard/alerts/legal/amazon/aggregated/
