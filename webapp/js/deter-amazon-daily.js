@@ -762,7 +762,7 @@ window.onload=function(){
 		var afterLoadConfiguration=function(cfg) {
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_all_d.json";
+			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
 			//var dataUrl = "./data/deter-amazon-daily.json";
 			var afterLoadData=function(json) {
 				Lang.apply();
