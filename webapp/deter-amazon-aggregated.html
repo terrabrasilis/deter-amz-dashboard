@@ -54,6 +54,7 @@
 
 				<div class="desctxt">
 					<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span> </h5>
+					<div id="header-menu">Alertas</div>
 				</div>
 			</div>
 
@@ -167,13 +168,28 @@
 				<div class="navbar-nav">
 					<a class="nav-item nav-link" href="#" id="header-panel">| Alertas</a>
 				</div>
-				<ul class="navbar-nav  navbar-right">
+				<ul class="navbar-nav navbar-right analises">
+					<li class="nav-item dropdown">
+						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button"> 
+							<i class="material-icons iconmobile">assignment </i><span id="analysis-sup">Análises</span>
+						</a>
+						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu"> 
+							<a class="dropdown-item" target="_blank" href="/dashboard/deforestation/biomes/amazon/increments">
+								<i class="material-icons iconmenu">nature</i><span id="analysis-des">Desmatamento</span></a>
+							<a class="dropdown-item" href="#"><i class="material-icons iconmenu">warning</i><span id="analysis-war">Alertas</span></a>
+						</div>
+					</li>
 					<li class="nav-item active">
 						<a class="nav-link" href="#modal-container-about" data-toggle="modal"><span id="about-menu">Sobre</span></a>
 					</li>
 					<li class="nav-item">
 						<a href="mailto:prodes@dpi.inpe.br" id="tt-contactus-menu" title="Envie sugestões ou perguntas para prodes@dpi.inpe.br."
 						 class="nav-link"><span id="contactus-menu">Contato</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#modal-container-video" id="goto_video_sup" data-toggle="modal" title="Ver o vídeo introdutório sobre como utilizar este painel.">
+							<i class="material-icons iconmobile">help</i><span id="help-sup">Ajuda</span>
+						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">
@@ -403,12 +419,12 @@
 										<div class="row">
 
 											<p class="tmargin10 txtvisao" id="tb-view-text">O TerraBrasilis é uma plataforma desenvolvida pelo INPE para
-												organização, acesso e uso através de um portal web dos dados geográficos produzidos pelos eus programas de
+												organização, acesso e uso através de um portal web dos dados geográficos produzidos pelos seus programas de
 												monitoramento ambiental. Em um primeiro momento visa atender principalmente ao Programa Amazônia, mas o
 												conceito e os pacotes de software produzidos podem ser adaptados e customizados para atender a outros
 												projetos que produzam dados geográficos e que pretendem que esses possam ser acessados no ambiente da
 												internet.</p>
-											<a href="http://terrabrasilis.dpi.inpe.br/" class="btn btn-primary" id="link-homepage">Leia mais informações
+											<a href="http://terrabrasilis.dpi.inpe.br/" target="_blank" class="btn btn-primary" id="link-homepage">Leia mais informações
 												sobre o TerraBrasilis</a>
 
 										</div>
@@ -728,14 +744,14 @@
 											<img class="d-block w-100" src="img/slider7.jpg" alt="Primeiro slide">
 											<h1 class="titulo">Sobre o <span class="amarelo">Terra</span><span class="verde">Brasillis</span></h1>
 											<p class="descricaoslide"> O TerraBrasilis é uma plataforma desenvolvida pelo INPE para organização, acesso
-												e uso através de um portal web dos dados geográficos produzidos pelos eus programas de monitoramento
+												e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento
 												ambiental. </p>
 										</div>
 										<div class="carousel-item">
 											<img class="d-block w-100" src="img/slide2.jpg" alt="Segundo slide">
 											<h1 class="titulo">Sobre o <span class="amarelo">Terra</span><span class="verde">Brasillis</span></h1>
 											<p class="descricaoslide"> O TerraBrasilis é uma plataforma desenvolvida pelo INPE para organização, acesso
-												e uso através de um portal web dos dados geográficos produzidos pelos eus programas de monitoramento
+												e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento
 												ambiental. </p>
 										</div>
 									</div>

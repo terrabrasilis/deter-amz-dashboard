@@ -77,7 +77,7 @@ a, a:hover, a:focus {
 .groupbox { width: 100%!important; margin-right: 15px;}
 
 .boxtitlepanel { text-align: left; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #49bc95;  margin:90px 5px 0px 20px;}
-.boxtitle { text-align: left; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #eeeeee; margin: 25px;}
+.boxtitle { text-align: left; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #eeeeee; margin: 25px;} 
 .and-border, .boxtitle {margin-bottom: 0px; border-bottom: 1px solid #49bc95;}
 .boxtitletable { text-align: left !important; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #eeeeee; margin:25px 0px 25px 0px; width: 100%;} 
 .boxtitletable a[aria-expanded="true"] {color: #00796b; background-color:transparent!important;}
@@ -253,11 +253,14 @@ border: 0px !important;}
 }
 
 .analises a:active {
-    background-color: transparent!important;
+  background-color: transparent!important;
 	color: #49bc95 !important;
 }
 
-.submenu a { color: #33333d !important;}
+.submenu a {
+  color: #33333d !important;
+  min-width: 230px;
+}
 
 /* ---------------------------------------------------
     Efeitos
@@ -401,6 +404,8 @@ tbody tr {
 
 .desctxt {font-size:13px; margin-top: 145px;
 	color:#fff; line-height: 15px; text-align: center;}
+
+#header-menu{margin-top:-9px;}
 
 #sidebar ul.components {
     padding: 0px 0;
@@ -677,34 +682,128 @@ footer{
 	color: #fff !important;
 }
 
+.iconmobile {display: none !important; color: #888888; margin-right: 10px; float: left;} 
+.iconmenu {color: #888888; margin-right: 10px; float: left;}
 .modal-dialog {min-width:800px !important;}
+/* ---------------------------------------------------
+   Loading
+----------------------------------------------------- */
+.lds-dual-ring {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    padding: 10px 5px 5px 5px;
+  }
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;  
+    border: 5px solid #045743;
+    border-color: #045743 transparent #045743 transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
 @media (max-width: 768px) {
-    #sidebar {
-        margin-left: -290px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #content {
-        width: 100%;
-    }
-    #content.active {
-        width: calc(100% - 290px);
-    }
-    #sidebarCollapse span {
-        display: none;
-    }
+  #sidebar {
+    margin-left: -290px;
+  }
 
-	.modal-dialog { max-width: 500px;}
-	.modal-dialog {min-width:300px;}
-	.box, .boxnote, .boxtitulo {   margin-left: -275px;}
+  #sidebar.active {
+    margin-left: 0;
+  }
 
-	.boxtitlepanel {  margin-left: -270px !important;}
-    .box-grafico {   margin-left: 0px;}
-   
+  #content {
+    width: 100%;
+  }
+
+  #content.active {
+    width: calc(100% - 290px);
+  }
+
+  #sidebarCollapse span {
+    display: none;
+  }
+
+  #map {
+    margin-left: 0px !important;
+    width: 100% !important;
+  }
+
+  .analises a[aria-expanded="true"] {
+    background-color: #f8f9fa !important;
+  }
+
+  .iconmobile {
+    display: none !important;
+  }
+
+  #sidebar-legend.active {
+    width: 0px;
+  }
+
+  .btn-legend.active {
+    margin-right: -255px !important;
+    -webkit-transition: all 0.5s ease !important;
+    -moz-transition: all 0.5s ease !important;
+    -o-transition: all 0.5s ease !important;
+    transition: all 0.5s ease !important;
+    background-color: #108d6f !important;
+    border-color: #108d6f !important;
+  }
+
+  #menuanaliseid.active {
+    margin-right: -155px !important;
+  }
+
+  .navbar-brand.active {
+    margin-right: -155px !important;
+  }
+
+  .modal-dialog { max-width: 500px; min-width:300px;}
+  .box, .boxnote, .boxtitulo {   margin-left: -275px;}
+
+  .boxtitlepanel {  margin-left: -270px !important;}
+  .box-grafico {   margin-left: 0px;}
+
+}
+
+@media only screen and (max-width: 978px) {
+  .navbar-collapse {
+    background-color: #fff;
+    padding: 15px;
+    z-index: 9999;
+  }
+
+  .navbar-collapse li a {
+    color: #33333d !important;
+  }
+
+  .submenu {
+    border: 0px;
+  }
+
+  .analises a[aria-expanded="true"] {
+    background-color: #f8f9fa !important;
+  }
+
+  .iconmobile {
+    display: block !important;
+  }
 }
 
 
