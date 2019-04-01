@@ -1,8 +1,8 @@
 # To build image for this dockerfile use this command:
-#   docker build -t terrabrasilis/amazon-alert-daily:v2.0-beta --build-arg INDEX_FILE=deter-amazon-daily -f environment/Dockerfile .
+#   docker build -t terrabrasilis/amazon-alert-daily:v2.1-beta --build-arg INDEX_FILE=deter-amazon-daily -f environment/Dockerfile .
 #
 # To run without compose and without shell terminal use this command:
-#   docker run -d --rm -p 80:80 --name terrabrasilis_amazon_alerts_daily terrabrasilis/amazon-alert-daily:v2.0-beta
+#   docker run -d --rm -p 80:80 --name terrabrasilis_amazon_alerts_daily terrabrasilis/amazon-alert-daily:v2.1-beta
 # 
 # Information from doc of help about run one container without an explicit service. Run in background
 # --------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ FROM nginx:latest
 
 LABEL "br.inpe.dpi"="INPE/DPI-TerraBrasilis"
 LABEL br.inpe.dpi.terrabrasilis="microservice"
-LABEL version="v2.0-beta"
+LABEL version="v2.1-beta"
 LABEL author="Andre Carvalho"
 LABEL author.email="andre.carvalho@inpe.br"
 LABEL description="This container provides an http server including the beta version for Legal Amazon dashboards to DETER data."
