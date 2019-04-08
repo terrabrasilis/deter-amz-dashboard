@@ -13,8 +13,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=0">
 	<!-- favicon -->
-	<link rel="shortcut icon" href="http://terrabrasilis.dpi.inpe.br/assets/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="http://terrabrasilis.dpi.inpe.br/assets/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="http://terrabrasilis.dpi.inpe.br/app/assets/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="http://terrabrasilis.dpi.inpe.br/app/assets/favicon.ico" type="image/x-icon">
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77404603-3"></script>
 	<script>
@@ -75,7 +75,7 @@
 					<a href="#ajuda" id="change_style" title="Alternar o estilo de apresentação claro/escuro." data-toggle="collapse" aria-expanded="false">
 							<i class="material-icons">invert_colors</i>Claro / Escuro</a>
 				</li-->
-
+<!-- 
 				<li>
 					<a href="#modal-container-video" id="goto_video" data-toggle="modal" title="Ver o vídeo introdutório sobre como utilizar este painel.">
 						<i class="material-icons">help</i><span id="help">Ajuda</span></a>
@@ -91,6 +91,7 @@
 					 data-toggle="collapse" aria-expanded="false">
 						<i class="material-icons">email</i><span id="contactus">Contato</span></a>
 				</li>
+-->
 
 			</ul>
 
@@ -99,16 +100,17 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#graficos" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">dashboard</i><span id="nv-chart-amz">Gráficos - Alertas Amazônia</span></a>
+						<i class="material-icons">dashboard</i><span id="nv-chart-agg">Gráficos - Alertas Diários</span></a>
 				</li>
 				<li>
-					<a href="/dashboard/alerts/legal/amazon/daily/" id="toDailyChart-amz" title="Abrir o painel de alertas." aria-expanded="false">
-						<i class="material-icons">insert_chart</i><span id="nv-daily-amz">Alertas diários</span></a>
+					<a href="/dashboard/alerts/legal/amazon/daily/" id="toDailyChart-amz" title="Abrir o painel de alertas diários para a Amazônia Legal." aria-expanded="false">
+						<i class="material-icons">insert_chart</i><span id="nv-daily-amz">Amazônia Legal</span></a>
 				</li>
 				<li>
-					<a href="/dashboard/alerts/legal/amazon/aggregated/" id="toAggregatedChart-amz" title="Abrir o painel de agregado de alertas." aria-expanded="false">
-						<i class="material-icons">insert_chart</i><span id="nv-aggreg-amz">Agregado de alertas</span></a>
+					<a href="/dashboard/alerts/biomes/cerrado/daily/" id="toDailyChart-cer" title="Abrir o painel de alertas diários para o Bioma Cerrado." aria-expanded="false">
+						<i class="material-icons">insert_chart</i><span id="nv-daily-cer">Bioma Cerrado</span></a>
 				</li>
+				
 			</ul>
 
 			<ul class="list-unstyled components">
@@ -116,35 +118,22 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#graficos" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">dashboard</i><span id="nv-chart-cer">Gráficos - Alertas Cerrado</span></a>
+						<i class="material-icons">dashboard</i><span id="nv-chart-day">Gráficos - Agregado de Alertas</span></a>
+				</li>
+				
+				<li>
+					<a href="/dashboard/alerts/legal/amazon/aggregated/" id="toAggregatedChart-amz" title="Abrir o painel agregado mensal de alertas para a Amazônia Legal." aria-expanded="false">
+						<i class="material-icons">insert_chart</i><span id="nv-aggreg-amz">Amazônia Legal</span></a>
 				</li>
 				<li>
-					<a href="/dashboard/alerts/biomes/cerrado/daily/" id="toDailyChart-cer" title="Abrir o painel de alertas." aria-expanded="false">
-						<i class="material-icons">insert_chart</i><span id="nv-daily-cer">Alertas diários</span></a>
-				</li>
-				<li>
-					<a href="/dashboard/alerts/biomes/cerrado/aggregated/" id="toAggregatedChart-cer" title="Abrir o painel de agregado de alertas." aria-expanded="false">
-						<i class="material-icons">insert_chart</i><span id="nv-aggreg-cer">Agregado de alertas</span></a>
+					<a href="/dashboard/alerts/biomes/cerrado/aggregated/" id="toAggregatedChart-cer" title="Abrir o painel agregado mensal de alertas para o Bioma Cerrado." aria-expanded="false">
+						<i class="material-icons">insert_chart</i><span id="nv-aggreg-cer">Bioma Cerrado</span></a>
 				</li>
 			</ul>
 
-			<ul class="list-unstyled components">
-
-				<li class="active">
-					<!-- manter active no primeiro -->
-					<a href="#pages" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">launch</i><span id="nv-sites">Páginas relacionadas</span></a>
-				</li>
-
+			<ul class="list-unstyled CTAs">
 				<li>
-					<a href="http://terrabrasilis.dpi.inpe.br/map/alerts" id="toMap" target="_blank" title="Abrir o mapa interativo de alertas."
-					 aria-expanded="false">
-						<i class="material-icons">map</i><span id="nv-map">Mapa de Alertas</span></a>
-				</li>
-				<li>
-					<a href="http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/deter" id="toHome" target="_blank" title="Abrir a página inicial com informações sobre o projeto de detecção de desmatamento - DETER."
-					 aria-expanded="false">
-						<i class="material-icons">home</i><span id="nv-home">Página DETER</span></a>
+					<a class="btn btn-primary btn-success" href="http://terrabrasilis.dpi.inpe.br" target="_blank"><span id="nv-home">Home</span></a>
 				</li>
 			</ul>
 		</nav>
@@ -174,7 +163,7 @@
 							<i class="material-icons iconmobile">assignment </i><span id="analysis-sup">Análises</span>
 						</a>
 						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu"> 
-							<a class="dropdown-item" target="_blank" href="/dashboard/deforestation/biomes/amazon/increments">
+							<a class="dropdown-item" target="_blank" href="/app/dashboard/deforestation/biomes/amazon/increments">
 								<i class="material-icons iconmenu">nature</i><span id="analysis-des">Desmatamento</span></a>
 							<a class="dropdown-item" href="#"><i class="material-icons iconmenu">warning</i><span id="analysis-war">Alertas</span></a>
 						</div>
@@ -183,8 +172,9 @@
 						<a class="nav-link" href="#modal-container-about" data-toggle="modal"><span id="about-menu">Sobre</span></a>
 					</li>
 					<li class="nav-item">
-						<a href="mailto:prodes@dpi.inpe.br" id="tt-contactus-menu" title="Envie sugestões ou perguntas para prodes@dpi.inpe.br."
-						 class="nav-link"><span id="contactus-menu">Contato</span></a>
+						<a class="nav-link" href="#modal-container-contact" data-toggle="modal" id="tt-contactus-menu" title="Envie sugestões ou perguntas para prodes@dpi.inpe.br.">
+							<span id="contactus-menu">Contato</span>
+						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#modal-container-video" id="goto_video_sup" data-toggle="modal" title="Ver o vídeo introdutório sobre como utilizar este painel.">
@@ -725,6 +715,7 @@
 					</div>
 				</div>
 
+				<!-- modal window to display the start TerraBrasilis Informations -->
 				<div class="modal fade" id="myModal">
 					<div class="modal-dialog">
 						<div class="modal-content modalinf">
@@ -781,11 +772,36 @@
 					</div>
 					<!--/ modal-dialog -->
 				</div>
-
+				<!-- / modal -->
 
 			</div>
 		</div>
 	</div>
+
+	<!-- modal window to display the email contact -->
+	<div class="modal fade" id="modal-container-contact">
+		<div class="modal-dialog">
+			<div class="modal-content modalinf">
+				<div class="modal-header fechar">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+				</div>
+				<!-- / modal-header -->
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><span id="tt-contactus">Envie sugestões ou perguntas para:</span></h5>
+							<p class="card-text"><a href="mailto:prodes@dpi.inpe.br">prodes@dpi.inpe.br</a></p>
+						</div>
+					</div>
+				</div>
+				<!--/ modal-footer -->
+			</div>
+			<!-- / modal-content -->
+		</div>
+		<!--/ modal-dialog -->
+	</div>
+	<!-- / modal -->
+
 	<!--<div id="display_error"><span id="inner_display_error"></span></div>-->
 	<div id="display_loading"><span id="inner_display_loading"></span></div>
 
