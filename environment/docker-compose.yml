@@ -6,7 +6,7 @@ version: "3"
 services:
 
   alerts-amazon-daily:
-    image: terrabrasilis/amazon-alert-daily:v2.1-beta
+    image: terrabrasilis/amazon-alert-daily:v2.2-beta
   
   alerts-amazon-aggregated:
-    image: terrabrasilis/amazon-alert-aggregated:v2.1-beta
+    image: terrabrasilis/amazon-alert-aggregated:v2.2-beta
