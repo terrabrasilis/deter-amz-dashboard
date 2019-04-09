@@ -607,8 +607,12 @@ a[data-toggle="collapse"] {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   box-sizing: border-box;
   padding: 28px;
-
 }
+.modal-dialog.firstnotice{
+  text-align: center;
+  min-width:500px !important;
+}
+.modal-dialog {min-width:800px;}
 
 .fechar {border:0px !important; padding: 0px !important;}
 
@@ -684,7 +688,6 @@ footer{
 
 .iconmobile {display: none !important; color: #888888; margin-right: 10px; float: left;} 
 .iconmenu {color: #888888; margin-right: 10px; float: left;}
-.modal-dialog {min-width:800px !important;}
 /* ---------------------------------------------------
    Loading
 ----------------------------------------------------- */

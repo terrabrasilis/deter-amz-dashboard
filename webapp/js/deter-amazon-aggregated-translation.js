@@ -133,7 +133,10 @@ var Translation={
 		'about_technology': 'Tecnologias ',
         'about_technology_languages': 'JavaScript (D3, DC, CrossFilter, Leaflet, Angular 5), Python, PHP, Java',
         'about_technology_heterogeneous': 'Docker Swarm (clusterização de contêineres), Redis MongoDB, PostgreSQL, Nginx HTTP Server (balanceamento de carga e proxy reverso). ',
-        'about_technology_services': 'Servidor de compartilhamento de dados geoespaciais (Geoserver) e catálogo de busca de metadados (Geonetwork).'
+		'about_technology_services': 'Servidor de compartilhamento de dados geoespaciais (Geoserver) e catálogo de busca de metadados (Geonetwork).',
+		'about-modal':'Sobre ',
+		'description-modal':'O TerraBrasilis é uma plataforma desenvolvida pelo INPE para organização, acesso e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento ambiental.',
+		'option-modal':'Não mostrar novamente.'
 	},
 	'en':{
 		/* texts into HTML entities */
@@ -223,7 +226,7 @@ var Translation={
 		'tt-contactus': 'Send suggestions or questions to:',
 		'tt-contactus-menu': 'Send us an e-mail with suggestions or questions about the PRODES project (prodes@dpi.inpe.br)',
 		'about-menu':'About',
-		'contactus-menu':'Contact us',
+		'contactus-menu':'Contact',
 		'toDailyChart-amz':'Open the panel daily alerts for Legal Amazon.',
 		'toAggregatedChart-amz':'Open the panel aggregate monthly alerts for Legal Amazon.',
 		'toDailyChart-cer':'Open the panel daily alerts for Cerrado Biome.',
@@ -258,6 +261,9 @@ var Translation={
 		'about_technology': 'Technologies ',
         'about_technology_languages': 'JavaScript (D3, DC, CrossFilter, Leaflet, Angular 5), Python, PHP, Java',
         'about_technology_heterogeneous': 'Docker Swarm (containers cluster), Redis MongoDB, PostgreSQL, Nginx HTTP Server (load balancer and reverse proxy).',
-		'about_technology_services': 'Server for sharing geospatial data (Geoserver) and metadata search and catalogue (Geonetwork).'
+		'about_technology_services': 'Server for sharing geospatial data (Geoserver) and metadata search and catalogue (Geonetwork).',
+		'about-modal':'About ',
+		'description-modal':'TerraBrasilis is a platform developed by INPE for the organization, access and use through a web portal of the geographic data produced by its environmental monitoring programs.',
+		'option-modal':'Do not show again.'
 	}
 };
