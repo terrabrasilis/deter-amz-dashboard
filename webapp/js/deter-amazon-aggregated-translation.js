@@ -259,58 +259,5 @@ var Translation={
         'about_technology_languages': 'JavaScript (D3, DC, CrossFilter, Leaflet, Angular 5), Python, PHP, Java',
         'about_technology_heterogeneous': 'Docker Swarm (containers cluster), Redis MongoDB, PostgreSQL, Nginx HTTP Server (load balancer and reverse proxy).',
 		'about_technology_services': 'Server for sharing geospatial data (Geoserver) and metadata search and catalogue (Geonetwork).'
-	},
-	'es':{
-		/* texts into HTML entities */
-		'txt1':'Panel mensual de DETER',
-		'txt2':'Abrir el Panel Diario',
-		'txt3':'Descargar CSV',
-		'txt4':'Imprimir',
-		'txt5':'Oscurecer/Aclarar',
-		'txt6':'Iniciar sesión',
-		'txt7':'No hay datos.',
-		'txt8':'Filtro:',
-		'txt9':'Filtro:',
-		'txt10':'Filtro:',
-		'txt11':'Filtro:',
-		'txt30':'La impresión de este documento utiliza las características del navegador y puede mostrar diferencias entre ellos.<br />'+
-		'La impresión acomoda bien los gráficos cuando las configuraciones son las siguientes:<br />'+
-		'&nbsp;&nbsp;&nbsp;- La orientación del papel es del tipo de paisaje;<br />'+
-		'&nbsp;&nbsp;&nbsp;- El tamaño de papel es A4;<br />'+
-		'&nbsp;&nbsp;&nbsp;- Los márgenes estándar del navegador.<br />',
-		'txt13':'Advertencia',
-		'txt14':'Este panel no se ve afectado por los filtros definidos en el mapa.',
-		'txt15':'Variación de la detección del área del proyecto DETER, con granularidad mensual y año de estacionalidad del PRODES (Agosto a Julio)',
-		'txt16':'Filtros por Estados, Clases y año PRODES (Agosto a Julio)',
-		'txt17':'La clase <b>Corte Selectivo</b> se refiere a la suma de las clases Corte Selectivo Geométrico y Corte Selectivo Desordenado para el año PRODES 2015/2016, cuando estas clases aún no eran discretizadas.',
-		'txt18':'Limpiar este filtro.',
-		'txt19':'Limpiar este filtro.',
-		'txt20':'Limpiar este filtro.',
-		'txt21':'Limpiar este filtro.',
-		'txt22':'Informaciones complementarias',
-		'txt23':'Las clases que representan alertas de deforestación son Minería, Deforestación con vegetación y Deforestación con suelo expuesto.',
-		'txt24':'Información completa sobre el proyecto DETER.',
-		'txt25':'Cerrar',
-		'txt26':'Concluir',
-		/* titles for HTML entities */
-		'aggregate_daily':'Cambie al panel de consulta de datos diarios.',
-		'download-csv-monthly':'Descargar los datos brutos, granularidad mensual, en formato CSV.',
-		'prepare_print':'Imprimir esta página utilizando la función del navegador.',
-		'change_style':'Alternar el estilo de presentación claro/oscuro.',
-		'print_page':'Imprimir esta página utilizando la función del navegador.',
-		'display_warning':'Más informaciones sobre las clases.',
-		/* Texts inside javascript. */
-		'refresh_data':'Intentar cargar los datos.',
-		'months_of_prodes_year':['Ago','Sep','Oct','Nov','Dic','Ene','Feb','Mar','Abr','May','Jun','Jul'],
-		'footer1':'Generado por el INPE/OBT/DPI/TerraBrasilis en',
-		'footer2':'bajo licencia <a target="blank_" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">CC BY-SA 4.0</a>',
-		'failure_load_data':'No se pudo cargar los datos.',
-		'focus_y_label':'Área total (km²)',
-		'focus_x_label':'Meses del año PRODES',
-		'overview_x_label':'Selección temporal (granularidad mensual)',
-		'area': 'Área',
-		'unit': 'km²',
-		'warning_class':'Clase válida sólo para el año PRODES 2015/2016',
-		'barArea_x_label':'Año PRODES'
 	}
 };
