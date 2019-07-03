@@ -43,10 +43,25 @@ a, a:hover, a:focus {
 	/*min-width: 500px;*/
 }
 
+.tb-select{
+  position: absolute;
+  top: 50px;
+  right: 40px;
+  visibility: hidden;
+}
 
+.tb-select-enable{
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif !important;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  visibility: visible;
+  display: flex;
+}
 
 .boxtitulo{
-    padding:10px 10px 10px 25px;
+  padding:10px 10px 10px 25px;
 	margin: 18px 0px 0px 18px;	
 	background-color: #49bc95;
 	text-align: left !important;

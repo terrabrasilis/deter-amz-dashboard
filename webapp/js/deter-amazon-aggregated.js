@@ -1,6 +1,7 @@
 var utils = {
 	config:{},
 	statusPrint:false,
+	statusBtMonthChooser:false,
 	cssDefault:true,
 	btnPrintPage:function() {
 		d3.select('#prepare_print')
@@ -111,6 +112,22 @@ var utils = {
 		return list[d-8];
 
 	},
+	nameMonthsById: function(id) {
+		var list=[];
+		list[13]='Jan';
+		list[14]='Fev';
+		list[15]='Mar';
+		list[16]='Abr';
+		list[17]='Mai';
+		list[18]='Jun';
+		list[19]='Jul';
+		list[8]='Ago';
+		list[9]='Set';
+		list[10]='Out';
+		list[11]='Nov';
+		list[12]='Dez';
+		return list[id];
+	},
 	fakeMonths: function(d) {
 		var list=[13,14,15,16,17,18,19,8,9,10,11,12];
 		return list[d-1];
@@ -153,10 +170,12 @@ var utils = {
 var graph={
 	
 	focusChart: null,
-	overviewChart: null,
+	//overviewChart: null,
 	ringTotalizedByState: null,
 	rowTotalizedByClass: null,
 	barAreaByYear: null,
+
+	externalFilters: null,
 	
 	monthDimension: null,
 	temporalDimension: null,
@@ -229,7 +248,7 @@ var graph={
 	},
 	setChartReferencies: function() {
 		this.focusChart = dc.seriesChart("#agreg", "agrega");
-		this.overviewChart = dc.seriesChart("#agreg-overview", "agrega");
+		//this.overviewChart = dc.seriesChart("#agreg-overview", "agrega");
 		this.ringTotalizedByState = dc.pieChart("#chart-by-state", "filtra");
 		this.rowTotalizedByClass = dc.rowChart("#chart-by-class", "filtra");
 		this.barAreaByYear = dc.barChart("#chart-by-year", "filtra");
@@ -317,7 +336,8 @@ var graph={
 		
 		this.focusChart
 			.height(this.defaultHeight-70)
-			.chart(function(c) { return dc.lineChart(c).interpolate('cardinal').renderDataPoints(true).evadeDomainFilter(true); })
+			//.chart(function(c) { return dc.lineChart(c).interpolate('cardinal').renderDataPoints(true).evadeDomainFilter(true); })
+			.chart(function(c) { return dc.lineChart(c).renderDataPoints(true).evadeDomainFilter(true); })
 			.x(d3.scale.linear().domain([8,19]))
 			.renderHorizontalGridLines(true)
 			.renderVerticalGridLines(true)
@@ -329,7 +349,7 @@ var graph={
 			.clipPadding(10)
 			.dimension(this.temporalDimension)
 			.group(this.areaGroup)
-			.rangeChart(this.overviewChart)
+			//.rangeChart(this.overviewChart)
 			.title(function(d) {
 				var v=Math.abs(+(parseFloat(d.value).toFixed(2)));
 				v=localeBR.numberFormat(',1f')(v);
@@ -343,7 +363,15 @@ var graph={
 				return d.key[1];
 			})
 			.valueAccessor(function(d) {
-				return Math.abs(+(d.value.toFixed(2)));
+				if(!graph.focusChart.hasFilter()) {
+					return Math.abs(+(d.value.toFixed(2)));
+				}else{
+					if(graph.externalFilters.indexOf(d.key[1])>=0) {
+						return Math.abs(+(d.value.toFixed(2)));
+					}else{
+						return 0;
+					}
+				}
 			})
 			.legend(dc.legend().x(100).y(30).itemHeight(15).gap(5).horizontal(1).legendWidth(600).itemWidth(80))
 			.margins({top: 20, right: 35, bottom: 70, left: 65});
@@ -362,7 +390,12 @@ var graph={
 		
 		this.focusChart.on('filtered', function(chart) {
 			if(chart.filter()) {
-				graph.monthDimension.filterRange([chart.filter()[0], (chart.filter()[1]+1) ]);
+				graph.monthDimension.filterFunction(
+					(d) => {
+						return graph.externalFilters.indexOf(d)>=0;
+					}
+				);
+				//graph.monthDimension.filterRange([chart.filter()[0], (chart.filter()[1]+1) ]);
 				dc.redrawAll("filtra");
 			}
 		});
@@ -378,10 +411,16 @@ var graph={
 		});
 
 		this.focusChart.filterPrinter(function(filters) {
-			var fp=utils.xaxis(filters[0][0])+" - "+utils.xaxis(filters[0][1]);
+			var fp='';
+			graph.externalFilters.forEach(
+				(monthNumber) => {
+					fp+=(fp==''?'':',')+utils.nameMonthsById(monthNumber);
+				}
+			);
 			return fp;
 		});
 		
+		/*
 		this.overviewChart
 		    .height(90)
 		    .chart(function(c,_,_,i) {
@@ -443,6 +482,7 @@ var graph={
 				return parseInt(v);
 	    	}
 		);
+		*/
 
 		this.ringTotalizedByState
 			.height(this.defaultHeight)
@@ -551,7 +591,7 @@ var graph={
 			.margins({top: 20, right: 35, bottom: 50, left: 55});
 
 		//this.barAreaByYear.margins().left += 30;
-		
+
 		dc.chartRegistry.list("filtra").forEach(function(c,i){
 			c.on('filtered', function(chart, filter) {
 				var filters = chart.filters();
@@ -601,8 +641,8 @@ var graph={
 
 		this.loadConfigurations(function(){
 			Lang.apply();
-			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_month_d.json";
-			//var dataUrl = "./data/deter-amazon-month.json";
+			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_month_d.json";
+			var dataUrl = "./data/deter-amazon-month.json";
 			graph.loadData(dataUrl);
 			utils.attachEventListeners();
 		});
@@ -619,7 +659,9 @@ var graph={
 		}else if(who=='class'){
 			graph.rowTotalizedByClass.filterAll();
 		}else if(who=='agreg'){
-			graph.overviewChart.filterAll();
+			//graph.overviewChart.filterAll();
+			var mc=$('#month_chooser');
+			mc.prop('selectedIndex',-1);
 			graph.focusChart.filterAll();
 			graph.monthDimension.filterAll();
 			dc.redrawAll("filtra");
@@ -630,9 +672,35 @@ var graph={
 		graph.ringTotalizedByState.filterAll();
 		graph.rowTotalizedByClass.filterAll();
 		graph.barAreaByYear.filterAll();
-		graph.overviewChart.filterAll();
+		//graph.overviewChart.filterAll();
 		graph.focusChart.filterAll();
 		graph.monthDimension.filterAll();
+	},
+
+	applyFilter: function(listMonth) {
+		var min=0,max=0;
+		graph.externalFilters=[];
+		for(var i=0;i<listMonth.selectedOptions.length;i++){
+			graph.externalFilters.push(+listMonth.selectedOptions[i].value);
+			if(+listMonth.selectedOptions[i].value<min || min==0) {
+				min=+listMonth.selectedOptions[i].value;
+			}
+			if(+listMonth.selectedOptions[i].value>max || max==0) {
+				max=+listMonth.selectedOptions[i].value;
+			}
+		}
+		graph.focusChart.filter([min,max]);
+		
+		graph.focusChart.redraw();
+		
+		dc.redrawAll("filtra");
+		graph.changeSelectMonth();
+	},
+
+	changeSelectMonth() {
+		$('#bt-select').prop('style','display: '+( (utils.statusBtMonthChooser)?('flex'):('none') ));
+		$('#month_chooser').prop('style','visibility: '+( (utils.statusBtMonthChooser)?('hidden'):('visible') ));
+		utils.statusBtMonthChooser=!utils.statusBtMonthChooser;
 	}
 };
 

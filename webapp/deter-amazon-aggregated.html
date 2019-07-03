@@ -221,6 +221,22 @@
 			<div class="row box">
 
 				<div class="col-md-12">
+					<div class="tb-select-enable" id="bt-select" onclick="graph.changeSelectMonth()"><i class="material-icons align-ico">sort</i>Filtro por mês</div>
+					<select id="month_chooser" class="tb-select" searchable="Search here.." multiple="multiple" onchange="graph.applyFilter(this)">
+						<option value="" disabled selected>Selecione um ou mais meses...</option>
+						<option value="8">Agosto</option>
+						<option value="9">Setembro</option>
+						<option value="10">Outubro</option>
+						<option value="11">Novembro</option>
+						<option value="12">Dezembro</option>
+						<option value="13">Janeiro</option>
+						<option value="14">Fevereiro</option>
+						<option value="15">Março</option>
+						<option value="16">Abril</option>
+						<option value="17">Maio</option>
+						<option value="18">Junho</option>
+						<option value="19">Julho</option>
+					</select>
 					<div class="all-charts box-grafico text-center">
 						<div id="title-chart-agreg" class="all-charts-title boxtitle">Variação da detecção de área do projeto DETER, com granularidade mensal e sazonalidade ano PRODES (Agosto a Julho)</div>
 						<div id="agreg">
@@ -738,13 +754,13 @@
 												e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento
 												ambiental. </p>
 										</div>
-										<div class="carousel-item">
+										<!-- <div class="carousel-item">
 											<img class="d-block w-100" src="img/slide2.jpg" alt="Segundo slide">
 											<h1 class="titulo">Sobre o <span class="amarelo">Terra</span><span class="verde">Brasillis</span></h1>
 											<p class="descricaoslide"> O TerraBrasilis é uma plataforma desenvolvida pelo INPE para organização, acesso
 												e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento
 												ambiental. </p>
-										</div>
+										</div> -->
 									</div>
 									<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
