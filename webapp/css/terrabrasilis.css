@@ -43,21 +43,14 @@ a, a:hover, a:focus {
 	/*min-width: 500px;*/
 }
 
-.tb-select{
-  position: absolute;
-  top: 50px;
-  right: 40px;
-  visibility: hidden;
+#month_chooser{
+  border: none;
+  height: 100%;
 }
 
-.tb-select-enable{
-  cursor: pointer;
-  font-family: 'Roboto', sans-serif !important;
-  position: absolute;
-  top: 40px;
-  right: 40px;
-  visibility: visible;
-  display: flex;
+.bt_generalinfo{
+  height: 88px;
+  background-color: antiquewhite;
 }
 
 .boxtitulo{

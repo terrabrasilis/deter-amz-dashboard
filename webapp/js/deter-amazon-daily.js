@@ -225,7 +225,7 @@ var graph={
 	},
 	// gid as a, fake_point as b, areatotalkm as d, areamunkm as e, areauckm as f, date as g, uf as h, county as i, uc as j 
 	normalizeData:function() {
-		var numberFormat = d3.format('.4f');
+		var numberFormat = d3.format('.2f');
 	    var json=[];
         // normalize/parse data
         this.jsonData.forEach(function(d) {
@@ -238,6 +238,10 @@ var graph={
 			o.className = d.properties.c;
 		    json.push(o);
 		});
+
+		// o.areaKm = (+d.properties.e)*1;// area municipio
+		// o.areaUcKm = ((d.properties.f)?((+d.properties.f)*1):(0));
+		
 		
 		this.jsonData=json;
 		delete json;
@@ -762,8 +766,8 @@ window.onload=function(){
 		var afterLoadConfiguration=function(cfg) {
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
-			//var dataUrl = "./data/deter-amazon-daily.json";
+			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
+			var dataUrl = "./data/deter-amazon-daily.json";
 			var afterLoadData=function(json) {
 				Lang.apply();
 				if(!json || !json.features) {

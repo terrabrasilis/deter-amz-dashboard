@@ -218,25 +218,53 @@
 			<div class="all-charts-title boxtitlepanel">
 				<div id="txt15">Análise - Amazônia Legal</div>
 			</div>
+			
+			<!-- Start the filter bar -->
+			<div class="row box">
+				<div class="col-md-2">
+					<div class="box-grafico text-center">
+						<div class="bt_generalinfo" id="deforestation-classes" title="Ver dados de alertas de desmatamento." onclick="graph.filterByClassGroup('deforestation');">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="box-grafico text-center">
+						<div class="bt_generalinfo" id="degradation-classes" title="Ver dados de alertas de degradação." onclick="graph.filterByClassGroup('degradation');">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<!-- <div class="box-grafico text-center">
+						<div class="bt_generalinfo" id="all-classes" title="Ver todos os dados de alertas, desmatamento e degradação." onclick="graph.filterByClassGroup('all');">
+						</div>
+					</div> -->
+				</div>
+				<div class="col-md-4">&nbsp;</div>
+				<div class="col-md-2">
+					<div class="box-grafico text-center">
+						<select id="month_chooser" multiple="multiple" onchange="graph.applyFilter(this)">
+							<option value="" disabled selected>Selecione um ou mais meses...</option>
+							<option value="8">Agosto</option>
+							<option value="9">Setembro</option>
+							<option value="10">Outubro</option>
+							<option value="11">Novembro</option>
+							<option value="12">Dezembro</option>
+							<option value="13">Janeiro</option>
+							<option value="14">Fevereiro</option>
+							<option value="15">Março</option>
+							<option value="16">Abril</option>
+							<option value="17">Maio</option>
+							<option value="18">Junho</option>
+							<option value="19">Julho</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
 			<div class="row box">
 
 				<div class="col-md-12">
-					<div class="tb-select-enable" id="bt-select" onclick="graph.changeSelectMonth()"><i class="material-icons align-ico">sort</i>Filtro por mês</div>
-					<select id="month_chooser" class="tb-select" searchable="Search here.." multiple="multiple" onchange="graph.applyFilter(this)">
-						<option value="" disabled selected>Selecione um ou mais meses...</option>
-						<option value="8">Agosto</option>
-						<option value="9">Setembro</option>
-						<option value="10">Outubro</option>
-						<option value="11">Novembro</option>
-						<option value="12">Dezembro</option>
-						<option value="13">Janeiro</option>
-						<option value="14">Fevereiro</option>
-						<option value="15">Março</option>
-						<option value="16">Abril</option>
-						<option value="17">Maio</option>
-						<option value="18">Junho</option>
-						<option value="19">Julho</option>
-					</select>
+					
 					<div class="all-charts box-grafico text-center">
 						<div id="title-chart-agreg" class="all-charts-title boxtitle">Variação da detecção de área do projeto DETER, com granularidade mensal e sazonalidade ano PRODES (Agosto a Julho)</div>
 						<div id="agreg">
