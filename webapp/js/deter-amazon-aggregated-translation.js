@@ -59,6 +59,9 @@ var Translation={
 		'analysis-war':'Alertas',
 		'goto_video_sup':'Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.',
 		'help-sup':'Ajuda',
+		'txt23':'Ver desmatamento',
+		'txt24':'Ver degradação',
+		'txt25':'Ver todas as classes',
 		/* titles for HTML entities */
 		'aggregate_daily':'Alternar para o painel de consulta de dados diários.',
 		'download-csv-monthly':'Baixar os dados brutos, granularidade mensal, em formato CSV.',
@@ -66,6 +69,15 @@ var Translation={
 		'change_style':'Alternar o estilo de apresentação claro/escuro.',
 		'print_page':'Imprimir esta página utilizando o recurso do navegador.',
 		'display_warning':'Mais informações sobre as classes.',
+
+		'deforestation-bt-title':'Ver dados de alertas de desmatamento.',
+		'deforestation-classes':'Área total de alertas de desmatamento.',
+		'degradation-bt-title':'Ver dados de alertas de degradação.',
+		'degradation-classes':'Área total de alertas de degradação.',
+		'custom-bt-title':'Ver todos os dados de alertas, desmatamento e degradação.',
+		'custom-classes':'Área total de alertas de desmatamento e degradação.',
+		'numpolygons':'Número de alertas.',
+
 		/* Texts inside javascript. */
 		'refresh_data':'Tentar carregar os dados.',
 		'months_of_prodes_year':['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul'],
@@ -104,6 +116,13 @@ var Translation={
 		'toDailyChart-cer':'Abrir o painel alertas diários para o Bioma Cerrado.',
 		'toAggregatedChart-cer':'Abrir o painel agregado mensal de alertas para o Bioma Cerrado.',
 		'tituloprint': ' | Variação da detecção de área do projeto DETER com granularidade mensal e sazonalidade anual do PRODES (Agosto a Julho).',
+		
+		'deforestation':'Desmatamento acumulado',
+		'degradation':'Degradação acumulada',
+		'degrad_defor':'Desmatamento e degradação',
+		'alertas':'alertas',
+		'alerta':'alerta',
+
 		/* For about modal window  */
 		'andre-role':'Desenvolvedor de Software Sênior',
         'co-team-role':'EQUIPE DE COORDENADORES',
@@ -187,6 +206,11 @@ var Translation={
 		'analysis-war':'Alerts',
 		'goto_video_sup':'Watch the introductory video to see how an user interact with dashboard tools.',
 		'help-sup':'Help',
+
+		'txt23':'Ver desmatamento',
+		'txt24':'Ver degradação',
+		'txt25':'Ver todas as classes',
+
 		/* titles for HTML entities */
 		'aggregate_daily':'Exchange by the analysis panel to daily data.',
 		'download-csv-monthly':'Download the raw data, monthly granularity, in CSV format.',
@@ -194,6 +218,15 @@ var Translation={
 		'change_style':'Exchange the presentation style dark/clear.',
 		'print_page':'Print this page using the browser resources.',
 		'display_warning':'More informations about the classes.',
+		
+		'deforestation-bt-title':'Ver dados de alertas de desmatamento.',
+		'deforestation-classes':'Área total de alertas de desmatamento.',
+		'degradation-bt-title':'Ver dados de alertas de degradação.',
+		'degradation-classes':'Área total de alertas de degradação.',
+		'custom-bt-title':'Ver todos os dados de alertas, desmatamento e degradação.',
+		'custom-classes':'Área total de alertas de desmatamento e degradação.',
+		'numpolygons':'Número de alertas.',
+
 		/* Texts inside javascript. */
 		'refresh_data':'Retry the data load.',
 		'months_of_prodes_year':['Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul'],
@@ -232,6 +265,13 @@ var Translation={
 		'toDailyChart-cer':'Open the panel daily alerts for Cerrado Biome.',
 		'toAggregatedChart-cer':'Open the panel aggregate monthly alerts for Cerrado Biome.',
 		'tituloprint': ' | Area detection variation of DETER project with monthly granularity and PRODES Annual Seasonality (August to July).',
+
+		'deforestation':'Desmatamento acumulado',
+		'degradation':'Degradação acumulada',
+		'degrad_defor':'Desmatamento e degradação',
+		'alertas':'alertas',
+		'alerta':'alerta',
+
 		/* For about modal window  */
 		'andre-role':'Senior Software Development',
 		'co-team-role':'Team of Coordinators',

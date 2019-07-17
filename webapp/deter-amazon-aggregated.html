@@ -122,7 +122,7 @@
 				</li>
 				
 				<li>
-					<a href="/app/dashboard/alerts/legal/amazon/aggregated/" id="toAggregatedChart-amz" title="Abrir o painel agregado mensal de alertas para a Amazônia Legal." aria-expanded="false">
+					<a class="enable_menu" href="/app/dashboard/alerts/legal/amazon/aggregated/" id="toAggregatedChart-amz" title="Abrir o painel agregado mensal de alertas para a Amazônia Legal." aria-expanded="false">
 						<i class="material-icons">insert_chart</i><span id="nv-aggreg-amz">Amazônia Legal</span></a>
 				</li>
 				<li>
@@ -221,42 +221,43 @@
 			
 			<!-- Start the filter bar -->
 			<div class="row box">
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<div class="box-grafico text-center">
-						<div class="bt_generalinfo" id="deforestation-classes" title="Ver dados de alertas de desmatamento." onclick="graph.filterByClassGroup('deforestation');">
+						<div class="bt_content_generalinfo" id="deforestation-bt">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="deforestation-bt-title" title="Ver dados de alertas de desmatamento." onclick="graph.filterByClassGroup('deforestation');">
+								<span id="txt23">Ver desmatamento</span>
+							</div>
+						</div>
+						<div class="generalinfo" id="deforestation-classes" title="Área total de alertas de desmatamento.">
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<div class="box-grafico text-center">
-						<div class="bt_generalinfo" id="degradation-classes" title="Ver dados de alertas de degradação." onclick="graph.filterByClassGroup('degradation');">
+						<div class="bt_content_generalinfo" id="degradation-bt">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="degradation-bt-title" title="Ver dados de alertas de degradação." onclick="graph.filterByClassGroup('degradation');">
+								<span id="txt24">Ver degradação</span>
+							</div>
+						</div>
+						<div class="generalinfo" id="degradation-classes" title="Área total de alertas de degradação.">
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
-					<!-- <div class="box-grafico text-center">
-						<div class="bt_generalinfo" id="all-classes" title="Ver todos os dados de alertas, desmatamento e degradação." onclick="graph.filterByClassGroup('all');">
-						</div>
-					</div> -->
-				</div>
-				<div class="col-md-4">&nbsp;</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<div class="box-grafico text-center">
-						<select id="month_chooser" multiple="multiple" onchange="graph.applyFilter(this)">
-							<option value="" disabled selected>Selecione um ou mais meses...</option>
-							<option value="8">Agosto</option>
-							<option value="9">Setembro</option>
-							<option value="10">Outubro</option>
-							<option value="11">Novembro</option>
-							<option value="12">Dezembro</option>
-							<option value="13">Janeiro</option>
-							<option value="14">Fevereiro</option>
-							<option value="15">Março</option>
-							<option value="16">Abril</option>
-							<option value="17">Maio</option>
-							<option value="18">Junho</option>
-							<option value="19">Julho</option>
-						</select>
+						<div class="bt_content_generalinfo" id="custom-bt">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="custom-bt-title" title="Ver todos os dados de alertas, desmatamento e degradação." onclick="graph.filterByClassGroup('custom');">
+								<span id="txt25">Ver todas as classes</span>
+							</div>
+						</div>
+						<div class="generalinfo" id="custom-classes" title="Área total de alertas de desmatamento e degradação.">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="box-grafico text-center">
+						<div class="generalinfo" id="numpolygons" title="Número de alertas.">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -277,7 +278,22 @@
 								</a>
 							</div>
 						</div>
-						<div id="agreg-overview"></div>
+						<div id="months_chooser">
+							<div class="row box months_box">
+								<div id="month_8" class="col-md-1 month_box" onclick="graph.applyMonthFilter(8)">Agosto</div>
+								<div id="month_9" class="col-md-1 month_box" onclick="graph.applyMonthFilter(9)">Setembro</div>
+								<div id="month_10" class="col-md-1 month_box" onclick="graph.applyMonthFilter(10)">Outubro</div>
+								<div id="month_11" class="col-md-1 month_box" onclick="graph.applyMonthFilter(11)">Novembro</div>
+								<div id="month_12" class="col-md-1 month_box" onclick="graph.applyMonthFilter(12)">Dezembro</div>
+								<div id="month_13" class="col-md-1 month_box" onclick="graph.applyMonthFilter(13)">Janeiro</div>
+								<div id="month_14" class="col-md-1 month_box" onclick="graph.applyMonthFilter(14)">Fevereiro</div>
+								<div id="month_15" class="col-md-1 month_box" onclick="graph.applyMonthFilter(15)">Março</div>
+								<div id="month_16" class="col-md-1 month_box" onclick="graph.applyMonthFilter(16)">Abril</div>
+								<div id="month_17" class="col-md-1 month_box" onclick="graph.applyMonthFilter(17)">Maio</div>
+								<div id="month_18" class="col-md-1 month_box" onclick="graph.applyMonthFilter(18)">Junho</div>
+								<div id="month_19" class="col-md-1 month_box" onclick="graph.applyMonthFilter(19)">Julho</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
