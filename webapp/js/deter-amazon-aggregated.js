@@ -745,8 +745,8 @@ var graph={
 		this.loadConfigurations(function(){
 			Lang.apply();
 			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_month_d.json";
-			//var dataUrl = "./data/deter-amazon-month_num_pol.json";
-			var dataUrl = "http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:deter_month_d&OUTPUTFORMAT=application%2Fjson";
+			var dataUrl = "./data/deter-amazon-month_num_pol.json";
+			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:deter_month_d&OUTPUTFORMAT=application%2Fjson";
 			graph.loadData(dataUrl);
 			utils.attachEventListeners();
 		});
