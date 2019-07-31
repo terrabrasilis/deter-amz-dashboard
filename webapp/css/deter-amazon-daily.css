@@ -14,6 +14,21 @@ body{
 	margin-top: 64px;
 	margin-bottom: 55px;
 }
+.swap-data-dimension{
+	width: 100%;
+    text-align: end;
+}
+#title-chart, .all-charts-title, .boxtitlepanel{
+	border-bottom: none;
+    margin-bottom: -30px;
+    margin-left: 0px;
+}
+.input_radio{
+	width: 20px;
+    height: 20px;
+	vertical-align: middle;
+	margin-left: 15px;
+}
 #info_container{
 	padding: 25%;
 }
@@ -88,12 +103,6 @@ div .dc-chart {
 	position: relative;
 	height: 18px;
     margin-bottom: 3px;
-}
-.input_radio{
-	position: absolute;
-    right: 93%;
-    width: 18px;
-    height: 18px;
 }
 #print_information,#display_error{
 	width: 100%;

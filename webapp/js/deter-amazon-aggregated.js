@@ -435,7 +435,6 @@ var graph={
 		
 		this.setChartReferencies();
 
-
 		// build totalized Alert boxes
 		// use format integer see: http://koaning.s3-website-us-west-2.amazonaws.com/html/d3format.html
 		this.totalizedDeforestationArea.formatNumber(localeBR.numberFormat(',1f'));
@@ -443,9 +442,9 @@ var graph={
 			return d.n ? d.tot.toFixed(2) : 0;
 		})
 		.html({
-			one:"<span>"+Translation[Lang.language].deforestation+":</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			some:"<span>"+Translation[Lang.language].deforestation+":</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			none:"<span>"+Translation[Lang.language].deforestation+":</span><br/><span style='font-size: 24px;'>0</span> km²"
+			one:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			some:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			none:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>0</span> km²"
 		})
 		.group(this.totalDeforestationAreaGroup);
 		
@@ -454,9 +453,9 @@ var graph={
 			return d.n ? d.tot.toFixed(2) : 0;
 		})
 		.html({
-			one:"<span>"+Translation[Lang.language].degradation+":</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			some:"<span>"+Translation[Lang.language].degradation+":</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			none:"<span>"+Translation[Lang.language].degradation+":</span><br/><span style='font-size: 24px;'>0</span> km²"
+			one:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			some:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			none:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>0</span> km²"
 		})
 		.group(this.totalDegradationAreaGroup);
 
@@ -465,9 +464,9 @@ var graph={
 			return d.tot ? d.tot : 0;
 		})
 		.html({
-			one:"<span style='color:#ffff00; font-size: 36px;'>%number</span> "+Translation[Lang.language].alerta,
-			some:"<span style='color:#ffff00; font-size: 36px;'>%number</span> "+Translation[Lang.language].alertas,
-			none:"<span style='color:#ffff00; font-size: 36px;'>0</span> "+Translation[Lang.language].alerta
+			one:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			some:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			none:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>0</span> km²"
 		})
 		.group(this.totalAlertsGroup);
 		
@@ -855,7 +854,7 @@ var graph={
 			}
 		);
 		area=localeBR.numberFormat(',1f')(area.toFixed(2));
-		graph.totalizedCustomArea.html("<span class='number-display'><span>"+Translation[Lang.language].degrad_defor+":</span><br/><span style='font-size: 24px;'>"+area+"</span> km²</span>");
+		graph.totalizedCustomArea.html("<span class='number-display'><span>"+Translation[Lang.language].degrad_defor+"</span><br/><span style='font-size: 24px;'>"+area+"</span> km²</span>");
 	}
 };
 

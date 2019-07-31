@@ -7,13 +7,19 @@ var graph={
 	ctlFirstLoading:false,
 	cssDefault:true,
 	
-	totalizedAreaInfoBox:undefined,// totalized area info box
-	totalizedAlertsInfoBox:undefined,// totalized alerts info box
+	totalizedDeforestationArea:null,
+	totalizedDegradationArea:null,
+	totalizedAlertsInfoBox: null,
+	totalizedCustomArea: null,
+	
 	lineDistributionByMonth:undefined,
 	ringTotalizedByClass:undefined,
     histTopByCounties:undefined,
     ringTotalizedByState:undefined,
 	histTopByUCs:undefined,
+
+	deforestation:["DESMATAMENTO_CR", "DESMATAMENTO_VEG", "MINERACAO"],
+	degradation:["CICATRIZ_DE_QUEIMADA", "CORTE_SELETIVO", "CS_DESORDENADO", "CS_GEOMETRICO", "DEGRADACAO"],
 	
 	histogramColor: ["#0000FF","#57B4F0"],
 	darkHistogramColor: ["#ffd700","#fc9700"],
@@ -49,17 +55,17 @@ var graph={
 		Lang.apply();
 		
 		graph.setConfigurations(config.dataConfig);
-		//graph.utils.dataConfig=config.dataConfig;
 
 		if(this.loadData(false, data)) {
 			
 			this.displayWaiting(false);
 			this.config=config;
 			
-			//this.config.defaultHeight = graph.utils.getDefaultHeight();
-			
-			this.totalizedAreaInfoBox = dc.numberDisplay("#totalized-area");
-			this.totalizedAlertsInfoBox = dc.numberDisplay("#totalized-alerts");
+			this.totalizedDeforestationArea = dc.numberDisplay("#deforestation-classes");
+			this.totalizedDegradationArea = dc.numberDisplay("#degradation-classes");
+			this.totalizedAlertsInfoBox = dc.numberDisplay("#numpolygons");
+			this.totalizedCustomArea = d3.select("#custom-classes");
+
 			this.lineDistributionByMonth = dc.barChart("#chart-line-by-month");
 			this.ringTotalizedByClass = dc.pieChart("#chart-ring-by-class");
 			this.histTopByCounties = dc.rowChart("#chart-hist-top-counties");
@@ -67,6 +73,8 @@ var graph={
 			this.histTopByUCs = dc.rowChart("#chart-hist-top-ucs");
 			
 			graph.build();
+			// defining filter to deforestation classes by default
+			graph.filterByClassGroup('deforestation');
 			SearchEngine.init(this.histTopByCounties, this.ringTotalizedByState ,'modal-search');
 		}
 	},
@@ -114,6 +122,28 @@ var graph={
 		this.resetFilters();
 		this.build();
 	},
+
+	filterByClassGroup: function(ref) {
+		graph.utils.highlightClassFilterButtons(ref);
+		
+		graph.ringTotalizedByClass.filterAll();
+
+		if(ref=='deforestation') {
+
+			graph.deforestation.forEach(
+				(cl) => {
+					graph.ringTotalizedByClass.filter(cl);
+				}
+			);
+		}else if(ref=='degradation') {
+			graph.degradation.forEach(
+				(cl) => {
+					graph.ringTotalizedByClass.filter(cl);
+				}
+			);
+		}
+		dc.redrawAll();
+	},
 	
 	resetFilters:function() {
 		graph.lineDistributionByMonth.filterAll();
@@ -124,7 +154,48 @@ var graph={
 		SearchEngine.applyCountyFilter();
 	},
 
+	displayCustomValues: function() {
+		var area=0;
+		var data=graph.ringTotalizedByClass.data();
+		var filters=graph.ringTotalizedByClass.filters();
+		data.forEach(
+			(d) => {
+				if(!filters.length) {
+					area+=d.value;
+				}else if(filters.includes(d.key)){
+					area+=d.value;
+				}
+			}
+		);
+		area=localeBR.numberFormat(',1f')(area.toFixed(2));
+		graph.totalizedCustomArea.html("<span class='number-display'><span>"+Translation[Lang.language].degrad_defor+"</span><br/><span style='font-size: 24px;'>"+area+"</span> km²</span>");
+	},
+
 	utils:{
+		highlightClassFilterButtons: function(ref) {
+
+			$('#'+ref+'-classes').removeClass('disable');
+			$('#'+ref+'-bt').addClass('disable');
+			
+			if(ref=='deforestation') {
+				$('#degradation-classes').addClass('disable');
+				$('#custom-classes').addClass('disable');
+				$('#degradation-bt').removeClass('disable');
+				$('#custom-bt').removeClass('disable');
+			}else if(ref=='degradation') {
+				$('#deforestation-classes').addClass('disable');
+				$('#custom-classes').addClass('disable');
+				$('#deforestation-bt').removeClass('disable');
+				$('#custom-bt').removeClass('disable');
+			}else if(ref=='custom') {
+				graph.displayCustomValues();
+				$('#degradation-classes').addClass('disable');
+				$('#deforestation-classes').addClass('disable');
+				$('#degradation-bt').removeClass('disable');
+				$('#deforestation-bt').removeClass('disable');
+			}
+		},
+
 		setStateAnimateIcon: function(id, enable, error) {
 			document.getElementById(id).style.display='';
 			if(enable) {
@@ -242,7 +313,6 @@ var graph={
 		// o.areaKm = (+d.properties.e)*1;// area municipio
 		// o.areaUcKm = ((d.properties.f)?((+d.properties.f)*1):(0));
 		
-		
 		this.jsonData=json;
 		delete json;
 	},
@@ -261,20 +331,7 @@ var graph={
 		
 		graph.utils.dimensions=dimensions;
 		
-		var totalAreaGroup = alerts.groupAll().reduce(
-		            function (p, v) {
-		                ++p.n;
-		                p.tot += v.areaKm;
-		                return p;
-		            },
-		            function (p, v) {
-		                --p.n;
-		                p.tot -= v.areaKm;
-		                return p;
-		            },
-		            function () { return {n:0,tot:0}; }
-		        ),
-		    totalAlertsGroup = alerts.groupAll().reduce(
+		var totalAlertsGroup = alerts.groupAll().reduce(
 		        function (p, v) {
 		            ++p.n;
 		            //p.tot += v.k;
@@ -286,7 +343,45 @@ var graph={
 		            return p;
 		        },
 		        function () { return {n:0/*,tot:0*/}; }
-		    );
+			),
+			
+			totalDeforestationAreaGroup = dimensions["class"].groupAll().reduce(
+				function (p, v) {
+					if(graph.deforestation.includes(v.className)) {
+						++p.n;
+						p.tot += v.areaKm;
+					}
+					return p;
+				},
+				function (p, v) {
+					if(graph.deforestation.includes(v.className)) {
+						--p.n;
+						p.tot -= v.areaKm;
+					}
+					return p;
+				},
+				function () {
+					return {n:0,tot:0};
+				}
+			),
+
+			totalDegradationAreaGroup = dimensions["class"].groupAll().reduce(
+				function (p, v) {
+					if(graph.degradation.includes(v.className)) {
+						++p.n;
+						p.tot += v.areaKm;
+					}
+					return p;
+				},
+				function (p, v) {
+					if(graph.degradation.includes(v.className)) {
+						--p.n;
+						p.tot -= v.areaKm;
+					}
+					return p;
+				},
+				function () { return {n:0,tot:0}; }
+			);
 		
 		var groups=[];
 		if(graph.config.defaultDataDimension=="area") {
@@ -302,29 +397,39 @@ var graph={
 			groups["date"] = dimensions["date"].group().reduceCount(function(d) {return +d.timestamp;});
 			groups["uc"] = dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(1):(0);});
 		}
-		
-		this.totalizedAreaInfoBox.formatNumber(localeBR.numberFormat(',1f'));
-		this.totalizedAreaInfoBox.valueAccessor(function(d) {return d.n ? d.tot.toFixed(1) : 0;})
-	      .html({
-	          one:"<span style='color:steelblue; font-size: 36px;'>%number</span> km²",
-	          some:"<span style='color:steelblue; font-size: 36px;'>%number</span> km²",
-	          none:"<span style='color:steelblue; font-size: 36px;'>0</span> km²"
-	      })
-	      .group(totalAreaGroup);
-		
 
-		// build totalized Alerts box
-		// use format integer see: http://koaning.s3-website-us-west-2.amazonaws.com/html/d3format.html
+		this.totalizedDeforestationArea.formatNumber(localeBR.numberFormat(',1f'));
+		this.totalizedDeforestationArea.valueAccessor(function(d) {
+			return d.n ? d.tot.toFixed(2) : 0;
+		})
+		.html({
+			one:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			some:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			none:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>0</span> km²"
+		})
+		.group(totalDeforestationAreaGroup);
+		
+		this.totalizedDegradationArea.formatNumber(localeBR.numberFormat(',1f'));
+		this.totalizedDegradationArea.valueAccessor(function(d) {
+			return d.n ? d.tot.toFixed(2) : 0;
+		})
+		.html({
+			one:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			some:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			none:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>0</span> km²"
+		})
+		.group(totalDegradationAreaGroup);
+
 		this.totalizedAlertsInfoBox.formatNumber(localeBR.numberFormat(','));
 		this.totalizedAlertsInfoBox.valueAccessor(function(d) {
 			return d.n ? d.n : 0;
 		})
-	      .html({
-	          one:"<span style='color:#ffff00; font-size: 36px;'>%number</span> "+Translation[Lang.language].alerta,
-	          some:"<span style='color:#ffff00; font-size: 36px;'>%number</span> "+Translation[Lang.language].alertas,
-	          none:"<span style='color:#ffff00; font-size: 36px;'>0</span> "+Translation[Lang.language].alerta
-	      })
-	      .group(totalAlertsGroup);
+		.html({
+			one:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			some:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
+			none:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>0</span> km²"
+		})
+		.group(totalAlertsGroup);
 		
 		this.buildCharts(dimensions, groups);
 	},
@@ -352,7 +457,7 @@ var graph={
 		
 		this.lineDistributionByMonth
 			.height(310)
-			.margins({top: 10, right: 15, bottom: 85, left: 45})
+			.margins({top: 10, right: 45, bottom: 85, left: 45})
 			.yAxisLabel( yLabel )
 			.xAxisLabel( Translation[Lang.language].timeline_desc + " " + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) )
 			.dimension(dimensions["date"])
@@ -561,8 +666,6 @@ var graph={
 				return txtLabel;
 			}
 		});
-
-		this.ringTotalizedByClass.fil
 
 		if(!graph.ctlFirstLoading) {
 			dc.override(this.ringTotalizedByClass, 'legendables', function() {

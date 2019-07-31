@@ -195,15 +195,64 @@
 
 		<div id="charts-panel">
 
-			<div id="title-chart" class="all-charts-title boxtitlepanel">
-				Análise - Amazônia Legal
+			<div class="all-charts-title boxtitlepanel">
+				<div id="title-chart" class="all-charts-title boxtitlepanel">
+					Análise - Amazônia Legal
+				</div>
+				<div class="swap-data-dimension">
+					<input id="radio-area" class="input_radio" title="Ver gráficos com base no somatório de áreas em km²."
+					name="set_dim" type="radio" onclick="graph.setDataDimension('area');" checked="checked">
+					<span style="font-size: smaller;">Alternar para visualização por área</span>
+					<input id="radio-alerts" class="input_radio" title="Ver gráficos com base na contagem do número de alertas."
+					name="set_dim" type="radio" onclick="graph.setDataDimension('alert');">
+					<span style="font-size: smaller;">Alternar para visualização por número de alertas</span>
+				</div>
 			</div>
-			<!--
-				<div>Alertas diários de desmatamento na Amazônia Legal Brasileira.</div>
-				<div>Daily deforestation alerts in the Brazilian Legal Amazon.</div>
-			-->
 
+			<!-- Start the filter bar -->
 			<div class="row box">
+				<div class="col-md-3">
+					<div class="box-grafico text-center">
+						<div class="bt_content_generalinfo" id="deforestation-bt">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="deforestation-bt-title" title="Ver dados de alertas de desmatamento." onclick="graph.filterByClassGroup('deforestation');">
+								<span id="txt40">Ver desmatamento</span>
+							</div>
+						</div>
+						<div class="generalinfo" id="deforestation-classes" title="Área total de alertas de desmatamento.">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="box-grafico text-center">
+						<div class="bt_content_generalinfo" id="degradation-bt">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="degradation-bt-title" title="Ver dados de alertas de degradação." onclick="graph.filterByClassGroup('degradation');">
+								<span id="txt41">Ver degradação</span>
+							</div>
+						</div>
+						<div class="generalinfo" id="degradation-classes" title="Área total de alertas de degradação.">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="box-grafico text-center">
+						<div class="bt_content_generalinfo" id="custom-bt">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="custom-bt-title" title="Ver todos os dados de alertas, desmatamento e degradação." onclick="graph.filterByClassGroup('custom');">
+								<span id="txt42">Ver todas as classes</span>
+							</div>
+						</div>
+						<div class="generalinfo" id="custom-classes" title="Área total de alertas de desmatamento e degradação.">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="box-grafico text-center">
+						<div class="generalinfo" id="numpolygons" title="Número de alertas.">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- <div class="row box">
 				<div class="col-md-6">
 					<div class="box-grafico text-center">
 						<div id="totalized-area">
@@ -221,7 +270,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
+
 			<div class="row box">
 				<div class="col-md-12">
 					<div class="box-grafico text-center">

@@ -41,7 +41,6 @@ var Translation={
 		'txt18':'Respeitando os filtros definidos neste painel de consulta.',
 		'txt19':'Arquivo completo sem filtros.',
 		'txt20':'A geração de arquivo usando os filtros por Classe, Estado, Município ou Áreas de Proteção está restrito a dados dos <strong>últimos seis (6) meses</strong>.',
-		/* 'txt20':'Ao atribuir qualquer um dos filtros por Classe, Estado, Município ou Áreas de Proteção e <strong>não</strong> atribuir filtro temporal, <strong>toda a extensão temporal</strong> será considerada e não apenas a extensão exibida no painel, incluindo dados anteriores a um ano.',*/
 		'txt21':'Fechar',
 		'txt22':'Selecione o formato do arquivo:',
 		'txt23':'Baixar a tabela de atributos, sem a componente geográfica, em formato CSV.',
@@ -52,6 +51,12 @@ var Translation={
 		'txt27':'Com filtros.',
 		'txt28':'Sem filtros.',
 		'txt29':'Fechar',
+
+		'deforestation':'Desmatamento acumulado',
+		'degradation':'Degradação acumulada',
+		'degrad_defor':'Desmatamento e degradação',
+		'num_alerts':'Número de alertas',
+
 		/* titles for HTML entities */
 		'aggregate_monthly':'Alternar para o painel de consulta agregada mensal.',
 		'modal-718053':'Baixar os dados com granularidade diária.',
@@ -61,9 +66,9 @@ var Translation={
 		'radio-alerts':'Veja os gráficos com base na soma do número de alertas.',
 		'print_page':'Imprimir esta página utilizando o recurso do navegador.',
 		/* Texts inside javascript. */
-		'areas': 'área(s)',
+		'areas': 'áreas',
 		'alerta': 'alerta',
-		'alertas':'alerta(s)',
+		'alertas':'alertas',
 		'timeline_header':'Distribuição de %dim% ao longo do tempo (granularidade diária)',
 		'timeline_desc':'Intervalo disponível (máximo 365 dias):',
 		'title_tot_class':'%Dim% por Classes',
@@ -182,7 +187,6 @@ var Translation={
 		'txt18':'Download with filters defined in this panel.',
 		'txt19':'Download all data without filters.',
 		'txt20':'File generation using filters by Class, State, County or Protected Areas is restricted to data from <strong>the last six (6) months</strong>.',
-		/* 'txt20':'When assigning any of the filters by Class, State, County or Protection Areas and <strong>not</strong> assigning temporal filter, <strong>the entire time range</strong> will be considered and not just the extension displayed on the panel, including data older than a year.',*/
 		'txt21':'Close',
 		'txt22':'Select the file format:',
 		'txt23':'Download the attribute table, without the geographic component in CSV format.',
@@ -193,6 +197,12 @@ var Translation={
 		'txt27':'With filters.',
 		'txt28':'Without filters.',
 		'txt29':'Close',
+
+		'deforestation': 'Accumulated deforestation',
+		'degradation': 'Accumulated degradation',
+		'degrad_defor': 'Deforestation and degradation',
+		'num_alerts': 'Number of Alerts',
+
 		/* titles for HTML entities */
 		'aggregate_monthly':'Exchange by the monthly aggregation analysis panel.',
 		'modal-718053':'Download the data with daily granularity.',
@@ -202,9 +212,9 @@ var Translation={
 		'radio-alerts':'See the charts based on sum of alerts.',
 		'print_page':'Print this page using the browser resources.',
 		/* Texts inside javascript. */
-		'areas':'area(s)',
+		'areas':'areas',
 		'alerta':'alert',
-		'alertas':'alert(s)',
+		'alertas':'alerts',
 		'timeline_header':'Distribution of %dim% over time (daily granularity).',
 		'timeline_desc':'Interval available (maximum 365 days):',
 		'title_tot_class':'%Dim% by Classes',

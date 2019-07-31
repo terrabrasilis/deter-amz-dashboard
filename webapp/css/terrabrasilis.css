@@ -86,13 +86,9 @@ a, a:hover, a:focus {
 }
 
 .enable_menu{
-  background-color: #ffe4c3;
-  font-weight: 600;
-  color: black;
-  border: solid 3px #ead2b4;
-  padding: 7px !important;
-  border-radius: 10px;
+  background-color: #bde397;
 }
+.enable_menu a { color: #00796b; font-weight: bold;}
 
 .boxtitulo{
   padding:10px 10px 10px 25px;
@@ -563,7 +559,7 @@ a[data-toggle="collapse"] {
 #content {
    width: calc(100% - 290px);
     padding: 0px;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     transition: all 0.3s;
     position: absolute;
     top: 0;
