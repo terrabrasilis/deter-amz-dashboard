@@ -18,14 +18,22 @@ body{
 	width: 100%;
     text-align: end;
 }
+.box-swap-data{
+	display: inline-flex;
+    background-color: #008c70;
+    color: white;
+    padding-left: 3px;
+    border-radius: 4px;
+    padding-right: 3px;
+}
 #title-chart, .all-charts-title, .boxtitlepanel{
 	border-bottom: none;
     margin-bottom: -30px;
     margin-left: 0px;
 }
 .input_radio{
-	width: 20px;
-    height: 20px;
+	width: 18px;
+    height: 18px;
 	vertical-align: middle;
 	margin-left: 15px;
 }

@@ -48,14 +48,16 @@
 		<!-- Sidebar Holder -->
 		<nav id="sidebar">
 
-			<div class="sidebar-header">
+			<a href="http://terrabrasilis.dpi.inpe.br">
+				<div class="sidebar-header">
 
 
-				<div class="desctxt">
-					<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span> </h5>
-					<div id="header-menu">Alertas</div>
+					<div class="desctxt">
+						<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span> </h5>
+						<div id="header-menu">Alertas</div>
+					</div>
 				</div>
-			</div>
+			</a>
 
 			<ul class="list-unstyled components">
 
@@ -65,7 +67,7 @@
 						<i class="material-icons">dashboard</i><span id="nv-chart-day">Gráficos - Alertas Diários</span></a>
 				</li>
 				<li>
-					<a href="/app/dashboard/alerts/legal/amazon/daily/" id="toDailyChart-amz" title="Abrir o painel de alertas diários para a Amazônia Legal." aria-expanded="false">
+					<a class="enable_menu" href="/app/dashboard/alerts/legal/amazon/daily/" id="toDailyChart-amz" title="Abrir o painel de alertas diários para a Amazônia Legal." aria-expanded="false">
 						<i class="material-icons">insert_chart</i><span id="nv-daily-amz">Amazônia Legal</span></a>
 				</li>
 				<li>
@@ -112,12 +114,6 @@
 				</li>
 			</ul>
 
-			<ul class="list-unstyled CTAs">
-				<li>
-					<a class="btn btn-primary btn-success" href="http://terrabrasilis.dpi.inpe.br" target="_blank"><span id="nv-home">Home TerraBrasilis</span></a>
-				</li>
-			</ul>
-
 		</nav>
 	</div>
 
@@ -132,7 +128,7 @@
 			 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<i class="material-icons menuicon">menu</i>
 			</button>
-			<a class="navbar-brand" href="#"><span class="amarelo">Terra</span><span class="verde">Brasilis</span></a>
+			<a class="navbar-brand" href="http://terrabrasilis.dpi.inpe.br/"><span class="amarelo">Terra</span><span class="verde">Brasilis</span></a>
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="navbar-nav">
 					<a class="nav-item nav-link" href="#" id="header-panel">| Alertas</a>
@@ -200,12 +196,15 @@
 					Análise - Amazônia Legal
 				</div>
 				<div class="swap-data-dimension">
-					<input id="radio-area" class="input_radio" title="Ver gráficos com base no somatório de áreas em km²."
-					name="set_dim" type="radio" onclick="graph.setDataDimension('area');" checked="checked">
-					<span style="font-size: smaller;">Alternar para visualização por área</span>
-					<input id="radio-alerts" class="input_radio" title="Ver gráficos com base na contagem do número de alertas."
-					name="set_dim" type="radio" onclick="graph.setDataDimension('alert');">
-					<span style="font-size: smaller;">Alternar para visualização por número de alertas</span>
+					<div class="box-swap-data">
+						<span style="font-size: smaller;">Alternar visualização: </span>
+						<input id="radio-area" class="input_radio" title="Ver gráficos com base no somatório de áreas em km²."
+						name="set_dim" type="radio" onclick="graph.setDataDimension('area');" checked="checked">
+						<span style="font-size: smaller;">Área dos alertas (km²)</span>
+						<input id="radio-alerts" class="input_radio" title="Ver gráficos com base na contagem do número de alertas."
+						name="set_dim" type="radio" onclick="graph.setDataDimension('alert');">
+						<span style="font-size: smaller;">Número de alertas</span>
+					</div>
 				</div>
 			</div>
 
