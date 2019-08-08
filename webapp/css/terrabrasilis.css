@@ -65,6 +65,18 @@ a, a:hover, a:focus {
   margin-right: 0px;
 }
 
+.updated{
+  font-size: small;
+  color: gray;
+  width: -webkit-fill-available;
+  min-width: fit-content;
+  text-align: end;
+}
+.updated-date{
+  font-size: small;
+  color: gray;
+}
+
 .disable{
   display: none;
 }

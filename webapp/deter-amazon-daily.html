@@ -192,9 +192,7 @@
 		<div id="charts-panel">
 
 			<div class="all-charts-title boxtitlepanel">
-				<div id="title-chart" class="all-charts-title boxtitlepanel">
-					Análise - Amazônia Legal
-				</div>
+				<span id="title-chart">Análise - Amazônia Legal</span>
 				<div class="swap-data-dimension">
 					<div class="box-swap-data">
 						<span style="font-size: smaller;">Alternar visualização: </span>
@@ -275,7 +273,14 @@
 				<div class="col-md-12">
 					<div class="box-grafico text-center">
 						<div id="chart-line-by-month" class="all-charts timeline-charts">
-							<div id="title-chart-timeline" class="all-charts-title  boxtitle"></div>
+							<div class="all-charts-title boxtitle" style="display: flex;">
+								<div style="min-width: fit-content;">
+									<span id="title-chart-timeline"></span>
+								</div>
+								<div class="updated">
+									<span id="updated">Atualizado em:</span><span class="updated_date" id="updated_date"></span>
+								</div>
+							</div>
 							<div class="keep-space">
 								<div class="reset" style="display: none;">
 									<b><span id="txt9">Filtro:</span></b> <span class="filter"></span>

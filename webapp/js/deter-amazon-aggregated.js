@@ -171,6 +171,12 @@ var utils = {
 		}
 	},
 
+	setMonthNamesFilterBar: function() {
+		for (var i=8;i<20;i++) {
+			d3.select('#month_'+i).html(Translation[Lang.language].months_of_prodes_year[i-8]);
+		}
+	},
+
 	highlightClassFilterButtons: function(ref) {
 
 		$('#'+ref+'-classes').removeClass('disable');
@@ -297,6 +303,14 @@ var graph={
 		this.ringTotalizedByState = dc.pieChart("#chart-by-state", "filtra");
 		this.rowTotalizedByClass = dc.rowChart("#chart-by-class", "filtra");
 		this.barAreaByYear = dc.barChart("#chart-by-year", "filtra");
+	},
+	loadUpdatedDate: function() {
+		//var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
+		var url="./data/updated-date.json";
+		d3.json(url, (json) => {
+			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
+			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
+		});
 	},
 	loadData: function(url) {
 		d3.json(url, graph.processData);
@@ -464,9 +478,9 @@ var graph={
 			return d.tot ? d.tot : 0;
 		})
 		.html({
-			one:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			some:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			none:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>0</span> km²"
+			one:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span>",
+			some:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span>",
+			none:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>0</span>"
 		})
 		.group(this.totalAlertsGroup);
 		
@@ -735,6 +749,7 @@ var graph={
 		// defining filter to deforestation classes by default
 		graph.filterByClassGroup('deforestation');
 		utils.attachListenersToLegend();
+		utils.setMonthNamesFilterBar();
 	},
 	init: function() {
 		window.onresize=utils.onResize;
@@ -744,9 +759,10 @@ var graph={
 		this.loadConfigurations(function(){
 			Lang.apply();
 			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_month_d.json";
-			var dataUrl = "./data/deter-amazon-month_num_pol.json";
+			var dataUrl = "./data/deter-amazon-month.json";
 			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:deter_month_d&OUTPUTFORMAT=application%2Fjson";
 			graph.loadData(dataUrl);
+			graph.loadUpdatedDate();
 			utils.attachEventListeners();
 		});
 	},
@@ -779,10 +795,6 @@ var graph={
 		graph.focusChart.filterAll();
 		graph.monthDimension.filterAll();
 		graph.monthDimension0.filterAll();
-	},
-
-	applyYearFilter: function(aYear) {
-		
 	},
 
 	/**

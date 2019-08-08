@@ -189,9 +189,7 @@
 		
 
 		<div id="charts-panel">
-			<div class="all-charts-title boxtitlepanel">
-				<div id="txt15">Análise - Amazônia Legal</div>
-			</div>
+			<div class="all-charts-title boxtitlepanel" id="txt15">Análise - Amazônia Legal</div>
 			
 			<!-- Start the filter bar -->
 			<div class="row box">
@@ -241,7 +239,14 @@
 				<div class="col-md-12">
 					
 					<div class="all-charts box-grafico text-center">
-						<div id="title-chart-agreg" class="all-charts-title boxtitle">Variação da detecção de área do projeto DETER, com granularidade mensal e sazonalidade ano PRODES (Agosto a Julho)</div>
+						<div class="all-charts-title boxtitle" style="display: flex;">
+							<div style="min-width: fit-content;">
+								<span id="title-chart-agreg">Variação da detecção de área do projeto DETER, com granularidade mensal e sazonalidade ano PRODES (Agosto a Julho)</span>
+							</div>
+							<div class="updated">
+								<span id="updated">Atualizado em:</span><span class="updated_date" id="updated_date"></span>
+							</div>
+						</div>
 						<div id="agreg">
 							<div class="reset" style="display: none;">
 								<b><span id="txt8b">Filtro:</span></b> <span class="filter"></span>

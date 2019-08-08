@@ -59,9 +59,12 @@ var Translation={
 		'analysis-war':'Alertas',
 		'goto_video_sup':'Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.',
 		'help-sup':'Ajuda',
-		'txt23':'Ver desmatamento',
-		'txt24':'Ver degradação',
+		
+		'txt23':'Ver classes de desmatamento',
+		'txt24':'Ver classes de degradação',
 		'txt25':'Ver todas as classes',
+		'updated':'Atualizado em:',
+
 		/* titles for HTML entities */
 		'aggregate_daily':'Alternar para o painel de consulta de dados diários.',
 		'download-csv-monthly':'Baixar os dados brutos, granularidade mensal, em formato CSV.',
@@ -206,9 +209,10 @@ var Translation={
 		'goto_video_sup':'Watch the introductory video to see how an user interact with dashboard tools.',
 		'help-sup':'Help',
 
-		'txt23':'Ver desmatamento',
-		'txt24':'Ver degradação',
-		'txt25':'Ver todas as classes',
+		'txt23':'See by deforestation classes',
+		'txt24':'See by degradation classes',
+		'txt25':'See by all classes',
+		'updated':'Updated at:',
 
 		/* titles for HTML entities */
 		'aggregate_daily':'Exchange by the analysis panel to daily data.',
@@ -218,13 +222,13 @@ var Translation={
 		'print_page':'Print this page using the browser resources.',
 		'display_warning':'More informations about the classes.',
 		
-		'deforestation-bt-title':'Ver dados de alertas de desmatamento.',
-		'deforestation-classes':'Área total de alertas de desmatamento.',
-		'degradation-bt-title':'Ver dados de alertas de degradação.',
-		'degradation-classes':'Área total de alertas de degradação.',
-		'custom-bt-title':'Ver todos os dados de alertas, desmatamento e degradação.',
-		'custom-classes':'Área total de alertas de desmatamento e degradação.',
-		'numpolygons':'Número de alertas.',
+		'deforestation-bt-title':'See the data of alerts for deforestation.',
+		'deforestation-classes':'Total areas of alerts for deforestation.',
+		'degradation-bt-title':'See the data of alerts for degradation.',
+		'degradation-classes':'Total areas of alerts for degradation.',
+		'custom-bt-title':'See all data of alerts for deforestation and degradation.',
+		'custom-classes':'Total areas of alerts for deforestation and degradation.',
+		'numpolygons':'Number of alerts.',
 
 		/* Texts inside javascript. */
 		'refresh_data':'Retry the data load.',

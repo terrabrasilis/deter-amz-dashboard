@@ -73,10 +73,20 @@ var graph={
 			this.histTopByUCs = dc.rowChart("#chart-hist-top-ucs");
 			
 			graph.build();
+			graph.loadUpdatedDate();
 			// defining filter to deforestation classes by default
 			graph.filterByClassGroup('deforestation');
 			SearchEngine.init(this.histTopByCounties, this.ringTotalizedByState ,'modal-search');
 		}
+	},
+
+	loadUpdatedDate: function() {
+		//var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
+		var url="./data/updated-date.json";
+		d3.json(url, (json) => {
+			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
+			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
+		});
 	},
 	
 	displayWaiting: function(enable) {
@@ -119,8 +129,35 @@ var graph={
 	
 	setDataDimension: function(d) {
 		this.config.defaultDataDimension=d;
+		this.storeSelectedFilter();
 		this.resetFilters();
 		this.build();
+		this.updateToSelectedFilter();
+	},
+
+	storeSelectedFilter: function() {
+		graph.selectedFilters={};// reset stored filter
+		if(graph.ringTotalizedByClass.hasFilter())
+			graph.selectedFilters.byClass=graph.ringTotalizedByClass.filters();
+		if(graph.lineDistributionByMonth.hasFilter())
+			graph.selectedFilters.byMonth=graph.lineDistributionByMonth.filters();
+		if(graph.ringTotalizedByState.hasFilter())
+			graph.selectedFilters.byState=graph.ringTotalizedByState.filters();
+		if(graph.histTopByUCs.hasFilter())
+			graph.selectedFilters.byUCs=graph.histTopByUCs.filters();
+	},
+
+	updateToSelectedFilter: function() {
+		if(graph.selectedFilters.byClass)
+			while(graph.selectedFilters.byClass.length) {graph.ringTotalizedByClass.filter(graph.selectedFilters.byClass.pop());}
+		if(graph.selectedFilters.byMonth)
+			while(graph.selectedFilters.byMonth.length) {graph.lineDistributionByMonth.filter(graph.selectedFilters.byMonth.pop());}
+		if(graph.selectedFilters.byState)
+			while(graph.selectedFilters.byState.length) {graph.ringTotalizedByState.filter(graph.selectedFilters.byState.pop());}
+		if(graph.selectedFilters.byUCs)
+			while(graph.selectedFilters.byUCs.length) {graph.histTopByUCs.filter(graph.selectedFilters.byUCs.pop());}
+
+		dc.redrawAll();
 	},
 
 	filterByClassGroup: function(ref) {
@@ -425,9 +462,9 @@ var graph={
 			return d.n ? d.n : 0;
 		})
 		.html({
-			one:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			some:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			none:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>0</span> km²"
+			one:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span>",
+			some:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span>",
+			none:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>0</span>"
 		})
 		.group(totalAlertsGroup);
 		
