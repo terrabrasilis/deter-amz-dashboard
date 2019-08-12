@@ -81,10 +81,11 @@ a, a:hover, a:focus {
   display: none;
 }
 
-.generalinfo{
-  height: 88px;
-  background-color: antiquewhite;
-}
+.generalinfo {height: 88px; background-color: #ffd76d; padding: 20px; text-align: left; color: #6c757d !important; width: 100%;}
+.number-display span {font-size: 12px;}  
+.generalinfo i {color:#00796b; }
+.number-display .numberinf {font-size: 24px; font-weight: bold; line-height: 14px;}
+.icon-left {float: left; padding: 10px 10px 10px 0;}
 
 .bt_content_generalinfo {
   position: relative;
@@ -165,11 +166,6 @@ a, a:hover, a:focus {
 
 #modal-container-info-rates h3 {text-align: left; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #eeeeee;}
 #modal-container-info-rates a {color: #00796b; font-weight: bold;}
-
-/* ------------- Resets ------------*/
-#totalized-area { background-color: #f9c069;}
-#totalized-alerts { background-color: #96c964;}
-.number-display, .number-display  span { color: #00796b !important;}
 
 /* ------------- Radio ------------*/
 .custom-radios div {

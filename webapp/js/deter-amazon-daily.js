@@ -193,6 +193,7 @@ var graph={
 
 	displayCustomValues: function() {
 		var area=0;
+		var htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
 		var data=graph.ringTotalizedByClass.data();
 		var filters=graph.ringTotalizedByClass.filters();
 		data.forEach(
@@ -205,7 +206,7 @@ var graph={
 			}
 		);
 		area=localeBR.numberFormat(',1f')(area.toFixed(2));
-		graph.totalizedCustomArea.html("<span class='number-display'><span>"+Translation[Lang.language].degrad_defor+"</span><br/><span style='font-size: 24px;'>"+area+"</span> km²</span>");
+		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><br/><div class='numberinf'>"+area+" km²</div></span>");
 	},
 
 	utils:{
@@ -439,14 +440,16 @@ var graph={
 			//groups["month"] = dimensions["month"].group().reduceCount(function(d) {return +d.month;});
 		}
 
+		var htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
+
 		this.totalizedDeforestationArea.formatNumber(localeBR.numberFormat(',1f'));
 		this.totalizedDeforestationArea.valueAccessor(function(d) {
 			return d.n ? d.tot.toFixed(2) : 0;
 		})
 		.html({
-			one:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			some:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			none:"<span>"+Translation[Lang.language].deforestation+"</span><br/><span style='font-size: 24px;'>0</span> km²"
+			one:htmlBox+"<span>"+Translation[Lang.language].deforestation+"</span><br/><div class='numberinf'>%number km²</div></span>",
+			some:htmlBox+"<span>"+Translation[Lang.language].deforestation+"</span><br/><div class='numberinf'>%number km²</div></span>",
+			none:htmlBox+"<span>"+Translation[Lang.language].deforestation+"</span><br/><div class='numberinf'>0 km²</div></span>"
 		})
 		.group(totalDeforestationAreaGroup);
 		
@@ -455,9 +458,9 @@ var graph={
 			return d.n ? d.tot.toFixed(2) : 0;
 		})
 		.html({
-			one:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			some:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>%number</span> km²",
-			none:"<span>"+Translation[Lang.language].degradation+"</span><br/><span style='font-size: 24px;'>0</span> km²"
+			one:htmlBox+"<span>"+Translation[Lang.language].degradation+"</span><br/><div class='numberinf'>%number km²</div></span>",
+			some:htmlBox+"<span>"+Translation[Lang.language].degradation+"</span><br/><div class='numberinf'>%number km²</div></span>",
+			none:htmlBox+"<span>"+Translation[Lang.language].degradation+"</span><br/><div class='numberinf'>0 km²</div></span>"
 		})
 		.group(totalDegradationAreaGroup);
 
@@ -466,9 +469,9 @@ var graph={
 			return d.n ? d.n : 0;
 		})
 		.html({
-			one:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span>",
-			some:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>%number</span>",
-			none:"<span>"+Translation[Lang.language].num_alerts+"</span><br/><span style='font-size: 24px;'>0</span>"
+			one:htmlBox+"<span>"+Translation[Lang.language].num_alerts+"</span><br/><div class='numberinf'>%number</div></span>",
+			some:htmlBox+"<span>"+Translation[Lang.language].num_alerts+"</span><br/><div class='numberinf'>%number</div></span>",
+			none:htmlBox+"<span>"+Translation[Lang.language].num_alerts+"</span><br/><div class='numberinf'>0</div></span>"
 		})
 		.group(totalAlertsGroup);
 		
@@ -912,8 +915,8 @@ window.onload=function(){
 		var afterLoadConfiguration=function(cfg) {
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
-			var dataUrl = "./data/deter-amazon-daily.json";
+			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
+			//var dataUrl = "./data/deter-amazon-daily.json";
 			var afterLoadData=function(json) {
 				Lang.apply();
 				if(!json || !json.features) {
