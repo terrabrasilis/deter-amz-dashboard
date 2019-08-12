@@ -104,6 +104,10 @@
 						<i class="material-icons">build</i><span id="tools">Ferramentas</span></a>
 				</li>
 				<li>
+					<a href="#modal-container-download" id="downloadBtn" data-toggle="modal" title="Baixar a tabela de alertas de desmatamento.">
+						<i class="material-icons">cloud_download</i><span id="txt3">Baixar Dados</span></a>
+				</li>
+				<li>
 					<a href="#print_information" id="prepare_print" title="Imprimir esta página utilizando o recurso do navegador."
 						data-toggle="modal">
 						<i class="material-icons">print</i><span id="txt4">Imprimir Gráficos</span></a>
@@ -177,7 +181,7 @@
 				<div class="text-center">
 					<div id="loading_data_info" style="display:block;"><img src="./img/loading_map.gif" alt="img" /></div>
 					<div id="warning_data_info" style="display:none;">
-						<h1><span id="txt8">Não há dados.</span></h1>
+						<h3><span id="txt8">Problema na comunicação com o servidor.<br>Aguarde alguns minutos e recarregue a página.</span></h3>
 					</div>
 					<iframe id="fileload" src="" style="width:1px;height:1px;position:fixed;bottom: 0px;left: 0px;"></iframe>
 				</div>
@@ -341,13 +345,6 @@
 			</div>
 		</div>
 
-		<div id="display_error">
-			<span id="inner_display_error">
-
-			</span>
-		</div>
-		<!--div id="footer_page"></div-->
-
 	</div><!-- Fim do painel de gráficos -->
 
 	<div class="container">
@@ -385,6 +382,65 @@
 					</div>
 				</div><!--End of modal information about classes-->
 
+				<!-- Modal Download-->
+				<div class="modal fade" id="modal-container-download">
+					<div class="modal-dialog">
+						<div class="modal-content modalinf">
+							<div class="modal-header fechar">
+								<h5 class="modal-title boxtitletable"> <span id="txt26">Baixar a tabela com os incremento de desmatamento em
+										formato CSV.</span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+							</div>
+							<!-- / modal-header -->
+							<div class="modal-body ">
+								<div class="dwn-tool">
+									<div class="alert alert-success alert-labeled">
+										<div class="alert-labeled-row">
+											<span class="alert-label alert-label-left alert-labelled-cell">
+												<i class="material-icons">save_alt</i>
+											</span>
+											<p class="alert-body alert-body-right alert-labelled-cell">
+												<a href="#" id="download-csv-monthly">
+													<span id="txt27" class="alerttitle">Com filtros.</span>
+												</a>
+											</p>
+										</div>
+									</div>
+
+									<div class="alert alert-success alert-labeled">
+										<div class="alert-labeled-row">
+											<span class="alert-label alert-label-left alert-labelled-cell">
+												<i class="material-icons">save_alt</i>
+											</span>
+											<p class="alert-body alert-body-right alert-labelled-cell">
+												<a href="#" id="download-csv-monthly-all">
+													<span id="txt28" class="alerttitle">Sem filtros.</span>
+												</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- / modal-body -->
+							<div class="modal-footer">
+								<div class="checkbox pull-right">
+									<label>
+										<button type="button" class="btn btngreen" data-dismiss="modal">
+											<span id="txt29">Fechar</span>
+										</button>
+									</label>
+								</div>
+								<!--/ checkbox -->
+							</div>
+							<!--/ modal-footer -->
+						</div>
+						<!-- / modal-content -->
+					</div>
+					<!--/ modal-dialog -->
+				</div>
+				<!-- / modal -->
+
 				<!-- modal window with an introductory video of this panel -->
 				<div class="modal fade" id="modal-container-video">
 					<div class="modal-dialog">
@@ -394,7 +450,7 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
 							</div>
 							<!-- / modal-header -->
-							<div class="modal-body ">
+							<div class="modal-body">
 								<div class="alert alert-success" role="alert">
 									<span id="txt1d">Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.</span>
 								</div><br>
@@ -826,7 +882,6 @@
 	</div>
 	<!-- / modal -->
 
-	<!--<div id="display_error"><span id="inner_display_error"></span></div>-->
 	<div id="display_loading"><span id="inner_display_loading"></span></div>
 
 	<!-- Modal print -->

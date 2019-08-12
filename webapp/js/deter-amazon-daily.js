@@ -81,8 +81,8 @@ var graph={
 	},
 
 	loadUpdatedDate: function() {
-		//var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
-		var url="./data/updated-date.json";
+		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
+		//var url="./data/updated-date.json";
 		d3.json(url, (json) => {
 			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
 			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
@@ -103,7 +103,7 @@ var graph={
 	displayWarning:function(enable) {
 		if(enable===undefined) enable=true;
 		document.getElementById("warning_data_info").style.display=((enable)?(''):('none'));
-		document.getElementById("warning_data_info").innerHTML='<h1><span id="txt8">'+Translation[Lang.language].txt8+'</span></h1>';
+		document.getElementById("warning_data_info").innerHTML='<h3><span id="txt8">'+Translation[Lang.language].txt8+'</span></h3>';
 		document.getElementById("loading_data_info").style.display=((enable)?('none'):(''));
 	},
 	
@@ -344,6 +344,7 @@ var graph={
             o.areaKm = numberFormat(d.properties.e)*1;// area municipio
 			o.areaUcKm = ((d.properties.f)?(numberFormat(d.properties.f)*1):(0));
 			o.className = d.properties.c;
+			o.month = d.properties.k;
 		    json.push(o);
 		});
 
@@ -365,6 +366,7 @@ var graph={
 		dimensions["date"] = alerts.dimension(function(d) {return d.timestamp;});
 		dimensions["uf"] = alerts.dimension(function(d) {return d.uf;});
 		dimensions["uc"] = alerts.dimension(function(d) {return d.uc+"/"+d.uf;});
+		dimensions["month"] = alerts.dimension(function(d) {return d.month;});
 		
 		graph.utils.dimensions=dimensions;
 		
@@ -427,12 +429,14 @@ var graph={
 			groups["uf"] = dimensions["uf"].group().reduceSum(function(d) {return +d.areaKm;});
 			groups["date"] = dimensions["date"].group().reduceSum(function(d) {return +d.areaKm;});
 			groups["uc"] = dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(+d.areaUcKm):(0);});
+			groups["month"] = dimensions["month"].group().reduceSum(function(d) {return +d.areaKm;});
 		}else{
 			groups["class"] = dimensions["class"].group().reduceCount(function(d) {return d.className;});
 			groups["county"] = dimensions["county"].group().reduceCount(function(d) {return d.county;});
 			groups["uf"] = dimensions["uf"].group().reduceCount(function(d) {return d.uf;});
 			groups["date"] = dimensions["date"].group().reduceCount(function(d) {return +d.timestamp;});
 			groups["uc"] = dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(1):(0);});
+			groups["month"] = dimensions["month"].group().reduceCount(function(d) {return +d.month;});
 		}
 
 		this.totalizedDeforestationArea.formatNumber(localeBR.numberFormat(',1f'));
@@ -771,9 +775,10 @@ var graph={
 	    	//graph.utils.setStateAnimateIcon('animateIconCSVd', true);
 	    	graph.utils.download=function(data) {
 	    		var dt=new Date();
-		    	dt=dt.getDate() + "_" + dt.getMonth() + "_" + dt.getFullYear();
+		    	dt=dt.toLocaleDateString() +'_'+ dt.toLocaleTimeString();
+				dt=dt.split('/').join('_');
 		        var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
-		        saveAs(blob, 'deterb_'+dt+'.csv');
+		        saveAs(blob, 'deter_daily_'+dt+'.csv');
 		        //graph.utils.setStateAnimateIcon('animateIconCSVd', false);
 	    	};
 	    	window.setTimeout(function() {
@@ -800,9 +805,10 @@ var graph={
 	    .on('click', function() {
 	    	graph.utils.download=function(data) {
 	    		var dt=new Date();
-		    	dt=dt.getDate() + "_" + dt.getMonth() + "_" + dt.getFullYear();
+				dt=dt.toLocaleDateString() +'_'+ dt.toLocaleTimeString();
+				dt=dt.split('/').join('_');
 		        var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
-		        saveAs(blob, 'deterb_'+dt+'.csv');
+		        saveAs(blob, 'deter_daily_'+dt+'.csv');
 	    	};
 	    	window.setTimeout(function() {
 	    		var data=[];
@@ -906,8 +912,8 @@ window.onload=function(){
 		var afterLoadConfiguration=function(cfg) {
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
-			var dataUrl = "./data/deter-amazon-daily.json";
+			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
+			//var dataUrl = "./data/deter-amazon-daily.json";
 			var afterLoadData=function(json) {
 				Lang.apply();
 				if(!json || !json.features) {

@@ -19,10 +19,24 @@ var utils = {
 		return ((window.innerHeight*0.4).toFixed(0))*1;
 	},
 	btnDownload:function() {
+		// without filters
+		d3.select('#download-csv-monthly-all')
+	    .on('click', function() {
+			var dt=new Date();
+			dt=dt.toLocaleDateString() +'_'+ dt.toLocaleTimeString();
+			dt=dt.split('/').join('_');
+			var blob = new Blob([d3.csv.format(graph.data)], {type: "text/csv;charset=utf-8"});
+			saveAs(blob, 'deter_aggregated_'+dt+'.csv');
+		});
+		// with filters
 		d3.select('#download-csv-monthly')
 	    .on('click', function() {
-	        var blob = new Blob([d3.csv.format(graph.data)], {type: "text/csv;charset=utf-8"});
-	        saveAs(blob, 'deter-b-agregado-mensal.csv');
+			var filteredData=graph.classDimension.top(Infinity);
+			var dt=new Date();
+			dt=dt.toLocaleDateString() +'_'+ dt.toLocaleTimeString();
+			dt=dt.split('/').join('_');
+	        var blob = new Blob([d3.csv.format(filteredData)], {type: "text/csv;charset=utf-8"});
+	        saveAs(blob, 'deter_aggregated_'+dt+'.csv');
 	    });
 	},
 	preparePrint: function() {
@@ -35,7 +49,7 @@ var utils = {
 	},
 	attachEventListeners:function() {
 		utils.btnPrintPage();
-		//utils.btnDownload();
+		utils.btnDownload();
 		//utils.btnChangePanel();
 	},
 
@@ -126,19 +140,11 @@ var utils = {
 		var list=[13,14,15,16,17,18,19,8,9,10,11,12];
 		return list[d-1];
 	},
-	displayError:function(info) {
-		d3.select('#panel_container').style('display','none');
-		d3.select('#display_error').style('display','block');
-		document.getElementById("inner_display_error").innerHTML=info+
-		'<span id="dtn_refresh" class="glyphicon glyphicon-refresh" aria-hidden="true" title="'+Translation[Lang.language].refresh_data+'"></span>';
-		setTimeout(function(){
-			d3.select('#dtn_refresh').on('click', function() {
-				window.location.href='?type=aggregated';
-		    });
-		}, 300);
-	},
-	displayNoData:function() {
-		this.displayError(Translation[Lang.language].txt7);
+	displayWarning:function(enable) {
+		if(enable===undefined) enable=true;
+		document.getElementById("warning_data_info").style.display=((enable)?(''):('none'));
+		document.getElementById("warning_data_info").innerHTML='<h3><span id="txt8">'+Translation[Lang.language].txt8+'</span></h3>';
+		document.getElementById("loading_data_info").style.display=((enable)?('none'):(''));
 	},
 	displayGraphContainer:function() {
 		d3.select('#panel_container').style('display','block');
@@ -150,8 +156,6 @@ var utils = {
 		d3.select('#info_container').style('display',((!enable)?('none'):('')));
 		d3.select('#panel_container').style('display',((enable)?('none'):('')));
 		d3.select('#warning_data_info').style('display','none');
-		d3.select('#radio-area').style('display',((enable)?('none'):('')));
-		d3.select('#radio-alerts').style('display',((enable)?('none'):('')));
 	},
 
 	changeCss: function(bt) {
@@ -305,10 +309,13 @@ var graph={
 		this.barAreaByYear = dc.barChart("#chart-by-year", "filtra");
 	},
 	loadUpdatedDate: function() {
-		//var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
-		var url="./data/updated-date.json";
+		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
+		//var url="./data/updated-date.json";
 		d3.json(url, (json) => {
-			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
+			var dt=new Date();
+			if(json){
+				dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
+			}
 			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
 		});
 	},
@@ -317,10 +324,10 @@ var graph={
 	},
 	processData: function(error, data) {
 		if (error) {
-			utils.displayError( Translation[Lang.language].failure_load_data );
+			utils.displayWarning(true);
 			return;
 		}else if(!data || !data.totalFeatures || data.totalFeatures<=0) {
-			utils.displayNoData();
+			utils.displayWarning(true);
 			return;
 		}
 		utils.displayGraphContainer();
@@ -758,9 +765,9 @@ var graph={
 
 		this.loadConfigurations(function(){
 			Lang.apply();
-			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_month_d.json";
-			var dataUrl = "./data/deter-amazon-month.json";
+			//var dataUrl = "./data/deter-amazon-month.json";
 			//var dataUrl = "http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:deter_month_d&OUTPUTFORMAT=application%2Fjson";
+			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_month_d.json";
 			graph.loadData(dataUrl);
 			graph.loadUpdatedDate();
 			utils.attachEventListeners();
