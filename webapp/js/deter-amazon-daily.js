@@ -137,6 +137,8 @@ var graph={
 
 	storeSelectedFilter: function() {
 		graph.selectedFilters={};// reset stored filter
+		if(graph.histTopByCounties.hasFilter())
+			graph.selectedFilters.byCounty=graph.histTopByCounties.filters();
 		if(graph.ringTotalizedByClass.hasFilter())
 			graph.selectedFilters.byClass=graph.ringTotalizedByClass.filters();
 		if(graph.lineDistributionByMonth.hasFilter())
@@ -148,6 +150,8 @@ var graph={
 	},
 
 	updateToSelectedFilter: function() {
+		if(graph.selectedFilters.byCounty)
+			while(graph.selectedFilters.byCounty.length) {graph.histTopByCounties.filter(graph.selectedFilters.byCounty.pop());}
 		if(graph.selectedFilters.byClass)
 			while(graph.selectedFilters.byClass.length) {graph.ringTotalizedByClass.filter(graph.selectedFilters.byClass.pop());}
 		if(graph.selectedFilters.byMonth)
@@ -279,7 +283,7 @@ var graph={
 		
 		wildcardExchange:function(str) {
 			var dim=((graph.config.defaultDataDimension=='area')?(Translation[Lang.language].areas):(Translation[Lang.language].alertas));
-			var unit=((graph.config.defaultDataDimension=='area')?('km²'):(Translation[Lang.language].alertas));
+			var unit=((graph.config.defaultDataDimension=='area')?('km²'):(Translation[Lang.language].unit_alerts));
 			str=str.replace(/%dim%/gi,function(x){return (x=='%Dim%'?dim.charAt(0).toUpperCase()+dim.slice(1):dim);});
 			str=str.replace(/%unit%/gi,function(x){return (x=='%Unit%'?unit.charAt(0).toUpperCase()+unit.slice(1):unit);});
 			return str;

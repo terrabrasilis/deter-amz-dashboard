@@ -312,6 +312,7 @@ border: 0px !important;}
 .submenu a {
   color: #33333d !important;
   min-width: 230px;
+  display: inline-flex;
 }
 
 /* ---------------------------------------------------

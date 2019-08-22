@@ -65,7 +65,7 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#graficos" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">dashboard</i><span id="nv-chart-day">Gráficos - Alertas Diários</span></a>
+						<span id="nv-chart-day">Gráficos - Alertas Diários</span></a>
 				</li>
 				<li>
 					<a href="/app/dashboard/alerts/legal/amazon/daily/" id="toDailyChart-amz" title="Abrir o painel de alertas diários para a Amazônia Legal." aria-expanded="false">
@@ -83,7 +83,7 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#graficos" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">dashboard</i><span id="nv-chart-agg">Gráficos - Agregado de Alertas</span></a>
+						<span id="nv-chart-agg">Gráficos - Agregado de Alertas</span></a>
 				</li>
 				
 				<li>
@@ -101,7 +101,7 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#ferramentas" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">build</i><span id="tools">Ferramentas</span></a>
+						<span id="tools">Ferramentas</span></a>
 				</li>
 				<li>
 					<a href="#modal-container-download" id="downloadBtn" data-toggle="modal" title="Baixar a tabela de alertas de desmatamento.">
@@ -121,7 +121,7 @@
 	<div id="content">
 		<div class="boxtop">
 			<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span><span id="tituloprint" class="tituloprint">
-					| Variação da detecção de área do projeto DETER-B, com granularidade mensal, com sazonalidade ano PRODES (Agosto a
+					| Variação da detecção de área do projeto DETER, com granularidade mensal, com sazonalidade ano PRODES (Agosto a
 					Julho).</span></h5>
 		</div>
 
@@ -133,12 +133,21 @@
 			<a class="navbar-brand" href="http://terrabrasilis.dpi.inpe.br/"><span class="amarelo">Terra</span><span class="verde">Brasilis</span></a>
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link" href="#" id="header-panel">| Alertas</a>
+					<a class="nav-item nav-link" href="#" id="header-panel">| DETER (Alertas)</a>
 				</div>
 				<ul class="navbar-nav navbar-right analises">
 					<li class="nav-item dropdown">
+						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button">
+							<i class="material-icons iconmobile">assignment </i><span id="maps-sup">Mapas</span>
+						</a>
+						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu">
+							<a class="dropdown-item" target="_blank" href="/app/map/deforestation/"><i class="material-icons iconmenu">nature</i><span id="map-des">PRODES (Desmatamento)</span></a>
+							<a class="dropdown-item" target="_blank" href="/app/map/alerts/"><i class="material-icons iconmenu">warning</i><span id="map-war">DETER (Alertas)</span></a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
 						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button"> 
-							<i class="material-icons iconmobile">assignment </i><span id="analysis-sup">Análises</span>
+							<i class="material-icons iconmobile">assignment </i><span id="analysis-sup">Gráficos</span>
 						</a>
 						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu"> 
 							<a class="dropdown-item" target="_blank" href="/app/dashboard/deforestation/biomes/amazon/increments">
@@ -367,7 +376,7 @@
 								<div class="alert alert-warning">
 									<strong><span>* </span></strong><span id="txt22b">A classe <strong>Corte Seletivo</strong> refere-se ao somatório das classes Corte Seletivo Geométrico e Corte Seletivo Desordenado para o ano PRODES 2015/2016, quando estas classes ainda não eram discretizadas.</span>
 								</div>
-								<a target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php" id="txt22c">Informações completas sobre o projeto DETER-B</a>
+								<a target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php" id="txt22c">Informações completas sobre o projeto DETER</a>
 							</div>
 							<div class="modal-footer">
 								<div class="checkbox pull-right">

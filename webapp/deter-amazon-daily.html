@@ -64,7 +64,7 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#graficos" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">dashboard</i><span id="nv-chart-day">Gráficos - Alertas Diários</span></a>
+						<span id="nv-chart-day">Gráficos - Alertas Diários</span></a>
 				</li>
 				<li>
 					<a class="enable_menu" href="/app/dashboard/alerts/legal/amazon/daily/" id="toDailyChart-amz" title="Abrir o painel de alertas diários para a Amazônia Legal." aria-expanded="false">
@@ -82,7 +82,7 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#graficos" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">dashboard</i><span id="nv-chart-agg">Gráficos - Agregado de Alertas</span></a>
+						<span id="nv-chart-agg">Gráficos - Agregado de Alertas</span></a>
 				</li>
 				
 				<li>
@@ -99,7 +99,7 @@
 				<li class="active">
 					<!-- manter active no primeiro -->
 					<a href="#ferramentas" data-toggle="collapse" aria-expanded="true">
-						<i class="material-icons">build</i><span id="tools">Ferramentas</span></a>
+						<span id="tools">Ferramentas</span></a>
 				</li>
 				<li>
 					<a href="#modal-container-download" id="downloadBtn" data-toggle="modal" title="Baixar a tabela de alertas de desmatamento.">
@@ -131,12 +131,21 @@
 			<a class="navbar-brand" href="http://terrabrasilis.dpi.inpe.br/"><span class="amarelo">Terra</span><span class="verde">Brasilis</span></a>
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link" href="#" id="header-panel">| Alertas</a>
+					<a class="nav-item nav-link" href="#" id="header-panel">| DETER (Alertas)</a>
 				</div>
 				<ul class="navbar-nav navbar-right analises">
 					<li class="nav-item dropdown">
+						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button">
+							<i class="material-icons iconmobile">assignment </i><span id="maps-sup">Mapas</span>
+						</a>
+						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu">
+							<a class="dropdown-item" target="_blank" href="/app/map/deforestation/"><i class="material-icons iconmenu">nature</i><span id="map-des">PRODES (Desmatamento)</span></a>
+							<a class="dropdown-item" target="_blank" href="/app/map/alerts/"><i class="material-icons iconmenu">warning</i><span id="map-war">DETER (Alertas)</span></a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
 						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button"> 
-							<i class="material-icons iconmobile">assignment </i><span id="analysis-sup">Análises</span>
+							<i class="material-icons iconmobile">assignment </i><span id="analysis-sup">Gráficos</span>
 						</a>
 						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu">
 							<a class="dropdown-item" target="_blank" href="/app/dashboard/deforestation/biomes/amazon/increments">
@@ -192,18 +201,19 @@
 		<div id="charts-panel">
 
 			<div class="all-charts-title boxtitlepanel">
+
 				<span id="title-chart">Análise - Amazônia Legal</span>
-				<div class="swap-data-dimension">
-					<div class="box-swap-data">
-						<span style="font-size: smaller;">Alternar visualização: </span>
-						<input id="radio-area" class="input_radio" title="Ver gráficos com base no somatório de áreas em km²."
-						name="set_dim" type="radio" onclick="graph.setDataDimension('area');" checked="checked">
-						<span style="font-size: smaller;">Área dos alertas (km²)</span>
-						<input id="radio-alerts" class="input_radio" title="Ver gráficos com base na contagem do número de alertas."
-						name="set_dim" type="radio" onclick="graph.setDataDimension('alert');">
-						<span style="font-size: smaller;">Número de alertas</span>
+				<div class="row selectradio selectradio_more">
+					<div class="selectradio-success" id="radio-area" title="Ver gráficos com base no somatório de áreas em km².">
+						<input checked="checked" type="radio" name="set_dim" id="radioarea" onclick="graph.setDataDimension('area');"/>
+						<label for="radioarea" id="area_alertas"> Área dos alertas (km²)</label>
+					</div>
+					<div class="selectradio-success" id="radio-alerts" title="Ver gráficos com base na contagem do número de alertas.">
+						<input type="radio" name="set_dim" id="radioalerts" onclick="graph.setDataDimension('alert');" />
+						<label for="radioalerts" id="num_alerts"> Número de alertas</label>
 					</div>
 				</div>
+
 			</div>
 
 			<!-- Start the filter bar -->
