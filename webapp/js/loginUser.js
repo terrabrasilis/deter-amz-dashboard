@@ -25,34 +25,39 @@ $(document).ready(function () {
             document.getElementById("goto_modal_logout").innerHTML=msg;
             $('#goto_modal_login').hide();
             $('#goto_modal_logout').show();
+            
+            // Hide the DETER data not updated and show the newest. In this case show a message
+            $('#charts-painel').hide();
+            $('#loading_data_info').hide();
+            $('#info_container').show();
+            $('#panel_container').hide();
+            $('#warning_data_info').show();
+            $('#radio-area').hide();
+            $('#radio-alerts').hide();
+
+            // //verify user
+            // $.ajax("http://brazildatacube.dpi.inpe.br/oauth/users/", {
+            //     type: "GET",
+            //     data: "5d4b2d3442fb78c6b702eea1",
+            //     // contentType: "application/json",
+            //     Authorization: "Bearer " + myToken,
+            // }).done(function (data) {
+            //     myToken=data.access_token;
+            //     Token.change(myToken); 
+            //     console.log("User finded: ", data);
+            //     msg=user+ " Logout";
+            //     document.getElementById("goto_modal_logout").innerHTML=msg;
+            //     $('#goto_modal_login').hide();
+            //     $('#goto_modal_logout').show();
+            // }).fail(function (xhr, status, error) {
+            //     console.log("User does not exist");
+            //     console.log("Could not reach the API: " + error);
+            // });    
+
         }).fail(function (xhr, status, error) {
             console.log("Could not reach the API: " + error);
         });
         });
-
-        //  //verify user
-        //  $.ajax("brazildatacube.dpi.inpe.br/oauth/users/", {
-        //     type: "GET",
-        //     data: JSON.stringify({
-        //         username: "username",
-        //         password: "password"
-        //     }),
-        //     contentType: "application/json",
-        //     Authorization: "Bearer " + myToken,
-        // }).done(function (data) {
-        //     // console.log(data);
-        //     //myToken=data.access_token;
-        //     // console.log(myToken);
-        //     //Token.change(myToken); 
-        //     msg=user+ " Logout";
-        //     document.getElementById("goto_modal_logout").innerHTML=msg;
-        //     $('#goto_modal_login').hide();
-        //     $('#goto_modal_logout').show();
-        // }).fail(function (xhr, status, error) {
-        //     console.log("User does not exist");
-        //     console.log("Could not reach the API: " + error);
-        // });
-
 
     $("#goto_modal_logout").click(function(){
         $('#goto_modal_login').show();
@@ -60,6 +65,9 @@ $(document).ready(function () {
 
         console.log("Logging out.");
         Token.change("myLoginToken"); 
+
+        // Show the DETER data not updated
+        window.onload();
     });
 
    
