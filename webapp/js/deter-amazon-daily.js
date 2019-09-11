@@ -53,6 +53,7 @@ var graph={
 		}
 		
 		Lang.apply();
+		Token.apply();
 		
 		graph.setConfigurations(config.dataConfig);
 
@@ -906,21 +907,22 @@ var graph={
 	        // and stop event from bubbling
 	        return false;
 	    });
-	}
-	
+	},
 };
 
 window.onload=function(){
 	graph.configurePrintKeys();
 	Lang.init();
-	
+	Token.init();
+	$('#goto_modal_logout').hide();
+		
 	// starting in standalone mode
 	if(!window.parent.gxp) {
 		var afterLoadConfiguration=function(cfg) {
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
-			//var dataUrl = "./data/deter-amazon-daily.json";
+			// var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
+			var dataUrl = "./data/deter-amazon-daily.json";
 			var afterLoadData=function(json) {
 				Lang.apply();
 				if(!json || !json.features) {

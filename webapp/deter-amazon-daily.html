@@ -167,6 +167,16 @@
 						</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="#modal-container-login" id="goto_modal_login" data-toggle="modal" title="Login.">
+							<i class="material-icons iconmobile">login</i><span id="login-sup">Login</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#modal-container-logout" id="goto_modal_logout" data-toggle="modal" title="Logout." >
+							<i class="material-icons iconmobile">logout</i><span id="login-sup">Logout</span>
+						</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="#">
 							<img id="flag-pt-br" alt="Bandeira Brasil" class="bandeira" src="img/br.svg" onclick="Lang.change('pt-br');"
 							 title="Alterar o idioma do painel para Português do Brasil.">
@@ -916,6 +926,88 @@
 	</div>
 	<!-- / modal -->
 
+	<!-- modal window with login panel -->
+	<div class="modal fade" id="modal-container-login">
+		<div class="modal-dialog">
+			<div class="modal-content modalinf">
+				<div class="modal-header fechar">
+					<h5 class="modal-title boxtitletable"> <span id="txt1c">Login de usuário para ver dados atualizados!</span></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+				</div>
+				<!-- / modal-header -->
+				<div class="modal-body ">
+					<div class="alert alert-success" role="alert">
+						<span id="txt1d">Insira usuário e senha</span>
+					</div>
+					<div id="container">       
+					<form id=userParameters>
+						<label for="username">Username:</label>
+						<input type="text" id="username" name="username">
+						<label for="password">Password:</label>
+						<input type="password" id="password" name="password">
+						<div id="lower">
+						<!-- <input type="checkbox"><label for="checkbox">Keep me logged in</label> -->
+						<button type="button" data-dismiss="modal" id="submitLogin">
+							<span id="LoginInfo">Login</span>
+						</button>
+						<!-- <input type="submit" value="Login" id=submitLogin> -->
+						</div><!--/ lower-->
+					</form>
+					</div>
+				</div>
+
+				<!-- / modal-body -->
+				<div class="modal-footer">
+					<div class="checkbox pull-right">
+						<label>
+							<button type="button" class="btn btngreen" data-dismiss="modal">
+								<span id="txt1e">Fechar</span>
+							</button>
+						</label>
+					</div>
+					<!--/ checkbox -->
+				</div>
+				<!--/ modal-footer -->
+			</div>
+			<!-- / modal-content -->
+		</div>
+		<!--/ modal-dialog -->
+	</div>
+	<!-- / modal -->
+
+	<!-- modal window with logout panel -->
+	<div class="modal fade" id="modal-container-logout">
+		<div class="modal-dialog">
+			<div class="modal-content modalinf">
+				<div class="modal-header fechar">
+					<h5 class="modal-title boxtitletable"> <span id="txt1c">Logout</span></h5>
+					<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button> -->
+				</div>
+				<!-- / modal-header -->
+				<div class="modal-body ">
+					<div class="alert alert-success" role="alert">
+						<span id="txt1d">Logout realizado.</span>
+					</div>
+				</div>
+				<!-- / modal-body -->
+				<div class="modal-footer">
+					<div class="checkbox pull-right">
+						<label>
+							<button type="button" class="btn btngreen" data-dismiss="modal">
+								<span id="txt1e">Fechar</span>
+							</button>
+						</label>
+					</div>
+					<!--/ checkbox -->
+				</div>
+				<!--/ modal-footer -->
+			</div>
+			<!-- / modal-content -->
+		</div>
+		<!--/ modal-dialog -->
+	</div>
+	<!-- / modal -->
+
 	<!-- modal window to display the email contact -->
 	<div class="modal fade" id="modal-container-contact">
 		<div class="modal-dialog">
@@ -1020,6 +1112,10 @@
 	<script type="text/javascript" src="./js/deter-amazon-daily.js"></script>
 	<script type="text/javascript" src="./js/mun-search-engine.js"></script>
 	<script type="text/javascript" src="./js/easy-cookie.js"></script>
+
+	<script type="text/javascript" src="./js/loginToken.js"></script>
+	<script type="text/javascript" src="./js/loginUser.js"></script>
+
 	<script type="text/javascript">
 		$("#notice").click(function () {
 			EasyCookie.create("firstNotice", "Not show modal again", 30);
