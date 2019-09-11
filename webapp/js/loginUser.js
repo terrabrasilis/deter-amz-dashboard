@@ -3,19 +3,19 @@ $(document).ready(function () {
     var myToken = null;
     var user = null;
     var msg = null;
+    
+    // read file.json with credential of login in format: {"username":"name_admin","password":"pass_admin"}
+    var json =  $.getJSON("./data/tokenLogin.json");
 
     // get token
     $("#submitLogin").click(function(){
         console.log("Logging in.");
         user = document.getElementById('username').value;
         // console.log("user: ", user);
-
+    
         $.ajax("http://brazildatacube.dpi.inpe.br/oauth/auth/login", {
             type: "POST",
-            data: JSON.stringify({
-                username: "adelinemaciel",
-                password: "terra#01"
-            }),
+            data: json.responseText,
             contentType: "application/json",
         }).done(function (data) {
             // get token, put in local storage and change logout text by name + Logout
