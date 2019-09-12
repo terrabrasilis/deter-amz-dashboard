@@ -942,12 +942,12 @@
 					<div id="container">       
 					<form id=userParameters>
 						<label for="username">Username:</label>
-						<input type="text" id="username" name="username"  required>
+						<input type="text" id="username" name="username" onfocus="this.value=''" required>
 						<label for="password">Password:</label>
-						<input type="password" id="password" name="password" required>
+						<input type="password" id="password" name="password" onfocus="this.value=''" required>
 						<div id="lower">
 						<!-- <input type="checkbox"><label for="checkbox">Keep me logged in</label> -->
-						<button type="button" data-dismiss="modal" id="submitLogin">
+						<button type="submit" class="btn btngreen" data-dismiss="modal" id="submitLogin">
 							<span id="loginText">Login</span>
 						</button>
 						<!-- <input type="submit" value="Login" id=submitLogin> -->
