@@ -934,7 +934,7 @@ window.onload=function(){
 			.header("Authorization", "Bearer "+Token.getFromLocalStorage())
 			.get(function(error, root) {
 				if(error && error.status==401) {
-					//localStorage.removeItem("logintoken");
+					Token.removeFromLocalStorage();
 				}else{
 					afterLoadData(root);
 				}

@@ -14,7 +14,15 @@ var Token={
 			this.logintoken=newtoken;
 		}
 		this.apply();
-	},
+  },
+  
+  removeFromLocalStorage: function() {
+    if (typeof(Storage) !== "undefined") {
+      localStorage.removeItem("logintoken");
+    } else {
+        console.log("Sorry! No Web Storage support..");
+    }
+  },
 
   // set local storage
 	setInLocalStorage:function() {
