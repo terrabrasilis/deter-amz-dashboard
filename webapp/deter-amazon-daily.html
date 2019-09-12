@@ -168,12 +168,12 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#modal-container-login" id="goto_modal_login" data-toggle="modal" title="Login.">
-							<i class="material-icons iconmobile">login</i><span id="login-sup">Login</span>
+							<i class="material-icons iconmobile">entrar</i><span id="login_sup">Entrar</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#modal-container-logout" id="goto_modal_logout" data-toggle="modal" title="Logout." >
-							<i class="material-icons iconmobile">logout</i><span id="login-sup">Logout</span>
+							<i class="material-icons iconmobile">logout</i><span id="logout_sup">Sair</span>
 						</a>
 					</li>
 					<li class="nav-item">
@@ -931,24 +931,24 @@
 		<div class="modal-dialog">
 			<div class="modal-content modalinf">
 				<div class="modal-header fechar">
-					<h5 class="modal-title boxtitletable"> <span id="txt1c">Login de usuário para ver dados atualizados!</span></h5>
+					<h5 class="modal-title boxtitletable"> <span id="txt14">Login de usuário para ver dados atualizados!</span></h5>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
 				</div>
 				<!-- / modal-header -->
 				<div class="modal-body ">
 					<div class="alert alert-success" role="alert">
-						<span id="txt1d">Insira usuário e senha</span>
+						<span id="txt14a">Insira nome de usuário e senha</span>
 					</div>
 					<div id="container">       
 					<form id=userParameters>
-						<label for="username">Username:</label>
+						<label id="txt14b", for="username">Usuário:</label>
 						<input type="text" id="username" name="username" onfocus="this.value=''" required>
-						<label for="password">Password:</label>
+						<label id="txt14c", for="password">Senha:</label>
 						<input type="password" id="password" name="password" onfocus="this.value=''" required>
 						<div id="lower">
 						<!-- <input type="checkbox"><label for="checkbox">Keep me logged in</label> -->
 						<button type="submit" class="btn btngreen" data-dismiss="modal" id="submitLogin">
-							<span id="loginText">Login</span>
+							<span id="txt14d">Entrar</span>
 						</button>
 						<!-- <input type="submit" value="Login" id=submitLogin> -->
 						</div><!--/ lower-->
@@ -980,13 +980,13 @@
 		<div class="modal-dialog">
 			<div class="modal-content modalinf">
 				<div class="modal-header fechar">
-					<h5 class="modal-title boxtitletable"> <span id="txt1c">Logout</span></h5>
+					<h5 class="modal-title boxtitletable"> <span id="txt14e">Sair</span></h5>
 					<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button> -->
 				</div>
 				<!-- / modal-header -->
 				<div class="modal-body ">
 					<div class="alert alert-success" role="alert">
-						<span id="txt1d">Logout realizado.</span>
+						<span id="txt14f">Logout realizado.</span>
 					</div>
 				</div>
 				<!-- / modal-body -->
@@ -1013,13 +1013,13 @@
 		<div class="modal-dialog">
 			<div class="modal-content modalinf">
 				<div class="modal-header fechar">
-					<h5 class="modal-title boxtitletable"> <span id="txt1c">Aviso</span></h5>
+					<h5 class="modal-title boxtitletable"> <span id="txt14g">Aviso</span></h5>
 					<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button> -->
 				</div>
 				<!-- / modal-header -->
 				<div class="modal-body ">
 					<div class="alert alert-warning" role="alert">
-						<span id="txt1d">O nome de usuário ou senha está incorreto. Verifique se CAPS LOCK está ativado. Se você receber essa mensagem novamente, entre em contato com o administrador do sistema para garantir que você tenha permissão para logar no portal.</span>
+						<span id="txt14h">O nome de usuário ou senha está incorreto. Verifique se CAPS LOCK está ativado. Se você receber essa mensagem novamente, entre em contato com o administrador do sistema para garantir que você tenha permissão para logar no portal.</span>
 					</div>
 				</div>
 				<!-- / modal-body -->
