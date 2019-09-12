@@ -53,7 +53,6 @@ var graph={
 		}
 		
 		Lang.apply();
-		Token.apply();
 		
 		graph.setConfigurations(config.dataConfig);
 
@@ -913,7 +912,6 @@ var graph={
 window.onload=function(){
 	graph.configurePrintKeys();
 	Lang.init();
-	Token.init();
 	$('#goto_modal_logout').hide();
 		
 	// starting in standalone mode

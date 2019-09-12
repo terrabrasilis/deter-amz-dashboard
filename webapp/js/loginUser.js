@@ -3,32 +3,8 @@ $(document).ready(function () {
     var myToken = null;
     var user = null;
     var msg = null;
-    
-    // read file.json with credential of login in format: {"username":"name_admin","password":"pass_admin"}
-    var json =  $.getJSON("./data/tokenLogin.json");
-
+   
     var attempt = 3; // Count number of attempts.
-    // Verify if user and password are correct
-    function validateUser(user, pass){
-        var username = user; 
-        var password = pass; 
-        if ( username == "user1" && password == "user#123"){
-            loginUser(username);
-            alert ("Login com sucesso!");
-            return true;
-        }else{
-            attempt --;// Decrementing by one.
-            alert("Você tem "+attempt+" tentativas. O nome de usuário ou senha está incorreta. Verifique se CAPS LOCK não está ativado. Se você receber essa mensagem novamente, entre em contato com o administrador do sistema para garantir que você tenha as permissões corretas para logar no ambiente.");
-            // Disabling fields after 3 attempts.
-            if( attempt === 0){
-                attempt = 1;
-                document.getElementById("username").disabled = true;
-                document.getElementById("password").disabled = true;
-                document.getElementById("submit").disabled = true;
-            return false;
-            }
-        }
-    }    
     
     function loginUser(){    
         // get token
@@ -37,11 +13,6 @@ $(document).ready(function () {
             user = document.getElementById('username').value;
             var pass = document.getElementById("password").value;
             
-            // verify if user is valide
-            var result = validateUser(user, pass);
-            if (result == true){
-                attempt = 3; // restart number of attempts
-
                 console.log("Logging in.");
 
                 //user = uername;
@@ -49,7 +20,10 @@ $(document).ready(function () {
             
                 $.ajax("http://brazildatacube.dpi.inpe.br/oauth/auth/login", {
                     type: "POST",
-                    data: json.responseText,
+                    data: JSON.stringify({
+                        username: user,
+                        password: pass
+                    }),
                     contentType: "application/json",
                 }).done(function (data) {
                     // get token, put in local storage and change logout text by name + Logout
@@ -71,30 +45,18 @@ $(document).ready(function () {
                     $('#radio-area').hide();
                     $('#radio-alerts').hide();
 
-                    // //verify user
-                    // $.ajax("http://brazildatacube.dpi.inpe.br/oauth/users/", {
-                    //     type: "GET",
-                    //     data: "5d4b2d3442fb78c6b702eea1",
-                    //     // contentType: "application/json",
-                    //     Authorization: "Bearer " + myToken,
-                    // }).done(function (data) {
-                    //     myToken=data.access_token;
-                    //     Token.change(myToken); 
-                    //     console.log("User finded: ", data);
-                    //     msg=user+ " Logout";
-                    //     document.getElementById("goto_modal_logout").innerHTML=msg;
-                    //     $('#goto_modal_login').hide();
-                    //     $('#goto_modal_logout').show();
-                    // }).fail(function (xhr, status, error) {
-                    //     console.log("User does not exist");
-                    //     console.log("Could not reach the API: " + error);
-                    // });    
-
                 }).fail(function (xhr, status, error) {
+                    attempt --;// Decrementing by one.
                     console.log("Could not reach the API: " + error);
+                    alert("Você tem "+attempt+" tentativas. O nome de usuário ou senha está incorreta. Verifique se CAPS LOCK não está ativado. Se você receber essa mensagem novamente, entre em contato com o administrador do sistema para garantir que você tenha as permissões corretas para logar no ambiente.");
+                    if( attempt === 0){
+                        attempt = 1;
+                        document.getElementById("username").disabled = true;
+                        document.getElementById("password").disabled = true;
+                        document.getElementById("submit").disabled = true;
+                    return false;
+                    }
                 });
-            }else{
-                }
         });
     }
 
@@ -111,7 +73,7 @@ $(document).ready(function () {
         });
     }
    
-    // init by login user
+    // init by login user function
     loginUser();
 
 });  
