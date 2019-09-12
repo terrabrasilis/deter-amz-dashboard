@@ -81,8 +81,8 @@ var graph={
 	},
 
 	loadUpdatedDate: function() {
-		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
-		//var url="./data/updated-date.json";
+		//var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
+		var url="./data/updated-date.json";
 		d3.json(url, (json) => {
 			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
 			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
@@ -919,8 +919,7 @@ window.onload=function(){
 		var afterLoadConfiguration=function(cfg) {
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			// var dataUrl = "http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter_public_d.json";
-			var dataUrl = "./data/deter-amazon-daily.json";
+			var dataUrl = "http://terrabrasilis.dpi.inpe.br/file-delivery/download/deter-amz/daily";
 			var afterLoadData=function(json) {
 				Lang.apply();
 				if(!json || !json.features) {
@@ -929,7 +928,15 @@ window.onload=function(){
 					graph.init(configDashboard, json.features);
 				}
 			};
-			d3.json(dataUrl, afterLoadData);
+			d3.json(dataUrl)
+			.header("Authorization", "Bearer "+Token.getFromLocalStorage())
+			.get(function(error, root) {
+				if(error && error.status==401) {
+					//localStorage.removeItem("logintoken");
+				}else{
+					afterLoadData(root);
+				}
+			});
 		};
 		d3.json("./config/deter-amazon-daily.json", afterLoadConfiguration);
 	}

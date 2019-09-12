@@ -28,7 +28,7 @@ var Token={
   // get value in local storage
   getFromLocalStorage:function() {
     if (typeof(Storage) !== "undefined") {
-      var logintk=localStorage.getItem("logintk");
+      var logintk=localStorage.getItem("logintoken");
       // console.log(logintk);
       if(!logintk) {
         logintk = this.logintoken;
