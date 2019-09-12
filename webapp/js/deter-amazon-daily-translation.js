@@ -63,6 +63,18 @@ var Translation={
 		'num_alerts':'Número de alertas',
 		'area_alertas': 'Área dos alertas (km²)',
 
+		'login_sup': 'Entrar',
+		'logout_sup': 'Sair',
+		'txt14': 'Login de usuário para ver dados atualizados!',
+		'txt14a': 'Insira nome de usuário e senha',
+		'txt14b': 'Usuário',
+		'txt14c': 'Senha',
+		'txt14d': 'Entrar',
+		'txt14e': 'Sair',
+		'txt14f': 'Logout realizado.',
+		'txt14g': 'Aviso',
+		'txt14h': 'O nome de usuário ou senha está incorreto. Verifique se CAPS LOCK está ativado. Se você receber essa mensagem novamente, entre em contato com o administrador do sistema para garantir que você tenha permissão para logar no portal.',
+
 		/* titles for HTML entities */
 		'aggregate_monthly':'Alternar para o painel de consulta agregada mensal.',
 		'modal-718053':'Baixar os dados com granularidade diária.',
@@ -226,6 +238,18 @@ var Translation={
 		'degrad_defor': 'Deforestation and degradation',
 		'num_alerts': 'Number of Alerts',
 		'area_alertas': 'Alerts area (km²)',
+
+		'login_sup': 'Login',
+		'logout_sup': 'Logout',
+		'txt14': 'User login to see the newest data!',
+		'txt14a': 'Insert username and password',
+		'txt14b': 'Username',
+		'txt14c': 'Password',
+		'txt14d': 'Login',
+		'txt14e': 'Logout',
+		'txt14f': 'Logout done.',
+		'txt14g': 'Warning',
+		'txt14h': 'The username or password is wrong. Verify if CAPS LOCK is enable. If you receive this message again, please contact the system administrator to ensure that you have permission to login in portal.',
 
 		/* titles for HTML entities */
 		'aggregate_monthly':'Exchange by the monthly aggregation analysis panel.',
