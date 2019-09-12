@@ -1,12 +1,12 @@
 var Token={
   logintoken:undefined,
   // init local storage with a fake token
-  // init:function() {
-	// 	this.logintoken=this.getFromLocalStorage();
-	// 	if(!this.logintoken) {
-	// 		  this.logintoken='myLoginToken';
-	// 	}
-  // },
+  init:function() {
+		this.logintoken=this.getFromLocalStorage();
+		if(!this.logintoken) {
+			  this.logintoken='';
+		}
+  },
   
   // change value of token when to perform login
   change:function(newtoken) {

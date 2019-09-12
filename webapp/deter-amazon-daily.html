@@ -944,11 +944,11 @@
 						<label for="username">Username:</label>
 						<input type="text" id="username" name="username"  required>
 						<label for="password">Password:</label>
-						<input type="password" id="password" name="password" minlength="8"  required>
+						<input type="password" id="password" name="password" required>
 						<div id="lower">
 						<!-- <input type="checkbox"><label for="checkbox">Keep me logged in</label> -->
 						<button type="button" data-dismiss="modal" id="submitLogin">
-							<span id="LoginInfo">Login</span>
+							<span id="loginText">Login</span>
 						</button>
 						<!-- <input type="submit" value="Login" id=submitLogin> -->
 						</div><!--/ lower-->
@@ -987,6 +987,39 @@
 				<div class="modal-body ">
 					<div class="alert alert-success" role="alert">
 						<span id="txt1d">Logout realizado.</span>
+					</div>
+				</div>
+				<!-- / modal-body -->
+				<div class="modal-footer">
+					<div class="checkbox pull-right">
+						<label>
+							<button type="button" class="btn btngreen" data-dismiss="modal">
+								<span id="txt1e">Fechar</span>
+							</button>
+						</label>
+					</div>
+					<!--/ checkbox -->
+				</div>
+				<!--/ modal-footer -->
+			</div>
+			<!-- / modal-content -->
+		</div>
+		<!--/ modal-dialog -->
+	</div>
+	<!-- / modal -->
+
+	<!-- modal window with login warning panel -->
+	<div class="modal fade" id="modal-container-warning">
+		<div class="modal-dialog">
+			<div class="modal-content modalinf">
+				<div class="modal-header fechar">
+					<h5 class="modal-title boxtitletable"> <span id="txt1c">Aviso</span></h5>
+					<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button> -->
+				</div>
+				<!-- / modal-header -->
+				<div class="modal-body ">
+					<div class="alert alert-warning" role="alert">
+						<span id="txt1d">O nome de usuário ou senha está incorreto. Verifique se CAPS LOCK está ativado. Se você receber essa mensagem novamente, entre em contato com o administrador do sistema para garantir que você tenha permissão para logar no portal.</span>
 					</div>
 				</div>
 				<!-- / modal-body -->
