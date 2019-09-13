@@ -875,7 +875,18 @@ var graph={
 				});
 		    	graph.utils.download(data);
 	    	}, 200);
-	    });
+		});
+		
+		// shapefile 
+		d3.select('#download-shp')
+		.on('click', function() {
+			var dt=new Date();
+			dt=dt.toLocaleDateString() +'_'+ dt.toLocaleTimeString();
+			dt=dt.split('/').join('_');
+			var blob = new Blob([d3.csv.format(graph.data)], {type: "text/csv;charset=utf-8"});
+			saveAs(blob, 'deter_shapefile_'+dt+'.zip');
+		});
+
 		d3.select('#download-filter')
 		.on('click', function() {
 			console.log('Implementar download com filtros.');
