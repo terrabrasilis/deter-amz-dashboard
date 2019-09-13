@@ -166,16 +166,7 @@
 							<i class="material-icons iconmobile">help</i><span id="help-sup">Ajuda</span>
 						</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#modal-container-login" id="goto_modal_login" data-toggle="modal" title="Login.">
-							<i class="material-icons iconmobile">entrar</i><span id="login_sup">Entrar</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#modal-container-logout" id="goto_modal_logout" data-toggle="modal" title="Logout." >
-							<i class="material-icons iconmobile">logout</i><span id="logout_sup">Sair</span>
-						</a>
-					</li>
+					
 					<li class="nav-item">
 						<a class="nav-link" href="#">
 							<img id="flag-pt-br" alt="Bandeira Brasil" class="bandeira" src="img/br.svg" onclick="Lang.change('pt-br');"
@@ -222,6 +213,24 @@
 						<input type="radio" name="set_dim" id="radioalerts" onclick="graph.setDataDimension('alert');" />
 						<label for="radioalerts" id="num_alerts"> Número de alertas</label>
 					</div>
+				</div>
+
+				<!-- Login -->
+				<div class="row login_box">
+					<div id="login_box" class="form-inline">
+						<label class="sr-only" for="username">login</label>
+						<input type="text" class="form-control form-control-sm" id="username" placeholder="Username">
+						<label class="sr-only" for="password">******</label>
+						<input type="password" class="form-control form-control-sm" id="password" placeholder="Password">
+						<button id="submitLogin" class="btn btn-primary btn-sm mb-2">Login</button>
+					</div>
+					<div id="logout_box" class="form-inline">
+						<span id="loggedLabel" style="padding-right: 5px;">Acesso especial</span>
+						<button id="submitLogout" class="btn btn-primary btn-sm mb-2">Logout</button>
+					</div>
+				</div>
+				<div id="expired_token_box" class="alert alert-warning" role="alert">
+					<span id="expired_token">Seu login expirou. Para voltar a ver os dados mais recentes, faça login novamente.</span>
 				</div>
 
 			</div>
@@ -907,88 +916,6 @@
 					</div>
 				</div>
 
-				<!-- / modal-body -->
-				<div class="modal-footer">
-					<div class="checkbox pull-right">
-						<label>
-							<button type="button" class="btn btngreen" data-dismiss="modal">
-								<span id="txt1e">Fechar</span>
-							</button>
-						</label>
-					</div>
-					<!--/ checkbox -->
-				</div>
-				<!--/ modal-footer -->
-			</div>
-			<!-- / modal-content -->
-		</div>
-		<!--/ modal-dialog -->
-	</div>
-	<!-- / modal -->
-
-	<!-- modal window with login panel -->
-	<div class="modal fade" id="modal-container-login">
-		<div class="modal-dialog">
-			<div class="modal-content modalinf">
-				<div class="modal-header fechar">
-					<h5 class="modal-title boxtitletable"> <span id="txt14">Login de usuário para ver dados atualizados!</span></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
-				</div>
-				<!-- / modal-header -->
-				<div class="modal-body ">
-					<div class="alert alert-success" role="alert">
-						<span id="txt14a">Insira nome de usuário e senha</span>
-					</div>
-					<div id="container">       
-					<form id=userParameters>
-						<label id="txt14b", for="username">Usuário:</label>
-						<input type="text" id="username" name="username" onfocus="this.value=''" required>
-						<label id="txt14c", for="password">Senha:</label>
-						<input type="password" id="password" name="password" onfocus="this.value=''" required>
-						<div id="lower">
-						<!-- <input type="checkbox"><label for="checkbox">Keep me logged in</label> -->
-						<button type="submit" class="btn btngreen" data-dismiss="modal" id="submitLogin">
-							<span id="txt14d">Entrar</span>
-						</button>
-						<!-- <input type="submit" value="Login" id=submitLogin> -->
-						</div><!--/ lower-->
-					</form>
-					</div>
-				</div>
-
-				<!-- / modal-body -->
-				<div class="modal-footer">
-					<div class="checkbox pull-right">
-						<label>
-							<button type="button" class="btn btngreen" data-dismiss="modal">
-								<span id="txt1e">Fechar</span>
-							</button>
-						</label>
-					</div>
-					<!--/ checkbox -->
-				</div>
-				<!--/ modal-footer -->
-			</div>
-			<!-- / modal-content -->
-		</div>
-		<!--/ modal-dialog -->
-	</div>
-	<!-- / modal -->
-
-	<!-- modal window with logout panel -->
-	<div class="modal fade" id="modal-container-logout">
-		<div class="modal-dialog">
-			<div class="modal-content modalinf">
-				<div class="modal-header fechar">
-					<h5 class="modal-title boxtitletable"> <span id="txt14e">Sair</span></h5>
-					<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button> -->
-				</div>
-				<!-- / modal-header -->
-				<div class="modal-body ">
-					<div class="alert alert-success" role="alert">
-						<span id="txt14f">Logout realizado.</span>
-					</div>
-				</div>
 				<!-- / modal-body -->
 				<div class="modal-footer">
 					<div class="checkbox pull-right">

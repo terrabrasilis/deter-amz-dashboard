@@ -202,7 +202,27 @@
 		
 
 		<div id="charts-panel">
-			<div class="all-charts-title boxtitlepanel" id="txt15">Análise - Amazônia Legal</div>
+			<div class="all-charts-title boxtitlepanel">
+				<div id="txt15">Gráfico - Amazônia Legal</div>
+				<!-- Login -->
+				<div class="row login_box" style="top: -7px;">
+					<div id="login_box" class="form-inline">
+						<label class="sr-only" for="username">login</label>
+						<input type="text" class="form-control form-control-sm" id="username" placeholder="Username">
+						<label class="sr-only" for="password">******</label>
+						<input type="password" class="form-control form-control-sm" id="password" placeholder="Password">
+						<button id="submitLogin" class="btn btn-primary btn-sm mb-2">Login</button>
+					</div>
+					<div id="logout_box" class="form-inline">
+						<span id="loggedLabel" style="padding-right: 5px;">Acesso especial</span>
+						<button id="submitLogout" class="btn btn-primary btn-sm mb-2">Logout</button>
+					</div>
+				</div>
+				<div id="expired_token_box" class="alert alert-warning" role="alert">
+					<span id="expired_token">Seu login expirou. Para voltar a ver os dados mais recentes, faça login novamente.</span>
+				</div>
+			</div>
+			
 			
 			<!-- Start the filter bar -->
 			<div class="row box">
@@ -966,6 +986,8 @@
 	<script type="text/javascript" src="./js/deter-amazon-change-lang.js"></script>
 	<script type="text/javascript" src="./js/deter-amazon-aggregated.js"></script>
 	<script type="text/javascript" src="./js/easy-cookie.js"></script>
+	<script type="text/javascript" src="./js/loginToken.js"></script>
+	<script type="text/javascript" src="./js/loginUser.js"></script>
 	<script type="text/javascript">
 		$("#notice").click(function () {
 			EasyCookie.create("firstNotice", "Not show modal again", 30);

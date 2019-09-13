@@ -1,55 +1,58 @@
 var Token={
-  logintoken:undefined,
-  // init local storage with a fake token
-  init:function() {
-		this.logintoken=this.getFromLocalStorage();
-		if(!this.logintoken) {
-			  this.logintoken='';
-		}
+  tokenKey:"login_token",
+  expiredKey: "expired_token",
+  
+  hasToken() {
+    var token=this.getValueByKey(this.tokenKey);
+    return (token && token!="");
   },
   
-  // change value of token when to perform login
-  change:function(newtoken) {
-		if(newtoken!==undefined) {
-			this.logintoken=newtoken;
-		}
-		this.apply();
-  },
-  
-  removeFromLocalStorage: function() {
-    if (typeof(Storage) !== "undefined") {
-      localStorage.removeItem("logintoken");
-    } else {
-        console.log("Sorry! No Web Storage support..");
-    }
+  removeToken() {
+    this.setKey(this.tokenKey,null);
   },
 
-  // set local storage
-	setInLocalStorage:function() {
-    if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("logintoken", this.logintoken);
-    } else {
-        console.log("Sorry! No Web Storage support..");
-    }
+  getToken() {
+    return this.getValueByKey(this.tokenKey);
   },
 
-  // get value in local storage
-  getFromLocalStorage:function() {
+  setToken(value) {
+    this.setKey(this.tokenKey,value);
+  },
+
+  isExpiredToken() {
+    return this.getValueByKey(this.expiredKey)==="true";
+  },
+
+  setExpiredToken(state) {
+    this.setKey(this.expiredKey,state);
+  },
+
+  /**
+   * Set a new value for the specified key.
+   * To remove one key, set the value with null or undefined
+   * 
+   * @param {string} key The name of key
+   * @param {any} value The value of key
+   */
+  setKey(key,value) {
     if (typeof(Storage) !== "undefined") {
-      var logintk=localStorage.getItem("logintoken");
-      // console.log(logintk);
-      if(!logintk) {
-        logintk = this.logintoken;
+      if(value===undefined || value===null) {
+        localStorage.removeItem(key);
+      }else{
+        localStorage.setItem(key, value);
       }
     }else {
         console.log("Sorry! No Web Storage support..");
     }
-    return logintk;
-  },
-  
-  // apply new value for local storage
-  apply:function() {
-    this.setInLocalStorage();
   },
 
+  getValueByKey(key) {
+    var value=null;
+    if (typeof(Storage) !== "undefined") {
+      value=localStorage.getItem(key);
+    }else{
+        console.log("Sorry! No Web Storage support..");
+    }
+    return value;
+  }
 }

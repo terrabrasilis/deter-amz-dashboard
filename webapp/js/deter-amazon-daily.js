@@ -53,7 +53,6 @@ var graph={
 		}
 		
 		Lang.apply();
-		Token.apply();
 		
 		graph.setConfigurations(config.dataConfig);
 
@@ -81,13 +80,46 @@ var graph={
 		}
 	},
 
+	startLoadData: function() {
+		var afterLoadConfiguration=function(cfg) {
+			graph.utils.displayLoginExpiredMessage();
+			graph.displayWaiting();
+			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
+			var dataUrl = "http://terrabrasilis.dpi.inpe.br/file-delivery/download/deter-amz/daily";
+			var afterLoadData=function(json) {
+				Lang.apply();
+				if(!json || !json.features) {
+					graph.displayWarning(true);
+				}else{
+					graph.init(configDashboard, json.features);
+				}
+			};
+			d3.json(dataUrl)
+			.header("Authorization", "Bearer "+Token.getToken())
+			.get(function(error, root) {
+				if(error && error.status==401) {
+					Token.removeToken();
+					Token.setExpiredToken(true);
+				}else{
+					afterLoadData(root);
+				}
+			});
+		};
+		d3.json("./config/deter-amazon-daily.json", afterLoadConfiguration);
+	},
+
 	loadUpdatedDate: function() {
-		//var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
-		var url="./data/updated-date.json";
-		d3.json(url, (json) => {
-			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
+		if(Token.hasToken()){
+			var dt=new Date(graph.utils.dimensions["date"].top(1)[0].timestamp);
 			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
-		});
+		}else{
+			var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
+			//var url="./data/updated-date.json";
+			d3.json(url, (json) => {
+				var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
+				d3.select("#updated_date").html(' '+dt.toLocaleDateString());
+			});
+		}
 	},
 	
 	displayWaiting: function(enable) {
@@ -215,6 +247,15 @@ var graph={
 	},
 
 	utils:{
+
+		displayLoginExpiredMessage() {
+			if(Token.isExpiredToken()){
+				d3.select('#expired_token_box').style('display','');
+			}else{
+				d3.select('#expired_token_box').style('display','none');
+			}
+		},
+
 		highlightClassFilterButtons: function(ref) {
 
 			$('#'+ref+'-classes').removeClass('disable');
@@ -484,7 +525,7 @@ var graph={
 	},
 	
 	buildCharts:function(dimensions,groups) {
-		
+
 		var alertsMaxDate = dimensions["date"].top(1),
 		alertsMinDate = dimensions["date"].bottom(1);
 		
@@ -839,23 +880,6 @@ var graph={
 		.on('click', function() {
 			console.log('Implementar download com filtros.');
 			graph.utils.downloadAll();
-			//graph.utils.setStateAnimateIcon('animateIconSHPd', true);
-			// window.setTimeout(function() {
-			// 	var fileFormat=graph.utils.getSelectedFormatFile();
-			// 	var layerName = graph.utils.dataConfig.layerName;
-			// 	var url="http://terrabrasilis.info/deterb/wms?request=GetFeature&service=wfs&version=2.0.0&outputformat="+fileFormat+
-			// 	"&typename=" + layerName + "&srsName=EPSG:4674";
-			// 	var cql=graph.getFilters();
-			// 	if(cql) {
-			// 		cql = encodeURI(cql);
-			// 		url += "&CQL_FILTER="+cql;
-			// 		var iframe=document.getElementById('fileload');
-			// 		iframe.src=url+"&VIEWPARAMS=DOWNLOAD_INTERVAL:6%20months";
-			// 	}else{
-			// 		graph.utils.downloadAll();
-			// 	}
-			// 	//window.setTimeout(function() {graph.utils.setStateAnimateIcon('animateIconSHPd', false);}, 2000);
-			// }, 200);
 		});
 		
 		d3.select('#download-all')
@@ -885,21 +909,6 @@ var graph={
 	    	window.print();
 	    });
 	},
-	// Used to update the footer position and date.
-	// addGenerationDate: function() {
-	// 	var footer_page=document.getElementById("footer_page");
-	// 	var footer_print=document.getElementById("footer_print");
-	// 	if(!footer_page || !footer_print) {
-	// 		return;
-	// 	}
-	// 	var h=( (window.document.body.clientHeight>window.innerHeight)?(window.document.body.clientHeight):(window.innerHeight - 20) );
-	// 	footer_page.style.top=h+"px";
-	// 	//footer_print.style.width=window.innerWidth+"px";
-	// 	var now=new Date();
-	// 	var footer=Translation[Lang.language].footer1+' '+now.toLocaleString()+' '+Translation[Lang.language].footer2;
-	// 	footer_page.innerHTML=footer;
-	// 	footer_print.innerHTML=footer;
-	// },
 	configurePrintKeys:function() {
 		Mousetrap.bind(['command+p', 'ctrl+p'], function() {
 	        console.log('command p or control p is disabled');
@@ -908,38 +917,13 @@ var graph={
 	        return false;
 	    });
 	},
+	restart() {
+		graph.startLoadData();
+	}
 };
 
 window.onload=function(){
 	graph.configurePrintKeys();
 	Lang.init();
-	Token.init();
-	$('#goto_modal_logout').hide();
-		
-	// starting in standalone mode
-	if(!window.parent.gxp) {
-		var afterLoadConfiguration=function(cfg) {
-			graph.displayWaiting();
-			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			var dataUrl = "http://terrabrasilis.dpi.inpe.br/file-delivery/download/deter-amz/daily";
-			var afterLoadData=function(json) {
-				Lang.apply();
-				if(!json || !json.features) {
-					graph.displayWarning(true);
-				}else{
-					graph.init(configDashboard, json.features);
-				}
-			};
-			d3.json(dataUrl)
-			.header("Authorization", "Bearer "+Token.getFromLocalStorage())
-			.get(function(error, root) {
-				if(error && error.status==401) {
-					Token.removeFromLocalStorage();
-				}else{
-					afterLoadData(root);
-				}
-			});
-		};
-		d3.json("./config/deter-amazon-daily.json", afterLoadConfiguration);
-	}
+	graph.startLoadData();
 };
