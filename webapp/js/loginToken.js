@@ -15,6 +15,7 @@ var Token={
 
     }).fail(function (xhr, status, error) {
         console.log("Could not reach the API: " + error);
+        $('#modal-container-warning').modal('show');
     });
   },
 
@@ -52,6 +53,7 @@ var Token={
 
     }).fail(function (xhr, status, error) {
         console.log("Could not reach the API: " + error);
+        $('#modal-container-warning').modal('show');
     });
   },
 

@@ -74,6 +74,13 @@ var Translation={
 		'txt28':'Sem filtros.',
 		'txt29':'Fechar',
 
+		"submitLogin":"Entrar",
+		"submitLogout":"Sair",
+		"expired_token":"Seu login expirou. Para ver os dados mais recentes, por favor faça login novamente.",
+		'txt14g': 'Aviso',
+		'txt14h': 'O nome de usuário ou senha está incorreto. Verifique se CAPS LOCK está ativado. Se você receber essa mensagem novamente, entre em contato com o administrador do sistema para garantir que você tenha permissão para logar no portal.',
+		'txt14i': 'Fechar',
+
 		/* titles for HTML entities */
 		'aggregate_daily':'Alternar para o painel de consulta de dados diários.',
 		'prepare_print':'Imprimir esta página utilizando o recurso do navegador.',
@@ -229,6 +236,13 @@ var Translation={
 		'txt27':'With filters.',
 		'txt28':'Without filters.',
 		'txt29':'Close',
+
+		"submitLogin":"Login",
+		"submitLogout":"Logout",
+		"expired_token":"Your login has expired. To see the latest data, please sign in again.",
+		'txt14g':'Warning',
+		'txt14h':'The username or password is wrong. Verify if CAPS LOCK is enable. If you receive this message again, please contact the system administrator to ensure that you have permission to login in portal.',
+		'txt14i':'Close',
 
 		/* titles for HTML entities */
 		'aggregate_daily':'Exchange by the analysis panel to daily data.',
