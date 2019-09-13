@@ -308,29 +308,25 @@ var graph={
 		this.rowTotalizedByClass = dc.rowChart("#chart-by-class", "filtra");
 		this.barAreaByYear = dc.barChart("#chart-by-year", "filtra");
 	},
+
 	loadUpdatedDate: function() {
+		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
+
 		if(Token.hasToken()){
-			var dt=new Date();
-			dt.setDate(dt.getDate()-1)
-			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
-		}else{
-			var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
-			//var url="./data/updated-date.json";
-			d3.json(url, (json) => {
-				var dt=new Date();
-				if(json){
-					dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
-				}
-				d3.select("#updated_date").html(' '+dt.toLocaleDateString());
-			});
+			url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:last_date&OUTPUTFORMAT=application%2Fjson";
 		}
+		d3.json(url, (json) => {
+			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
+			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
+		});
 	},
+
 	loadData: function(url) {
 		d3.json(url)
 		.header("Authorization", "Bearer "+Token.getToken())
 		.get(function(error, root) {
 			if(error && error.status==401) {
-				Token.removeToken();
+				Token.logout();
 				Token.setExpiredToken(true);
 			}else{
 				graph.processData(root);
@@ -910,5 +906,6 @@ window.onload=function(){
         return false;
     });
 	Lang.init();
+	loginUI.init();
 	graph.init();
 };

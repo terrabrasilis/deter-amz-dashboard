@@ -213,9 +213,18 @@
 						<input type="password" class="form-control form-control-sm" id="password" placeholder="Password">
 						<button id="submitLogin" class="btn btn-primary btn-sm mb-2">Login</button>
 					</div>
-					<div id="logout_box" class="form-inline">
-						<span id="loggedLabel" style="padding-right: 5px;">Acesso especial</span>
-						<button id="submitLogout" class="btn btn-primary btn-sm mb-2">Logout</button>
+					<div id="logout_box" class="info-card justify-content-end">
+						<img src="img/usuario.jpg" class="profile-image rounded-circle" alt="Nome do usuário">
+						<div class="info-card-text">
+							<a href="#" class="d-flex align-items-center">
+								<span class="d-inline-block">
+									<b id="userName">Nome do Usuário</b>
+								</span>
+							</a>
+							<span id="userInstitution" class="d-inline-block">Detalhe da conta</span>
+	
+						</div>
+						<button id="submitLogout" class="btn btn-primary btn-sm btn-sair btn-success">Sair</button> 
 					</div>
 				</div>
 				<div id="expired_token_box" class="alert alert-warning" role="alert">

@@ -1,6 +1,77 @@
 var Token={
+  baseURL:"http://brazildatacube.dpi.inpe.br",
   tokenKey:"login_token",
   expiredKey: "expired_token",
+  usedInfoKey: "user_info",
+
+  login(user,pass) {
+    $.ajax(this.baseURL+"/oauth/auth/login", {
+      type: "POST",
+      dataType: 'json',
+      data: '{ "username": "'+user+'","password": "'+pass+'" }',
+      contentType: "application/json",
+    }).done(function (data) {
+        Token.loadUserInfo(data.user_id,data.access_token);
+
+    }).fail(function (xhr, status, error) {
+        console.log("Could not reach the API: " + error);
+    });
+  },
+
+  loadUserInfo(userId,userToken) {
+    $.ajax(this.baseURL+"/oauth/users/"+userId, {
+      type: "GET",
+      dataType: 'json',
+      headers: {
+        "Authorization": "Bearer " + userToken
+        },
+      contentType: "application/json",
+    }).done(function (data) {
+        Token.setUserInfo(JSON.stringify(data));
+        loginUI.displayUserInfo();
+    }).fail(function (xhr, status, error) {
+        console.log("Could not reach the API: " + error);
+    });
+  },
+
+  loadAppToken(user,pass) {
+    $.ajax(this.baseURL+"/oauth/auth/token?service=terrabrasilis&scope=portal:dash:admin", {
+      type: "GET",
+      dataType: 'json',
+      headers: {
+          "Authorization": "Basic " + btoa(user + ":" + pass)
+          },
+      data: '{ "comment" }',
+      contentType: "application/json",    
+    }).done(function (data) {
+        
+        var myToken=data.access_token;
+        Token.setToken(myToken);
+        loginUI.logged();
+        graph.restart();
+
+    }).fail(function (xhr, status, error) {
+        console.log("Could not reach the API: " + error);
+    });
+  },
+
+  logout() {
+    this.removeToken();
+    this.removeUserInfo();
+    this.removeExpiredToken();
+  },
+
+  getUserInfo() {
+    return JSON.parse(this.getValueByKey(this.usedInfoKey));
+  },
+
+  setUserInfo(value) {
+    this.setKey(this.usedInfoKey,value);
+  },
+
+  removeUserInfo() {
+    this.setKey(this.usedInfoKey,null);
+  },
   
   hasToken() {
     var token=this.getValueByKey(this.tokenKey);
@@ -25,6 +96,10 @@ var Token={
 
   setExpiredToken(state) {
     this.setKey(this.expiredKey,state);
+  },
+
+  removeExpiredToken() {
+    this.setKey(this.expiredKey,null);
   },
 
   parseJwt(token) {
