@@ -19,7 +19,7 @@ var Translation={
 		'<br /><br />'+
 		'Por essa razão, ainda que esta diferença ocorra apenas na área de sobreposição (7% da área total), os números do desmatamento anual publicados no dashboard do TerraBrasilis (www.dpi.inpe.br/fipcerrado/dashboard/) não são iguais aos dados geográficos disponibilizados para download no mesmo site, exclusivamente para os anos 2000 até 2008.',
 		'txt2c':'Fechar',
-		'txt3':'Baixar dados',
+		'txt3':'Baixar Dados',
 		'downloadBtn':'Baixar os dados em formato CSV.',
 		'txt4':'Imprimir Gráficos',
 		'txt4p':'Imprimir Gráficos',
@@ -183,7 +183,7 @@ var Translation={
 		'txt1':'DETER panel - monthly',
 		'txt2':'Open the Daily Panel',
 		'downloadBtn':'Download data in CSV format.',
-		'txt3':'Download data',
+		'txt3':'Download Data',
 		'txt4':'Print Graphs',
 		'txt4p':'Print Graphs',
 		'txt5':'Darken/Enlighten',

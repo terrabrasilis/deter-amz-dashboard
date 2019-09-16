@@ -108,6 +108,32 @@ var graph={
 		d3.json("./config/deter-amazon-daily.json", afterLoadConfiguration);
 	},
 
+	downloadShapefile: function(dt) {
+
+		let anchor = document.createElement("a");
+		document.body.appendChild(anchor);
+		let file = 'http://terrabrasilis.dpi.inpe.br/file-delivery/download/deter-amz/shape';
+		
+		let headers = new Headers();
+		headers.append('Authorization', 'Bearer '+Token.getToken());
+		
+		fetch(file, { headers })
+			.then(response => response.blob())
+			.then(blobby => {
+				let objectUrl = window.URL.createObjectURL(blobby);
+		
+				anchor.href = objectUrl;
+				anchor.download = 'deter_amazon_'+dt+'.zip';
+				anchor.click();
+		
+				window.URL.revokeObjectURL(objectUrl);
+			}).finally(
+				() => {
+					$('#download-shp-icon').html('<i class="material-icons">save_alt</i>');
+				}
+			);
+	},
+
 	loadUpdatedDate: function() {
 		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
 
@@ -878,11 +904,11 @@ var graph={
 		// shapefile 
 		d3.select('#download-shp')
 		.on('click', function() {
+			$('#download-shp-icon').html('<img src="img/loader.svg" />');
 			var dt=new Date();
 			dt=dt.toLocaleDateString() +'_'+ dt.toLocaleTimeString();
 			dt=dt.split('/').join('_');
-			var blob = new Blob([d3.csv.format(graph.data)], {type: "text/csv;charset=utf-8"});
-			saveAs(blob, 'deter_shapefile_'+dt+'.zip');
+			graph.downloadShapefile(dt);
 		});
 
 		d3.select('#download-filter')
