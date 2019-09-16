@@ -128,7 +128,7 @@ var graph={
 		d3.select('#panel_container').style('display',((enable)?('none'):('')));
 		d3.select('#warning_data_info').style('display','none');
 		d3.select('#radio-area').style('display',((enable)?('none'):('')));
-		d3.select('#radio-alerts').style('display',((enable)?('none'):('')));
+		d3.select('#radio_notice').style('display',((enable)?('none'):('')));
 	},
 	
 	displayWarning:function(enable) {
