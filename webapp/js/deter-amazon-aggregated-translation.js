@@ -69,7 +69,9 @@ var Translation={
 		'txt25':'Ver todas as classes',
 		'updated':'Atualizado até:',
 
-		'txt26':'Baixar a tabela com os avisos em formato CSV.',
+		'txt26':'Baixar os dados.',
+		'txt26a':'Baixar a tabela com os avisos de desmatamento em formato CSV.',
+		'txt26b':'Baixar o arquivo completo dos avisos de desmatamento em formato Shapefile.',
 		'txt27':'Com filtros.',
 		'txt28':'Sem filtros.',
 		'txt29':'Fechar',
@@ -232,7 +234,9 @@ var Translation={
 		'txt25':'See by all classes',
 		'updated':'Updated until:',
 
-		'txt26':'Download the table with the notices in CSV format.',
+		'txt26':'Download data.',
+		'txt26a':'Download data table with deforestation notices in CSV format.',
+		'txt26b':'Download the complete file with deforestation notices in Shapefile format.',
 		'txt27':'With filters.',
 		'txt28':'Without filters.',
 		'txt29':'Close',

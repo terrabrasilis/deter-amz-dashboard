@@ -221,6 +221,8 @@ var Translation={
 		'txt25':'Without filters.',
 		'txt33':'Search for Municipalities',
 		'txt26':'Download data.',
+		'txt26a':'Download data table with deforestation notices in CSV format.',
+		'txt26b':'Download the complete file with deforestation notices in Shapefile format.',
 		'txt27':'With filters.',
 		'txt28':'Without filters.',
 		'txt29':'Close',
