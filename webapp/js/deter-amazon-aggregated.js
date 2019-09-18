@@ -889,7 +889,7 @@ var graph={
 			}
 		);
 		area=localeBR.numberFormat(',1f')(area.toFixed(2));
-		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><br/><div class='numberinf'>"+area+" km²</div></span>");
+		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><div class='numberinf'>"+area+" km²</div></span>");
 	},
 
 	restart() {

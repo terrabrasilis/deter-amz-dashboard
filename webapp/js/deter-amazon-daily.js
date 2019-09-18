@@ -241,7 +241,7 @@ var graph={
 			}
 		);
 		area=localeBR.numberFormat(',1f')(area.toFixed(2));
-		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><br/><div class='numberinf'>"+area+" km²</div></span>");
+		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><div class='numberinf'>"+area+" km²</div></span>");
 	},
 
 	utils:{
@@ -270,7 +270,6 @@ var graph={
 				$('#deforestation-bt').removeClass('disable');
 				$('#custom-bt').removeClass('disable');
 			}else if(ref=='custom') {
-				graph.displayCustomValues();
 				$('#degradation-classes').addClass('disable');
 				$('#deforestation-classes').addClass('disable');
 				$('#degradation-bt').removeClass('disable');
@@ -547,7 +546,7 @@ var graph={
 			.height(310)
 			.margins({top: 10, right: 45, bottom: 85, left: 45})
 			.yAxisLabel( yLabel )
-			.xAxisLabel( Translation[Lang.language].timeline_desc + " " + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) )
+			//.xAxisLabel( Translation[Lang.language].timeline_desc + " " + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) )
 			.dimension(dimensions["date"])
 			.group(groups["date"])
 			.transitionDuration(300)
@@ -556,7 +555,11 @@ var graph={
 			.renderHorizontalGridLines(true)
 			.renderVerticalGridLines(true)
 			.colors(d3.scale.ordinal().range([((graph.cssDefault)?('black'):('gold'))]));
-		
+
+		this.lineDistributionByMonth.on('filtered', function(chart) {
+			graph.displayCustomValues();
+		});
+
 		this.lineDistributionByMonth
 			.on('preRender', function(chart) {
 				chart
@@ -584,17 +587,23 @@ var graph={
 			});
 
 		this.lineDistributionByMonth.on("renderlet.a",function (chart) {
-			   // rotate x-axis labels
-			   chart.selectAll('g.x text')
-			     .attr('transform', 'translate(-10,20) rotate(315)');
+			// rotate x-axis labels
+			chart.selectAll('g.x text')
+				 .attr('transform', 'translate(-10,20) rotate(315)');
+			if(!chart.hasFilter()){
+				$('#txt9a').css('display','none');
+				$('#txt9').html(Translation[Lang.language].allTime + "<span class='highlight-time'>" + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) +"</span>" );
+			}else{
+				$('#txt9a').css('display','');
+				$('#txt9').html(Translation[Lang.language].txt9);
+			}
 		});
 		
 		this.lineDistributionByMonth
 			.filterPrinter(function(f) {
-				//return dateFormat(f[0][0]) + ' - ' + dateFormat(f[0][1]);
 				var dt=new Date(f[0][0]);
 				dt.setDate(dt.getDate()+1);
-				return dateFormat(dt) + ' - ' + dateFormat(f[0][1]);
+				return dateFormat(dt) + " - " + dateFormat(f[0][1]);
 		});
 		// -----------------------------------------------------------------------
 		
@@ -610,6 +619,10 @@ var graph={
 			.controlsUseVisibility(true)
 			.ordinalColors([(graph.cssDefault)?(graph.barTop10Color):(graph.darkBarTop10Color)]);
 		    //.ordinalColors(["#FF4500","#FF8C00","#FFA500","#FFD700","#FFFF00","#BA55D3","#9932CC","#8A2BE2","#3182BD","#6BAED6"]);
+
+		this.histTopByCounties.on('filtered', function(chart) {
+			graph.displayCustomValues();
+		});
 
 		this.histTopByCounties
 			.on('preRender', function(chart) {
@@ -665,6 +678,10 @@ var graph={
 			.ordinalColors((graph.cssDefault)?(graph.pallet):(graph.darkPallet))
 			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35));
 		
+		this.ringTotalizedByState.on('filtered', function(chart) {
+			graph.displayCustomValues();
+		});
+
 		this.ringTotalizedByState
 			.on('preRender', function(chart) {
 				chart.height(graph.defaultHeight);
@@ -740,6 +757,10 @@ var graph={
 				return (f.length)?(t):([Translation[Lang.language].without]);
 		});
 
+		this.ringTotalizedByClass.on('filtered', function(chart) {
+			graph.displayCustomValues();
+		});
+
 		// .externalLabels(30) and .drawPaths(true) to enable external labels
 		this.ringTotalizedByClass
 			.renderLabel(true)
@@ -791,6 +812,10 @@ var graph={
 					chart.fixedBarHeight( parseInt((chart.effectiveHeight()*0.7)/10) );
 				}
 			});
+		
+		this.histTopByUCs.on('filtered', function(chart) {
+			graph.displayCustomValues();
+		});
 
 		this.histTopByUCs
 			.on("renderlet.a",function (chart) {

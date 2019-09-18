@@ -1,6 +1,7 @@
 var Translation={
 	'pt-br':{
 		/* texts into HTML entities */
+		'allTime':'Exibindo dados para todo o intervalo do gráfico:',
 		'goto_about':'Ver informações sobre o projeto e a equipe.',
 		'goto_video':'Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.',
 		'title-chart': 'Análise - Amazônia Legal',
@@ -22,7 +23,7 @@ var Translation={
 		'txt6':'Escurecer/clarear',
 		'txt7':'Entrar',
 		'txt8':'Problema na comunicação com o servidor.<br>Aguarde alguns minutos e recarregue a página.',
-		'txt9':'Filtro:',
+		'txt9':'Exibindo dados para o intervalo de tempo selecionado:',
 		'txt9a':'Limpar este filtro.',
 		'txt11':'Filtro:',
 		'txt11a':'Limpar este filtro.',
@@ -54,14 +55,14 @@ var Translation={
 		'txt28':'Sem filtros.',
 		'txt29':'Fechar',
 
-		'txt40':'Ver classes de desmatamento',
-		'txt41':'Ver classes de degradação',
-		'txt42':'Ver todas as classes',
+		'txt40':'Avisos de desmatamento',
+		'txt41':'Avisos de degradação',
+		'txt42':'Todas as classes de aviso',
 		'updated':'Atualizado até:',
 
-		'deforestation':'Desmatamento acumulado',
-		'degradation':'Degradação acumulada',
-		'degrad_defor':'Desmatamento e degradação',
+		'deforestation':'Avisos de desmatamento',
+		'degradation':'Avisos de degradação',
+		'degrad_defor':'Avisos de desmatamento e degradação',
 		'num_alerts':'Número de avisos',
 		'area_alertas': 'Área dos avisos (km²)',
 
@@ -174,6 +175,7 @@ var Translation={
 	},
 	'en':{
 		/* texts into HTML entities */
+		'allTime':'Displaying data for entire chart range:',
 		'goto_about':'See informations about the project and team.',
 		'goto_video':'Watch the introductory video to see how an user interact with dashboard tools.',
 		'title-chart': 'Analyses - Legal Amazon',
@@ -195,7 +197,7 @@ var Translation={
 		'txt6':'Darken/Enlighten',
 		'txt7':'Login',
 		'txt8':'Failure on loading data from server.<br>Try reload after some minutes.',
-		'txt9':'Filter:',
+		'txt9':'Displaying data for selected time range:',
 		'txt9a':'Clean this filter.',
 		'txt11':'Filter:',
 		'txt11a':'Clean this filter.',
@@ -227,14 +229,14 @@ var Translation={
 		'txt28':'Without filters.',
 		'txt29':'Close',
 
-		'txt40':'See by deforestation classes',
-		'txt41':'See by degradation classes',
-		'txt42':'See by all classes',
+		'txt40':'Notices of deforestation',
+		'txt41':'Notices of degradation',
+		'txt42':'All notice classes',
 		'updated':'Updated until:',
 
-		'deforestation': 'Accumulated deforestation',
-		'degradation': 'Accumulated degradation',
-		'degrad_defor': 'Deforestation and degradation',
+		'deforestation': 'Deforestation notices',
+		'degradation': 'Degradation notices',
+		'degrad_defor': 'Deforestation and degradation notices',
 		'num_alerts': 'Number of Notices',
 		'area_alertas': 'Notices area (km²)',
 
@@ -267,7 +269,7 @@ var Translation={
 		'aviso':'alert',
 		'num_alerts_dc':'number of notices',
 		'unit_alerts':'notice',
-		'timeline_header':'Distribution of %dim% over time.',
+		'timeline_header':'Distribution of the %dim% over time.',
 		'timeline_desc':'Time range:',
 		'title_tot_class':'%Dim% by Classes',
 		'title_top_county':'Municipalities with the greatest deforestation %dim%',
