@@ -544,7 +544,7 @@ var graph={
 		
 		this.lineDistributionByMonth
 			.height(310)
-			.margins({top: 10, right: 45, bottom: 85, left: 45})
+			.margins({top: 10, right: 45, bottom: 55, left: 45})
 			.yAxisLabel( yLabel )
 			//.xAxisLabel( Translation[Lang.language].timeline_desc + " " + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) )
 			.dimension(dimensions["date"])
