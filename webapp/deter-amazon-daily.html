@@ -202,23 +202,28 @@
 
 		<div id="charts-panel">
 
-			<div class="all-charts-title boxtitlepanel">
+			<div class="row all-charts-title boxtitlepanel">
 
-				<span id="title-chart">Análise - Amazônia Legal</span>
-				<div class="row selectradio selectradio_more">
-					<div class="selectradio-success" id="radio-area" title="Ver gráficos com base no somatório de áreas em km².">
-						<input checked="checked" type="radio" name="set_dim" id="radioarea" onclick="graph.setDataDimension('area');"/>
-						<label for="radioarea" id="area_alertas"> Área dos avisos (km²)</label>
-					</div>
-					<div class="selectradio-success" id="radio_notice" title="Ver gráficos com base na contagem do número de avisos.">
-						<input type="radio" name="set_dim" id="radioalerts" onclick="graph.setDataDimension('alert');" />
-						<label for="radioalerts" id="num_alerts"> Número de avisos</label>
+				<div class="col-md-2">
+					<span id="title-chart">Análise - Amazônia Legal</span>
+				</div>
+
+				<div class="col-md-4">
+					<div class="selectradio selectradio_more">
+						<div class="selectradio-success" id="radio-area" title="Ver gráficos com base no somatório de áreas em km².">
+							<input checked="checked" type="radio" name="set_dim" id="radioarea" onclick="graph.setDataDimension('area');"/>
+							<label for="radioarea" id="area_alertas"> Área dos avisos (km²)</label>
+						</div>
+						<div class="selectradio-success" id="radio_notice" title="Ver gráficos com base na contagem do número de avisos.">
+							<input type="radio" name="set_dim" id="radioalerts" onclick="graph.setDataDimension('alert');" />
+							<label for="radioalerts" id="num_alerts"> Número de avisos</label>
+						</div>
 					</div>
 				</div>
 
 				<!-- Login -->
-				<div class="row login_box">
-					<div id="login_box" class="form-inline">
+				<div class="col-md-6">
+					<div id="login_box" class="form-inline justify-content-end">
 						<label class="sr-only" for="username">login</label>
 						<input type="text" class="form-control form-control-sm" id="username" placeholder="Username">
 						<label class="sr-only" for="password">******</label>
@@ -239,12 +244,16 @@
 						</div>
 						<button id="submitLogout" class="btn btn-primary btn-sm btn-sair btn-success">Sair</button> 
 					</div>
-
-				</div>
-				<div id="expired_token_box" class="alert alert-warning" role="alert">
-					<span id="expired_token">Seu login expirou. Para voltar a ver os dados mais recentes, faça login novamente.</span>
 				</div>
 
+			</div>
+
+			<div class="row" style="margin-left: 20px;">
+				<div class="col-md-12">
+					<div id="expired_token_box" class="alert alert-warning" role="alert">
+						<span id="expired_token">Seu login expirou. Para voltar a ver os dados mais recentes, faça login novamente.</span>
+					</div>
+				</div>
 			</div>
 
 			<!-- Start the filter bar -->

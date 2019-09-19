@@ -248,6 +248,7 @@ var graph={
 
 		displayLoginExpiredMessage() {
 			if(Token.isExpiredToken()){
+				Token.setExpiredToken(false);
 				d3.select('#expired_token_box').style('display','');
 			}else{
 				d3.select('#expired_token_box').style('display','none');

@@ -21,7 +21,6 @@ body{
 }
 .selectradio div {
 	clear: both;
-	margin: 15px 0 15px 25px;
 	color: #6c757d;
 	font-size: 14px;
 }
@@ -224,6 +223,7 @@ div .dc-chart {
 }*/
 .alert{
 	margin-bottom: 5px;
+	width: 100%;
 }
 #filtered-list{
 	font-size: 12px;

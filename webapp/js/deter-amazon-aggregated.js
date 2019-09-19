@@ -934,6 +934,8 @@ var graph={
 	},
 
 	restart() {
+		graph.monthFilters=[];
+		utils.highlightSelectedMonths();
 		graph.startLoadData();
 	}
 };

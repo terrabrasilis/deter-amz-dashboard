@@ -202,11 +202,14 @@
 		
 
 		<div id="charts-panel">
-			<div class="all-charts-title boxtitlepanel">
-				<div id="txt15">Gráfico - Amazônia Legal</div>
+			<div class="row all-charts-title boxtitlepanel">
+				<div class="col-md-2">
+					<div id="txt15">Gráfico - Amazônia Legal</div>
+				</div>
+
 				<!-- Login -->
-				<div class="row login_box" style="top: -7px;">
-					<div id="login_box" class="form-inline">
+				<div class="col-md-10" style="height: 38px;">
+					<div id="login_box" class="form-inline justify-content-end">
 						<label class="sr-only" for="username">login</label>
 						<input type="text" class="form-control form-control-sm" id="username" placeholder="Username">
 						<label class="sr-only" for="password">******</label>
@@ -227,11 +230,15 @@
 						<button id="submitLogout" class="btn btn-primary btn-sm btn-sair btn-success">Sair</button> 
 					</div>
 				</div>
-				<div id="expired_token_box" class="alert alert-warning" role="alert">
-					<span id="expired_token">Seu login expirou. Para voltar a ver os dados mais recentes, faça login novamente.</span>
+			</div>
+
+			<div class="row" style="margin-left: 20px;">
+				<div class="col-md-12">
+					<div id="expired_token_box" class="alert alert-warning" role="alert">
+						<span id="expired_token">Seu login expirou. Para voltar a ver os dados mais recentes, faça login novamente.</span>
+					</div>
 				</div>
 			</div>
-			
 			
 			<!-- Start the filter bar -->
 			<div class="row box">
