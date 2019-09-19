@@ -573,6 +573,7 @@ var graph={
 
 		this.focusChart.on('renderlet', function() {
 			utils.attachListenersToLegend();
+			graph.displayCustomValues();
 			dc.redrawAll("filtra");
 		});
 
