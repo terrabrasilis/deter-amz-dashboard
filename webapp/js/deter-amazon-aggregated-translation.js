@@ -178,7 +178,7 @@ var Translation={
 	'en':{
 		/* texts into HTML entities */
 		'allTime':'Displaying data for entire chart range:',
-		'someMonths':'Displaying data for chrat\'s filter:',
+		'someMonths':'Displaying data for chart\'s filter:',
 		'goto_about':'See informations about the project and team.',
 		'goto_video':'Watch the introductory video to see how an user interact with dashboard tools.',
 		'txt1c':'Helpful informations about how to use the panel.',
