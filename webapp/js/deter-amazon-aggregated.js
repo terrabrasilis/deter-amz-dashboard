@@ -603,10 +603,23 @@ var graph={
 				$('#txt18').css('display','none');// hide filter reset buttom
 				$('#txt8b').html(Translation[Lang.language].allTime + "<span class='highlight-time'>" +  years.join(",")  +"</span>" );
 			}else{
-				var fp="";
+				var fp="", allData=chart.group().top(Infinity);
 				graph.monthFilters.forEach(
 					(monthNumber) => {
-						fp+=(fp==''?'':',')+utils.monthYearList(monthNumber,utils.nameMonthsById(monthNumber),years);
+						var ys=[];
+						allData.some(
+							(d)=> {
+								years.forEach(
+									(year) => {
+										if(d.key.includes(monthNumber) && d.key.includes(year)) {
+											ys.push(year);
+											return true;
+										}
+									}
+								);
+							}
+						);
+						if(ys.length) fp+=(fp==''?'':',')+utils.monthYearList(monthNumber,utils.nameMonthsById(monthNumber),ys);
 					}
 				);
 				$('#txt18').css('display','');// display filter reset buttom
