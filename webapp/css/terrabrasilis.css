@@ -69,12 +69,6 @@ a, a:hover, a:focus {
 #submitLogin{
   margin-bottom: 0px !important;
 }
-.login_box{
-  display: -webkit-inline-box;
-  position: absolute;
-  right: 15px;
-  top: 15px;
-}
 /* end login */
 
 #month_chooser{
