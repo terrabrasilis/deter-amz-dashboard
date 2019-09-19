@@ -1,6 +1,8 @@
 var Translation={
 	'pt-br':{
 		/* texts into HTML entities */
+		'allTime':'Exibindo dados para todo o intervalo do gráfico:',
+		'someMonths':'Exibindo dados para os filtros do gráfico:',
 		'goto_about':'Ver informações sobre o projeto e a equipe.',
 		'goto_video':'Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.',
 		'txt1c':'Informações de ajuda para uso do painel',
@@ -63,10 +65,14 @@ var Translation={
 		'map-war':'DETER (Avisos)',
 		'goto_video_sup':'Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.',
 		'help-sup':'Ajuda',
-		
-		'txt23':'Ver classes de desmatamento',
-		'txt24':'Ver classes de degradação',
-		'txt25':'Ver todas as classes',
+
+		'deforestation':'Avisos de desmatamento',
+		'degradation':'Avisos de degradação',
+		'degrad_defor':'Avisos de desmatamento e degradação',
+		'num_alerts':'Número de avisos',
+		'txt23':'Avisos de desmatamento',
+		'txt24':'Avisos de degradação',
+		'txt25':'Todas as classes de aviso',
 		'updated':'Atualizado até:',
 
 		'txt26':'Baixar os dados.',
@@ -135,12 +141,6 @@ var Translation={
 		'toDailyChart-cer':'Abrir o painel avisos diários para o Bioma Cerrado.',
 		'toAggregatedChart-cer':'Abrir o painel agregado mensal de avisos para o Bioma Cerrado.',
 		'tituloprint': ' | Variação mensal de área do projeto DETER - ano referência (Agosto a Julho)',
-		
-		'deforestation':'Desmatamento acumulado',
-		'degradation':'Degradação acumulada',
-		'degrad_defor':'Desmatamento e degradação',
-		'num_alerts':'Número de avisos',
-
 		/* For about modal window  */
 		'andre-role':'Desenvolvedor de Software Sênior',
         'co-team-role':'EQUIPE DE COORDENADORES',
@@ -177,6 +177,8 @@ var Translation={
 	},
 	'en':{
 		/* texts into HTML entities */
+		'allTime':'Displaying data for entire chart range:',
+		'someMonths':'Displaying data for chrat\'s filter:',
 		'goto_about':'See informations about the project and team.',
 		'goto_video':'Watch the introductory video to see how an user interact with dashboard tools.',
 		'txt1c':'Helpful informations about how to use the panel.',
@@ -229,9 +231,13 @@ var Translation={
 		'goto_video_sup':'Watch the introductory video to see how an user interact with dashboard tools.',
 		'help-sup':'Help',
 
-		'txt23':'See by deforestation classes',
-		'txt24':'See by degradation classes',
-		'txt25':'See by all classes',
+		'deforestation': 'Deforestation notices',
+		'degradation': 'Degradation notices',
+		'degrad_defor': 'Deforestation and degradation notices',
+		'num_alerts': 'Number of Notices',
+		'txt23':'Notices of deforestation',
+		'txt24':'Notices of degradation',
+		'txt25':'All notice classes',
 		'updated':'Updated until:',
 
 		'txt26':'Download data.',
@@ -300,12 +306,6 @@ var Translation={
 		'toDailyChart-cer':'Open the panel daily notices for Cerrado Biome.',
 		'toAggregatedChart-cer':'Open the panel aggregate monthly notices for Cerrado Biome.',
 		'tituloprint': ' | Monthly variation of DETER project area - reference year (August to July)',
-
-		'deforestation': 'Accumulated deforestation',
-		'degradation': 'Accumulated degradation',
-		'degrad_defor': 'Deforestation and degradation',
-		'num_alerts': 'Number of Notices',
-
 		/* For about modal window  */
 		'andre-role':'Senior Software Development',
 		'co-team-role':'Team of Coordinators',

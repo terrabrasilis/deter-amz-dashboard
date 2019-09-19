@@ -178,6 +178,8 @@ a, a:hover, a:focus {
   white-space: nowrap;
   position: absolute;
   top: 15px;
+  width: calc(95%);
+  overflow-x: auto;
 }
 
 .highlight-time{
