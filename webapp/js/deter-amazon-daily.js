@@ -593,9 +593,12 @@ var graph={
 				 .attr('transform', 'translate(-10,20) rotate(315)');
 			if(!chart.hasFilter()){
 				$('#txt9a').css('display','none');
-				$('#txt9').html(Translation[Lang.language].allTime + "<span class='highlight-time'>" + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) +"</span>" );
+				$('#highlight-time').css('display','');
+				$('#txt9').html(Translation[Lang.language].allTime);
+				$('#highlight-time').html(" " + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) );
 			}else{
 				$('#txt9a').css('display','');
+				$('#highlight-time').css('display','none');
 				$('#txt9').html(Translation[Lang.language].txt9);
 			}
 		});
@@ -604,7 +607,7 @@ var graph={
 			.filterPrinter(function(f) {
 				var dt=new Date(f[0][0]);
 				dt.setDate(dt.getDate()+1);
-				return dateFormat(dt) + " - " + dateFormat(f[0][1]);
+				return " " + dateFormat(dt) + " - " + dateFormat(f[0][1]);
 		});
 		// -----------------------------------------------------------------------
 		

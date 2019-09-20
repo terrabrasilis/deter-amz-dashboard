@@ -303,12 +303,14 @@
 				<div class="col-md-12">
 					<div class="box-grafico text-center">
 						<div id="chart-line-by-month" class="all-charts timeline-charts">
-							<div class="all-charts-title boxtitle" style="display: flex;">
+							<div class="all-charts-title boxtitle">
 								<div style="min-width: fit-content;">
 									<span id="title-chart-timeline"></span>
 								</div>
-								<div class="reset-time">
-									<b><span id="txt9">Intervalo de tempo:</span></b> <span class="filter highlight-time"></span>
+								<div>
+									<b><span id="txt9" class="filter-info">Intervalo de tempo:</span></b>
+									<span class="filter highlight-time filter-info"></span>
+									<span class="highlight-time filter-info" id="highlight-time"></span>
 									<a href="javascript:graph.lineDistributionByMonth.filterAll();dc.redrawAll();">
 										<span aria-hidden="true" id="txt9a" title="Limpar este filtro.">
 											<i class="material-icons md-icon-16 icongreen">delete</i>

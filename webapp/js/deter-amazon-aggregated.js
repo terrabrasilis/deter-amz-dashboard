@@ -601,7 +601,8 @@ var graph={
 
 			if(!chart.hasFilter()){
 				$('#txt18').css('display','none');// hide filter reset buttom
-				$('#txt8b').html(Translation[Lang.language].allTime + "<span class='highlight-time'>" +  years.join(",")  +"</span>" );
+				$('#txt8b').html(Translation[Lang.language].allTime);
+				$('#highlight-time').html("&nbsp;" +  years.join(", ") );
 			}else{
 				var fp="", allData=chart.group().top(Infinity);
 				graph.monthFilters.forEach(
@@ -619,11 +620,12 @@ var graph={
 								);
 							}
 						);
-						if(ys.length) fp+=(fp==''?'':',')+utils.monthYearList(monthNumber,utils.nameMonthsById(monthNumber),ys);
+						if(ys.length) fp+=(fp==''?'':', ')+utils.monthYearList(monthNumber,utils.nameMonthsById(monthNumber),ys);
 					}
 				);
 				$('#txt18').css('display','');// display filter reset buttom
-				$('#txt8b').html(Translation[Lang.language].someMonths + "<span class='highlight-time'>" +  fp  +"</span>" );
+				$('#txt8b').html(Translation[Lang.language].someMonths);
+				$('#highlight-time').html("&nbsp;" +  fp );
 			}
 		});
 
