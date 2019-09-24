@@ -10,13 +10,13 @@ To load data with more efficience we generate this JSON files using automated ta
 To build image for this dockerfile use this command:
 
 ```bash
-docker build -t terrabrasilis/amazon-<name>:v2.0-beta -f environment/Dockerfile .
+docker build -t terrabrasilis/amazon-<name>:v2.4 -f environment/Dockerfile .
 ```
 
 To run without compose and without shell terminal use this command:
 
 ```bash
-docker run -d --rm -p 80:80 --name terrabrasilis_alerts_amazon terrabrasilis/amazon-<name>:v2.0-beta
+docker run -d --rm -p 80:80 --name terrabrasilis_alerts_amazon terrabrasilis/amazon-<name>:v2.4
 ```
 
 ## Run using compose
