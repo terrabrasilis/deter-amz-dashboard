@@ -109,6 +109,9 @@ var graph={
 	},
 
 	loadUpdatedDate: function() {
+		// to prevent error on localhost developer environment
+		if(window.location.host!="terrabrasilis.dpi.inpe.br") return;
+
 		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
 
 		if(Token.hasToken()){
@@ -644,7 +647,7 @@ var graph={
 			});
 
 		this.histTopByCounties
-			.on("renderlet.a",function (chart) {
+			.on("pretransition",function (chart) {
 				var texts=chart.selectAll('g.row text');
 				var rankMun=function() {
 					var allTop=groups["county"].top(Infinity);
@@ -741,6 +744,10 @@ var graph={
 				chart.height(graph.defaultHeight);
 				chart.legend().legendWidth(window.innerWidth/2);
 			});
+			// .on('postRender', function(chart) {
+			// 	graph.histTopByCounties.redraw();
+			// 	graph.histTopByUCs.redraw();
+			// });
 
 		this.ringTotalizedByClass.title(function(d) {
 			var v=graph.utils.numberByUnit(d.value);
@@ -822,7 +829,7 @@ var graph={
 		});
 
 		this.histTopByUCs
-			.on("renderlet.a",function (chart) {
+			.on("pretransition",function (chart) {
 				var texts=chart.selectAll('g.row text');
 				var rankMun=function() {
 					var allTop=groups["uc"].top(Infinity);

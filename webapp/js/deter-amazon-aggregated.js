@@ -326,6 +326,9 @@ var graph={
 	},
 
 	loadUpdatedDate: function() {
+		// to prevent error on localhost developer environment
+		if(window.location.host!="terrabrasilis.dpi.inpe.br") return;
+		
 		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
 
 		if(Token.hasToken()){
