@@ -115,46 +115,77 @@ var utils = {
 		return cl;
 	},
 	xaxis:function(d) {
-		var list=Translation[Lang.language].months_of_prodes_year;
-		return list[d-8];
-
+		var list=[];
+		if(graph.calendarConfiguration=='prodes') {
+			list=Translation[Lang.language].months_of_prodes_year;
+			return list[d-8];
+		}else{
+			list=Translation[Lang.language].months_of_civil_year;
+			return list[d-1];
+		}
 	},
 	monthYearList: function(monthNumber,month,years) {
 		var fy=[];
 		
-		years.forEach(
-		(y) =>
-			{
-				if(monthNumber >=13 && monthNumber<=19) {
-					fy.push(y.split("/")[1]);
+		if(graph.calendarConfiguration=='prodes') {
+			years.forEach(
+			(y) =>
+				{
+					if(monthNumber >=13 && monthNumber<=19) {
+						fy.push(y.split("/")[1]);
+					}
+					if(monthNumber >=8 && monthNumber<=12) {
+						fy.push(y.split("/")[0]);
+					}
 				}
-				if(monthNumber >=8 && monthNumber<=12) {
-					fy.push(y.split("/")[0]);
-				}
-			}
-		);
+			);
+		}else{
+			fy=years;
+		}
 		fy.sort();
 		return month+"/("+fy.join(", ")+")";
 	},
 	nameMonthsById: function(id) {
-		var list=[];
-		list[13]='Jan';
-		list[14]='Fev';
-		list[15]='Mar';
-		list[16]='Abr';
-		list[17]='Mai';
-		list[18]='Jun';
-		list[19]='Jul';
-		list[8]='Ago';
-		list[9]='Set';
-		list[10]='Out';
-		list[11]='Nov';
-		list[12]='Dez';
+		var list={};
+		if(graph.calendarConfiguration=='prodes') {
+			list[13]='Jan';
+			list[14]='Fev';
+			list[15]='Mar';
+			list[16]='Abr';
+			list[17]='Mai';
+			list[18]='Jun';
+			list[19]='Jul';
+			list[8]='Ago';
+			list[9]='Set';
+			list[10]='Out';
+			list[11]='Nov';
+			list[12]='Dez';
+		}else{
+			list[1]='Jan';
+			list[2]='Fev';
+			list[3]='Mar';
+			list[4]='Abr';
+			list[5]='Mai';
+			list[6]='Jun';
+			list[7]='Jul';
+			list[8]='Ago';
+			list[9]='Set';
+			list[10]='Out';
+			list[11]='Nov';
+			list[12]='Dez';
+		}
+		
 		return list[id];
 	},
 	fakeMonths: function(d) {
-		var list=[13,14,15,16,17,18,19,8,9,10,11,12];
-		return list[d-1];
+		var list=[],m=1;
+		if(graph.calendarConfiguration=='prodes') {
+			list=[13,14,15,16,17,18,19,8,9,10,11,12];
+			m=list[d-1];
+		}else{
+			m=d;
+		}
+		return m;
 	},
 	displayWarning:function(enable) {
 		if(enable===undefined) enable=true;
@@ -182,7 +213,9 @@ var utils = {
 	},
 
 	highlightSelectedMonths: function() {
-		for (var i=8;i<20;i++) {
+		let iMin=(graph.calendarConfiguration=='prodes')?(8):(1);
+		let iMax=(graph.calendarConfiguration=='prodes')?(20):(13);
+		for (var i=iMin;i<iMax;i++) {
 			if(graph.monthFilters.includes(i) || !graph.monthFilters.length) {
 				d3.select('#month_'+i).style('opacity', '1');
 			}else {
@@ -192,9 +225,21 @@ var utils = {
 	},
 
 	setMonthNamesFilterBar: function() {
-		for (var i=8;i<20;i++) {
-			d3.select('#month_'+i).html(Translation[Lang.language].months_of_prodes_year[i-8]);
+		let iMin=(graph.calendarConfiguration=='prodes')?(8):(1);
+		let iMax=(graph.calendarConfiguration=='prodes')?(20):(13);
+		for (var i=iMin;i<iMax;i++) {
+			d3.select('#month_'+i).html((graph.calendarConfiguration=='prodes')?(Translation[Lang.language].months_of_prodes_year[i-8]):(Translation[Lang.language].months_of_civil_year[i-1]));
 		}
+	},
+
+	makeMonthsChooserList: function() {
+		let template='';
+		let iMin=(graph.calendarConfiguration=='prodes')?(8):(1);
+		let iMax=(graph.calendarConfiguration=='prodes')?(20):(13);
+		for (var i=iMin;i<iMax;i++) {
+			template+='<div id="month_'+i+'" class="col-md-1 month_box" onclick="graph.applyMonthFilter('+i+')"></div>';
+		}
+		$('#months_chooser').html(template);
 	},
 
 	highlightClassFilterButtons: function(ref) {
@@ -264,6 +309,8 @@ var graph={
 	darkBarTop10Color: null,
 
 	defaultHeight: null,
+
+	calendarConfiguration: 'civil',
 
 	/**
 	 * Load configuration file before loading data.
@@ -370,11 +417,15 @@ var graph={
 			var fet=data.features[j];
 			var month=+fet.properties.m;
 			var year=+fet.properties.y;
-			if(month >=1 && month<=7) {
-				year = "20"+(year-1)+"/20"+year;
-			}
-			if(month >=8 && month<=12) {
-				year = "20"+year+"/20"+(year+1);
+			if(graph.calendarConfiguration=='prodes') {
+				if(month >=1 && month<=7) {
+					year = "20"+(year-1)+"/20"+year;
+				}
+				if(month >=8 && month<=12) {
+					year = "20"+year+"/20"+(year+1);
+				}
+			}else{
+				year = "20"+year;
 			}
 			o.push({year:year,month:month,area:+(numberFormat(fet.properties.ar)),uf:fet.properties.uf,className:fet.properties.cl,numPol:fet.properties.np});
 		}
@@ -524,11 +575,13 @@ var graph={
 		})
 		.group(this.totalAlertsGroup);
 		
+		let fcDomain=d3.scale.linear().domain( (graph.calendarConfiguration=='prodes')?([8,19]):([1,12]) );
+
 		this.focusChart
 			.height(this.defaultHeight-70)
 			//.chart(function(c) { return dc.lineChart(c).interpolate('cardinal').renderDataPoints(true).evadeDomainFilter(true); })
 			.chart(function(c) { return dc.lineChart(c).renderDataPoints(true).evadeDomainFilter(true); })
-			.x(d3.scale.linear().domain([8,19]))
+			.x(fcDomain)
 			.renderHorizontalGridLines(true)
 			.renderVerticalGridLines(true)
 			.brushOn(false)
@@ -679,7 +732,9 @@ var graph={
 				v=localeBR.numberFormat(',1f')(v);
 				var t=Translation[Lang.language].area+": " + v + " " + Translation[Lang.language].unit;
 				if(d.key==="CORTE_SELETIVO") {
-					t=Translation[Lang.language].area+": " + v + " " + Translation[Lang.language].unit + " ("+Translation[Lang.language].warning_class+")";
+					t=Translation[Lang.language].area+": " + v + " " + Translation[Lang.language].unit + " ("+
+					( (graph.calendarConfiguration=='prodes')?(Translation[Lang.language].warning_class_prodes):(Translation[Lang.language].warning_class) )+")";
+					
 				}
 				return t;
 			})
@@ -688,7 +743,8 @@ var graph={
 				v=localeBR.numberFormat(',1f')(v);
 				var t=utils.mappingClassNames(d.key) + ": " + v + " " + Translation[Lang.language].unit;
 				if(d.key==="CORTE_SELETIVO") {
-					t=utils.mappingClassNames(d.key) + "*: " + v + " " + Translation[Lang.language].unit + " ("+Translation[Lang.language].warning_class+")";
+					t=utils.mappingClassNames(d.key) + "*: " + v + " " + Translation[Lang.language].unit + " ("+
+					( (graph.calendarConfiguration=='prodes')?(Translation[Lang.language].warning_class_prodes):(Translation[Lang.language].warning_class) )+")";
 				}
 				return t;
 			})
@@ -717,7 +773,7 @@ var graph={
 		this.barAreaByYear
 			.height(this.defaultHeight)
 			.yAxisLabel(Translation[Lang.language].area+" ("+Translation[Lang.language].unit+")")
-			.xAxisLabel(Translation[Lang.language].barArea_x_label)
+			.xAxisLabel( (graph.calendarConfiguration=='prodes')?(Translation[Lang.language].barArea_x_label_prodes):(Translation[Lang.language].barArea_x_label) )
 			.dimension(this.yearDimension)
 			.group(utils.snapToZero(this.yearGroup))
 			.title(function(d) {
@@ -938,8 +994,14 @@ var graph={
 		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><div class='numberinf'>"+area+" km²</div></span>");
 	},
 
+	changeCalendar() {
+		graph.calendarConfiguration='prodes';
+		graph.restart();
+	},
+
 	restart() {
 		graph.monthFilters=[];
+		utils.makeMonthsChooserList();
 		utils.highlightSelectedMonths();
 		graph.startLoadData();
 	}
@@ -951,7 +1013,8 @@ window.onload=function(){
         // return false to prevent default browser behavior
         // and stop event from bubbling
         return false;
-    });
+	});
+	utils.makeMonthsChooserList();
 	Lang.init();
 	loginUI.init();
 	graph.init();
