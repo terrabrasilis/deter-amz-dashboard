@@ -11,6 +11,7 @@ var utils = {
 	displayLoginExpiredMessage() {
 		if(Token.isExpiredToken()){
 			d3.select('#expired_token_box').style('display','');
+			Token.removeExpiredToken();
 		}else{
 			d3.select('#expired_token_box').style('display','none');
 		}
@@ -995,7 +996,7 @@ var graph={
 	},
 
 	changeCalendar() {
-		graph.calendarConfiguration='prodes';
+		graph.calendarConfiguration=(graph.calendarConfiguration=='prodes')?('civil'):('prodes');
 		graph.restart();
 	},
 
