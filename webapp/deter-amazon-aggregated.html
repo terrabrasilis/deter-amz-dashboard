@@ -290,8 +290,20 @@
 					<div class="all-charts box-grafico text-center">
 						<div id="agreg">
 							<div class="all-charts-title boxtitle">
-								<div style="min-width: fit-content;">
-									<span id="title-chart-agreg">Variação mensal de área do projeto DETER</span>
+								<div class="focus-chart-ctrl">
+									<div class="justify-content-start ctrl-change-calendar">
+										<span id="title-chart-agreg">Variação mensal de área do projeto DETER</span>
+									</div>
+									<div class="justify-content-end ctrl-change-calendar">
+										<div id="change-calendar" class="btn-group btn-group-toggle btn-group-sm selecao" data-toggle="buttons">
+											<label class="btn btn-outline-secondary">
+												<input type="radio" name="calendars" id="civil-calendar" autocomplete="off"><span id="txt-civil">Ano Civil</span>
+											</label>
+											<label class="btn btn-outline-secondary active">
+												<input type="radio" name="calendars" id="prodes-calendar" autocomplete="off" checked><span id="txt-prodes">Ano Referência</span>
+											</label>
+										</div>
+									</div>
 								</div>
 								<div>
 									<b><span id="txt8b" class="filter-info">Intervalo de tempo:</span></b><span class="highlight-time filter-info" id="highlight-time"></span>
@@ -301,6 +313,7 @@
 										</span>
 									</a>
 								</div>
+								
 								<div class="updated">
 									<span id="updated">Atualizado até:</span><span class="updated_date" id="updated_date"></span>
 								</div>

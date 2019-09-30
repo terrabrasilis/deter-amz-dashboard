@@ -47,10 +47,14 @@ var utils = {
 	    	window.print();
 	    });
 	},
+	btnChangeCalendar: function() {
+		$('#change-calendar input').on('change', function() {
+			graph.changeCalendar($('input[name=calendars]:checked', '#change-calendar').attr('id'));
+		});
+	},
 	attachEventListeners:function() {
 		utils.btnPrintPage();
 		utils.btnDownload();
-		//utils.btnChangePanel();
 	},
 
 	attachListenersToLegend: function() {
@@ -60,7 +64,6 @@ var utils = {
 				graph.barAreaByYear.filter(ev.currentTarget.textContent);
 			});
 		}
-		
 	},
 
 	onResize:function(event) {
@@ -311,7 +314,7 @@ var graph={
 
 	defaultHeight: null,
 
-	calendarConfiguration: 'civil',
+	calendarConfiguration: 'prodes',
 
 	/**
 	 * Load configuration file before loading data.
@@ -995,8 +998,8 @@ var graph={
 		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><div class='numberinf'>"+area+" km²</div></span>");
 	},
 
-	changeCalendar() {
-		graph.calendarConfiguration=(graph.calendarConfiguration=='prodes')?('civil'):('prodes');
+	changeCalendar(value) {
+		graph.calendarConfiguration=(value=='prodes-calendar')?('prodes'):('civil');
 		graph.restart();
 	},
 
@@ -1016,6 +1019,7 @@ window.onload=function(){
         return false;
 	});
 	utils.makeMonthsChooserList();
+	utils.btnChangeCalendar();
 	Lang.init();
 	loginUI.init();
 	graph.init();
