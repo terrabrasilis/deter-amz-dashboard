@@ -18,11 +18,11 @@
 FROM nginx:latest
 
 LABEL "br.inpe.dpi"="INPE/DPI-TerraBrasilis"
-LABEL br.inpe.dpi.terrabrasilis="microservice"
+LABEL br.inpe.dpi.terrabrasilis="application"
 LABEL version="v2.5"
 LABEL author="Andre Carvalho"
 LABEL author.email="andre.carvalho@inpe.br"
-LABEL description="This container provides an http server including the beta version for Legal Amazon dashboards to DETER data."
+LABEL description="This container provides an http server including the webapp version for deploy the DETER Legal Amazon dashboards."
 #-------------Application Specific Stuff ----------------------------------------------------
 
 ## Remove default nginx website
