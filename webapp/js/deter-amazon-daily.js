@@ -219,6 +219,37 @@ var graph={
 		}
 		dc.redrawAll();
 	},
+
+	filterByClass: function(){
+		var filters = graph.ringTotalizedByClass.filters();
+		if(filters.length === 0) {
+				//graph.ringTotalizedByClass.filterAll()
+				graph.utils.highlightClassFilterButtons('custom');
+			}else {
+				var eqDef=true,eqDeg=true;
+				filters.forEach(
+					(f) => {
+						if(!graph.deforestation.includes(f)){
+							eqDef=false;
+						}
+						if(!graph.degradation.includes(f)){
+							eqDeg=false;
+						}
+					}
+				);
+				eqDef=(eqDef)?(filters.length==graph.deforestation.length):(false);
+				eqDeg=(eqDeg)?(filters.length==graph.degradation.length):(false);
+				if(eqDef && !eqDeg) {
+					graph.utils.highlightClassFilterButtons('deforestation');
+				}else if(!eqDef && eqDeg) {
+					graph.utils.highlightClassFilterButtons('degradation');
+				}else {
+					graph.utils.highlightClassFilterButtons('custom');
+				}
+			dc.redrawAll();
+			graph.displayCustomValues();
+			}
+	},
 	
 	resetFilters:function() {
 		graph.lineDistributionByMonth.filterAll();
@@ -770,6 +801,7 @@ var graph={
 
 		this.ringTotalizedByClass.on('filtered', function(chart) {
 			graph.displayCustomValues();
+			graph.filterByClass();
 		});
 
 		// .externalLabels(30) and .drawPaths(true) to enable external labels
