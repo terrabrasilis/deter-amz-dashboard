@@ -22,7 +22,7 @@ let downloadCtrl={
 		let file = 'http://terrabrasilis.dpi.inpe.br/file-delivery/download/'+this.project+'/shape';
 		
 		let headers = new Headers();
-        headers.append('Authorization', 'Bearer '+Token.getToken());
+        headers.append('Authorization', 'Bearer '+Authentication.getToken());
         
         let fileName=this.project+'-'+this.getDownloadTime()+'.zip';
 		

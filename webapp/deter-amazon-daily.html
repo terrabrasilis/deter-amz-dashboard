@@ -133,7 +133,7 @@
 				<div class="navbar-nav">
 					<a class="nav-item nav-link" href="#" id="header-panel">| DETER (Avisos)</a>
 				</div>
-				<ul class="navbar-nav navbar-right analises">
+				<ul  id="navigationBarUL" class="navbar-nav navbar-right analises">
 					<li class="nav-item dropdown">
 						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button">
 							<i class="material-icons iconmobile">assignment </i><span id="maps-sup">Mapas</span>
@@ -218,31 +218,6 @@
 							<input type="radio" name="set_dim" id="radioalerts" onclick="graph.setDataDimension('alert');" />
 							<label for="radioalerts" id="num_alerts"> Número de avisos</label>
 						</div>
-					</div>
-				</div>
-
-				<!-- Login -->
-				<div class="col-md-6">
-					<div id="login_box" class="form-inline justify-content-end">
-						<label class="sr-only" for="username">login</label>
-						<input type="text" class="form-control form-control-sm" id="username" placeholder="Username">
-						<label class="sr-only" for="password">******</label>
-						<input type="password" class="form-control form-control-sm" id="password" placeholder="Password">
-						<button id="submitLogin" class="btn btn-primary btn-sm mb-2 btn-success">Login</button>
-					</div>
-
-					<div id="logout_box" class="info-card justify-content-end">
-						<img src="img/usuario.jpg" class="profile-image rounded-circle" alt="Nome do usuário">
-						<div class="info-card-text">
-							<a href="#" class="d-flex align-items-center">
-								<span class="d-inline-block">
-									<b id="userName">Nome do Usuário</b>
-								</span>
-							</a>
-							<span id="userInstitution" class="d-inline-block">Detalhe da conta</span>
-	
-						</div>
-						<button id="submitLogout" class="btn btn-primary btn-sm btn-sair btn-success">Sair</button> 
 					</div>
 				</div>
 
@@ -1114,9 +1089,11 @@
 	<script type="text/javascript" src="./js/mun-search-engine.js"></script>
 	<script type="text/javascript" src="./js/easy-cookie.js"></script>
 
-	<script type="text/javascript" src="./js/loginToken.js"></script>
-	<script type="text/javascript" src="./js/loginUser.js"></script>
 	<script type="text/javascript" src="./js/downloadSHP.js"></script>
+
+	<script type="text/javascript" src="/home/bogo/workspace-terrabrasilis/terrabrasilis-oauth-api/src/js/"></script>
+	<script type="text/javascript" src="http://localhost:9000/getoauthjs"></script>
+
 
 	<script type="text/javascript">
 		$("#notice").click(function () {

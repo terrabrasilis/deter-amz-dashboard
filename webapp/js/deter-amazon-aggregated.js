@@ -9,11 +9,11 @@ var utils = {
 	    });
 	},
 	displayLoginExpiredMessage() {
-		if(Token.isExpiredToken()){
-			d3.select('#expired_token_box').style('display','');
-			Token.removeExpiredToken();
-		}else{
-			d3.select('#expired_token_box').style('display','none');
+		if (Authentication.isExpiredToken()) {
+			d3.select('#expired_token_box').style('display', '');
+			Authentication.removeExpiredToken();
+		} else {
+			d3.select('#expired_token_box').style('display', 'none');
 		}
 	},
 	getDefaultHeight:function() {
@@ -382,7 +382,7 @@ var graph={
 		
 		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
 
-		if(Token.hasToken()){
+		if(Authentication.hasToken()){
 			url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:last_date&OUTPUTFORMAT=application%2Fjson";
 		}
 		d3.json(url, (json) => {
@@ -393,11 +393,10 @@ var graph={
 
 	loadData: function(url) {
 		d3.json(url)
-		.header("Authorization", "Bearer "+Token.getToken())
+		.header("Authorization", "Bearer "+Authentication.getToken())
 		.get(function(error, root) {
 			if(error && error.status==401) {
-				Token.logout();
-				Token.setExpiredToken(true);
+				Autentication.logout();
 			}else{
 				graph.processData(root);
 			}
@@ -1021,6 +1020,9 @@ window.onload=function(){
 	utils.makeMonthsChooserList();
 	utils.btnChangeCalendar();
 	Lang.init();
-	loginUI.init();
 	graph.init();
+	Authentication.init(Lang.language, function(){
+		graph.resetFilters();
+		graph.restart();
+	});
 };
