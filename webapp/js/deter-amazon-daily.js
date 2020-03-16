@@ -95,11 +95,11 @@ var graph={
 				}
 			};
 			d3.json(dataUrl)
-			.header("Authorization", "Bearer "+Token.getToken())
+			.header("Authorization", "Bearer "+Authentication.getToken())
 			.get(function(error, root) {
 				if(error && error.status==401) {
-					Token.logout();
-					Token.setExpiredToken(true);
+					Authentication.logout();
+					Authentication.setExpiredToken(true);
 				}else{
 					afterLoadData(root);
 				}
@@ -114,7 +114,7 @@ var graph={
 
 		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
 
-		if(Token.hasToken()){
+		if(Authentication.hasToken()){
 			url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:last_date&OUTPUTFORMAT=application%2Fjson";
 		}
 		d3.json(url, (json) => {
@@ -281,8 +281,8 @@ var graph={
 	utils:{
 
 		displayLoginExpiredMessage() {
-			if(Token.isExpiredToken()){
-				Token.setExpiredToken(false);
+			if(Authentication.isExpiredToken()){
+				Authentication.setExpiredToken(false);
 				d3.select('#expired_token_box').style('display','');
 			}else{
 				d3.select('#expired_token_box').style('display','none');
@@ -974,6 +974,9 @@ var graph={
 window.onload=function(){
 	graph.configurePrintKeys();
 	Lang.init();
-	loginUI.init();
 	graph.startLoadData();
+	Authentication.init(Lang.language, function(){
+		graph.resetFilters();
+		graph.restart();
+	});
 };

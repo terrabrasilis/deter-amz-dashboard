@@ -26,13 +26,13 @@
 	</script>
 
 	<!-- Bootstrap CSS CDN -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<!-- Scrollbar Custom CSS -->
 	<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
 	<!-- Font-awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<!-- Font Material design google -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="./libs/dc-2.1/dc.min.css" />
@@ -50,14 +50,14 @@
 		<nav id="sidebar">
 
 			<a href="http://terrabrasilis.dpi.inpe.br">
-			<div class="sidebar-header">
+				<div class="sidebar-header">
 
 
-				<div class="desctxt">
-					<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span> </h5>
-					<div id="header-menu">Avisos</div>
+					<div class="desctxt">
+						<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span> </h5>
+						<div id="header-menu">Avisos</div>
+					</div>
 				</div>
-			</div>
 			</a>
 
 			<ul class="list-unstyled components">
@@ -68,14 +68,16 @@
 						<span id="nv-chart-day">Gráficos - Avisos Diários</span></a>
 				</li>
 				<li>
-					<a href="/app/dashboard/alerts/legal/amazon/daily/" id="toDailyChart-amz" title="Abrir o painel de avisos diários para a Amazônia Legal." aria-expanded="false">
+					<a href="/app/dashboard/alerts/legal/amazon/daily/" id="toDailyChart-amz"
+						title="Abrir o painel de avisos diários para a Amazônia Legal." aria-expanded="false">
 						<i class="material-icons">insert_chart</i><span id="nv-daily-amz">Amazônia Legal</span></a>
 				</li>
 				<li>
-					<a href="/app/dashboard/alerts/biomes/cerrado/daily/" id="toDailyChart-cer" title="Abrir o painel de avisos diários para o Bioma Cerrado." aria-expanded="false">
+					<a href="/app/dashboard/alerts/biomes/cerrado/daily/" id="toDailyChart-cer"
+						title="Abrir o painel de avisos diários para o Bioma Cerrado." aria-expanded="false">
 						<i class="material-icons">insert_chart</i><span id="nv-daily-cer">Bioma Cerrado</span></a>
 				</li>
-				
+
 			</ul>
 
 			<ul class="list-unstyled components">
@@ -85,13 +87,16 @@
 					<a href="#graficos" data-toggle="collapse" aria-expanded="true">
 						<span id="nv-chart-agg">Gráficos - Agregado Mensal</span></a>
 				</li>
-				
+
 				<li>
-					<a class="enable_menu" href="/app/dashboard/alerts/legal/amazon/aggregated/" id="toAggregatedChart-amz" title="Abrir o painel agregado mensal de avisos para a Amazônia Legal." aria-expanded="false">
+					<a class="enable_menu" href="/app/dashboard/alerts/legal/amazon/aggregated/"
+						id="toAggregatedChart-amz"
+						title="Abrir o painel agregado mensal de avisos para a Amazônia Legal." aria-expanded="false">
 						<i class="material-icons">insert_chart</i><span id="nv-aggreg-amz">Amazônia Legal</span></a>
 				</li>
 				<li>
-					<a href="/app/dashboard/alerts/biomes/cerrado/aggregated/" id="toAggregatedChart-cer" title="Abrir o painel agregado mensal de avisos para o Bioma Cerrado." aria-expanded="false">
+					<a href="/app/dashboard/alerts/biomes/cerrado/aggregated/" id="toAggregatedChart-cer"
+						title="Abrir o painel agregado mensal de avisos para o Bioma Cerrado." aria-expanded="false">
 						<i class="material-icons">insert_chart</i><span id="nv-aggreg-cer">Bioma Cerrado</span></a>
 				</li>
 			</ul>
@@ -104,12 +109,13 @@
 						<span id="tools">Ferramentas</span></a>
 				</li>
 				<li>
-					<a href="#modal-container-download" id="downloadBtn" data-toggle="modal" title="Baixar a tabela de avisos de desmatamento.">
+					<a href="#modal-container-download" id="downloadBtn" data-toggle="modal"
+						title="Baixar a tabela de avisos de desmatamento.">
 						<i class="material-icons">cloud_download</i><span id="txt3">Baixar Dados</span></a>
 				</li>
 				<li>
-					<a href="#print_information" id="prepare_print" title="Imprimir esta página utilizando o recurso do navegador."
-						data-toggle="modal">
+					<a href="#print_information" id="prepare_print"
+						title="Imprimir esta página utilizando o recurso do navegador." data-toggle="modal">
 						<i class="material-icons">print</i><span id="txt4">Imprimir Gráficos</span></a>
 				</li>
 
@@ -120,63 +126,80 @@
 	<!-- Menu superior -->
 	<div id="content">
 		<div class="boxtop">
-			<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span><span id="tituloprint" class="tituloprint">
+			<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span><span id="tituloprint"
+					class="tituloprint">
 					| Variação mensal de área do projeto DETER - ano</span></h5>
 		</div>
 
 		<nav class="navbar navbar-expand-lg materialnav navbar-header">
-			<button class="btn btn-material navbar-btn " type="button" data-toggle="collapse" id="sidebarCollapse" data-target="#navbar"
-			 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="btn btn-material navbar-btn " type="button" data-toggle="collapse" id="sidebarCollapse"
+				data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+				aria-label="Toggle navigation">
 				<i class="material-icons menuicon">menu</i>
 			</button>
-			<a class="navbar-brand" href="http://terrabrasilis.dpi.inpe.br/"><span class="amarelo">Terra</span><span class="verde">Brasilis</span></a>
+			<a class="navbar-brand" href="http://terrabrasilis.dpi.inpe.br/"><span class="amarelo">Terra</span><span
+					class="verde">Brasilis</span></a>
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="navbar-nav">
 					<a class="nav-item nav-link" href="#" id="header-panel">| DETER (Avisos)</a>
 				</div>
-				<ul class="navbar-nav navbar-right analises">
+				<ul id="navigationBarUL" class="navbar-nav navbar-right analises">
 					<li class="nav-item dropdown">
-						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button">
+						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle"
+							data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button">
 							<i class="material-icons iconmobile">assignment </i><span id="maps-sup">Mapas</span>
 						</a>
 						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu">
-							<a class="dropdown-item" target="_blank" href="/app/map/deforestation/"><i class="material-icons iconmenu">nature</i><span id="map-des">PRODES (Desmatamento)</span></a>
-							<a class="dropdown-item" target="_blank" href="/app/map/alerts/"><i class="material-icons iconmenu">warning</i><span id="map-war">DETER (Avisos)</span></a>
+							<a class="dropdown-item" target="_blank" href="/app/map/deforestation/"><i
+									class="material-icons iconmenu">nature</i><span id="map-des">PRODES
+									(Desmatamento)</span></a>
+							<a class="dropdown-item" target="_blank" href="/app/map/alerts/"><i
+									class="material-icons iconmenu">warning</i><span id="map-war">DETER
+									(Avisos)</span></a>
 						</div>
 					</li>
 					<li class="nav-item dropdown">
-						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button"> 
+						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle"
+							data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button">
 							<i class="material-icons iconmobile">assignment </i><span id="analysis-sup">Gráficos</span>
 						</a>
-						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu"> 
-							<a class="dropdown-item" target="_blank" href="/app/dashboard/deforestation/biomes/amazon/increments">
-								<i class="material-icons iconmenu">nature</i><span id="analysis-des">PRODES (Desmatamento)</span></a>
-							<a class="dropdown-item" href="#"><i class="material-icons iconmenu">warning</i><span id="analysis-war">DETER (Avisos)</span></a>
+						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu">
+							<a class="dropdown-item" target="_blank"
+								href="/app/dashboard/deforestation/biomes/amazon/increments">
+								<i class="material-icons iconmenu">nature</i><span id="analysis-des">PRODES
+									(Desmatamento)</span></a>
+							<a class="dropdown-item" href="#"><i class="material-icons iconmenu">warning</i><span
+									id="analysis-war">DETER (Avisos)</span></a>
 						</div>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" target="_blank" href="http://terrabrasilis.dpi.inpe.br/sobre/#post-1355"><span id="about-menu">Sobre</span></a>
+						<a class="nav-link" target="_blank"
+							href="http://terrabrasilis.dpi.inpe.br/sobre/#post-1355"><span
+								id="about-menu">Sobre</span></a>
 						<!-- href="#modal-container-about" data-toggle="modal" -->
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#modal-container-contact" data-toggle="modal" id="tt-contactus-menu" title="Envie sugestões ou perguntas para terrabrasilis@inpe.br.">
+						<a class="nav-link" href="#modal-container-contact" data-toggle="modal" id="tt-contactus-menu"
+							title="Envie sugestões ou perguntas para terrabrasilis@inpe.br.">
 							<span id="contactus-menu">Contato</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#modal-container-video" id="goto_video_sup" data-toggle="modal" title="Ver o vídeo introdutório sobre como utilizar este painel.">
+						<a class="nav-link" href="#modal-container-video" id="goto_video_sup" data-toggle="modal"
+							title="Ver o vídeo introdutório sobre como utilizar este painel.">
 							<i class="material-icons iconmobile">help</i><span id="help-sup">Ajuda</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">
-							<img id="flag-pt-br" alt="Bandeira Brasil" src="img/br.svg" onclick="Lang.change('pt-br');" class="bandeira"
-							 title="Alterar o idioma do painel para Português do Brasil.">
+							<img id="flag-pt-br" alt="Bandeira Brasil" src="img/br.svg" onclick="Lang.change('pt-br');"
+								class="bandeira" title="Alterar o idioma do painel para Português do Brasil.">
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">
-							<img id="flag-en" alt="Flag USA" src="img/usa.svg" onclick="Lang.change('en');" class="bandeira" title="Change panel language to English.">
+							<img id="flag-en" alt="Flag USA" src="img/usa.svg" onclick="Lang.change('en');"
+								class="bandeira" title="Change panel language to English.">
 						</a>
 					</li>
 				</ul>
@@ -188,47 +211,26 @@
 		<div class="row box">
 			<div class="col-md-12">
 				<div class="text-center">
-					<div id="loading_data_info" style="display:block;"><img src="./img/loading_map.gif" alt="img" /></div>
-					<div id="warning_data_info" style="display:none;">
-						<h3><span id="txt8">Problema na comunicação com o servidor.<br>Aguarde alguns minutos e recarregue a página.</span></h3>
+					<div id="loading_data_info" style="display:block;"><img src="./img/loading_map.gif" alt="img" />
 					</div>
-					<iframe id="fileload" src="" style="width:1px;height:1px;position:fixed;bottom: 0px;left: 0px;"></iframe>
+					<div id="warning_data_info" style="display:none;">
+						<h3><span id="txt8">Problema na comunicação com o servidor.<br>Aguarde alguns minutos e
+								recarregue a página.</span></h3>
+					</div>
+					<iframe id="fileload" src=""
+						style="width:1px;height:1px;position:fixed;bottom: 0px;left: 0px;"></iframe>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="container-fluid" id="panel_container" style="display:none;">
-		
+
 
 		<div id="charts-panel">
 			<div class="row all-charts-title boxtitlepanel">
 				<div class="col-md-2">
 					<div id="txt15">Gráfico - Amazônia Legal</div>
-				</div>
-
-				<!-- Login -->
-				<div class="col-md-10" style="height: 38px;">
-					<div id="login_box" class="form-inline justify-content-end">
-						<label class="sr-only" for="username">login</label>
-						<input type="text" class="form-control form-control-sm" id="username" placeholder="Username">
-						<label class="sr-only" for="password">******</label>
-						<input type="password" class="form-control form-control-sm" id="password" placeholder="Password">
-						<button id="submitLogin" class="btn btn-primary btn-sm mb-2 btn-success">Login</button>
-					</div>
-					<div id="logout_box" class="info-card justify-content-end">
-						<img src="img/usuario.jpg" class="profile-image rounded-circle" alt="Nome do usuário">
-						<div class="info-card-text">
-							<a href="#" class="d-flex align-items-center">
-								<span class="d-inline-block">
-									<b id="userName">Nome do Usuário</b>
-								</span>
-							</a>
-							<span id="userInstitution" class="d-inline-block">Detalhe da conta</span>
-	
-						</div>
-						<button id="submitLogout" class="btn btn-primary btn-sm btn-sair btn-success">Sair</button> 
-					</div>
 				</div>
 			</div>
 
@@ -239,24 +241,29 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- Start the filter bar -->
 			<div class="row box">
 				<div class="col-md-3">
 					<div class="box-grafico text-center">
 						<div class="bt_content_generalinfo" id="deforestation-bt">
-							<div class="btn btn-primary btn-success bt_generalinfo" id="deforestation-bt-title" title="Ver dados de avisos de desmatamento." onclick="graph.filterByClassGroup('deforestation');">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="deforestation-bt-title"
+								title="Ver dados de avisos de desmatamento."
+								onclick="graph.filterByClassGroup('deforestation');">
 								<span id="txt23">Ver desmatamento</span>
 							</div>
 						</div>
-						<div class="generalinfo" id="deforestation-classes" title="Área total de avisos de desmatamento.">
+						<div class="generalinfo" id="deforestation-classes"
+							title="Área total de avisos de desmatamento.">
 						</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="box-grafico text-center">
 						<div class="bt_content_generalinfo" id="degradation-bt">
-							<div class="btn btn-primary btn-success bt_generalinfo" id="degradation-bt-title" title="Ver dados de avisos de degradação." onclick="graph.filterByClassGroup('degradation');">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="degradation-bt-title"
+								title="Ver dados de avisos de degradação."
+								onclick="graph.filterByClassGroup('degradation');">
 								<span id="txt24">Ver degradação</span>
 							</div>
 						</div>
@@ -267,11 +274,14 @@
 				<div class="col-md-3">
 					<div class="box-grafico text-center">
 						<div class="bt_content_generalinfo" id="custom-bt">
-							<div class="btn btn-primary btn-success bt_generalinfo" id="custom-bt-title" title="Ver todos os dados de avisos, desmatamento e degradação." onclick="graph.filterByClassGroup('custom');">
+							<div class="btn btn-primary btn-success bt_generalinfo" id="custom-bt-title"
+								title="Ver todos os dados de avisos, desmatamento e degradação."
+								onclick="graph.filterByClassGroup('custom');">
 								<span id="txt25">Ver todas as classes</span>
 							</div>
 						</div>
-						<div class="generalinfo" id="custom-classes" title="Área total de avisos de desmatamento e degradação.">
+						<div class="generalinfo" id="custom-classes"
+							title="Área total de avisos de desmatamento e degradação.">
 						</div>
 					</div>
 				</div>
@@ -286,7 +296,7 @@
 			<div class="row box">
 
 				<div class="col-md-12">
-					
+
 					<div class="all-charts box-grafico text-center">
 						<div id="agreg">
 							<div class="all-charts-title boxtitle">
@@ -295,27 +305,34 @@
 										<span id="title-chart-agreg">Variação mensal de área do projeto DETER</span>
 									</div>
 									<div class="justify-content-end ctrl-change-calendar">
-										<div id="change-calendar" class="btn-group btn-group-toggle btn-group-sm selecao" data-toggle="buttons">
+										<div id="change-calendar"
+											class="btn-group btn-group-toggle btn-group-sm selecao"
+											data-toggle="buttons">
 											<label class="btn btn-outline-secondary">
-												<input type="radio" name="calendars" id="civil-calendar" autocomplete="off"><span id="txt-civil">Ano Civil</span>
+												<input type="radio" name="calendars" id="civil-calendar"
+													autocomplete="off"><span id="txt-civil">Ano Civil</span>
 											</label>
 											<label class="btn btn-outline-secondary active">
-												<input type="radio" name="calendars" id="prodes-calendar" autocomplete="off" checked><span id="txt-prodes">Ano Referência</span>
+												<input type="radio" name="calendars" id="prodes-calendar"
+													autocomplete="off" checked><span id="txt-prodes">Ano
+													Referência</span>
 											</label>
 										</div>
 									</div>
 								</div>
 								<div>
-									<b><span id="txt8b" class="filter-info">Intervalo de tempo:</span></b><span class="highlight-time filter-info" id="highlight-time"></span>
+									<b><span id="txt8b" class="filter-info">Intervalo de tempo:</span></b><span
+										class="highlight-time filter-info" id="highlight-time"></span>
 									<a href="javascript:graph.resetFilter('agreg','agrega');">
 										<span aria-hidden="true" id="txt18" title="Limpar este filtro.">
 											<i class="material-icons md-icon-16 icongreen">delete</i>
 										</span>
 									</a>
 								</div>
-								
+
 								<div class="updated">
-									<span id="updated">Atualizado até:</span><span class="updated_date" id="updated_date"></span>
+									<span id="updated">Atualizado até:</span><span class="updated_date"
+										id="updated_date"></span>
 								</div>
 							</div>
 						</div>
@@ -353,8 +370,10 @@
 				<div class="col-md-4">
 					<div class="box-grafico text-center">
 						<div id="title-chart-by-class" class="all-charts-title boxtitle">Area by Classes</div>
-						<a id="modal-718053" href="#modal-container-718053" role="button" class="btn btn-chart-info" data-toggle="modal">
-							<i class="material-icons" id="display_warning" title="Mais informações sobre a classe Corte Seletivo.">info</i>
+						<a id="modal-718053" href="#modal-container-718053" role="button" class="btn btn-chart-info"
+							data-toggle="modal">
+							<i class="material-icons" id="display_warning"
+								title="Mais informações sobre a classe Corte Seletivo.">info</i>
 						</a>
 						<div id="chart-by-class">
 							<div class="keep-space">
@@ -403,17 +422,24 @@
 					<div class="modal-dialog">
 						<div class="modal-content modalinf">
 							<div class="modal-header fechar">
-								<h5 class="modal-title boxtitletable"><span id="txt22">Informações complementares</span></h5>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+								<h5 class="modal-title boxtitletable"><span id="txt22">Informações complementares</span>
+								</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+										class="material-icons">clear</i></button>
 							</div>
 							<div class="modal-body">
 								<div class="alert alert-info">
-									<span id="txt22a">As classes que representam avisos de desmatamento são Mineração, Desmatamento com vegetação e Desmatamento com solo exposto.</span>
+									<span id="txt22a">As classes que representam avisos de desmatamento são Mineração,
+										Desmatamento com vegetação e Desmatamento com solo exposto.</span>
 								</div>
 								<div class="alert alert-warning">
-									<strong><span>* </span></strong><span id="txt22b">A classe <strong>Corte Seletivo</strong> refere-se ao somatório das classes Corte Seletivo Geométrico e Corte Seletivo Desordenado para o ano referência 2015/2016, quando estas classes ainda não eram discretizadas.</span>
+									<strong><span>* </span></strong><span id="txt22b">A classe <strong>Corte
+											Seletivo</strong> refere-se ao somatório das classes Corte Seletivo
+										Geométrico e Corte Seletivo Desordenado para o ano referência 2015/2016, quando
+										estas classes ainda não eram discretizadas.</span>
 								</div>
-								<a target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php" id="txt22c">Informações completas sobre o projeto DETER</a>
+								<a target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php"
+									id="txt22c">Informações completas sobre o projeto DETER</a>
 							</div>
 							<div class="modal-footer">
 								<div class="checkbox pull-right">
@@ -426,7 +452,8 @@
 							</div>
 						</div>
 					</div>
-				</div><!--End of modal information about classes-->
+				</div>
+				<!--End of modal information about classes-->
 
 				<!-- Modal Download-->
 				<div class="modal fade" id="modal-container-download">
@@ -434,11 +461,13 @@
 						<div class="modal-content modalinf">
 							<div class="modal-header fechar">
 								<h5 class="modal-title boxtitletable"><span id="txt26">Download de dados</span></h5>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+										class="material-icons">clear</i></button>
 							</div>
 							<!-- / modal-header -->
 							<div class="modal-body ">
-								<h5 class="modal-title boxtitletable"><span id="txt26a">Baixar a tabela com os avisos de desmatamento em formato CSV.</span></h5>
+								<h5 class="modal-title boxtitletable"><span id="txt26a">Baixar a tabela com os avisos de
+										desmatamento em formato CSV.</span></h5>
 								<div class="dwn-tool">
 									<div class="alert alert-success alert-labeled">
 										<div class="alert-labeled-row">
@@ -466,10 +495,12 @@
 										</div>
 									</div>
 
-									<h5 class="modal-title boxtitletable"><span id="txt26b">Baixar o arquivo completo dos avisos de desmatamento em formato Shapefile.</span></h5>
+									<h5 class="modal-title boxtitletable"><span id="txt26b">Baixar o arquivo completo
+											dos avisos de desmatamento em formato Shapefile.</span></h5>
 									<div class="alert alert-success alert-labeled">
 										<div class="alert-labeled-row">
-											<span id="download-shp-icon" class="alert-label alert-label-left alert-labelled-cell">
+											<span id="download-shp-icon"
+												class="alert-label alert-label-left alert-labelled-cell">
 												<i class="material-icons">save_alt</i>
 											</span>
 											<p class="alert-body alert-body-right alert-labelled-cell">
@@ -506,13 +537,16 @@
 					<div class="modal-dialog">
 						<div class="modal-content modalinf">
 							<div class="modal-header fechar">
-								<h5 class="modal-title boxtitletable"> <span id="txt1c">Informações de ajuda para uso do painel</span></h5>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+								<h5 class="modal-title boxtitletable"> <span id="txt1c">Informações de ajuda para uso do
+										painel</span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+										class="material-icons">clear</i></button>
 							</div>
 							<!-- / modal-header -->
 							<div class="modal-body">
 								<div class="alert alert-success" role="alert">
-									<span id="txt1d">Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.</span>
+									<span id="txt1d">Veja o vídeo introdutório que mostra a interação de um usuário com
+										as ferramentas do painel.</span>
 								</div><br>
 								<div class="embed-video">
 									<video style="width: 100%" controls>
@@ -549,7 +583,8 @@
 					<div class="modal-dialog  logo-card">
 						<div class="modal-content modalinf">
 							<div class="modal-header fechar">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+										class="material-icons">clear</i></button>
 							</div>
 							<!-- / modal-header -->
 							<!-- logo -->
@@ -560,16 +595,23 @@
 								<div class="padding80 bgcolor-voilet ">
 									<div class="container ">
 										<img class="logo-img" src="img/logo.png" alt="logo">
-										<h2 class="aboutcard-title"><span class="amarelo">Terra</span><span class="verde">Brasilis</span></h2>
+										<h2 class="aboutcard-title"><span class="amarelo">Terra</span><span
+												class="verde">Brasilis</span></h2>
 										<div class="row">
 
-											<p class="tmargin10 txtvisao" id="tb-view-text">O TerraBrasilis é uma plataforma desenvolvida pelo INPE para
-												organização, acesso e uso através de um portal web dos dados geográficos produzidos pelos seus programas de
-												monitoramento ambiental. Em um primeiro momento visa atender principalmente ao Programa Amazônia, mas o
-												conceito e os pacotes de software produzidos podem ser adaptados e customizados para atender a outros
-												projetos que produzam dados geográficos e que pretendem que esses possam ser acessados no ambiente da
+											<p class="tmargin10 txtvisao" id="tb-view-text">O TerraBrasilis é uma
+												plataforma desenvolvida pelo INPE para
+												organização, acesso e uso através de um portal web dos dados geográficos
+												produzidos pelos seus programas de
+												monitoramento ambiental. Em um primeiro momento visa atender
+												principalmente ao Programa Amazônia, mas o
+												conceito e os pacotes de software produzidos podem ser adaptados e
+												customizados para atender a outros
+												projetos que produzam dados geográficos e que pretendem que esses possam
+												ser acessados no ambiente da
 												internet.</p>
-											<a href="http://terrabrasilis.dpi.inpe.br/" target="_blank" class="btn btn-primary" id="link-homepage">Leia mais informações
+											<a href="http://terrabrasilis.dpi.inpe.br/" target="_blank"
+												class="btn btn-primary" id="link-homepage">Leia mais informações
 												sobre o TerraBrasilis</a>
 
 										</div>
@@ -587,10 +629,13 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/karine.png" alt="card image"></p>
-																<h4 class="card-title"><a href="http://www.dpi.inpe.br/DPI/acesso-a-informacao/pessoal/servidores/karine-reis-ferreira"
-																	 target="_blank">Karine Reis Ferreira</a></h4>
-																<p class="card-text" id="karine-role">Pesquisadora da Divisão de Processamento de Imagens (DIDPI) do
+																<p><img class=" img-fluid" src="img/karine.png"
+																		alt="card image"></p>
+																<h4 class="card-title"><a
+																		href="http://www.dpi.inpe.br/DPI/acesso-a-informacao/pessoal/servidores/karine-reis-ferreira"
+																		target="_blank">Karine Reis Ferreira</a></h4>
+																<p class="card-text" id="karine-role">Pesquisadora da
+																	Divisão de Processamento de Imagens (DIDPI) do
 																	INPE</p>
 															</div>
 														</div>
@@ -605,10 +650,13 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/lubia.png" alt="card image"></p>
-																<h4 class="card-title"><a href="http://www.dpi.inpe.br/DPI/acesso-a-informacao/pessoal/servidores/lubia-vinhas"
-																	 target="_blank">Lubia Vinhas</a></h4>
-																<p class="card-text" id="lubia-role">Pesquisadora da Divisão de Processamento de Imagens (DIDPI) do
+																<p><img class=" img-fluid" src="img/lubia.png"
+																		alt="card image"></p>
+																<h4 class="card-title"><a
+																		href="http://www.dpi.inpe.br/DPI/acesso-a-informacao/pessoal/servidores/lubia-vinhas"
+																		target="_blank">Lubia Vinhas</a></h4>
+																<p class="card-text" id="lubia-role">Pesquisadora da
+																	Divisão de Processamento de Imagens (DIDPI) do
 																	INPE</p>
 															</div>
 														</div>
@@ -623,10 +671,13 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/maurano.png" alt="card image"></p>
-																<h4 class="card-title"><a href="http://www.dpi.inpe.br/DPI/acesso-a-informacao/pessoal/servidores/luis-eduardo-pinheiro-maurano"
-																	 target="_blank">Luis E. Maurano</a></h4>
-																<p class="card-text" id="maurano-role">Tecnologista Senior da Divisão de Processamento de Imagens
+																<p><img class=" img-fluid" src="img/maurano.png"
+																		alt="card image"></p>
+																<h4 class="card-title"><a
+																		href="http://www.dpi.inpe.br/DPI/acesso-a-informacao/pessoal/servidores/luis-eduardo-pinheiro-maurano"
+																		target="_blank">Luis E. Maurano</a></h4>
+																<p class="card-text" id="maurano-role">Tecnologista
+																	Senior da Divisão de Processamento de Imagens
 																	(DIDPI) do INPE</p>
 															</div>
 														</div>
@@ -647,10 +698,14 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/adeline.png" alt="card image"></p>
-																<h4 class="card-title"><a href="https://www.linkedin.com/in/adelinemarinhomaciel" target="_blank">Adeline
+																<p><img class=" img-fluid" src="img/adeline.png"
+																		alt="card image"></p>
+																<h4 class="card-title"><a
+																		href="https://www.linkedin.com/in/adelinemarinhomaciel"
+																		target="_blank">Adeline
 																		Maciel</a></h4>
-																<p class="card-text" id="adeline-role">Bolsista de Pesquisa</p>
+																<p class="card-text" id="adeline-role">Bolsista de
+																	Pesquisa</p>
 															</div>
 														</div>
 													</div>
@@ -665,9 +720,13 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/andre.png" alt="card image"></p>
-																<h4 class="card-title"><a href="https://github.com/andre-carvalho" target="_blank">André Carvalho</a></h4>
-																<p class="card-text" id="andre-role">Desenvolvedor de Software Sênior</p>
+																<p><img class=" img-fluid" src="img/andre.png"
+																		alt="card image"></p>
+																<h4 class="card-title"><a
+																		href="https://github.com/andre-carvalho"
+																		target="_blank">André Carvalho</a></h4>
+																<p class="card-text" id="andre-role">Desenvolvedor de
+																	Software Sênior</p>
 															</div>
 														</div>
 													</div>
@@ -681,10 +740,14 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/claudinei.png" alt="card image"></p>
-																<h4 class="card-title"><a href="http://lattes.cnpq.br/9744765350087148" target="_blank">Claudinei de
+																<p><img class=" img-fluid" src="img/claudinei.png"
+																		alt="card image"></p>
+																<h4 class="card-title"><a
+																		href="http://lattes.cnpq.br/9744765350087148"
+																		target="_blank">Claudinei de
 																		Camargo</a></h4>
-																<p class="card-text" id="ney-role">Web Designer Sênior</p>
+																<p class="card-text" id="ney-role">Web Designer Sênior
+																</p>
 															</div>
 														</div>
 													</div>
@@ -698,9 +761,11 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/fabio.png" alt="card image"></p>
+																<p><img class=" img-fluid" src="img/fabio.png"
+																		alt="card image"></p>
 																<h4 class="card-title">Fábio da Conceição Pinheiro</h4>
-																<p class="card-text" id="fabio-role">Administrador de Banco de Dados</p>
+																<p class="card-text" id="fabio-role">Administrador de
+																	Banco de Dados</p>
 															</div>
 														</div>
 													</div>
@@ -714,10 +779,14 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/jether.png" alt="card image"></p>
-																<h4 class="card-title"><a href="https://www.linkedin.com/in/jetherodrigues" target="_blank">Jether
+																<p><img class=" img-fluid" src="img/jether.png"
+																		alt="card image"></p>
+																<h4 class="card-title"><a
+																		href="https://www.linkedin.com/in/jetherodrigues"
+																		target="_blank">Jether
 																		Rodrigues</a></h4>
-																<p class="card-text" id="jether-role">Desenvolvedor de Software Sênior</p>
+																<p class="card-text" id="jether-role">Desenvolvedor de
+																	Software Sênior</p>
 															</div>
 														</div>
 													</div>
@@ -730,10 +799,14 @@
 													<div class="cardfront">
 														<div class="card">
 															<div class="card-body text-center">
-																<p><img class=" img-fluid" src="img/luiz.png" alt="card image"></p>
-																<h4 class="card-title"><a href="https://br.linkedin.com/in/luizffgassis" target="_blank">Luiz Fernando
+																<p><img class=" img-fluid" src="img/luiz.png"
+																		alt="card image"></p>
+																<h4 class="card-title"><a
+																		href="https://br.linkedin.com/in/luizffgassis"
+																		target="_blank">Luiz Fernando
 																		F. G. de Assis </a></h4>
-																<p class="card-text" id="luiz-role">Desenvolvedor de Software Pleno</p>
+																<p class="card-text" id="luiz-role">Desenvolvedor de
+																	Software Pleno</p>
 															</div>
 														</div>
 													</div>
@@ -759,7 +832,8 @@
 													<div class="col-xs-12 col-sm-4 col-md-4">
 														<div class="card">
 															<div class="card-body">
-																<h4 class="card-title" id="contrib">Ex-Colaboradores</h4>
+																<h4 class="card-title" id="contrib">Ex-Colaboradores
+																</h4>
 																<ul class="list-group">
 																	<li class="list-group-item">Claudio Bogossian</li>
 																	<li class="list-group-item">Gustavo Furtado</li>
@@ -777,12 +851,20 @@
 															<div class="card-body">
 																<h4 class="card-title" id="tb-support">Suporte</h4>
 																<ul class="list-group">
-																	<li class="list-group-item" id="support-inpe">Instituto Nacional de Pesquisas Espaciais (INPE)</li>
-																	<li class="list-group-item" id="support-funcate">Fundação de Ciência Aplicações e Tecnologia Espaciais
+																	<li class="list-group-item" id="support-inpe">
+																		Instituto Nacional de Pesquisas Espaciais (INPE)
+																	</li>
+																	<li class="list-group-item" id="support-funcate">
+																		Fundação de Ciência Aplicações e Tecnologia
+																		Espaciais
 																		(FUNCATE)</li>
-																	<li class="list-group-item" id="support-fundep">Fundação de Desenvolvimento da Pesquisa (FUNDEP)</li>
-																	<li class="list-group-item" id="support-world-bank">Grupo Banco Mundial</li>
-																	<li class="list-group-item" id="support-bndes">Banco Nacional de Desenvolvimento (BNDES)</li>
+																	<li class="list-group-item" id="support-fundep">
+																		Fundação de Desenvolvimento da Pesquisa (FUNDEP)
+																	</li>
+																	<li class="list-group-item" id="support-world-bank">
+																		Grupo Banco Mundial</li>
+																	<li class="list-group-item" id="support-bndes">Banco
+																		Nacional de Desenvolvimento (BNDES)</li>
 																</ul>
 
 															</div>
@@ -794,14 +876,24 @@
 													<div class="col-xs-12 col-sm-4 col-md-4">
 														<div class="card">
 															<div class="card-body">
-																<h4 class="card-title" id="about_technology">Tecnologias</h4>
+																<h4 class="card-title" id="about_technology">Tecnologias
+																</h4>
 																<ul class="list-group">
-																	<li class="list-group-item" id="about_technology_languages">JavaScript (D3, DC, CrossFilter, Leaflet,
+																	<li class="list-group-item"
+																		id="about_technology_languages">JavaScript (D3,
+																		DC, CrossFilter, Leaflet,
 																		Angular 5), Python, PHP, Java</li>
-																	<li class="list-group-item" id="about_technology_heterogeneous">Docker Swarm (clusterização de
-																		contêineres), Redis MongoDB, PostgreSQL, Nginx HTTP Server (balanceamento de carga e proxy reverso).</li>
-																	<li class="list-group-item" id="about_technology_services">Servidor de compartilhamento de dados
-																		geoespaciais (Geoserver) e catálogo de busca de metadados (Geonetwork).</li>
+																	<li class="list-group-item"
+																		id="about_technology_heterogeneous">Docker Swarm
+																		(clusterização de
+																		contêineres), Redis MongoDB, PostgreSQL, Nginx
+																		HTTP Server (balanceamento de carga e proxy
+																		reverso).</li>
+																	<li class="list-group-item"
+																		id="about_technology_services">Servidor de
+																		compartilhamento de dados
+																		geoespaciais (Geoserver) e catálogo de busca de
+																		metadados (Geonetwork).</li>
 																</ul>
 															</div>
 														</div>
@@ -836,7 +928,8 @@
 				<!-- / modal -->
 
 				<!-- modal window with counties filterd items -->
-				<div class="modal fade" id="modal-container-filtered" role="dialog" aria-labelledby="filtered" aria-hidden="true">
+				<div class="modal fade" id="modal-container-filtered" role="dialog" aria-labelledby="filtered"
+					aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -850,13 +943,15 @@
 							<div class="modal-body">
 								<span id="txt1g">Encontre um município.</span>
 								<div class="input-group input-group-sm" style="margin-bottom: 15px;">
-									<input autofocus id="search-county" onkeypress="utils.searchCountyByEnterKey(event)" type="text" class="form-control"
-									 placeholder="Search">
+									<input autofocus id="search-county" onkeypress="utils.searchCountyByEnterKey(event)"
+										type="text" class="form-control" placeholder="Search">
 									<div class="input-group-btn">
-										<button class="btn btn-default" onclick="utils.searchCounty()"><i class="material-icons" style="color:gray">search</i></button>
+										<button class="btn btn-default" onclick="utils.searchCounty()"><i
+												class="material-icons" style="color:gray">search</i></button>
 									</div>
 								</div>
-								<span id="txt1h" style="display:none;">Selecione um item na lista de municípios encontrados.</span>
+								<span id="txt1h" style="display:none;">Selecione um item na lista de municípios
+									encontrados.</span>
 								<div class="counties-list">
 									<ul id="filtered-list"></ul>
 								</div>
@@ -874,51 +969,20 @@
 		</div>
 	</div>
 
-	<!-- modal window with login warning panel -->
-	<div class="modal fade" id="modal-container-warning">
-		<div class="modal-dialog">
-			<div class="modal-content modalinf">
-				<div class="modal-header fechar">
-					<h5 class="modal-title boxtitletable"> <span id="txt14g">Aviso</span></h5>
-					<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button> -->
-				</div>
-				<!-- / modal-header -->
-				<div class="modal-body ">
-					<div class="alert alert-warning" role="alert">
-						<span id="txt14h">O nome de usuário ou senha está incorreto. Verifique se CAPS LOCK está ativado. Se você receber essa mensagem novamente, entre em contato com o administrador do sistema para garantir que você tenha permissão para logar no portal.</span>
-					</div>
-				</div>
-				<!-- / modal-body -->
-				<div class="modal-footer">
-					<div class="checkbox pull-right">
-						<label>
-							<button type="button" class="btn btngreen" data-dismiss="modal">
-								<span id="txt1i">Fechar</span>
-							</button>
-						</label>
-					</div>
-					<!--/ checkbox -->
-				</div>
-				<!--/ modal-footer -->
-			</div>
-			<!-- / modal-content -->
-		</div>
-		<!--/ modal-dialog -->
-	</div>
-	<!-- / modal -->
-
 	<!-- modal window to display the email contact -->
 	<div class="modal fade" id="modal-container-contact">
 		<div class="modal-dialog">
 			<div class="modal-content modalinf">
 				<div class="modal-header fechar">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+							class="material-icons">clear</i></button>
 				</div>
 				<!-- / modal-header -->
 				<div class="modal-body">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title"><span id="tt-contactus">Envie sugestões ou perguntas para:</span></h5>
+							<h5 class="card-title"><span id="tt-contactus">Envie sugestões ou perguntas para:</span>
+							</h5>
 							<p class="card-text"><a href="mailto:terrabrasilis@inpe.br">terrabrasilis@inpe.br</a></p>
 						</div>
 					</div>
@@ -936,7 +1000,8 @@
 		<div class="modal-dialog firstnotice">
 			<div class="modal-content modalinf">
 				<div class="modal-header fechar">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+							class="material-icons">clear</i></button>
 				</div>
 				<!-- / modal-header -->
 				<div class="modal-body ">
@@ -944,15 +1009,20 @@
 						<div class="carousel-inner">
 							<div class="carousel-item active">
 								<img class="d-block w-100" src="img/slider7.jpg" alt="Primeiro slide">
-								<h1 class="titulo"><span id="about-modal">Sobre </span><span class="amarelo">Terra</span><span class="verde">Brasilis</span></h1>
-									<p class="descricaoslide" id="description-modal">O TerraBrasilis é uma plataforma desenvolvida pelo INPE para organização, acesso e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento ambiental.</p>
+								<h1 class="titulo"><span id="about-modal">Sobre </span><span
+										class="amarelo">Terra</span><span class="verde">Brasilis</span></h1>
+								<p class="descricaoslide" id="description-modal">O TerraBrasilis é uma plataforma
+									desenvolvida pelo INPE para organização, acesso e uso através de um portal web dos
+									dados geográficos produzidos pelos seus programas de monitoramento ambiental.</p>
 							</div>
 						</div>
-						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+							data-slide="prev">
 							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 							<span class="sr-only">Previous</span>
 						</a>
-						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+							data-slide="next">
 							<span class="carousel-control-next-icon" aria-hidden="true"></span>
 							<span class="sr-only">Next</span>
 						</a>
@@ -962,7 +1032,8 @@
 				<div class="modal-footer">
 					<div class="checkbox pull-right">
 						<label>
-							<input id="notice" class="modal-check" name="modal-check" type="checkbox"><span class="textoc" id="option-modal">Não mostrar novamente.</span>
+							<input id="notice" class="modal-check" name="modal-check" type="checkbox"><span
+								class="textoc" id="option-modal">Não mostrar novamente.</span>
 						</label>
 					</div>
 					<!--/ checkbox -->
@@ -983,13 +1054,15 @@
 			<div class="modal-content modalinf">
 				<div class="modal-header fechar">
 					<h5 class="modal-title boxtitletable"> <span id="txt4p">Imprimir Gráficos</span></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+							class="material-icons">clear</i></button>
 				</div>
 				<!-- / modal-header -->
 				<div class="modal-body ">
 					<div class="alert alert-success" role="alert"> <span id="txt30">
 
-							A impressão deste documento utiliza os recursos do navegador e pode apresentar diferenças entre eles.<br />
+							A impressão deste documento utiliza os recursos do navegador e pode apresentar diferenças
+							entre eles.<br />
 							A impressão acomoda bem os gráficos quando as configurações são as seguintes:<br />
 							&nbsp;&nbsp;&nbsp;- A orientação do papel é do tipo paisagem;<br />
 							&nbsp;&nbsp;&nbsp;- O tamanho de papel é A4;<br />
@@ -1003,7 +1076,8 @@
 				<div class="modal-footer">
 					<div class="checkbox pull-right">
 						<label>
-							<button type="button" class="btn btngreen" data-dismiss="modal" id="print_page" style="color: #fff;">
+							<button type="button" class="btn btngreen" data-dismiss="modal" id="print_page"
+								style="color: #fff;">
 								<span id="txt1ea">Fechar</span>
 							</button>
 						</label>
@@ -1019,7 +1093,9 @@
 	<!-- / modal -->
 	<!--Footer-->
 	<footer class="footer">
-		<p><a href="http://terrabrasilis.dpi.inpe.br"> TerraBrasilis</a>&nbsp;<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a></p>
+		<p><a href="http://terrabrasilis.dpi.inpe.br"> TerraBrasilis</a>&nbsp;<a rel="license"
+				href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licença Creative Commons"
+					style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a></p>
 	</footer>
 	<!--/.Footer-->
 
@@ -1032,16 +1108,19 @@
 	<script type="text/javascript" src="./libs/filesaver/FileSaver.min.js"></script>
 
 	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	 crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<!-- Popper.JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
 	<!-- Bootstrap Js CDN -->
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	 crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
 	<!-- jQuery Custom Scroller CDN -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 	<!-- worked to minify / using to minify: https://www.minifier.org/ -->
 	<script type="text/javascript" src="./js/svg-to-image.min.js"></script>
@@ -1050,9 +1129,8 @@
 	<script type="text/javascript" src="./js/deter-amazon-change-lang.js"></script>
 	<script type="text/javascript" src="./js/deter-amazon-aggregated.js"></script>
 	<script type="text/javascript" src="./js/easy-cookie.js"></script>
-	<script type="text/javascript" src="./js/loginToken.js"></script>
-	<script type="text/javascript" src="./js/loginUser.js"></script>
 	<script type="text/javascript" src="./js/downloadSHP.js"></script>
+	<script type="text/javascript" src="http://terrabrasilis.dpi.inpe.br/oauth-api/getoauthjs"></script>
 
 	<script type="text/javascript">
 		$("#notice").click(function () {
