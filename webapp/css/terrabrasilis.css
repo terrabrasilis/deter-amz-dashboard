@@ -952,3 +952,12 @@ footer{
 .box .col-md-3 {min-width:250px;}
 
 .col-md-3 .box-grafico {min-width:200px;}
+
+.version_style
+{
+  position: absolute;
+  bottom: 1px;
+  right: 5px;
+  color: white;
+  font-size: small;
+}
