@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=$(cat PROJECT_VERSION | grep -oP '(?<="version": ")[^"]*')
+VERSION=$(cat webapp/PROJECT_VERSION | grep -oP '(?<="version": ")[^"]*')
 
 # Stopping all containers
 #docker container stop terrabrasilis_amazon_alert_daily

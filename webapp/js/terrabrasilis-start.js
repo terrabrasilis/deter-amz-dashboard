@@ -43,3 +43,17 @@ $(document).ready(function () {
                         .addClass("fa-plus-circle");
                 });
         });
+
+$(document).ready(function () {
+
+    let versionDiv = $('#version');
+    if(versionDiv.length>0)
+    {
+        $.getJSON('PROJECT_VERSION', function(data) {
+            let version = data.version;
+            console.log(version);
+            versionDiv.append('ver: '+version);
+        });
+        
+    }
+});
