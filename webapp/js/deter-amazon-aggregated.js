@@ -29,19 +29,19 @@ var utils = {
 		d3.select('#download-csv-monthly-all')
 	    .on('click', function() {
 			var blob = new Blob([d3.csv.format(graph.data)], {type: "text/csv;charset=utf-8"});
-			saveAs(blob, 'deter-amz-aggregated-'+downloadCtrl.getDownloadTime()+'.csv');
+			saveAs(blob, downloadCtrl.getProject()+'-aggregated-'+downloadCtrl.getDownloadTime()+'.csv');
 		});
 		// with filters
 		d3.select('#download-csv-monthly')
 	    .on('click', function() {
 			var filteredData=graph.classDimension.top(Infinity);
 	        var blob = new Blob([d3.csv.format(filteredData)], {type: "text/csv;charset=utf-8"});
-	        saveAs(blob, 'deter-amz-aggregated-'+downloadCtrl.getDownloadTime()+'.csv');
+	        saveAs(blob, downloadCtrl.getProject()+'-aggregated-'+downloadCtrl.getDownloadTime()+'.csv');
 		});
 		// shapefile 
 		d3.select('#download-shp')
 		.on('click', function() {
-			downloadCtrl.startDownload('deter-amz');
+			downloadCtrl.startDownload();
 		});
 	},
 	preparePrint: function() {
@@ -385,10 +385,10 @@ var graph={
 		// to prevent error on localhost developer environment
 		if(window.location.host!="terrabrasilis.dpi.inpe.br") return;
 		
-		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
+		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+downloadCtrl.getProject()+":updated_date&OUTPUTFORMAT=application%2Fjson";
 
 		if(Authentication.hasToken()){
-			url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:last_date&OUTPUTFORMAT=application%2Fjson";
+			url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+downloadCtrl.getProject()+":last_date&OUTPUTFORMAT=application%2Fjson";
 		}
 		d3.json(url, (json) => {
 			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
@@ -892,7 +892,7 @@ var graph={
 	startLoadData() {
 		Lang.apply();
 		//var dataUrl = "./data/deter-amazon-month.json";
-		var dataUrl = "http://terrabrasilis.dpi.inpe.br/file-delivery/download/deter-amz/monthly";
+		var dataUrl = "http://terrabrasilis.dpi.inpe.br/file-delivery/download/"+downloadCtrl.getProject()+"/monthly";
 		graph.loadData(dataUrl);
 		graph.loadUpdatedDate();
 		utils.attachEventListeners();
