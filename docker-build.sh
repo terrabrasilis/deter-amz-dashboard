@@ -1,14 +1,14 @@
 #!/bin/bash
 
 VERSION=$(cat webapp/PROJECT_VERSION | grep -oP '(?<="version": ")[^"]*')
-
+export VERSION
 # Stopping all containers
 #docker container stop terrabrasilis_amazon_alert_daily
 #docker container stop terrabrasilis_amazon_alert_aggregated
 
 # build all images
-docker build -t terrabrasilis/amazon-alert-daily:v$VERSION --build-arg INDEX_FILE=deter-amazon-daily -f environment/Dockerfile .
-docker build -t terrabrasilis/amazon-alert-aggregated:v$VERSION --build-arg INDEX_FILE=deter-amazon-aggregated -f environment/Dockerfile .
+docker build -t terrabrasilis/amazon-alert-daily:v$VERSION --build-arg VERSION=$VERSION --build-arg INDEX_FILE=deter-amazon-daily -f environment/Dockerfile .
+docker build -t terrabrasilis/amazon-alert-aggregated:v$VERSION --build-arg VERSION=$VERSION --build-arg INDEX_FILE=deter-amazon-aggregated -f environment/Dockerfile .
 
 # send to dockerhub
 ## docker login

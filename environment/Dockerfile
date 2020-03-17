@@ -17,9 +17,10 @@
 #--------- Generic stuff all our Dockerfiles should start with -----------------------------
 FROM nginx:latest
 
+ARG VERSION="1.0"
 LABEL "br.inpe.dpi"="INPE/DPI-TerraBrasilis"
 LABEL br.inpe.dpi.terrabrasilis="application"
-LABEL version="v2.5"
+LABEL version=${VERSION}
 LABEL author="Andre Carvalho"
 LABEL author.email="andre.carvalho@inpe.br"
 LABEL description="This container provides an http server including the webapp version for deploy the DETER Legal Amazon dashboards."
