@@ -1,6 +1,7 @@
 let downloadCtrl={
 
 	project:null,
+	serviceBaseUrl:"http://terrabrasilis.dpi.inpe.br/homologation/file-delivery",
 	
 	getDownloadTime() {
 		let dt=new Date();
@@ -35,7 +36,7 @@ let downloadCtrl={
 
 		let anchor = document.createElement("a");
 		document.body.appendChild(anchor);
-		let file = 'http://terrabrasilis.dpi.inpe.br/file-delivery/download/'+this.project+'/shape';
+		let file = this.serviceBaseUrl+'/download/'+this.project+'/shape';
 		
 		let headers = new Headers();
         headers.append('Authorization', 'Bearer '+Authentication.getToken());

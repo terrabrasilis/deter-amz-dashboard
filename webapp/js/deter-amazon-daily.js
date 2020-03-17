@@ -85,7 +85,7 @@ var graph={
 			graph.utils.displayLoginExpiredMessage();
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			var dataUrl = "http://terrabrasilis.dpi.inpe.br/file-delivery/download/"+downloadCtrl.getProject()+"/daily";
+			var dataUrl = downloadCtrl.serviceBaseUrl+"/download/"+downloadCtrl.getProject()+"/daily";
 			var afterLoadData=function(json) {
 				Lang.apply();
 				if(!json || !json.features) {

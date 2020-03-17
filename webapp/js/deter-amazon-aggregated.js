@@ -892,7 +892,7 @@ var graph={
 	startLoadData() {
 		Lang.apply();
 		//var dataUrl = "./data/deter-amazon-month.json";
-		var dataUrl = "http://terrabrasilis.dpi.inpe.br/file-delivery/download/"+downloadCtrl.getProject()+"/monthly";
+		var dataUrl = downloadCtrl.serviceBaseUrl+"/download/"+downloadCtrl.getProject()+"/monthly";
 		graph.loadData(dataUrl);
 		graph.loadUpdatedDate();
 		utils.attachEventListeners();
