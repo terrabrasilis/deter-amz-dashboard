@@ -145,6 +145,8 @@ var Translation={
 		'toAggregatedChart-amz':'Abrir o painel agregado mensal de avisos para a Amazônia Legal.',
 		'toDailyChart-cer':'Abrir o painel avisos diários para o Bioma Cerrado.',
 		'toAggregatedChart-cer':'Abrir o painel agregado mensal de avisos para o Bioma Cerrado.',
+		'toDailyChart-fm':'Abrir o painel avisos diários do Forest Monitor.',
+		'toAggregatedChart-fm':'Abrir o painel agregado mensal de avisos do Forest Monitor.',
 		'tituloprint': ' | Variação mensal de área do projeto DETER - ano referência (Agosto a Julho)',
 		/* For about modal window  */
 		'andre-role':'Desenvolvedor de Software Sênior',
@@ -315,6 +317,8 @@ var Translation={
 		'toAggregatedChart-amz':'Open the panel aggregate monthly notices for Legal Amazon.',
 		'toDailyChart-cer':'Open the panel daily notices for Cerrado Biome.',
 		'toAggregatedChart-cer':'Open the panel aggregate monthly notices for Cerrado Biome.',
+		'toDailyChart-fm':'Open the panel daily notices for Forest Monitor.',
+		'toAggregatedChart-fm':'Open the panel aggregate monthly notices for Forest Monitor.',
 		'tituloprint': ' | Monthly variation of DETER project area - reference year (August to July)',
 		/* For about modal window  */
 		'andre-role':'Senior Software Development',

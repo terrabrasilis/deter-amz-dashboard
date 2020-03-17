@@ -280,6 +280,12 @@ var graph={
 
 	utils:{
 
+		checkMenuOptions() {
+			var displayValue=(Authentication.hasToken())?'':'none';
+			$('#disable_day_menu_fm').css('display',displayValue);
+			$('#disable_agg_menu_fm').css('display',displayValue);
+		},
+
 		displayLoginExpiredMessage() {
 			if(Authentication.isExpiredToken()){
 				Authentication.setExpiredToken(false);
@@ -973,10 +979,12 @@ var graph={
 
 window.onload=function(){
 	graph.configurePrintKeys();
+	graph.utils.checkMenuOptions();
 	Lang.init();
 	graph.startLoadData();
 	Authentication.init(Lang.language, function(){
 		graph.resetFilters();
 		graph.restart();
+		graph.utils.checkMenuOptions();
 	});
 };
