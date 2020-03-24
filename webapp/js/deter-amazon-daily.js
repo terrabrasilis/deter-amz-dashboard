@@ -14,8 +14,8 @@ var graph={
 	
 	lineDistributionByMonth:undefined,
 	ringTotalizedByClass:undefined,
-    histTopByCounties:undefined,
-    ringTotalizedByState:undefined,
+	histTopByCounties:undefined,
+	ringTotalizedByState:undefined,
 	histTopByUCs:undefined,
 
 	deforestation:["DESMATAMENTO_CR", "DESMATAMENTO_VEG", "MINERACAO"],
@@ -281,7 +281,7 @@ var graph={
 
 	utils:{
 
-		checkMenuOptions() {
+		applyLabelsByProject() {
 			var displayValue=(Authentication.hasToken())?'':'none';
 			$('#disable_day_menu_fm').css('display',displayValue);
 			$('#disable_agg_menu_fm').css('display',displayValue);
@@ -289,9 +289,33 @@ var graph={
 			if( downloadCtrl.getProject()=='deter-fm'){
 				$('#toDailyChart-fm').addClass('enable_menu');
 				$('#toDailyChart-amz').removeClass('enable_menu');
+				// page title
+				$('#page-title-amz').css('display','none');
+				$('#page-title-fm').css('display','');
+				// change other texts
+				$('#title-chart-amz').css('display','none');
+				$('#title-chart-fm').css('display','');
+				$('#header-panel-amz').css('display','none');
+				$('#header-panel-fm').css('display','');
+				$('#header-menu-amz').css('display','none');
+				$('#header-menu-fm').css('display','');
+				$('#tituloprint-amz').css('display','none');
+				$('#tituloprint-fm').css('display','');
 			}else{
 				$('#toDailyChart-amz').addClass('enable_menu');
 				$('#toDailyChart-fm').removeClass('enable_menu');
+				// page title
+				$('#page-title-amz').css('display','');
+				$('#page-title-fm').css('display','none');
+				// change other texts
+				$('#title-chart-amz').css('display','');
+				$('#title-chart-fm').css('display','none');
+				$('#header-panel-amz').css('display','');
+				$('#header-panel-fm').css('display','none');
+				$('#header-menu-amz').css('display','');
+				$('#header-menu-fm').css('display','none');
+				$('#tituloprint-amz').css('display','');
+				$('#tituloprint-fm').css('display','none');
 			}
 		},
 
@@ -988,12 +1012,12 @@ var graph={
 
 window.onload=function(){
 	graph.configurePrintKeys();
-	graph.utils.checkMenuOptions();
 	Lang.init();
+	graph.utils.applyLabelsByProject();
 	graph.startLoadData();
 	Authentication.init(Lang.language, function(){
 		graph.resetFilters();
 		graph.restart();
-		graph.utils.checkMenuOptions();
+		graph.utils.applyLabelsByProject();
 	});
 };

@@ -2,7 +2,8 @@
 <html lang="pt-br, en, es">
 
 <head>
-	<title>Amazônia Legal Brasileira - avisos de Desmatamento</title>
+	<title id="page-title-amz">Amazônia Legal - Avisos de Desmatamento</title>
+	<title id="page-title-fm" style="display:none">Amazônia Legal - Avisos de Desmatamento</title>
 	<meta charset="UTF-8">
 	<meta http-equiv='cache-control' content='no-cache'>
 	<meta http-equiv='expires' content='0'>
@@ -55,7 +56,8 @@
 
 					<div class="desctxt">
 						<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span> </h5>
-						<div id="header-menu">Avisos</div>
+						<div id="header-menu-amz">DETER (Avisos)</div>
+						<div id="header-menu-fm">DETER Intenso (Avisos)</div>
 					</div>
 				</div>
 			</a>
@@ -135,9 +137,10 @@
 	<!-- Menu superior -->
 	<div id="content">
 		<div class="boxtop">
-			<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span><span id="tituloprint"
-					class="tituloprint">
-					| Variação mensal de área do projeto DETER - ano</span></h5>
+			<h5><span class="amarelo">Terra</span><span class="verde">Brasilis</span>
+				<span id="tituloprint-amz" class="tituloprint">	| Variação mensal de área do projeto DETER - ano</span>
+				<span id="tituloprint-fm" class="tituloprint">	| Variação mensal de área do projeto DETER Intenso - ano</span>
+			</h5>
 		</div>
 
 		<nav class="navbar navbar-expand-lg materialnav navbar-header">
@@ -150,7 +153,8 @@
 					class="verde">Brasilis</span></a>
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link" href="#" id="header-panel">| DETER (Avisos)</a>
+					<a class="nav-item nav-link" href="#" id="header-panel-amz">| DETER (Avisos)</a>
+					<a class="nav-item nav-link" href="#" id="header-panel-fm">| DETER Intenso (Avisos)</a>
 				</div>
 				<ul id="navigationBarUL" class="navbar-nav navbar-right analises">
 					<li class="nav-item dropdown">
@@ -239,7 +243,8 @@
 		<div id="charts-panel">
 			<div class="row all-charts-title boxtitlepanel">
 				<div class="col-md-2">
-					<div id="txt15">Gráfico - Amazônia Legal</div>
+					<div id="title-chart-amz">Análise - Amazônia Legal</div>
+					<div id="title-chart-fm" style="display:none">Análise - Área Teste</div>
 				</div>
 			</div>
 
@@ -311,7 +316,8 @@
 							<div class="all-charts-title boxtitle">
 								<div class="focus-chart-ctrl">
 									<div class="justify-content-start ctrl-change-calendar">
-										<span id="title-chart-agreg">Variação mensal de área do projeto DETER</span>
+										<span id="title-chart-agreg-amz">Variação mensal de área do projeto DETER</span>
+										<span id="title-chart-agreg-fm">Variação mensal de área do projeto DETER Intenso</span>
 									</div>
 									<div class="justify-content-end ctrl-change-calendar">
 										<div id="change-calendar"
