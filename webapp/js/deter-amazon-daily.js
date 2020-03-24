@@ -284,6 +284,14 @@ var graph={
 			var displayValue=(Authentication.hasToken())?'':'none';
 			$('#disable_day_menu_fm').css('display',displayValue);
 			$('#disable_agg_menu_fm').css('display',displayValue);
+
+			if( downloadCtrl.getProject()=='deter-fm'){
+				$('#toDailyChart-fm').addClass('enable_menu');
+				$('#toDailyChart-amz').removeClass('enable_menu');
+			}else{
+				$('#toDailyChart-amz').addClass('enable_menu');
+				$('#toDailyChart-fm').removeClass('enable_menu');
+			}
 		},
 
 		displayLoginExpiredMessage() {
