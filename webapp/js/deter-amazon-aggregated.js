@@ -901,7 +901,7 @@ var graph={
 	startLoadData() {
 		Lang.apply();
 		//var dataUrl = "./data/deter-amazon-month.json";
-		var dataUrl = downloadCtrl.serviceBaseUrl+"/download/"+downloadCtrl.getProject()+"/monthly";
+		var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/monthly";
 		graph.loadData(dataUrl);
 		graph.loadUpdatedDate();
 		utils.attachEventListeners();

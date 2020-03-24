@@ -1,7 +1,14 @@
 let downloadCtrl={
 
 	project:null,
-	serviceBaseUrl:"http://terrabrasilis.dpi.inpe.br/homologation/file-delivery",
+	homologation:"",
+	serviceBaseUrl:"http://terrabrasilis.dpi.inpe.br/file-delivery",
+
+	getFileDeliveryURL() {
+		this.inferHomologationByURI();
+		this.serviceBaseUrl="http://terrabrasilis.dpi.inpe.br/"+this.homologation+"file-delivery";
+		return this.serviceBaseUrl;
+	},
 	
 	getDownloadTime() {
 		let dt=new Date();
@@ -26,6 +33,13 @@ let downloadCtrl={
 		}
 	},
 
+	inferHomologationByURI() {
+		var URL=document.location.href;
+		if(URL.includes("homologation")){
+			this.homologation="homologation/";
+		}
+	},
+
     startDownload() {
         if(!this.project) this.inferProjectByURI();
         $('#download-shp-icon').html('<img src="img/loader.svg" />');
@@ -36,7 +50,7 @@ let downloadCtrl={
 
 		let anchor = document.createElement("a");
 		document.body.appendChild(anchor);
-		let file = this.serviceBaseUrl+'/download/'+this.project+'/shape';
+		let file = this.getFileDeliveryURL()+'/download/'+this.project+'/shape';
 		
 		let headers = new Headers();
         headers.append('Authorization', 'Bearer '+Authentication.getToken());
