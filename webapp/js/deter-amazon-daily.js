@@ -252,6 +252,7 @@ var graph={
 	},
 	
 	resetFilters:function() {
+		if(!graph.data) return;
 		graph.lineDistributionByMonth.filterAll();
 		graph.ringTotalizedByClass.filterAll();
 		graph.histTopByCounties.filterAll();

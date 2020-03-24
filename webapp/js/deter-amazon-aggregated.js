@@ -206,9 +206,10 @@ var utils = {
 	},
 	displayWarning:function(enable) {
 		if(enable===undefined) enable=true;
-		document.getElementById("warning_data_info").style.display=((enable)?(''):('none'));
+		d3.select('#warning_data_info').style('display',((enable)?(''):('none')));
+		d3.select('#loading_data_info').style('display',((enable)?('none'):('')));
+		d3.select('#info_container').style('display',((enable)?(''):('none')));
 		document.getElementById("warning_data_info").innerHTML='<h3><span id="txt8">'+Translation[Lang.language].txt8+'</span></h3>';
-		document.getElementById("loading_data_info").style.display=((enable)?('none'):(''));
 	},
 	displayGraphContainer:function() {
 		d3.select('#panel_container').style('display','block');
@@ -929,6 +930,7 @@ var graph={
 		dc.redrawAll(g);
 	},
 	resetFilters: function() {
+		if(!graph.data) return;
 		graph.ringTotalizedByState.filterAll();
 		graph.rowTotalizedByClass.filterAll();
 		graph.barAreaByYear.filterAll();
