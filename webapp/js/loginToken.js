@@ -1,5 +1,5 @@
 var Token={
-  baseURL:"http://brazildatacube.dpi.inpe.br",
+  baseURL:"http://oauth.dpi.inpe.br/api",
   tokenKey:"login_token",
   expiredKey: "expired_token",
   usedInfoKey: "user_info",
