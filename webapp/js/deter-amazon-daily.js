@@ -73,7 +73,6 @@ var graph={
 			this.histTopByUCs = dc.rowChart("#chart-hist-top-ucs");
 			
 			graph.build();
-			graph.loadUpdatedDate();
 			// defining filter to deforestation classes by default
 			graph.filterByClassGroup('deforestation');
 			SearchEngine.init(this.histTopByCounties, this.ringTotalizedByState ,'modal-search');
@@ -91,36 +90,27 @@ var graph={
 				if(!json || !json.features) {
 					graph.displayWarning(true);
 				}else{
+					graph.setUpdatedDate(json.updated_date);
 					graph.init(configDashboard, json.features);
 				}
 			};
 			d3.json(dataUrl)
 			.header("Authorization", "Bearer "+Token.getToken())
-			.get(function(error, root) {
+			.get(function(error, body) {
 				if(error && error.status==401) {
 					Token.logout();
 					Token.setExpiredToken(true);
 				}else{
-					afterLoadData(root);
+					afterLoadData(body);
 				}
 			});
 		};
 		d3.json("./config/deter-amazon-daily.json", afterLoadConfiguration);
 	},
 
-	loadUpdatedDate: function() {
-		// to prevent error on localhost developer environment
-		if(window.location.host!="terrabrasilis.dpi.inpe.br") return;
-
-		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:updated_date&OUTPUTFORMAT=application%2Fjson";
-
-		if(Token.hasToken()){
-			url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=deter-amz:last_date&OUTPUTFORMAT=application%2Fjson";
-		}
-		d3.json(url, (json) => {
-			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
-			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
-		});
+	setUpdatedDate: function(updated_date) {
+		var dt=new Date(updated_date+'T21:00:00.000Z');
+		d3.select("#updated_date").html(' '+dt.toLocaleDateString());
 	},
 	
 	displayWaiting: function(enable) {
