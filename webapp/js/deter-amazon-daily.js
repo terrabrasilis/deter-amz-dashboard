@@ -73,7 +73,6 @@ var graph={
 			this.histTopByUCs = dc.rowChart("#chart-hist-top-ucs");
 			
 			graph.build();
-			graph.loadUpdatedDate();
 			// defining filter to deforestation classes by default
 			graph.filterByClassGroup('deforestation');
 			SearchEngine.init(this.histTopByCounties, this.ringTotalizedByState ,'modal-search');
