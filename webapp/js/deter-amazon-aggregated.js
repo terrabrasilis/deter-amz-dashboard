@@ -8,47 +8,6 @@ var utils = {
 	    	utils.preparePrint();
 	    });
 	},
-	applyLabelsByProject() {
-		var displayValue=(Authentication.hasToken())?'':'none';
-		$('#disable_day_menu_fm').css('display',displayValue);
-		$('#disable_agg_menu_fm').css('display',displayValue);
-
-		if( downloadCtrl.getProject()=='deter-fm'){
-			$('#toAggregatedChart-fm').addClass('enable_menu');
-			$('#toAggregatedChart-amz').removeClass('enable_menu');
-			// page title
-			$('#page-title-amz').css('display','none');
-			$('#page-title-fm').css('display','');
-			// change other texts
-			$('#title-chart-amz').css('display','none');
-			$('#title-chart-fm').css('display','');
-			$('#header-panel-amz').css('display','none');
-			$('#header-panel-fm').css('display','');
-			$('#header-menu-amz').css('display','none');
-			$('#header-menu-fm').css('display','');
-			$('#tituloprint-amz').css('display','none');
-			$('#tituloprint-fm').css('display','');
-			$('#title-chart-agreg-amz').css('display','none');
-			$('#title-chart-agreg-fm').css('display','');
-		}else{
-			$('#toAggregatedChart-amz').addClass('enable_menu');
-			$('#toAggregatedChart-fm').removeClass('enable_menu');
-			// page title
-			$('#page-title-amz').css('display','');
-			$('#page-title-fm').css('display','none');
-			// change other texts
-			$('#title-chart-amz').css('display','');
-			$('#title-chart-fm').css('display','none');
-			$('#header-panel-amz').css('display','');
-			$('#header-panel-fm').css('display','none');
-			$('#header-menu-amz').css('display','');
-			$('#header-menu-fm').css('display','none');
-			$('#tituloprint-amz').css('display','');
-			$('#tituloprint-fm').css('display','none');
-			$('#title-chart-agreg-amz').css('display','');
-			$('#title-chart-agreg-fm').css('display','none');
-		}
-	},
 	displayLoginExpiredMessage() {
 		if (Authentication.isExpiredToken()) {
 			d3.select('#expired_token_box').style('display', '');
@@ -1054,11 +1013,9 @@ window.onload=function(){
 	utils.makeMonthsChooserList();
 	utils.btnChangeCalendar();
 	Lang.init();
-	utils.applyLabelsByProject();
 	graph.init();
 	Authentication.init(Lang.language, function(){
 		graph.resetFilters();
 		graph.restart();
-		utils.applyLabelsByProject();
 	});
 };
