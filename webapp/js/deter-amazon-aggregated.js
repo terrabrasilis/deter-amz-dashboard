@@ -418,19 +418,10 @@ var graph={
 		this.barAreaByYear = dc.barChart("#chart-by-year", "filtra");
 	},
 
-	loadUpdatedDate: function() {
-		// to prevent error on localhost developer environment
-		if(window.location.host!="terrabrasilis.dpi.inpe.br") return;
-		
-		var url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+downloadCtrl.getProject()+":updated_date&OUTPUTFORMAT=application%2Fjson";
-
-		if(Authentication.hasToken()){
-			url="http://terrabrasilis.dpi.inpe.br/geoserver/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+downloadCtrl.getProject()+":last_date&OUTPUTFORMAT=application%2Fjson";
-		}
-		d3.json(url, (json) => {
-			var dt=new Date(json.features[0].properties.updated_date+'T21:00:00.000Z');
-			d3.select("#updated_date").html(' '+dt.toLocaleDateString());
-		});
+	setUpdatedDate: function(updated_date)
+	{
+		var dt=new Date(updated_date+'T21:00:00.000Z');
+		d3.select("#updated_date").html(' '+dt.toLocaleDateString());
 	},
 
 	loadData: function(url) {
@@ -453,6 +444,7 @@ var graph={
 			utils.displayWarning(true);
 			return;
 		}
+		graph.setUpdatedDate(data.updated_date);
 		utils.displayGraphContainer();
 		
 		var o=[];
@@ -931,7 +923,6 @@ var graph={
 		//var dataUrl = "./data/deter-amazon-month.json";
 		var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/monthly";
 		graph.loadData(dataUrl);
-		graph.loadUpdatedDate();
 		utils.attachEventListeners();
 	},
 
