@@ -41,6 +41,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated-print.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-print.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="./css/terrabrasilis.css" />
+	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-common.css" />
 </head>
 
 <body>
@@ -232,14 +233,6 @@
 				</div>
 			</div>
 
-			<div class="row" style="margin-left: 20px;">
-				<div class="col-md-12">
-					<div id="expired_token_box" class="alert alert-warning" role="alert">
-						<span id="expired_token">Seu login expirou. Para voltar a ver os dados mais recentes, faça login novamente.</span>
-					</div>
-				</div>
-			</div>
-
 			<!-- Start the filter bar -->
 			<div class="row box">
 				<div class="col-md-3">
@@ -367,12 +360,13 @@
 
 				<div class="col-md-4">
 					<div class="box-grafico text-center">
-						<div id="title-chart-by-class" class="all-charts-title boxtitle">Area by Classes</div>
-						<a id="modal-718053" href="#modal-container-718053" role="button" class="btn btn-chart-info"
-							data-toggle="modal">
-							<i class="material-icons" id="display_warning"
-								title="Mais informações sobre a classe Corte Seletivo.">info</i>
-						</a>
+						<div class="all-charts-title boxtitle" style="display: flex;"><div id="title-chart-by-class">Area by Classes</div>
+							<a id="modal-718053" href="#modal-container-718053" role="button" class="btn btn-chart-info"
+								data-toggle="modal">
+								<i class="material-icons" id="display_warning"
+									title="Mais informações sobre as classes.">info</i>
+							</a>
+						</div>
 						<div id="chart-by-class">
 							<div class="keep-space">
 								<div class="reset" style="visibility: hidden;">
@@ -415,20 +409,64 @@
 			<div class="col-md-12">
 				<div id="footer_print"></div>
 
-				<!--Start of modal information about classes-->
+				<!-- Start of modal information about classes -->
 				<div class="modal fade" id="modal-container-718053">
 					<div class="modal-dialog">
 						<div class="modal-content modalinf">
 							<div class="modal-header fechar">
-								<h5 class="modal-title boxtitletable"><span id="txt22">Informações complementares</span>
+								<h5 class="modal-title boxtitletable"><span id="txt22a">Informações complementares</span>
 								</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
-										class="material-icons">clear</i></button>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">clear</i></button>
 							</div>
 							<div class="modal-body">
-								<div class="alert alert-info">
-									<span id="txt22a">As classes que representam avisos de desmatamento são Mineração,
-										Desmatamento com vegetação e Desmatamento com solo exposto.</span>
+								<div id="info_classes_en" class="alert alert-info info_classes">
+									<p>
+										<h3>DEFORESTATION CLASSES</h3>
+										<ul>
+											<li><b>Deforestation with exposed soil:</b> is the total removal of forest cover, regardless of the use for the deforested area. The deforestation process can take place by clear cutting, when the forest cover is abruptly removed in a single intervention, or it can be the result of recursive degradation events that lead to the complete collapse of the vegetation's forest structure.</li>
+											<li><b>Deforestation with vegetation:</b> these are areas where there is evidence of deforestation, but the deforested area is showing signs of vegetation cover. These are cases in which there is a time lag between the occurrence of the clear cut and its detection, caused by the cloud cover between one event and another, or the final result of recurrent degradation.</li>
+											<li><b>Mining:</b> deforestation caused by mineral extraction activity. Artisanal mining activities predominate in this class.</li>
+										</ul>
+									</p>
+									<p>
+										<h3>DEGRADATION CLASSES</h3>
+										<ul>
+											<li><b>Wildfire scar:</b> it is characterized by the presence of areas affected by fire, with or without tree vegetation.</li>
+											<li><b>Degradation:</b> it is characterized by the loss of forest canopy and consequent exposure of the soil, where vegetation is usually found in arboreal individuals in the initial and intermediate stages of succession.</li>
+										</ul>
+									</p>
+									<p>
+										<h3>WOOD EXPLORATION CLASSES</h3>
+										<ul>
+											<li><b>Selective cut type 1:</b> it is considered a conventional exploration, where individuals of commercial interest are removed without prior planning, denoted by the disordered shape of roads and road branches within the forest and with the presence of storage yards with irregular dimensions and disposed of random way.</li>
+											<li><b>Selective cut type 2:</b> it is considered an exploration based on a management plan, in which the previous planning is evidenced by the regular pattern between the roads and storage yards within the forest.</li>
+										</ul>
+									</p>
+								</div>
+								<div id="info_classes_pt-br" class="alert alert-info info_classes">
+									<p>
+										<h3>CLASSES DE DESMATAMENTO</h3>
+										<ul>
+											<li><b>Desmatamento:</b> é a remoção total da cobertura florestal, independentemente do uso destinado para a área desmatada. O processo do desmatamento pode se dar por corte raso, quando a cobertura florestal é abruptamente removida em uma única intervenção, ou pode ser o resultado de eventos de degradação recursivos que levam ao colapso completo da estrutura florestal da vegetação.</li>
+											<li><b>Desmatamento com vegetação:</b> são áreas em que há evidência de desmatamento, mas a área desmatada se encontra com sinais de uma cobertura vegetal. São casos em que há um lapso de tempo entre a ocorrência do corte raso e a sua detecção, ocasionado pela cobertura de nuvens entre um evento e outro, ou o resultado final da degradação recursiva.</li>
+											<li><b>Mineração:</b> desmatamento causado por atividade de extração mineral. Predomina nesta classe atividades de garimpo artesanal.</li>
+										</ul>
+									</p>
+									<p>
+										<h3>CLASSE DE DEGRADAÇÃO</h3>
+										<ul>
+											<li><b>Cicatriz de incêndio florestal:</b> é caracterizada pela presença de áreas atingidas por fogo, podendo ou não haver vegetação arbórea.</li>
+											<li><b>Degradação:</b> é caracterizado pela perda de dossel florestal e consequente exposição do solo, onde há vegetação geralmente indivíduos arbóreos em estágios iniciais e intermediário inicial de sucessão.</li>
+										</ul>
+									</p>
+									<p>
+										<h3>CLASSES DE EXPLORAÇÃO MADEIREIRA</h3>
+										<ul>
+											<li><b>Corte seletivo tipo 1:</b> é considerado uma exploração convencional, onde os indivíduos de interesse comercial são removidos sem planejamento prévio, denotado pela forma desordenada de estradas e ramais no interior da floresta e com a presença de pátios de estocagem com dimensões irregulares e dispostos de forma aleatória.</li>
+											<li><b>Corte seletivo tipo 2:</b> é considerado uma exploração baseada em um plano de manejo, em que percebe-se o planejamento prévio evidenciado pelo padrão regular entre as estradas e pátios de estocagem no interior da floresta.</li>
+										</ul>
+									</p>
 								</div>
 								<div class="alert alert-warning">
 									<strong><span>* </span></strong><span id="txt22b">A classe <strong>Corte
@@ -436,8 +474,9 @@
 										Geométrico e Corte Seletivo Desordenado para o ano referência 2015/2016, quando
 										estas classes ainda não eram discretizadas.</span>
 								</div>
-								<a target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php"
-									id="txt22c">Informações completas sobre o projeto DETER</a>
+								<a style="color: #009688; text-decoration: underline;"
+								target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php"
+								id="txt22c">Informações completas sobre o projeto DETER</a>
 							</div>
 							<div class="modal-footer">
 								<div class="checkbox pull-right">

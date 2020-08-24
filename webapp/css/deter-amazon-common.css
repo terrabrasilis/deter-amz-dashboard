@@ -1,0 +1,14 @@
+.btn-chart-info{
+	padding-bottom: 0px;
+	padding-top: 0px;
+	font-size: 1px;
+	border: 0;
+}
+#display_warning:hover, #display_warning:focus{
+	color: #123033;
+	text-decoration: none;
+	transition: all 0.3s;
+}
+#display_warning{
+	font-size: 22px;
+}

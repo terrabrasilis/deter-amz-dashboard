@@ -773,21 +773,21 @@ background: #707070;
 ---------------------------------------------------------*/	
 
 footer{
-    background-color: #00796b;
-	position:fixed;
-	bottom: 0;
-    left: 0;
-    right: 0;
-    height: 45px;
-    text-align: center;
-	z-index: 1;
+  background-color: #00796b;
+  position:fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45px;
+  text-align: center;
+  z-index: 1;
 }
 
 .footer p {
-    padding: 15.5px;
-    line-height: 100%;
-	margin: 0;
-	color: #fff !important;
+  padding: 15.5px;
+  line-height: 100%;
+  margin: 0;
+  color: #fff !important;
 }
 
 .iconmobile {display: none !important; color: #888888; margin-right: 10px; float: left;} 
@@ -796,31 +796,30 @@ footer{
    Loading
 ----------------------------------------------------- */
 .lds-dual-ring {
-    display: inline-block;
-    width: 64px;
-    height: 64px;
-    padding: 10px 5px 5px 5px;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  padding: 10px 5px 5px 5px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;  
+  border: 5px solid #045743;
+  border-color: #045743 transparent #045743 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
   }
-  .lds-dual-ring:after {
-    content: " ";
-    display: block;
-    width: 46px;
-    height: 46px;
-    margin: 1px;
-    border-radius: 50%;  
-    border: 5px solid #045743;
-    border-color: #045743 transparent #045743 transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
+  100% {
+    transform: rotate(360deg);
   }
-  @keyframes lds-dual-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES

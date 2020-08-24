@@ -23,7 +23,6 @@ var Lang={
 		}
 		this.apply();
 		AuthenticationTranslation.changeLanguage(l);
-		//graph.translateClassNames();
 		graph.resetFilters();
 		graph.build();
 	},
@@ -51,19 +50,28 @@ var Lang={
 	apply:function() {
 		this.setInLocalStorage();
 		this.highlightFlag();
+		this.changeInfoForClasses();
 		var obj=Translation[this.language];
 		for (var property in obj) {
-		    if (obj.hasOwnProperty(property)) {
-		    	var o=this.getObj(property);
-		    	if(o){
-		    		if(o.title!==""){
-		    			o.title=obj[property];
-		    		}else{
-		    			o.innerHTML=obj[property];
-		    		}
-		    	}
-		    }
+			if (obj.hasOwnProperty(property)) {
+				var o=this.getObj(property);
+				if(o){
+					if(o.title!==""){
+						o.title=obj[property];
+					}else{
+						o.innerHTML=obj[property];
+					}
+				}
+			}
 		}
 	},
-	languages:['pt-br','en'] //,'es']
+	changeInfoForClasses: function() {
+		// a hardcoded way to change the HTML fragment with embedded texts
+		for (i in this.languages) {
+			f=this.getObj('info_classes_'+this.languages[i]);
+			if(f)
+				f.style.display=((this.languages[i]==this.language)?('block'):('none'));
+		}
+	},
+	languages:['pt-br','en']
 };
