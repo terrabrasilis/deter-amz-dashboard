@@ -81,13 +81,8 @@ a, a:hover, a:focus {
   margin-left: 2px;
   padding-bottom: 8px;
   padding-right: 5px;
-  max-width: calc(98%/12);
+  max-width: calc(96%/12);
   cursor: pointer;
-}
-
-.months_box {
-  margin-left: 1px;
-  margin-right: 0px;
 }
 
 .updated{
@@ -477,24 +472,23 @@ tbody tr {
     SIDEBAR STYLE
 ----------------------------------------------------- */
 #sidebar {
-    width: 290px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    background: #fff;
-    color: #33333d;
-    transition: all 0.3s;
-	transition-duration: 150ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-	   
+  width: 290px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background: #fff;
+  color: #33333d;
+  transition: all 0.3s;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 #sidebar.active {
-    margin-left: -290px;
+  margin-left: -290px;
 }
 
 #sidebar .sidebar-header {
@@ -504,7 +498,9 @@ tbody tr {
 	height: 210px;
 }
 
-.descricao { top: 50px !important; color: #fff;
+.descricao {
+  top: 50px !important;
+  color: #fff;
 }
 
 .desctxt {font-size:13px; margin-top: 145px;
@@ -513,9 +509,8 @@ tbody tr {
 #header-menu{margin-top:-9px;}
 
 #sidebar ul.components {
-    padding: 0px 0;
-    border-bottom: 1px solid #47748b;
-	
+  padding: 0px 0;
+  border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
@@ -524,20 +519,17 @@ tbody tr {
 }
 
 #sidebar ul li a {
-    padding: 10px;
-    font-size: 0.9em;
-    display: block;
-	
+  padding: 10px;
+  font-size: 0.9em;
+  display: block;
 }
 #sidebar ul li a i {
-    margin-right:  12px;
-	 vertical-align: -7px;
-
+  margin-right:  12px;
+  vertical-align: -7px;
 }
 
 #sidebar ul li a:hover {
-    color: #00796b;
-  
+  color: #00796b;
 }
 
 #sidebar ul li:hover {  background: #f1f3f4;}
@@ -556,25 +548,22 @@ a[data-toggle="collapse"] {
 }
 
 #sidebar .dropdown-toggle::after {
-    display: none !important;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-	
-	
+  display: none !important;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
 }
 
 
 #sidebar ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #fff;
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: #fff;
 }
 
 #sidebar ul li ul li{
 	width: 230px;
-	
 }
 
 
@@ -583,52 +572,47 @@ a[data-toggle="collapse"] {
 }
 
 #sidebar ul.CTAs a {
-    text-align: center;
-    font-size: 0.9em !important;
-    display: block;
-    border-radius: 5px;
-    margin-bottom: 5px;
+  text-align: center;
+  font-size: 0.9em !important;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 #sidebar a.download {
-    background: #fff;
-    color: #7386D5;
+  background: #fff;
+  color: #7386D5;
 }
-
-
 
 #sidebar a.article, a.article:hover {
-    background: #6d7fcc !important;
-    color: #fff !important;
+  background: #6d7fcc !important;
+  color: #fff !important;
 }
 .fontecamada {
-	position: relative;
-    font-size: 11px;
-	top:-5px;
-	margin-left: 36px;
-    color: #14757e !important;
+  position: relative;
+  font-size: 11px;
+  top:-5px;
+  margin-left: 36px;
+  color: #14757e !important;
 }
 
 .configura {position: relative;
 	top:6px;}
 
-
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-   width: calc(100% - 290px);
-    padding: 0px;
-    transition: all 0.3s;
-    position: absolute;
-    top: 0;
-    right: 0;
+  width: calc(100% - 290px);
+  padding: 0px;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 #content.active {
-    width: 100%;
+  width: 100%;
 }
-
 
 .navbar-toggler {
   border: none;
@@ -687,8 +671,6 @@ a[data-toggle="collapse"] {
   transition: ease all .2s;
 }
 
-
-
 /*-------------------------------------------------------
    Card slider
 ----------------------------------------------------------*/
@@ -700,7 +682,6 @@ a[data-toggle="collapse"] {
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
 }
-
 
 .descricaoslide { margin: 0 0 48px; font-size: 14px; line-height: 25px;}
 
@@ -729,45 +710,19 @@ a[data-toggle="collapse"] {
 .sobre .carousel-indicators {
 	left: 0;
 	top: auto;
-
 }
 
 .sobre .carousel-indicators li {
-    background: #a3a3a3;
-    border-radius: 50%;
-    width: 8px;
-    height: 8px;
+  background: #a3a3a3;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
 }
 
 .sobre .carousel-indicators .active {
 background: #707070;
 }
 
-
-/*--------------------------------------------------------
-    ABOUT
-----------------------------------------------------------*/
-.about .aboutdialog {max-height: 700px; overflow:auto; border: 0px; overflow-x: hidden;}
-.about .btn-primary:hover,.about .btn-primary:focus { background-color: #006950; border-color: #108d6f; box-shadow: none; outline: none;}
-.about .btn-primary {color: #fff; background-color: #108d6f; border-color: #108d6f;}
-.about section {padding: 20px 0;}
-.about section .titleb {  text-align: center; color: #007b5e;margin-bottom: 50px; text-transform: uppercase;}
-.about .titlegreen {color: #fff;}
-.cardfront {position: relative; -webkit-transform: rotateY(0deg); -ms-transform: rotateY(0deg); z-index: 2; margin-bottom: 30px;}
-.cardfront .card{min-height: 312px;}
-.cardfront .card .card-title,.card-title {color: #007b5e !important;}
-.cardfront .card .card-body img {width: 120px; height: 120px; border-radius: 50%;}
-#other .card {background: none !important;border-color: #108d6f;}
-#other .card-title { color:#3fc3a3 !important;}
-#other .list-group-item { background: none !important; border: 0px !important; padding-left: 0px !important;}
-.msgn { color:#3fc3a3; font-size: 14px; padding: 15px; }
-.padding80 {padding:40px;}
-.bgcolor-voilet {background-color: #007b5e;color:#fff;}
-.tmargin10 { margin-top :10px;}
-.about .txtvisao { color: #fff;}
-.aboutcard-title{text-align: center; margin-top: 15px;}
-.about .logo-card .logo-img{ width: 8em; position:relative; top: 15px;left: 51%; margin-left: -5em; border-radius: 100%;overflow: hidden; z-index: 99999; }
-.about ul li {border:0px; background-color:transparent;}
 /* -------------------------------------------------------
     FOOTER
 ---------------------------------------------------------*/	
