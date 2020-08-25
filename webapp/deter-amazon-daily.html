@@ -12,6 +12,7 @@
 	<meta http-equiv="Content-Language" content="pt-br, en, es">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=0">
+	<meta name="description" content="Avisos de desmatamento, projeto DETER, INPE">
 	<!-- favicon -->
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
@@ -140,26 +141,26 @@
 				</div>
 				<ul  id="navigationBarUL" class="navbar-nav navbar-right analises">
 					<li class="nav-item dropdown">
-						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button">
+						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLinkMap" role="button">
 							<i class="material-icons iconmobile">assignment </i><span id="maps-sup">Mapas</span>
 						</a>
-						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu">
+						<div aria-labelledby="navbarDropdownMenuLinkMap" class="dropdown-menu submenu">
 							<a class="dropdown-item" target="_blank" href="/app/map/deforestation/"><i class="material-icons iconmenu">nature</i><span id="map-des">PRODES (Desmatamento)</span></a>
 							<a class="dropdown-item" target="_blank" href="/app/map/alerts/"><i class="material-icons iconmenu">warning</i><span id="map-war">DETER (Avisos)</span></a>
 						</div>
 					</li>
 					<li class="nav-item dropdown">
-						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" role="button"> 
+						<a aria-expanded="true" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLinkChart" role="button"> 
 							<i class="material-icons iconmobile">assignment </i><span id="analysis-sup">Gráficos</span>
 						</a>
-						<div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu submenu">
+						<div aria-labelledby="navbarDropdownMenuLinkChart" class="dropdown-menu submenu">
 							<a class="dropdown-item" target="_blank" href="/app/dashboard/deforestation/biomes/amazon/increments">
 								<i class="material-icons iconmenu">nature</i><span id="analysis-des">PRODES (Desmatamento)</span></a>
 							<a class="dropdown-item" href="#"><i class="material-icons iconmenu">warning</i><span id="analysis-war">DETER (Avisos)</span></a>
 						</div>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" target="_blank" href="http://terrabrasilis.dpi.inpe.br/sobre/#post-1355"><span id="about-menu">Sobre</span></a>
+						<a class="nav-link" rel="noreferrer" target="_blank" href="http://terrabrasilis.dpi.inpe.br/sobre/#post-1355"><span id="about-menu">Sobre</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#modal-container-contact" data-toggle="modal" id="tt-contactus-menu" title="Envie sugestões ou perguntas para terrabrasilis@inpe.br.">
@@ -192,7 +193,7 @@
 		<div class="row box">
 			<div class="col-md-12">
 				<div class="text-center">
-					<div id="loading_data_info" style="display:block;"><img src="./img/loading_map.gif" /></div>
+					<div id="loading_data_info" style="display:block;"><img alt="loading gif when waiting data" src="./img/loading_map.gif" /></div>
 					<div id="warning_data_info" style="display:none;">
 						<h3><span id="txt8">Problema na comunicação com o servidor.<br>Aguarde alguns minutos e recarregue a página.</span></h3>
 					</div>
@@ -512,7 +513,7 @@
 							Geométrico e Corte Seletivo Desordenado para o ano referência 2015/2016, quando
 							estas classes ainda não eram discretizadas.</span>
 					</div>
-					<a style="color: #009688; text-decoration: underline;"
+					<a style="color: #009688; text-decoration: underline;" rel="noreferrer"
 					target="_blank" href="http://www.inpe.br/cra/projetos_pesquisas/deterb.php"
 					id="txt22c">Informações completas sobre o projeto DETER</a>
 				</div>
