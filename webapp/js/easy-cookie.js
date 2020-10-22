@@ -17,7 +17,7 @@ var EasyCookie = (function() {
             var expires = "; expires="+date.toGMTString();
         }
         else var expires = "";
-        document.cookie = name + "=" + value + expires + "; SameSite=None; path=/";
+        document.cookie = name + "=" + value + expires + "; SameSite=Strict; path=/";
     }
 
     /**
