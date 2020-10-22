@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    //$('#myModal').modal('show');
-    
     //carousel
     $('.carousel').carousel({
         interval: 2000

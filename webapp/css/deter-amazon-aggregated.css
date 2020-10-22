@@ -160,3 +160,7 @@ div .dc-chart {
 .info_classes{
 	display: none;
 }
+.introCookie{
+	width: 300px;
+	padding: 1em;
+}

@@ -37,6 +37,7 @@
 	<!-- Font Material design google -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="./libs/dc-2.1/dc.min.css" />
+	<link rel="stylesheet" type="text/css" href="./libs/introjs/minified/introjs.min.css" />
 	<link rel="stylesheet" type="text/css" href="" id="stylesheet_dark" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated.css" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated-print.css" media="print" />
@@ -112,12 +113,21 @@
 				<li>
 					<a href="#modal-container-download" id="downloadBtn" data-toggle="modal"
 						title="Baixar a tabela de avisos de desmatamento.">
-						<i class="material-icons">cloud_download</i><span id="txt3">Baixar Dados</span></a>
+						<i class="material-icons">cloud_download</i>
+						<span id="step2">
+							<span id="txt3">Baixar Dados</span>
+						</span>
+					</a>
 				</li>
 				<li>
 					<a href="#print_information" id="prepare_print"
 						title="Imprimir esta página utilizando o recurso do navegador." data-toggle="modal">
 						<i class="material-icons">print</i><span id="txt4">Imprimir Gráficos</span></a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" onclick="utils.displayIntro(true);" id="start_intro" title="Montrar informações sobre os dados exibidos neste painel." data-toggle="modal">
+						<i class="material-icons">info</i><span id="txt5">Sobre os dados</span>
+					</a>
 				</li>
 
 			</ul>
@@ -312,7 +322,7 @@
 										</div>
 									</div>
 								</div>
-								<div>
+								<div id="step1">
 									<b><span id="txt8b" class="filter-info">Intervalo de tempo:</span></b><span
 										class="highlight-time filter-info" id="highlight-time"></span>
 									<a href="javascript:graph.resetFilter('agreg','agrega');">
@@ -362,11 +372,12 @@
 				<div class="col-md-4">
 					<div class="box-grafico text-center">
 						<div class="all-charts-title boxtitle" style="display: flex;"><div id="title-chart-by-class">Area by Classes</div>
+							<span id="step3">
 							<a id="modal-718053" href="#modal-container-718053" role="button" class="btn btn-chart-info"
 								data-toggle="modal">
 								<i class="material-icons" id="display_warning"
 									title="Mais informações sobre as classes.">info</i>
-							</a>
+							</a></span>
 						</div>
 						<div id="chart-by-class">
 							<div class="keep-space">
@@ -794,6 +805,7 @@
 	<script type="text/javascript" src="./libs/d3/d3js.pt-br.js"></script>
 	<script type="text/javascript" src="./libs/crossfilter/crossfilter.min.js"></script>
 	<script type="text/javascript" src="./libs/dc-2.1/dc.min.js"></script>
+	<script type="text/javascript" src="./libs/introjs/minified/intro.min.js"></script>
 	<script type="text/javascript" src="./libs/mousetrap/mousetrap.min.js"></script>
 	<script type="text/javascript" src="./libs/filesaver/FileSaver.min.js"></script>
 
@@ -809,8 +821,7 @@
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
 	<!-- jQuery Custom Scroller CDN -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 	<!-- worked to minify / using to minify: https://www.minifier.org/ -->
 	<script type="text/javascript" src="./js/svg-to-image.min.js"></script>
@@ -820,20 +831,9 @@
 	<script type="text/javascript" src="./js/deter-amazon-aggregated.js"></script>
 	<script type="text/javascript" src="./js/easy-cookie.js"></script>
 	<script type="text/javascript" src="./js/downloadSHP.js"></script>
+	<script type="text/javascript" src="./js/cookie-configs.js"></script>
+	<script type="text/javascript" src="./js/start-intro.js"></script>
 	<script type="text/javascript" src="http://terrabrasilis.dpi.inpe.br/oauth-api/getoauthjs"></script>
-
-	<script type="text/javascript">
-		$("#notice").click(function () {
-			EasyCookie.create("firstNotice", "Not show modal again", 30);
-		});
-		/**
-		* Show the main TerraBrasilis modal
-		*/
-		let cookieFirstNotice = EasyCookie.read("firstNotice");
-		if (cookieFirstNotice === null) {
-			$('#firstNotice').modal('show');
-		}
-	</script>
 
 </body>
 

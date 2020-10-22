@@ -209,7 +209,14 @@ var utils = {
 		d3.select('#panel_container').style('display',((enable)?('none'):('')));
 		d3.select('#warning_data_info').style('display','none');
 	},
-
+	displayIntro: function(op) {
+		let cookieStartIntro = EasyCookie.read("startIntro");
+		if (cookieStartIntro === null || op) {
+			window.setTimeout(() => {
+				startIntro();
+			}, 500);
+		}
+	},
 	changeCss: function(bt) {
 		utils.cssDefault=!utils.cssDefault;
 		document.getElementById('stylesheet_dash').href='../theme/css/dashboard-aggregated'+((utils.cssDefault)?(''):('-dark'))+'.css';
@@ -428,6 +435,7 @@ var graph={
 		data = o;
 		graph.registerDataOnCrossfilter(data);
 		utils.displayWaiting(false);
+		utils.displayIntro();
 		graph.build();
 	},
 	registerDataOnCrossfilter: function(data) {

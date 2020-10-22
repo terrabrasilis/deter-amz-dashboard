@@ -28,7 +28,7 @@ var Translation={
 		'downloadBtn':'Baixar os dados em formato CSV.',
 		'txt4':'Imprimir Gráficos',
 		'txt4p':'Imprimir Gráficos',
-		'txt5':'Escurecer/clarear',
+		'txt5':'Sobre os dados',
 		'txt6':'Entrar',
 		'txt7':'Filtro:',
 		'txt8':'Problema na comunicação com o servidor.<br>Aguarde alguns minutos e recarregue a página.',
@@ -140,7 +140,14 @@ var Translation={
 		'tituloprint-amz': ' | Variação mensal de área do projeto DETER - ano referência (Agosto a Julho)',
 		'about-modal':'Sobre ',
 		'description-modal':'O TerraBrasilis é uma plataforma desenvolvida pelo INPE para organização, acesso e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento ambiental.',
-		'option-modal':'Não mostrar novamente.'
+		'option-modal':'Não mostrar novamente.',
+		'start_intro':'Mostrar informações sobre os dados exibidos neste painel.',
+
+		/* Intro steps translation */
+		'intro1':'Os dados do primeiro ano de levantamento, agosto/2015 até julho/2016, estão disponíveis apenas neste painel analítico. Veja a opção “Baixar Dados” procurando arquivos em formato tabular (CSV).',
+		'intro2':'Encontre aqui os arquivos para download em formato tabular(CSV) a partir de agosto/2015 e arquivo shapefile(ZIP) a partir de agosto/2016.',
+		'intro3':'Clique aqui para obter informações detalhadas sobre as classes adotadas no projeto DETER.',
+		'intro4':'Desmarque esta opção para suprimir esta introdução ao iniciar o painel.'
 	},
 	'en':{
 		/* texts into HTML entities */
@@ -160,7 +167,7 @@ var Translation={
 		'txt3':'Download Data',
 		'txt4':'Print Graphs',
 		'txt4p':'Print Graphs',
-		'txt5':'Darken/Enlighten',
+		'txt5':'About the data',
 		'txt6':'Login',
 		'txt7':'Filter',
 		'txt8':'Failure on loading data from server.<br>Try reload after some minutes.',
@@ -272,6 +279,13 @@ var Translation={
 		'tituloprint-amz': ' | Monthly variation of DETER project area - reference year (August to July)',
 		'about-modal':'About ',
 		'description-modal':'TerraBrasilis is a platform developed by INPE for the organization, access and use through a web portal of the geographic data produced by its environmental monitoring programs.',
-		'option-modal':'Do not show again.'
+		'option-modal':'Do not show again.',
+		'start_intro':'Show information about the data displayed on this panel.',
+
+		/* Intro steps translation */
+		'intro1': 'The data from the first survey year, August/2015 to July/2016, are available only in this analytical panel. See the option "Download Data" in tabular format (CSV). ',
+		'intro2': 'Find here the downloadable files in tabular format (CSV) since August/2015 and the shapefile file (ZIP) since August/2016.',
+		'intro3': 'Click here for detailed information about the classes adopted in the DETER project.',
+		'intro4': 'Deselect this option to suppress this introduction when starting the panel.'
 	}
 };
