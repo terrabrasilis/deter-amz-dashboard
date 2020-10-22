@@ -1,5 +1,5 @@
 
-body { background-color: #fff !important;  -webkit-print-color-adjust: exact;}
+body { background-color: #eee !important;  -webkit-print-color-adjust: exact;}
 #sidebar  { display: none}
 .box-grafico { width: 100%; margin-left: 0px; zoom: 65%;}
 .boxtables { display: none;}
@@ -32,7 +32,6 @@ input.radio {
     position: absolute;
     top: 100%;
     left: 0;
-
   }
 	
 }
