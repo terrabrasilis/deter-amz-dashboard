@@ -1,42 +1,44 @@
 let buildCompositeChart=(context,barColors)=>{
   context.lineSeriesMonthly = dc.compositeChart("#agreg", "agrega");
-  let fcDomain=d3.scale.linear().domain( (graph.calendarConfiguration=='prodes')?([8,19]):([1,12]) );
+  let fcDomain=d3.scale.linear().domain( (context.calendarConfiguration=='prodes')?([8,19]):([1,12]) );
 
   let composeCharts=()=>{
     let lines=[];
-    graph.yearGroup0.top(Infinity).forEach(
+    context.yearGroup0.all().forEach(
       function(d,fi) {
         let colors=[]; barColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
-        let areaGroupByYear = graph.temporalDimension0.group(
-          (vl)=>{
-            if(vl[0]==d.key) return vl;
+        let areaGroupByYear = context.monthDimension0.group()
+        .reduceSum(
+          (v) => {
+            return (v.year==d.key)?(v.area):(0);
           }
-        ).reduceSum(function(d0) {
-          return d0.area;
-        });
+        );
         // ordered by months
-        areaGroupByYear.all().sort((a,b)=>{return a.key[1]-b.key[1];});
+        areaGroupByYear.all().sort((a,b)=>{
+          return a.key-b.key;
+        });
         lines.push(
           dc.lineChart(context.lineSeriesMonthly)
+          .dimension(context.monthDimension0)
           .group(areaGroupByYear,d.key)
           .ordinalColors(colors)
           .renderDataPoints(true)
           .evadeDomainFilter(true)
           .keyAccessor(function(k) {
-            return k.key[1];
+            return k.key;
           })
-          .valueAccessor(function(d) {
-            if(!graph.lineSeriesMonthly.hasFilter()) {
-              return Math.abs(+(d.value.toFixed(2)));
+          .valueAccessor(function(dd) {
+            if(!context.lineSeriesMonthly.hasFilter()) {
+              return +(dd.value.toFixed(2));
             }else{
-              if(graph.monthFilters.indexOf(d.key[1])>=0) {
-                return Math.abs(+(d.value.toFixed(2)));
+              if(graph.monthFilters.indexOf(dd.key)>=0) {
+                return +(dd.value.toFixed(2));
               }else{
                 return 0;
               }
             }
           })
-          .useRightYAxis(true)
+          //.useRightYAxis(true)
         );
       });
       return lines;
@@ -49,23 +51,12 @@ let buildCompositeChart=(context,barColors)=>{
     .renderVerticalGridLines(true)
     .brushOn(false)
     .yAxisLabel(Translation[Lang.language].focus_y_label)
-    //.xAxisLabel(Translation[Lang.language].focus_x_label)
     .elasticY(true)
     .yAxisPadding('10%')
     .clipPadding(10)
-    .group(context.areaGroup0)
     .legend(dc.legend().x(100).y(30).itemHeight(15).gap(5).horizontal(1).legendWidth(600).itemWidth(80))
     .margins({top: 20, right: 65, bottom: 30, left: 65})
     .compose(composeCharts());
-    // .compose([
-    //    dc.lineChart(context.lineSeriesMonthly) 
-    //       .dimension(context.temporalDimension0)
-    //       .colors('red')
-    //       .group(context.yearGroup0, "Alerts", kv => {
-    //         +kv.value;
-    //       })
-    //       .useRightYAxis(true)
-    // ]);
 };
 
 /**
