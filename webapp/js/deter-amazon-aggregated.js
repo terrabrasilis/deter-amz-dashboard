@@ -144,13 +144,11 @@ var graph={
 			let year=+fet.properties.y;
 			if(graph.calendarConfiguration=='prodes') {
 				if(month >=1 && month<=7) {
-					year = "20"+(year-1)+"/20"+year;
+					year = (year-1)+"/"+year;
 				}
 				if(month >=8 && month<=12) {
-					year = "20"+year+"/20"+(year+1);
+					year = year+"/"+(year+1);
 				}
-			}else{
-				year = "20"+year;
 			}
 			o.push({year:year,month:month,area:+(numberFormat(fet.properties.a)),uf:fet.properties.u});
 		}
@@ -189,26 +187,25 @@ var graph={
 		graph.build();
 	},
 	registerDataOnCrossfilter: function() {
-		// graph.cloudData
 		var ndx0 = crossfilter(graph.data),
 		ndx1 = crossfilter(graph.data),
-		ndx2 = crossfilter(graph.cloudData);
+		cloud = crossfilter(graph.cloudData);
 
 		/** register cloud data */
-		this.temporalDimension2 = ndx2.dimension(function(d) {
+		this.temporalDimension2 = cloud.dimension(function(d) {
 			var m=utils.fakeMonths(d.month);
 			return [d.year, m];
 		});
 		this.areaGroup2 = this.temporalDimension2.group().reduceSum(function(d) {
 			return d.area;
 		});
-		this.yearDimension2 = ndx2.dimension(function(d) {
+		this.yearDimension2 = cloud.dimension(function(d) {
 			return d.year;
 		});
-		this.ufDimension2 = ndx2.dimension(function(d) {
+		this.ufDimension2 = cloud.dimension(function(d) {
 			return d.uf;
 		});
-		this.monthDimension2 = ndx2.dimension(function(d) {
+		this.monthDimension2 = cloud.dimension(function(d) {
 			var m=utils.fakeMonths(d.month);
 			return m;
 		});

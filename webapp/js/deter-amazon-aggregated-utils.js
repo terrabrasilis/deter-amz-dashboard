@@ -19,6 +19,9 @@ var utils = {
 	getDefaultHeight:function() {
 		return ((window.innerHeight*0.4).toFixed(0))*1;
 	},
+	getSeriesChartWidth:function() {
+		return $("#agreg").width();
+	},
 	btnDownload:function() {
 		// without filters
 		d3.select('#download-csv-monthly-all')

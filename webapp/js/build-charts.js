@@ -2,47 +2,71 @@ let buildCompositeChart=(context,barColors)=>{
   context.lineSeriesMonthly = dc.compositeChart("#agreg", "agrega");
   let fcDomain=d3.scale.linear().domain( (context.calendarConfiguration=='prodes')?([8,19]):([1,12]) );
 
+  let makeAreaGroup=(dim,k)=>{
+    let g=dim.group()
+    .reduceSum(
+      (v) => {
+        return (v.year==k)?(v.area):(0);
+      }
+    );
+    // ordered by months
+    g.all().sort((a,b)=>{
+      return a.key-b.key;
+    });
+    return g;
+  };
+  
+  let makeChartLine=(mainChart,dim,group,groupName,colors,rightYAxis)=>{
+    let l=dc.lineChart(mainChart)
+    .dimension(dim)
+    .group(group,groupName)
+    .ordinalColors(colors)
+    .renderDataPoints(true)
+    .evadeDomainFilter(true)
+    // .title(groupName, (t)=>{
+    //   console.log(t);
+    // })
+    .keyAccessor(function(k) {
+      return k.key;
+    })
+    .valueAccessor(function(dd) {
+      if(!mainChart.hasFilter()) {
+        return +(dd.value.toFixed(2));
+      }else{
+        if(graph.monthFilters.indexOf(dd.key)>=0) {
+          return +(dd.value.toFixed(2));
+        }else{
+          return 0;
+        }
+      }
+    })
+    .useRightYAxis(rightYAxis);
+    return l;
+  };
+
   let composeCharts=()=>{
     let lines=[];
     context.yearGroup0.all().forEach(
-      function(d,fi) {
+      (d)=>{
         let colors=[]; barColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
-        let areaGroupByYear = context.monthDimension0.group()
-        .reduceSum(
-          (v) => {
-            return (v.year==d.key)?(v.area):(0);
-          }
-        );
-        // ordered by months
-        areaGroupByYear.all().sort((a,b)=>{
-          return a.key-b.key;
-        });
+        let deterGroupByYear = makeAreaGroup(context.monthDimension0,d.key);
         lines.push(
-          dc.lineChart(context.lineSeriesMonthly)
-          .dimension(context.monthDimension0)
-          .group(areaGroupByYear,d.key)
-          .ordinalColors(colors)
-          .renderDataPoints(true)
-          .evadeDomainFilter(true)
-          .keyAccessor(function(k) {
-            return k.key;
-          })
-          .valueAccessor(function(dd) {
-            if(!context.lineSeriesMonthly.hasFilter()) {
-              return +(dd.value.toFixed(2));
-            }else{
-              if(graph.monthFilters.indexOf(dd.key)>=0) {
-                return +(dd.value.toFixed(2));
-              }else{
-                return 0;
-              }
-            }
-          })
-          //.useRightYAxis(true)
+          makeChartLine(context.lineSeriesMonthly,context.monthDimension0,deterGroupByYear,d.key+"(d)",colors,false)
         );
       });
+      context.yearGroup0.all().forEach(
+        (d)=>{
+          let colors=["#f0f0f0"];
+          let cloudGroupByYear = makeAreaGroup(context.monthDimension2,d.key);
+          lines.push(
+            makeChartLine(context.lineSeriesMonthly,context.monthDimension2,cloudGroupByYear,d.key+"(c)",colors,true)
+          );
+        });
       return lines;
   };
+
+  let legendItemWidth=100, legendWidth=context.yearGroup0.all().length*legendItemWidth;
+  legendWidth=(legendWidth<utils.getSeriesChartWidth())?(+legendWidth.toFixed(0)):(utils.getSeriesChartWidth());
 
   context.lineSeriesMonthly
     .height(context.defaultHeight-70)
@@ -50,12 +74,19 @@ let buildCompositeChart=(context,barColors)=>{
     .renderHorizontalGridLines(true)
     .renderVerticalGridLines(true)
     .brushOn(false)
-    .yAxisLabel(Translation[Lang.language].focus_y_label)
+    .yAxisLabel(Translation[Lang.language].alerts_y_label)
+    .rightYAxisLabel(Translation[Lang.language].clouds_y_label)
     .elasticY(true)
     .yAxisPadding('10%')
     .clipPadding(10)
-    .legend(dc.legend().x(100).y(30).itemHeight(15).gap(5).horizontal(1).legendWidth(600).itemWidth(80))
-    .margins({top: 20, right: 65, bottom: 30, left: 65})
+    .legend(dc.legend().x(100).y(10).itemHeight(15).gap(5).horizontal(1).legendWidth(legendWidth).itemWidth(legendItemWidth))
+    .margins({top: 40, right: 90, bottom: 30, left: 65})
+    .title((v)=>{
+      var v1=Math.abs(+(parseFloat(v.value).toFixed(2)));
+      v1=localeBR.numberFormat(',1f')(v1);
+      return utils.xaxis(v.key)
+      + "\n"+Translation[Lang.language].area+" " + v1 + " "+Translation[Lang.language].unit;
+    })
     .compose(composeCharts());
 };
 
@@ -70,14 +101,12 @@ let buildSeriesChart=(context, barColors)=>{
 
   context.lineSeriesMonthly
     .height(context.defaultHeight-70)
-    //.chart(function(c) { return dc.lineChart(c).interpolate('cardinal').renderDataPoints(true).evadeDomainFilter(true); })
     .chart(function(c) { return dc.lineChart(c).renderDataPoints(true).evadeDomainFilter(true); })
     .x(fcDomain)
     .renderHorizontalGridLines(true)
     .renderVerticalGridLines(true)
     .brushOn(false)
-    .yAxisLabel(Translation[Lang.language].focus_y_label)
-    //.xAxisLabel(Translation[Lang.language].focus_x_label)
+    .yAxisLabel(Translation[Lang.language].alerts_y_label)
     .elasticY(true)
     .yAxisPadding('10%')
     .clipPadding(10)
