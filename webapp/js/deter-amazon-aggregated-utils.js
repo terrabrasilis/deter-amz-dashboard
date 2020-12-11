@@ -241,13 +241,17 @@ var utils = {
 	},
 
 	makeMonthsChooserList: function() {
-		let template='';
+		let magicNumber=14;// this number is the number of ticks used in series chart. It's equal to 12 or 14. See the chart to define.
+		let width=parseInt(utils.getSeriesChartWidth()/magicNumber);
+		let template='',extra='<div style="width:'+width+'px;"></div>';
 		let iMin=(graph.calendarConfiguration=='prodes')?(8):(1);
 		let iMax=(graph.calendarConfiguration=='prodes')?(20):(13);
 		for (var i=iMin;i<iMax;i++) {
-			template+='<div id="month_'+i+'" class="col-md-1 month_box" onclick="graph.applyMonthFilter('+i+')"></div>';
+			template+='<div style="width:'+width+'px;" id="month_'+i+'" class="month_box" onclick="graph.applyMonthFilter('+i+')"></div>';
 		}
+		template=magicNumber==14?extra+template+extra:template
 		$('#months_chooser').html(template);
+		utils.setMonthNamesFilterBar();
 	},
 
 	highlightClassFilterButtons: function(ref) {

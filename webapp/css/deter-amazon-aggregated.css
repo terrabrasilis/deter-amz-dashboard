@@ -160,3 +160,9 @@ div .dc-chart {
 .info_classes{
 	display: none;
 }
+.months_box{
+	display: flex;
+	padding: 0px;
+	margin-left: 18px;
+	margin-right: 18px;
+}

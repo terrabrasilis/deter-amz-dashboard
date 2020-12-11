@@ -1,6 +1,6 @@
-let buildCompositeChart=(context,barColors)=>{
+let buildCompositeChart=(context)=>{
   context.lineSeriesMonthly = dc.compositeChart("#agreg", "agrega");
-  let fcDomain=d3.scale.linear().domain( (context.calendarConfiguration=='prodes')?([8,19]):([1,12]) );
+  let fcDomain=d3.scale.linear().domain( (context.calendarConfiguration=='prodes')?([7,20]):([0,13]) );
 
   let makeAreaGroup=(dim,k)=>{
     let g=dim.group()
@@ -16,16 +16,20 @@ let buildCompositeChart=(context,barColors)=>{
     return g;
   };
   
-  let makeChartLine=(mainChart,dim,group,groupName,colors,rightYAxis)=>{
+  let makeChartLine=(mainChart,dim,group,groupName,colors,isCloud)=>{
+    let gn=groupName+" ("+( (isCloud)?("cl"):("de") )+")";
     let l=dc.lineChart(mainChart)
     .dimension(dim)
-    .group(group,groupName)
-    .ordinalColors(colors)
+    .group(group,gn)
+    .colorCalculator(()=>{return colors[0];})
     .renderDataPoints(true)
     .evadeDomainFilter(true)
-    // .title(groupName, (t)=>{
-    //   console.log(t);
-    // })
+    .title((v)=>{
+      var v1=Math.abs(+(parseFloat(v.value).toFixed(2)));
+      v1=localeBR.numberFormat(',1f')(v1);
+      return utils.xaxis(v.key) + " - " + gn
+      + "\n"+Translation[Lang.language].area+" " + v1 + " "+Translation[Lang.language].unit;
+    })
     .keyAccessor(function(k) {
       return k.key;
     })
@@ -40,26 +44,32 @@ let buildCompositeChart=(context,barColors)=>{
         }
       }
     })
-    .useRightYAxis(rightYAxis);
+    .useRightYAxis(isCloud);
     return l;
   };
 
   let composeCharts=()=>{
     let lines=[];
+
+    // prepare deforestation lines
+    let	defColors = context.getOrdinalColorsToYears(graph.defPallet);
     context.yearGroup0.all().forEach(
       (d)=>{
-        let colors=[]; barColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
+        let colors=[]; defColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
         let deterGroupByYear = makeAreaGroup(context.monthDimension0,d.key);
         lines.push(
-          makeChartLine(context.lineSeriesMonthly,context.monthDimension0,deterGroupByYear,d.key+"(d)",colors,false)
+          makeChartLine(context.lineSeriesMonthly,context.monthDimension0,deterGroupByYear,d.key,colors,false)
         );
       });
+
+      // prepare cloud lines
+      let	cldColors = context.getOrdinalColorsToYears(graph.cldPallet);
       context.yearGroup0.all().forEach(
         (d)=>{
-          let colors=["#f0f0f0"];
+          let colors=[]; cldColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
           let cloudGroupByYear = makeAreaGroup(context.monthDimension2,d.key);
           lines.push(
-            makeChartLine(context.lineSeriesMonthly,context.monthDimension2,cloudGroupByYear,d.key+"(c)",colors,true)
+            makeChartLine(context.lineSeriesMonthly,context.monthDimension2,cloudGroupByYear,d.key,colors,true)
           );
         });
       return lines;
@@ -77,24 +87,24 @@ let buildCompositeChart=(context,barColors)=>{
     .yAxisLabel(Translation[Lang.language].alerts_y_label)
     .rightYAxisLabel(Translation[Lang.language].clouds_y_label)
     .elasticY(true)
+    .shareTitle(false)
     .yAxisPadding('10%')
     .clipPadding(10)
     .legend(dc.legend().x(100).y(10).itemHeight(15).gap(5).horizontal(1).legendWidth(legendWidth).itemWidth(legendItemWidth))
     .margins({top: 40, right: 90, bottom: 30, left: 65})
-    .title((v)=>{
-      var v1=Math.abs(+(parseFloat(v.value).toFixed(2)));
-      v1=localeBR.numberFormat(',1f')(v1);
-      return utils.xaxis(v.key)
-      + "\n"+Translation[Lang.language].area+" " + v1 + " "+Translation[Lang.language].unit;
-    })
     .compose(composeCharts());
+
+    context.lineSeriesMonthly.on('renderlet.a', (c)=>{
+      utils.makeMonthsChooserList();
+      utils.highlightSelectedMonths();
+    });
 };
 
 /**
- * The series chart with only alerts areas by months
+ * The series chart with only alerts by months
  * 
  */
-let buildSeriesChart=(context, barColors)=>{
+let buildSeriesChart=(context)=>{
   context.lineSeriesMonthly = dc.seriesChart("#agreg", "agrega");
 
   let fcDomain=d3.scale.linear().domain( (graph.calendarConfiguration=='prodes')?([8,19]):([1,12]) );
@@ -205,6 +215,7 @@ let buildSeriesChart=(context, barColors)=>{
     }
   });
 
+  let	barColors = context.getOrdinalColorsToYears(graph.defPallet);
   context.lineSeriesMonthly.colorAccessor(function(d) {
     var i=0,l=barColors.length;
     while(i<l){

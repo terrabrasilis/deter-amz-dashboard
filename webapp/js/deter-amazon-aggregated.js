@@ -40,12 +40,10 @@ var graph={
 	data:null,
 	cloudData:null,
 
-	pallet: null,
-	darkPallet: null,
-	histogramColor: null,
-	darkHistogramColor: null,
-	barTop10Color: null,
-	darkBarTop10Color: null,
+	ringPallet: null,
+	defPallet: null,
+	/** "cldPallet":["#fff7fb","#ece7f2","#d0d1e6","#a6bddb","#74a9cf","#3690c0","#0570b0","#045a8d","#023858"], */
+	cldPallet: null,
 
 	defaultHeight: null,
 
@@ -61,12 +59,9 @@ var graph={
 				console.log("Didn't load config file. Using default options.");
 			}else{
 				if(conf) {
-					graph.pallet=conf.pallet?conf.pallet:graph.pallet;
-					graph.darkPallet=conf.darkPallet?conf.darkPallet:graph.darkPallet;
-					graph.histogramColor=conf.histogramColor?conf.histogramColor:graph.histogramColor;
-					graph.darkHistogramColor=conf.darkHistogramColor?conf.darkHistogramColor:graph.darkHistogramColor;
-					graph.barTop10Color=conf.barTop10Color?conf.barTop10Color:graph.barTop10Color;
-					graph.darkBarTop10Color=conf.darkBarTop10Color?conf.darkBarTop10Color:graph.darkBarTop10Color;
+					graph.ringPallet=conf.ringPallet?conf.ringPallet:graph.ringPallet;
+					graph.defPallet=conf.defPallet?conf.defPallet:graph.defPallet;
+					graph.cldPallet=conf.cldPallet?conf.cldPallet:graph.cldPallet;
 					graph.defaultHeight=conf.defaultHeight?conf.defaultHeight:graph.defaultHeight;
 					graph.legendOriginal=conf.legendOriginal?conf.legendOriginal:undefined;
 					graph.legendOverlay=conf.legendOverlay?conf.legendOverlay:undefined;
@@ -90,12 +85,12 @@ var graph={
 		}
 		return y;
 	},
-	getOrdinalColorsToYears: function() {
+	getOrdinalColorsToYears: function(colorList) {
 		var c=[];
 		var ys=this.getRangeYears();
-		var cor=d3.scale.category20();
+		//var cor=d3.scale.category20();
 		for(var i=0;i<ys.length;i++) {
-			c.push({key:ys[i],color:cor(i)});
+			c.push({key:ys[i],color:colorList[i]});//cor(i)});
 		}
 		return c;
 	},
@@ -313,8 +308,6 @@ var graph={
 		);
 	},
 	build: function() {
-		var	barColors = this.getOrdinalColorsToYears();
-		
 		this.setChartReferencies();
 
 		var htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
@@ -355,8 +348,8 @@ var graph={
 		.group(this.totalAlertsGroup);
 		
 		// build the monthly series chart
-		//buildSeriesChart(this,barColors);
-		buildCompositeChart(this,barColors);
+		//buildSeriesChart(this);
+		buildCompositeChart(this);
 
 		this.ringTotalizedByState
 			.height(this.defaultHeight)
@@ -375,12 +368,9 @@ var graph={
 				return d.key + ":" + v + " "+Translation[Lang.language].unit;
 			})
 			.ordering(dc.pluck('key'))
-			.ordinalColors((utils.cssDefault)?(graph.pallet):(graph.darkPallet))
+			.ordinalColors(graph.ringPallet)
 			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35));
-			//.legend(dc.legend());
-			//.ordinalColors(["#FF0000","#FFFF00","#FF00FF","#F8B700","#78CC00","#00FFFF","#56B2EA","#0000FF","#00FF00"])
 
-	
 		this.ringTotalizedByState.valueAccessor(function(d) {
 			return Math.abs(+(d.value.toFixed(2)));
 		});
@@ -433,6 +423,8 @@ var graph={
 			return l.join(",");
 		});
 
+		let	barColors = this.getOrdinalColorsToYears(graph.defPallet);
+
 		this.barAreaByYear
 			.height(this.defaultHeight)
 			.yAxisLabel(Translation[Lang.language].area+" ("+Translation[Lang.language].unit+")")
@@ -456,7 +448,7 @@ var graph={
 			.barPadding(0.2)
 			.outerPadding(0.1)
 			.renderHorizontalGridLines(true)
-			.colorAccessor(function(d) {
+			.colorCalculator(function(d) {
 				var i=0,l=barColors.length;
 				while(i<l){
 					if(barColors[i].key==d.key){
@@ -534,7 +526,7 @@ var graph={
 		// defining filter to deforestation classes by default
 		graph.filterByClassGroup('deforestation');
 		utils.attachListenersToLegend();
-		utils.setMonthNamesFilterBar();
+		// utils.setMonthNamesFilterBar();
 	},
 	init: function() {
 		window.onresize=utils.onResize;
@@ -666,8 +658,8 @@ var graph={
 
 	restart() {
 		graph.monthFilters=[];
-		utils.makeMonthsChooserList();
-		utils.highlightSelectedMonths();
+		// utils.makeMonthsChooserList();
+		// utils.highlightSelectedMonths();
 		graph.startLoadData();
 	}
 };
@@ -679,7 +671,7 @@ window.onload=function(){
         // and stop event from bubbling
         return false;
 	});
-	utils.makeMonthsChooserList();
+	//utils.makeMonthsChooserList();
 	utils.btnChangeCalendar();
 	Lang.init();
 	graph.init();
