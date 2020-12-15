@@ -22,6 +22,7 @@ var graph={
 	
 	temporalDimension2: null,
 	areaGroup2: null,
+	areaUfGroup2: null,
 	yearDimension2: null,
 	ufDimension2: null,
 	monthDimension2: null,
@@ -112,7 +113,7 @@ var graph={
 		d3.select("#updated_date").html(' '+dt.toLocaleDateString());
 	},
 
-	loadData: function(url, type) {
+	loadData: function(url, type, callback) {
 		d3.json(url)
 		//.header("Authorization", "Bearer "+Authentication.getToken())
 		.get(function(error, root) {
@@ -122,6 +123,7 @@ var graph={
 				if(type=='deforestation')	graph.processData(root);
 				else graph.processCloudData(root);
 			}
+			if(callback) callback();
 		});
 	},
 	/** This method must be called before processData! */
@@ -131,8 +133,6 @@ var graph={
 			return;
 		}
 		let o=[];
-		let numberFormat = d3.format('.2f');
-		
 		for (let j = 0, n = data.totalFeatures; j < n; ++j) {
 			let fet=data.features[j];
 			let month=+fet.properties.m;
@@ -145,7 +145,7 @@ var graph={
 					year = year+"/"+(year+1);
 				}
 			}
-			o.push({year:year,month:month,area:+(numberFormat(fet.properties.a)),uf:fet.properties.u});
+			o.push({year:year,month:month,a:fet.properties.a,au:fet.properties.au,uf:fet.properties.u});
 		}
 		graph.cloudData = o;
 	},
@@ -191,11 +191,17 @@ var graph={
 			var m=utils.fakeMonths(d.month);
 			return [d.year, m];
 		});
+		this.areaUfGroup2 = this.temporalDimension2.group().reduceSum(function(d) {
+			return +d.au;
+		});
 		this.areaGroup2 = this.temporalDimension2.group().reduceSum(function(d) {
-			return d.area;
+			return +d.a;
 		});
 		this.yearDimension2 = cloud.dimension(function(d) {
 			return d.year;
+		});
+		this.yearGroup2 = this.yearDimension2.group().reduceSum(function(d) {
+			return d.au;
 		});
 		this.ufDimension2 = cloud.dimension(function(d) {
 			return d.uf;
@@ -538,11 +544,14 @@ var graph={
 
 	startLoadData() {
 		Lang.apply();
-		let dataUrl="./data/deter-amazon-cloud-month.json";
-		graph.loadData(dataUrl, 'cloud');
-		dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/monthly";
-		dataUrl = "./data/deter-amazon-month.json"
-		graph.loadData(dataUrl, 'deforestation');
+
+		let cloudDataUrl="./data/deter-amazon-cloud-month.json";
+		let deforDataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/monthly";
+		deforDataUrl = "./data/deter-amazon-month.json"
+
+		graph.loadData(cloudDataUrl, 'cloud', ()=>{
+			graph.loadData(deforDataUrl, 'deforestation',null);
+		});
 		utils.attachEventListeners();
 	},
 

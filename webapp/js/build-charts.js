@@ -1,6 +1,7 @@
 let buildCompositeChart=(context)=>{
   context.lineSeriesMonthly = dc.compositeChart("#agreg", "agrega");
-  let fcDomain=d3.scale.linear().domain( (context.calendarConfiguration=='prodes')?([7,20]):([0,13]) );
+  let maxUf=graph.areaUfGroup2.top(1)[0].value;// max area of all selected UFs
+  let maxA=graph.areaGroup2.top(1)[0].value;
 
   let makeAreaGroup=(dim,k)=>{
     let g=dim.group()
@@ -15,8 +16,22 @@ let buildCompositeChart=(context)=>{
     });
     return g;
   };
+  let makePercentGroup=(dim,d)=>{
+    let g=dim.group()
+    .reduceSum(
+      (v) => {
+        return (v.year==d.key)?(v.a*100/maxUf):(0);
+      }
+    );
+    // ordered by months
+    g.all().sort((a,b)=>{
+      return a.key-b.key;
+    });
+    return g;
+  };
   
   let makeChartLine=(mainChart,dim,group,groupName,colors,isCloud)=>{
+    
     let gn=groupName+" ("+( (isCloud)?("cl"):("de") )+")";
     let l=dc.lineChart(mainChart)
     .dimension(dim)
@@ -25,10 +40,10 @@ let buildCompositeChart=(context)=>{
     .renderDataPoints(true)
     .evadeDomainFilter(true)
     .title((v)=>{
-      var v1=Math.abs(+(parseFloat(v.value).toFixed(2)));
+      let v1=Math.abs(+(parseFloat(v.value).toFixed(2)));
       v1=localeBR.numberFormat(',1f')(v1);
       return utils.xaxis(v.key) + " - " + gn
-      + "\n"+Translation[Lang.language].area+" " + v1 + " "+Translation[Lang.language].unit;
+      + "\n" + ((isCloud)?(Translation[Lang.language].percentage+" "+v1+"%"):(Translation[Lang.language].area+" "+v1+Translation[Lang.language].unit));
     })
     .keyAccessor(function(k) {
       return k.key;
@@ -45,6 +60,11 @@ let buildCompositeChart=(context)=>{
       }
     })
     .useRightYAxis(isCloud);
+
+    if(isCloud){
+      // create a Dash Dot Dot Dot
+      l.dashStyle([5,5,5,5]);
+    }
     return l;
   };
 
@@ -64,10 +84,10 @@ let buildCompositeChart=(context)=>{
 
       // prepare cloud lines
       let	cldColors = context.getOrdinalColorsToYears(graph.cldPallet);
-      context.yearGroup0.all().forEach(
+      context.yearGroup2.all().forEach(
         (d)=>{
           let colors=[]; cldColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
-          let cloudGroupByYear = makeAreaGroup(context.monthDimension2,d.key);
+          let cloudGroupByYear = makePercentGroup(context.monthDimension2,d);
           lines.push(
             makeChartLine(context.lineSeriesMonthly,context.monthDimension2,cloudGroupByYear,d.key,colors,true)
           );
@@ -78,9 +98,12 @@ let buildCompositeChart=(context)=>{
   let legendItemWidth=100, legendWidth=context.yearGroup0.all().length*legendItemWidth;
   legendWidth=(legendWidth<utils.getSeriesChartWidth())?(+legendWidth.toFixed(0)):(utils.getSeriesChartWidth());
 
+  let fxDomain=d3.scale.linear().domain( (context.calendarConfiguration=='prodes')?([7,20]):([0,13]) );
+  
+
   context.lineSeriesMonthly
-    .height(context.defaultHeight-70)
-    .x(fcDomain)
+    .height(context.defaultHeight)
+    .x(fxDomain)
     .renderHorizontalGridLines(true)
     .renderVerticalGridLines(true)
     .brushOn(false)
@@ -94,11 +117,33 @@ let buildCompositeChart=(context)=>{
     .margins({top: 40, right: 90, bottom: 30, left: 65})
     .compose(composeCharts());
 
+    context.lineSeriesMonthly.xAxis().tickFormat(function(d) {
+      return utils.xaxis(d);
+    });
+
     context.lineSeriesMonthly.on('renderlet.a', (c)=>{
       utils.makeMonthsChooserList();
       utils.highlightSelectedMonths();
     });
+
+    let tv=[], percMax=(maxA*100/maxUf)+5;
+    for (let d=0; d <= 1; d+=0.1) {
+      tv.push(percMax*d);
+    }
+    context.lineSeriesMonthly.rightYAxis()
+    .tickSize(tv.length)
+    .tickValues(tv)
+    .tickFormat(
+      (a)=>{
+        return parseInt(a)+"%";
+      }
+    );
 };
+
+
+
+
+
 
 /**
  * The series chart with only alerts by months
