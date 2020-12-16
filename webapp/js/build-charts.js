@@ -126,7 +126,7 @@ let buildCompositeChart=(context)=>{
       utils.highlightSelectedMonths();
     });
 
-    let tv=[], percMax=(maxA*100/maxUf)+5;
+    let tv=[], percMax=(maxA*100/maxUf);
     for (let d=0; d <= 1; d+=0.1) {
       tv.push(percMax*d);
     }

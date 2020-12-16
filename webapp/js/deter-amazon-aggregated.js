@@ -210,6 +210,9 @@ var graph={
 			var m=utils.fakeMonths(d.month);
 			return m;
 		});
+		this.areaDimension2 = cloud.dimension(function(d) {
+			return d.a;
+		});
 		/** end register cloud data */
 		
 		this.monthDimension = ndx1.dimension(function(d) {
@@ -485,15 +488,19 @@ var graph={
 				if(chart.anchorName()=="chart-by-year"){
 					if(!filters.length) {
 						graph.yearDimension0.filterAll();
+						graph.yearDimension2.filterAll();
 					}else {
 						graph.yearDimension0.filterFunction(commonFilterFunction);
+						graph.yearDimension2.filterFunction(commonFilterFunction);
 					}
 				}
 				if(chart.anchorName()=="chart-by-state"){
 					if(!filters.length) {
 						graph.ufDimension0.filterAll();
+						graph.ufDimension2.filterAll();
 					}else {
 						graph.ufDimension0.filterFunction(commonFilterFunction);
+						graph.ufDimension2.filterFunction(commonFilterFunction);
 					}
 				}
 				if(chart.anchorName()=="chart-by-class"){
