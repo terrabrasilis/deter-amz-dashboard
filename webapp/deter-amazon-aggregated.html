@@ -295,6 +295,18 @@
 										<span id="title-chart-agreg-amz">Variação mensal de área do projeto DETER</span>
 									</div>
 									<div class="justify-content-end ctrl-change-calendar">
+										<div style="padding-right: 10%;"
+											class="btn-group btn-group-toggle btn-group-sm selecao"
+											data-toggle="buttons">
+											<label class="btn btn-outline-secondary">
+												<input type="checkbox" id="cloud-selector"
+													autocomplete="off" checked><span id="txt-cloud">Nuvem</span>
+											</label>
+											<label class="btn btn-outline-secondary active">
+												<input type="checkbox" id="defor-selector"
+													autocomplete="off" checked><span id="txt-defor">Desmatamento</span>
+											</label>
+										</div>
 										<div id="change-calendar"
 											class="btn-group btn-group-toggle btn-group-sm selecao"
 											data-toggle="buttons">
@@ -313,7 +325,8 @@
 								<div>
 									<b><span id="txt8b" class="filter-info">Intervalo de tempo:</span></b><span
 										class="highlight-time filter-info" id="highlight-time"></span>
-									<a href="javascript:graph.resetFilter('agreg','agrega');">
+									<!-- <a href="javascript:graph.resetFilter('agreg','agrega');"> -->
+										<a href="javascript:graph.resetFilter('year');">
 										<span aria-hidden="true" id="txt18" title="Limpar este filtro.">
 											<i class="material-icons md-icon-16 icongreen">delete</i>
 										</span>

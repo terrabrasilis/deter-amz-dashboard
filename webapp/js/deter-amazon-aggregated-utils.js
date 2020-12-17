@@ -8,6 +8,7 @@ var utils = {
 	    	utils.preparePrint();
 	    });
 	},
+	
 	displayLoginExpiredMessage() {
 		// if (Authentication.isExpiredToken()) {
 		// 	d3.select('#expired_token_box').style('display', '');
@@ -50,6 +51,16 @@ var utils = {
 	    	window.print();
 	    });
 	},
+	btnOnOffCloudDefor:function() {
+		$('#cloud-selector')
+	    .on('change', function() {
+	    	graph.changeCloudStatus($('#cloud-selector')[0].checked);
+			});
+		$('#defor-selector')
+	    .on('change', function() {
+	    	graph.changeDeforStatus($('#defor-selector')[0].checked);
+	    });
+	},
 	btnChangeCalendar: function() {
 		$('#change-calendar input').on('change', function() {
 			graph.changeCalendar($('input[name=calendars]:checked', '#change-calendar').attr('id'));
@@ -58,13 +69,14 @@ var utils = {
 	attachEventListeners:function() {
 		utils.btnPrintPage();
 		utils.btnDownload();
+		utils.btnOnOffCloudDefor();
 	},
 
 	attachListenersToLegend: function() {
 		var legendItems=$('#agreg .dc-legend-item');
 		for(var i=0;i<legendItems.length;i++) {
 			$(legendItems[i]).on('click', function (ev) {
-				graph.barAreaByYear.filter(ev.currentTarget.textContent);
+				graph.barAreaByYear.filter(ev.currentTarget.textContent.split(" ")[0]);
 			});
 		}
 	},
@@ -74,6 +86,9 @@ var utils = {
 		utils.config.resizeTimeout = setTimeout(graph.doResize, 200);
 	},
 	renderAll:function() {
+		/**
+		 * This method keeping data points at the vertices of the lines on render calls.
+		 */
 		dc.renderAll("agrega");
 		dc.renderAll("filtra");
 		d3.selectAll("circle")

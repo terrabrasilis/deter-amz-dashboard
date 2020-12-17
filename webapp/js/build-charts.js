@@ -37,8 +37,7 @@ let buildCompositeChart=(context)=>{
     .dimension(dim)
     .group(group,gn)
     .colorCalculator(()=>{return colors[0];})
-    .renderDataPoints(true)
-    .evadeDomainFilter(true)
+    //.renderDataPoints({radius: 5, fillOpacity: 0.8, strokeOpacity: 0.9})
     .title((v)=>{
       let v1=Math.abs(+(parseFloat(v.value).toFixed(2)));
       v1=localeBR.numberFormat(',1f')(v1);
@@ -70,6 +69,9 @@ let buildCompositeChart=(context)=>{
 
   let composeCharts=()=>{
     let lines=[];
+    // reset arrays if this method will be called more than once to prevent reinsert the charts.
+    context._cloudSubCharts=[];
+    context._deforestationSubCharts=[];
 
     // prepare deforestation lines
     let	defColors = context.getOrdinalColorsToYears(graph.defPallet);
@@ -77,22 +79,22 @@ let buildCompositeChart=(context)=>{
       (d)=>{
         let colors=[]; defColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
         let deterGroupByYear = makeAreaGroup(context.monthDimension0,d.key);
-        lines.push(
-          makeChartLine(context.lineSeriesMonthly,context.monthDimension0,deterGroupByYear,d.key,colors,false)
-        );
+        let l=makeChartLine(context.lineSeriesMonthly,context.monthDimension0,deterGroupByYear,d.key,colors,false);
+        if(graph._deforestationStatus) lines.push(l);
+        context._deforestationSubCharts.push(l);// used to control the composite chart groups
       });
 
-      // prepare cloud lines
-      let	cldColors = context.getOrdinalColorsToYears(graph.cldPallet);
-      context.yearGroup2.all().forEach(
-        (d)=>{
-          let colors=[]; cldColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
-          let cloudGroupByYear = makePercentGroup(context.monthDimension2,d);
-          lines.push(
-            makeChartLine(context.lineSeriesMonthly,context.monthDimension2,cloudGroupByYear,d.key,colors,true)
-          );
-        });
-      return lines;
+    // prepare cloud lines
+    let	cldColors = context.getOrdinalColorsToYears(graph.cldPallet);
+    context.yearGroup2.all().forEach(
+      (d)=>{
+        let colors=[]; cldColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
+        let cloudGroupByYear = makePercentGroup(context.monthDimension2,d);
+        let l=makeChartLine(context.lineSeriesMonthly,context.monthDimension2,cloudGroupByYear,d.key,colors,true);
+        if(graph._cloudStatus) lines.push(l);
+        context._cloudSubCharts.push(l);// used to control the composite chart groups
+      });
+    return lines;
   };
 
   let legendItemWidth=100, legendWidth=context.yearGroup0.all().length*legendItemWidth;
@@ -114,7 +116,8 @@ let buildCompositeChart=(context)=>{
     .yAxisPadding('10%')
     .clipPadding(10)
     .legend(dc.legend().x(100).y(10).itemHeight(15).gap(5).horizontal(1).legendWidth(legendWidth).itemWidth(legendItemWidth))
-    .margins({top: 40, right: 90, bottom: 30, left: 65})
+    .margins({top: 40, right: 65, bottom: 30, left: 65})
+    .childOptions ({ renderDataPoints: {fillOpacity: 0.8} })
     .compose(composeCharts());
 
     context.lineSeriesMonthly.xAxis().tickFormat(function(d) {
@@ -138,12 +141,9 @@ let buildCompositeChart=(context)=>{
         return parseInt(a)+"%";
       }
     );
+
+    lineSeriesRenderlet(context);
 };
-
-
-
-
-
 
 /**
  * The series chart with only alerts by months
@@ -218,6 +218,21 @@ let buildSeriesChart=(context)=>{
     }
   });
 
+  lineSeriesRenderlet(context);
+
+  let	barColors = context.getOrdinalColorsToYears(graph.defPallet);
+  context.lineSeriesMonthly.colorAccessor(function(d) {
+    var i=0,l=barColors.length;
+    while(i<l){
+      if(barColors[i].key==d.key){
+        return barColors[i].color;
+      }
+      i++;
+    }
+  });
+};
+
+let lineSeriesRenderlet=(context)=>{
   context.lineSeriesMonthly.on('renderlet', function(c) {
     utils.attachListenersToLegend();
     graph.displayCustomValues();
@@ -235,39 +250,31 @@ let buildSeriesChart=(context)=>{
       $('#txt8b').html(Translation[Lang.language].allTime);
       $('#highlight-time').html("&nbsp;" +  years.join(", ") );
     }else{
-      var fp="", allData=c.group().top(Infinity);
-      graph.monthFilters.forEach(
-        (monthNumber) => {
-          var ys=[];
-          allData.some(
-            (d)=> {
-              years.forEach(
-                (year) => {
-                  if(d.key.includes(monthNumber) && d.key.includes(year)) {
-                    ys.push(year);
-                    return true;
-                  }
-                }
-              );
-            }
-          );
-          if(ys.length) fp+=(fp==''?'':', ')+utils.monthYearList(monthNumber,utils.nameMonthsById(monthNumber),ys);
-        }
-      );
-      $('#txt18').css('display','');// display filter reset buttom
-      $('#txt8b').html(Translation[Lang.language].someMonths);
-      $('#highlight-time').html("&nbsp;" +  fp );
-    }
-  });
+      if(c.group()){// TODO: implements the logic to list filtered month on filterPrinter
 
-  let	barColors = context.getOrdinalColorsToYears(graph.defPallet);
-  context.lineSeriesMonthly.colorAccessor(function(d) {
-    var i=0,l=barColors.length;
-    while(i<l){
-      if(barColors[i].key==d.key){
-        return barColors[i].color;
+        var fp="", allData=c.group().top(Infinity);
+        graph.monthFilters.forEach(
+          (monthNumber) => {
+            var ys=[];
+            allData.some(
+              (d)=> {
+                years.forEach(
+                  (year) => {
+                    if(d.key.includes(monthNumber) && d.key.includes(year)) {
+                      ys.push(year);
+                      return true;
+                    }
+                  }
+                );
+              }
+            );
+            if(ys.length) fp+=(fp==''?'':', ')+utils.monthYearList(monthNumber,utils.nameMonthsById(monthNumber),ys);
+          }
+        );
+        $('#txt18').css('display','');// display filter reset buttom
+        $('#txt8b').html(Translation[Lang.language].someMonths);
+        $('#highlight-time').html("&nbsp;" +  fp );
       }
-      i++;
     }
   });
-};
+}

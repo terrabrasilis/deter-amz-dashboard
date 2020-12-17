@@ -41,6 +41,13 @@ var graph={
 	data:null,
 	cloudData:null,
 
+	/** to store subcharts of the composite chart used to switch groups */
+	_cloudSubCharts:[],
+	_deforestationSubCharts:[],
+	_deforestationStatus:true,
+	_cloudStatus:false,
+
+
 	ringPallet: null,
 	defPallet: null,
 	/** "cldPallet":["#fff7fb","#ece7f2","#d0d1e6","#a6bddb","#74a9cf","#3690c0","#0570b0","#045a8d","#023858"], */
@@ -492,7 +499,7 @@ var graph={
 					}else {
 						graph.yearDimension0.filterFunction(commonFilterFunction);
 						graph.yearDimension2.filterFunction(commonFilterFunction);
-					}
+					}// class="justify-content-end ctrl-change-calendar"
 				}
 				if(chart.anchorName()=="chart-by-state"){
 					if(!filters.length) {
@@ -665,6 +672,29 @@ var graph={
 		);
 		area=localeBR.numberFormat(',1f')(area.toFixed(2));
 		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><div class='numberinf'>"+area+" km²</div></span>");
+	},
+
+	changeCompositeSubCharts(){
+		let l=[].concat(
+			( (graph._deforestationStatus)?(graph._deforestationSubCharts):([]) ),
+			( (graph._cloudStatus)?(graph._cloudSubCharts):([]) ),
+		);
+		graph.lineSeriesMonthly.compose(l);
+		
+		// this call is an important method for keeping data points at the vertices of the lines
+		utils.renderAll();
+		dc.redrawAll("agrega");
+		// graph.displayCustomValues();
+	},
+
+	changeDeforStatus(value) {
+		graph._deforestationStatus=value;
+		this.changeCompositeSubCharts();
+	},
+
+	changeCloudStatus(value) {
+		graph._cloudStatus=value;
+		this.changeCompositeSubCharts();
 	},
 
 	changeCalendar(value) {
