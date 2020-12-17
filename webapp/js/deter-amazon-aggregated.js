@@ -122,7 +122,7 @@ var graph={
 
 	loadData: function(url, type, callback) {
 		d3.json(url)
-		//.header("Authorization", "Bearer "+Authentication.getToken())
+		.header("Authorization", "Bearer "+Authentication.getToken())
 		.get(function(error, root) {
 			if(error && error.status==401) {
 				Autentication.logout();
@@ -561,7 +561,7 @@ var graph={
 
 		let cloudDataUrl="./data/deter-amazon-cloud-month.json";
 		let deforDataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/monthly";
-		deforDataUrl = "./data/deter-amazon-month.json"
+		// deforDataUrl = "./data/deter-amazon-month.json";// to use in localhost
 
 		graph.loadData(cloudDataUrl, 'cloud', ()=>{
 			graph.loadData(deforDataUrl, 'deforestation',null);
@@ -721,8 +721,8 @@ window.onload=function(){
 	utils.btnChangeCalendar();
 	Lang.init();
 	graph.init();
-	// Authentication.init(Lang.language, function(){
-	// 	graph.resetFilters();
-	// 	graph.restart();
-	// });
+	Authentication.init(Lang.language, function(){
+		graph.resetFilters();
+		graph.restart();
+	});
 };

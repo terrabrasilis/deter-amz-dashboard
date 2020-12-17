@@ -10,12 +10,12 @@ var utils = {
 	},
 	
 	displayLoginExpiredMessage() {
-		// if (Authentication.isExpiredToken()) {
-		// 	d3.select('#expired_token_box').style('display', '');
-		// 	Authentication.removeExpiredToken();
-		// } else {
-		// 	d3.select('#expired_token_box').style('display', 'none');
-		// }
+		if (Authentication.isExpiredToken()) {
+			d3.select('#expired_token_box').style('display', '');
+			Authentication.removeExpiredToken();
+		} else {
+			d3.select('#expired_token_box').style('display', 'none');
+		}
 	},
 	getDefaultHeight:function() {
 		return ((window.innerHeight*0.4).toFixed(0))*1;
