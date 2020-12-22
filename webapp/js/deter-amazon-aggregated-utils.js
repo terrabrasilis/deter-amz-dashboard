@@ -255,6 +255,22 @@ var utils = {
 		}
 	},
 
+	moveBars: (chart)=> {
+		let years=graph.yearGroup0.all();
+		let mr=graph.lineSeriesMonthly.margins().right;
+		let ml=graph.lineSeriesMonthly.margins().left;
+		let wl=(graph.lineSeriesMonthly.width()-mr-ml)/15;
+		
+		let l=years.length, l2 = parseInt(wl/l), start=parseInt(wl/4)*-1;
+
+		years.forEach(
+			(y,i)=> {
+				chart.selectAll("g._"+i).attr("transform", "translate("+start+", 0)");
+				start=start+l2;
+			}
+		);
+	},
+
 	makeMonthsChooserList: function() {
 		let magicNumber=14;// this number is the number of ticks used in series chart. It's equal to 12 or 14. See the chart to define.
 		let width=parseInt(utils.getSeriesChartWidth()/magicNumber);
