@@ -256,17 +256,21 @@ var utils = {
 	},
 
 	moveBars: (chart)=> {
+		/** Space adjust between bars group for months. Larger numbers smaller space and vice versa. */
+		let offsetBars=18;
 		let years=graph.yearGroup0.all();
 		let mr=graph.lineSeriesMonthly.margins().right;
 		let ml=graph.lineSeriesMonthly.margins().left;
-		let wl=(graph.lineSeriesMonthly.width()-mr-ml)/15;
+		let wl=(graph.lineSeriesMonthly.width()-mr-ml)/offsetBars;
 		
-		let l=years.length, l2 = parseInt(wl/l), start=parseInt(wl/4)*-1;
+		let l=years.length, l2 = parseInt(wl/l), start=parseInt(wl-(wl/2) )*-1;
 
-		years.forEach(
-			(y,i)=> {
-				chart.selectAll("g._"+i).attr("transform", "translate("+start+", 0)");
-				start=start+l2;
+		chart.selectAll("g.sub").selectAll("rect.bar").forEach(
+			(sub,i)=>{
+				if(sub.length){
+					chart.selectAll("g.sub._"+i).attr("transform", "translate("+start+", 0)");
+					start=start+l2;
+				}
 			}
 		);
 	},
