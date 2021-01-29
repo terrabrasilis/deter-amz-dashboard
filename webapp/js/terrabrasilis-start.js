@@ -54,6 +54,21 @@ $(document).ready(function () {
             console.log(version);
             versionDiv.append('ver: '+version);
         });
-        
     }
+});
+
+/** For enable datepicker with bootstrap and jquery */
+$(document).ready(function() {
+    $(function () {
+        $('#datepickerstart').datetimepicker({
+            minDate: '2016-08-01',
+            locale: 'pt-br',
+            format: 'L'
+        });
+        $('#datepickerend').datetimepicker({
+            maxDate: '2020-12-31',
+            locale: 'pt-br',
+            format: 'L'
+        });
+    });
 });

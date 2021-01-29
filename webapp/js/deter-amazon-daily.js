@@ -85,6 +85,7 @@ var graph={
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
 			var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/daily";
+			dataUrl = "./data/deter-amazon-daily.json";
 			var afterLoadData=function(json) {
 				Lang.apply();
 				if(!json || !json.features) {
@@ -395,7 +396,9 @@ var graph={
 			}
 			return cl;
 		}
+	/** End of utils object */
 	},
+
 	doResize:function() {
 		graph.defaultHeight = graph.utils.getDefaultHeight();
 		dc.renderAll();
