@@ -1,7 +1,7 @@
 var graph={
 		
 	jsonData:[],
-	alerts:{},
+	alertsCrossFilter:{},
 	config:{},
 	selectedFilters:{},
 	ctlFirstLoading:false,
@@ -243,7 +243,7 @@ var graph={
 	},
 	
 	resetFilters:function() {
-		if(!graph.data) return;
+		if(!graph.jsonData) return;
 		graph.lineDistributionByMonth.filterAll();
 		graph.ringTotalizedByClass.filterAll();
 		graph.histTopByCounties.filterAll();
@@ -407,18 +407,18 @@ var graph={
 	// gid as a, fake_point as b, areatotalkm as d, areamunkm as e, areauckm as f, date as g, uf as h, county as i, uc as j 
 	normalizeData:function() {
 		var numberFormat = d3.format('.2f');
-	    var json=[];
-        // normalize/parse data
-        this.jsonData.forEach(function(d) {
-            var o={uf:d.properties.h,ocl:d.properties.c,county:d.properties.i};
-            o.uc = (d.properties.j)?(d.properties.j):('null');
-            var auxDate = new Date(d.properties.g + 'T04:00:00.000Z');
-            o.timestamp = auxDate.getTime();
-            o.areaKm = numberFormat(d.properties.e)*1;// area municipio
+		var json=[];
+		// normalize/parse data
+		this.jsonData.forEach(function(d) {
+			var o={uf:d.properties.h,ocl:d.properties.c,county:d.properties.i};
+			o.uc = (d.properties.j)?(d.properties.j):('null');
+			var auxDate = new Date(d.properties.g + 'T04:00:00.000Z');
+			o.timestamp = auxDate.getTime();
+			o.areaKm = numberFormat(d.properties.e)*1;// area municipio
 			o.areaUcKm = ((d.properties.f)?(numberFormat(d.properties.f)*1):(0));
 			o.className = d.properties.c;
 			//o.month = d.properties.k; (used when we will implement the complete time line to work with all data by demand)
-		    json.push(o);
+			json.push(o);
 		});
 
 		// o.areaKm = (+d.properties.e)*1;// area municipio
@@ -426,24 +426,26 @@ var graph={
 		
 		this.jsonData=json;
 		delete json;
+		this.initCrossFilter();
+	},
+
+	initCrossFilter:function(){
+		// set crossfilter
+		this.alertsCrossFilter = crossfilter(this.jsonData);
+		var dimensions=[];
+		dimensions["area"] = this.alertsCrossFilter.dimension(function(d) {return d.areaKm;});
+		dimensions["county"] = this.alertsCrossFilter.dimension(function(d) {return d.county+"/"+d.uf;});
+		dimensions["class"] = this.alertsCrossFilter.dimension(function(d) {return d.className;});
+		dimensions["date"] = this.alertsCrossFilter.dimension(function(d) {return d.timestamp;});
+		dimensions["uf"] = this.alertsCrossFilter.dimension(function(d) {return d.uf;});
+		dimensions["uc"] = this.alertsCrossFilter.dimension(function(d) {return d.uc+"/"+d.uf;});
+		//dimensions["month"] = this.alertsCrossFilter.dimension(function(d) {return d.month;});
+		graph.utils.dimensions=dimensions;
 	},
 	
 	build:function() {
-		
-		var dimensions=[];
-		// set crossfilter
-		var alerts = crossfilter(this.jsonData);
-		dimensions["area"] = alerts.dimension(function(d) {return d.areaKm;});
-		dimensions["county"] = alerts.dimension(function(d) {return d.county+"/"+d.uf;});
-		dimensions["class"] = alerts.dimension(function(d) {return d.className;});
-		dimensions["date"] = alerts.dimension(function(d) {return d.timestamp;});
-		dimensions["uf"] = alerts.dimension(function(d) {return d.uf;});
-		dimensions["uc"] = alerts.dimension(function(d) {return d.uc+"/"+d.uf;});
-		//dimensions["month"] = alerts.dimension(function(d) {return d.month;});
-		
-		graph.utils.dimensions=dimensions;
-		
-		var totalAlertsGroup = alerts.groupAll().reduce(
+
+		var totalAlertsGroup = this.alertsCrossFilter.groupAll().reduce(
 		        function (p, v) {
 		            ++p.n;
 		            //p.tot += v.k;
@@ -457,7 +459,7 @@ var graph={
 		        function () { return {n:0/*,tot:0*/}; }
 			),
 			
-			totalDeforestationAreaGroup = dimensions["class"].groupAll().reduce(
+			totalDeforestationAreaGroup = graph.utils.dimensions["class"].groupAll().reduce(
 				function (p, v) {
 					if(graph.deforestation.includes(v.className)) {
 						++p.n;
@@ -477,7 +479,7 @@ var graph={
 				}
 			),
 
-			totalDegradationAreaGroup = dimensions["class"].groupAll().reduce(
+			totalDegradationAreaGroup = graph.utils.dimensions["class"].groupAll().reduce(
 				function (p, v) {
 					if(graph.degradation.includes(v.className)) {
 						++p.n;
@@ -497,19 +499,19 @@ var graph={
 		
 		var groups=[];
 		if(graph.config.defaultDataDimension=="area") {
-			groups["class"] = dimensions["class"].group().reduceSum(function(d) {return +d.areaKm;});
-			groups["county"] = dimensions["county"].group().reduceSum(function(d) {return +d.areaKm;});
-			groups["uf"] = dimensions["uf"].group().reduceSum(function(d) {return +d.areaKm;});
-			groups["date"] = dimensions["date"].group().reduceSum(function(d) {return +d.areaKm;});
-			groups["uc"] = dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(+d.areaUcKm):(0);});
-			//groups["month"] = dimensions["month"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["class"] = graph.utils.dimensions["class"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["county"] = graph.utils.dimensions["county"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["uf"] = graph.utils.dimensions["uf"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["date"] = graph.utils.dimensions["date"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["uc"] = graph.utils.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(+d.areaUcKm):(0);});
+			//groups["month"] = graph.utils.dimensions["month"].group().reduceSum(function(d) {return +d.areaKm;});
 		}else{
-			groups["class"] = dimensions["class"].group().reduceCount(function(d) {return d.className;});
-			groups["county"] = dimensions["county"].group().reduceCount(function(d) {return d.county;});
-			groups["uf"] = dimensions["uf"].group().reduceCount(function(d) {return d.uf;});
-			groups["date"] = dimensions["date"].group().reduceCount(function(d) {return +d.timestamp;});
-			groups["uc"] = dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(1):(0);});
-			//groups["month"] = dimensions["month"].group().reduceCount(function(d) {return +d.month;});
+			groups["class"] = graph.utils.dimensions["class"].group().reduceCount(function(d) {return d.className;});
+			groups["county"] = graph.utils.dimensions["county"].group().reduceCount(function(d) {return d.county;});
+			groups["uf"] = graph.utils.dimensions["uf"].group().reduceCount(function(d) {return d.uf;});
+			groups["date"] = graph.utils.dimensions["date"].group().reduceCount(function(d) {return +d.timestamp;});
+			groups["uc"] = graph.utils.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(1):(0);});
+			//groups["month"] = graph.utils.dimensions["month"].group().reduceCount(function(d) {return +d.month;});
 		}
 
 		var htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
@@ -547,7 +549,7 @@ var graph={
 		})
 		.group(totalAlertsGroup);
 		
-		this.buildCharts(dimensions, groups);
+		this.buildCharts(graph.utils.dimensions, groups);
 	},
 	
 	buildCharts:function(dimensions,groups) {
