@@ -4,6 +4,7 @@ var graph={
 	alertsCrossFilter:{},
 	config:{},
 	selectedFilters:{},
+	dimensions:{},
 	ctlFirstLoading:false,
 	cssDefault:true,
 	
@@ -39,7 +40,7 @@ var graph={
 			graph.darkHistogramColor=conf.darkHistogramColor?conf.darkHistogramColor:graph.darkHistogramColor;
 			graph.barTop10Color=conf.barTop10Color?conf.barTop10Color:graph.barTop10Color;
 			graph.darkBarTop10Color=conf.darkBarTop10Color?conf.darkBarTop10Color:graph.darkBarTop10Color;
-			graph.defaultHeight=conf.defaultHeight?conf.defaultHeight:graph.utils.getDefaultHeight();
+			graph.defaultHeight=conf.defaultHeight?conf.defaultHeight:utils.getDefaultHeight();
 		}else{
 			console.log("Didn't load config file. Using default options.");
 		}
@@ -81,7 +82,7 @@ var graph={
 
 	startLoadData: function() {
 		var afterLoadConfiguration=function(cfg) {
-			graph.utils.displayLoginExpiredMessage();
+			utils.displayLoginExpiredMessage();
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
 			var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/daily";
@@ -151,6 +152,18 @@ var graph={
 			return true;
 		}
 	},
+
+	setDateInterval: function(){
+		let dt0=new Date((utils.datePicker.getStartDate())._d);
+		let dt1=new Date((utils.datePicker.getEndDate())._d);
+		dt1.setDate(dt1.getDate()+1);
+		// reset old filters
+		graph.lineDistributionByMonth.filterAll();
+		graph.dimensions["date"].filterAll();
+		graph.dimensions["date"].filterRange([Date.parse(dt0),Date.parse(dt1)]);
+		graph["dateFilterRange"]=[Date.parse(dt0),Date.parse(dt1)];
+		graph.build();
+	},
 	
 	setDataDimension: function(d) {
 		this.config.defaultDataDimension=d;
@@ -158,6 +171,7 @@ var graph={
 		this.resetFilters();
 		this.build();
 		this.updateToSelectedFilter();
+		this.setDateInterval();
 	},
 
 	storeSelectedFilter: function() {
@@ -185,12 +199,11 @@ var graph={
 			while(graph.selectedFilters.byState.length) {graph.ringTotalizedByState.filter(graph.selectedFilters.byState.pop());}
 		if(graph.selectedFilters.byUCs)
 			while(graph.selectedFilters.byUCs.length) {graph.histTopByUCs.filter(graph.selectedFilters.byUCs.pop());}
-
 		dc.redrawAll();
 	},
 
 	filterByClassGroup: function(ref) {
-		graph.utils.highlightClassFilterButtons(ref);
+		utils.highlightClassFilterButtons(ref);
 		
 		graph.ringTotalizedByClass.filterAll();
 
@@ -215,7 +228,7 @@ var graph={
 		var filters = graph.ringTotalizedByClass.filters();
 		if(filters.length === 0) {
 				//graph.ringTotalizedByClass.filterAll()
-				graph.utils.highlightClassFilterButtons('custom');
+				utils.highlightClassFilterButtons('custom');
 			}else {
 				var eqDef=true,eqDeg=true;
 				filters.forEach(
@@ -231,11 +244,11 @@ var graph={
 				eqDef=(eqDef)?(filters.length==graph.deforestation.length):(false);
 				eqDeg=(eqDeg)?(filters.length==graph.degradation.length):(false);
 				if(eqDef && !eqDeg) {
-					graph.utils.highlightClassFilterButtons('deforestation');
+					utils.highlightClassFilterButtons('deforestation');
 				}else if(!eqDef && eqDeg) {
-					graph.utils.highlightClassFilterButtons('degradation');
+					utils.highlightClassFilterButtons('degradation');
 				}else {
-					graph.utils.highlightClassFilterButtons('custom');
+					utils.highlightClassFilterButtons('custom');
 				}
 			dc.redrawAll();
 			graph.displayCustomValues();
@@ -244,6 +257,7 @@ var graph={
 	
 	resetFilters:function() {
 		if(!graph.jsonData) return;
+		graph.dimensions["date"].filterAll();
 		graph.lineDistributionByMonth.filterAll();
 		graph.ringTotalizedByClass.filterAll();
 		graph.histTopByCounties.filterAll();
@@ -270,137 +284,8 @@ var graph={
 		graph.totalizedCustomArea.html(htmlBox+"<span>"+Translation[Lang.language].degrad_defor+"</span><div class='numberinf'>"+area+" km²</div></span>");
 	},
 
-	utils:{
-
-		displayLoginExpiredMessage() {
-			if(Authentication.isExpiredToken()){
-				Authentication.setExpiredToken(false);
-				d3.select('#expired_token_box').style('display','');
-			}else{
-				d3.select('#expired_token_box').style('display','none');
-			}
-		},
-
-		highlightClassFilterButtons: function(ref) {
-
-			$('#'+ref+'-classes').removeClass('disable');
-			$('#'+ref+'-bt').addClass('disable');
-			
-			if(ref=='deforestation') {
-				$('#degradation-classes').addClass('disable');
-				$('#custom-classes').addClass('disable');
-				$('#degradation-bt').removeClass('disable');
-				$('#custom-bt').removeClass('disable');
-			}else if(ref=='degradation') {
-				$('#deforestation-classes').addClass('disable');
-				$('#custom-classes').addClass('disable');
-				$('#deforestation-bt').removeClass('disable');
-				$('#custom-bt').removeClass('disable');
-			}else if(ref=='custom') {
-				$('#degradation-classes').addClass('disable');
-				$('#deforestation-classes').addClass('disable');
-				$('#degradation-bt').removeClass('disable');
-				$('#deforestation-bt').removeClass('disable');
-			}
-		},
-
-		setStateAnimateIcon: function(id, enable, error) {
-			document.getElementById(id).style.display='';
-			if(enable) {
-				document.getElementById(id).className="glyphicon glyphicon-refresh glyphicon-refresh-animate";
-			}else {
-				document.getElementById(id).className="glyphicon " + ( (error)?("glyphicon-warning-sign glyphicon-red"):("glyphicon-ok glyphicon-green") );
-			}
-		},
-		getSelectedFormatFile: function() {
-			var opt=document.getElementById('download-option');
-			if(!opt) {
-				opt="SHAPE-ZIP";
-			}
-			return opt[opt.selectedIndex].value;
-		},
-		/*
-		 * Remove numeric values less than 1e-6
-		 */
-		removeLittlestValues:function(sourceGroup) {
-			return {
-				all:function () {
-					return sourceGroup.all().filter(function(d) {
-						return (Math.abs(d.value)<1e-6) ? 0 : d.value;
-					});
-				},
-				top: function(n) {
-					return sourceGroup.top(Infinity)
-						.filter(function(d){
-							return (Math.abs(d.value)>1e-6);
-							})
-						.slice(0, n);
-				}
-			};
-		},
-
-		/* Insert a title into one chart using a div provided by elementId.
-		   Use %dim% or %Dim% to insert a dimension name or capitalize first letter of the name into your title string.
-		 */
-		setTitle:function(elementId, title) {
-			elementId='title-chart-'+elementId;
-			document.getElementById(elementId).innerHTML=this.wildcardExchange(title);
-		},
-		
-		wildcardExchange:function(str) {
-			var dim=((graph.config.defaultDataDimension=='area')?(Translation[Lang.language].areas):(Translation[Lang.language].num_alerts_dc));
-			var unit=((graph.config.defaultDataDimension=='area')?('km²'):(Translation[Lang.language].unit_alerts));
-			str=str.replace(/%dim%/gi,function(x){return (x=='%Dim%'?dim.charAt(0).toUpperCase()+dim.slice(1):dim);});
-			str=str.replace(/%unit%/gi,function(x){return (x=='%Unit%'?unit.charAt(0).toUpperCase()+unit.slice(1):unit);});
-			return str;
-		},
-		
-		numberByUnit:function(num) {
-			return ((graph.config.defaultDataDimension=='area')?(num.toFixed(2)):(num.toFixed(0)));
-		},
-
-		onResize:function(event) {
-			clearTimeout(graph.config.resizeTimeout);
-  			graph.config.resizeTimeout = setTimeout(graph.doResize, 100);
-		},
-
-		getDefaultHeight:function() {
-			return ((window.innerHeight*0.4).toFixed(0))*1;
-		},
-		downloadAll: function() {
-			//graph.utils.setStateAnimateIcon('animateIconSHPd', true);
-			window.setTimeout(function() {
-				/*
-				var fileFormat=graph.utils.getSelectedFormatFile();
-				var layerName = graph.utils.dataConfig.layerName;
-				layerName = layerName.split(':');
-				layerName = ( (layerName[1])?(layerName[1]):(layerName[0]) );
-				var url="http://terrabrasilis.info/deterb/wms?request=GetFeature&service=wfs&version=2.0.0&outputformat="+fileFormat+
-				"&typename=" + layerName + "&srsName=EPSG:4674";*/
-				var url="http://terrabrasilis.dpi.inpe.br/download/deter-amz/deter-amz_all.zip";
-				var iframe=document.getElementById('fileload');
-				iframe.src=url;
-				//window.setTimeout(function() {graph.utils.setStateAnimateIcon('animateIconSHPd', false);}, 2000);
-			}, 200);
-		},
-		mappingClassNames: function(cl) {
-			if(graph.config.dataConfig.legendOriginal===undefined) {
-				return cl;
-			}
-			var l = graph.config.dataConfig.legendOriginal.length;
-			for (var i = 0; i < l; i++) {
-				if(graph.config.dataConfig.legendOriginal[i]===cl) {
-					cl=graph.config.dataConfig.legendOverlay[Lang.language][i];
-					break;
-				}
-			}
-			return cl;
-		}
-	/** End of utils object */
-	},
-
 	doResize:function() {
-		graph.defaultHeight = graph.utils.getDefaultHeight();
+		graph.defaultHeight = utils.getDefaultHeight();
 		dc.renderAll();
 		//setTimeout(function(){graph.addGenerationDate();},300);
 	},
@@ -432,15 +317,17 @@ var graph={
 	initCrossFilter:function(){
 		// set crossfilter
 		this.alertsCrossFilter = crossfilter(this.jsonData);
-		var dimensions=[];
-		dimensions["area"] = this.alertsCrossFilter.dimension(function(d) {return d.areaKm;});
-		dimensions["county"] = this.alertsCrossFilter.dimension(function(d) {return d.county+"/"+d.uf;});
-		dimensions["class"] = this.alertsCrossFilter.dimension(function(d) {return d.className;});
-		dimensions["date"] = this.alertsCrossFilter.dimension(function(d) {return d.timestamp;});
-		dimensions["uf"] = this.alertsCrossFilter.dimension(function(d) {return d.uf;});
-		dimensions["uc"] = this.alertsCrossFilter.dimension(function(d) {return d.uc+"/"+d.uf;});
-		//dimensions["month"] = this.alertsCrossFilter.dimension(function(d) {return d.month;});
-		graph.utils.dimensions=dimensions;
+		this.dimensions["area"] = this.alertsCrossFilter.dimension(function(d) {return d.areaKm;});
+		this.dimensions["county"] = this.alertsCrossFilter.dimension(function(d) {return d.county+"/"+d.uf;});
+		this.dimensions["class"] = this.alertsCrossFilter.dimension(function(d) {return d.className;});
+		this.dimensions["date"] = this.alertsCrossFilter.dimension(function(d) {return d.timestamp;});
+		this.dimensions["uf"] = this.alertsCrossFilter.dimension(function(d) {return d.uf;});
+		this.dimensions["uc"] = this.alertsCrossFilter.dimension(function(d) {return d.uc+"/"+d.uf;});
+		//this.dimensions["month"] = this.alertsCrossFilter.dimension(function(d) {return d.month;});
+
+		let endDate=new Date(graph.dimensions["date"].top(1)[0].timestamp),
+		startDate=new Date(graph.dimensions["date"].bottom(1)[0].timestamp);
+		utils.datePicker.setInterval(startDate,endDate);
 	},
 	
 	build:function() {
@@ -459,7 +346,7 @@ var graph={
 		        function () { return {n:0/*,tot:0*/}; }
 			),
 			
-			totalDeforestationAreaGroup = graph.utils.dimensions["class"].groupAll().reduce(
+			totalDeforestationAreaGroup = graph.dimensions["class"].groupAll().reduce(
 				function (p, v) {
 					if(graph.deforestation.includes(v.className)) {
 						++p.n;
@@ -479,7 +366,7 @@ var graph={
 				}
 			),
 
-			totalDegradationAreaGroup = graph.utils.dimensions["class"].groupAll().reduce(
+			totalDegradationAreaGroup = graph.dimensions["class"].groupAll().reduce(
 				function (p, v) {
 					if(graph.degradation.includes(v.className)) {
 						++p.n;
@@ -499,19 +386,19 @@ var graph={
 		
 		var groups=[];
 		if(graph.config.defaultDataDimension=="area") {
-			groups["class"] = graph.utils.dimensions["class"].group().reduceSum(function(d) {return +d.areaKm;});
-			groups["county"] = graph.utils.dimensions["county"].group().reduceSum(function(d) {return +d.areaKm;});
-			groups["uf"] = graph.utils.dimensions["uf"].group().reduceSum(function(d) {return +d.areaKm;});
-			groups["date"] = graph.utils.dimensions["date"].group().reduceSum(function(d) {return +d.areaKm;});
-			groups["uc"] = graph.utils.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(+d.areaUcKm):(0);});
-			//groups["month"] = graph.utils.dimensions["month"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["class"] = graph.dimensions["class"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["county"] = graph.dimensions["county"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["uf"] = graph.dimensions["uf"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["date"] = graph.dimensions["date"].group().reduceSum(function(d) {return +d.areaKm;});
+			groups["uc"] = graph.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(+d.areaUcKm):(0);});
+			//groups["month"] = graph.dimensions["month"].group().reduceSum(function(d) {return +d.areaKm;});
 		}else{
-			groups["class"] = graph.utils.dimensions["class"].group().reduceCount(function(d) {return d.className;});
-			groups["county"] = graph.utils.dimensions["county"].group().reduceCount(function(d) {return d.county;});
-			groups["uf"] = graph.utils.dimensions["uf"].group().reduceCount(function(d) {return d.uf;});
-			groups["date"] = graph.utils.dimensions["date"].group().reduceCount(function(d) {return +d.timestamp;});
-			groups["uc"] = graph.utils.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(1):(0);});
-			//groups["month"] = graph.utils.dimensions["month"].group().reduceCount(function(d) {return +d.month;});
+			groups["class"] = graph.dimensions["class"].group().reduceCount(function(d) {return d.className;});
+			groups["county"] = graph.dimensions["county"].group().reduceCount(function(d) {return d.county;});
+			groups["uf"] = graph.dimensions["uf"].group().reduceCount(function(d) {return d.uf;});
+			groups["date"] = graph.dimensions["date"].group().reduceCount(function(d) {return +d.timestamp;});
+			groups["uc"] = graph.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(1):(0);});
+			//groups["month"] = graph.dimensions["month"].group().reduceCount(function(d) {return +d.month;});
 		}
 
 		var htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
@@ -549,36 +436,38 @@ var graph={
 		})
 		.group(totalAlertsGroup);
 		
-		this.buildCharts(graph.utils.dimensions, groups);
+		this.buildCharts(groups);
 	},
 	
-	buildCharts:function(dimensions,groups) {
+	buildCharts:function(groups) {
 
-		var alertsMaxDate = dimensions["date"].top(1),
-		alertsMinDate = dimensions["date"].bottom(1);
+		var alertsMaxDate = graph.dimensions["date"].top(1),
+		alertsMinDate = graph.dimensions["date"].bottom(1);
 		
 		// build area or alerts by time
 		// -----------------------------------------------------------------------
-		graph.utils.setTitle('timeline', Translation[Lang.language].timeline_header);
+		utils.setTitle('timeline', Translation[Lang.language].timeline_header);
 
 		var lastDate=new Date(alertsMaxDate[0].timestamp),
 		firstDate=new Date(alertsMinDate[0].timestamp);
-		lastDate=new Date(lastDate.setMonth(lastDate.getMonth()+1));
-		lastDate=new Date(lastDate.setDate(lastDate.getDate()+7));
-		firstDate=new Date(firstDate.setDate(firstDate.getDate()-7));
+		lastDate=new Date(lastDate.setDate(lastDate.getDate()+1));
+		firstDate=new Date(firstDate.setDate(firstDate.getDate()-1));
+		// lastDate=new Date(lastDate.setMonth(lastDate.getMonth()+1));
+		// lastDate=new Date(lastDate.setDate(lastDate.getDate()+7));
+		// firstDate=new Date(firstDate.setDate(firstDate.getDate()-7));
 		
 		var dateFormat = localeBR.timeFormat('%d/%m/%Y');
 		var x = d3.time.scale().domain([firstDate, lastDate]);
 		var yLabel = ((graph.config.defaultDataDimension=='area')?
-				(graph.utils.wildcardExchange("%Dim%") + " (" + graph.utils.wildcardExchange("%unit%")+")"):
-					(graph.utils.wildcardExchange("%Unit%")));
+				(utils.wildcardExchange("%Dim%") + " (" + utils.wildcardExchange("%unit%")+")"):
+					(utils.wildcardExchange("%Unit%")));
 		
 		this.lineDistributionByMonth
 			.height(310)
 			.margins({top: 10, right: 45, bottom: 55, left: 45})
 			.yAxisLabel( yLabel )
 			//.xAxisLabel( Translation[Lang.language].timeline_desc + " " + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) )
-			.dimension(dimensions["date"])
+			.dimension(graph.dimensions["date"])
 			.group(groups["date"])
 			.transitionDuration(300)
 			.elasticY(true)
@@ -635,19 +524,25 @@ var graph={
 		
 		this.lineDistributionByMonth
 			.filterPrinter(function(f) {
-				var dt=new Date(f[0][0]);
-				dt.setDate(dt.getDate()+1);
-				return " " + dateFormat(dt) + " - " + dateFormat(f[0][1]);
+				let dt=new Date(f[0][0]),
+				dt0=f[0][0].toDateString(),
+				dt1=new Date(f[0][1]).toDateString();
+				if(Date.parse(new Date(dt1))>Date.parse(new Date(dt0))){
+					dt.setDate(dt.getDate()+1);
+					return " " + dateFormat(dt) + " - " + dateFormat(f[0][1]);
+				}else{
+					return " - ";
+				}
 		});
 		// -----------------------------------------------------------------------
 		
 		// build top areas or alerts by county
-		graph.utils.setTitle('counties', Translation[Lang.language].title_top_county);
+		utils.setTitle('counties', Translation[Lang.language].title_top_county);
 		
 		this.histTopByCounties
 	        .height(graph.defaultHeight)
-		    .dimension(dimensions["county"])
-		    .group(this.utils.removeLittlestValues(groups["county"]))
+		    .dimension(graph.dimensions["county"])
+		    .group(utils.removeLittlestValues(groups["county"]))
 		    .elasticX(true)
 		    .ordering(function(d) {return d.county;})
 			.controlsUseVisibility(true)
@@ -689,25 +584,25 @@ var graph={
 			});
 
 		this.histTopByCounties.xAxis()
-		.tickFormat(function(d) {return d+graph.utils.wildcardExchange(" %unit%");});
+		.tickFormat(function(d) {return d+utils.wildcardExchange(" %unit%");});
 
 		this.histTopByCounties.data(function (group) {
 				var fakeGroup=[];
 				fakeGroup.push({key:Translation[Lang.language].without,value:0});
 				return (group.all().length>0)?(group.top(10)):(fakeGroup);
 			});
-		this.histTopByCounties.title(function(d) {return d.key + ': ' + graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%");});
-		this.histTopByCounties.label(function(d) {return d.key + ': ' + graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%");});
+		this.histTopByCounties.title(function(d) {return d.key + ': ' + utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%");});
+		this.histTopByCounties.label(function(d) {return d.key + ': ' + utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%");});
 
 		// build graph areas or alerts by state
-		graph.utils.setTitle('state',Translation[Lang.language].title_tot_state);
+		utils.setTitle('state',Translation[Lang.language].title_tot_state);
 		
 		this.ringTotalizedByState
 			.height(graph.defaultHeight)
 	        .innerRadius(10)
 			.externalRadiusPadding(30)
-	        .dimension(dimensions["uf"])
-			.group(this.utils.removeLittlestValues(groups["uf"]))
+	        .dimension(graph.dimensions["uf"])
+			.group(utils.removeLittlestValues(groups["uf"]))
 			.ordering(dc.pluck('key'))
 			.ordinalColors((graph.cssDefault)?(graph.pallet):(graph.darkPallet))
 			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35));
@@ -723,7 +618,7 @@ var graph={
 			});
 		
 		this.ringTotalizedByState.title(function(d) { 
-			return (d.key!='empty')?(d.key + ': ' + graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
+			return (d.key!='empty')?(d.key + ': ' + utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
 		});
 
 		this.ringTotalizedByState
@@ -731,7 +626,7 @@ var graph={
 			.minAngleForLabel(0.5);
 
 		this.ringTotalizedByState.label(function(d) {
-			var txtLabel=(d.key!='empty')?(graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
+			var txtLabel=(d.key!='empty')?(utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
 			if(graph.ringTotalizedByState.hasFilter()) {
 				var f=graph.ringTotalizedByState.filters();
 				return (f.indexOf(d.key)>=0)?(txtLabel):('');
@@ -750,18 +645,18 @@ var graph={
 		}
 
 		// build graph areas or alerts by class
-		graph.utils.setTitle('class',Translation[Lang.language].title_tot_class);
+		utils.setTitle('class',Translation[Lang.language].title_tot_class);
 
 		this.ringTotalizedByClass
 	        .height(graph.defaultHeight)
 	        .innerRadius(10)
 			.externalRadiusPadding(30)
-	        .dimension(dimensions["class"])
-			.group(this.utils.removeLittlestValues(groups["class"]))
+	        .dimension(graph.dimensions["class"])
+			.group(utils.removeLittlestValues(groups["class"]))
 			.ordinalColors(["#FFD700","#FF4500","#FF8C00","#FFA500","#6B8E23","#8B4513","#D2691E","#FF0000"])
 			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35).legendText(
 				function(d) {
-					var t=graph.utils.mappingClassNames(d.name);
+					var t=utils.mappingClassNames(d.name);
 					return (d.name!='empty')?(t):(Translation[Lang.language].without);
 				}
 			));
@@ -777,11 +672,11 @@ var graph={
 			// });
 
 		this.ringTotalizedByClass.title(function(d) {
-			var v=graph.utils.numberByUnit(d.value);
+			var v=utils.numberByUnit(d.value);
 			v=localeBR.numberFormat(',1f')(v);
-			var t=graph.utils.mappingClassNames(d.key) + ": " + v + " " + graph.utils.wildcardExchange(" %unit%");
+			var t=utils.mappingClassNames(d.key) + ": " + v + " " + utils.wildcardExchange(" %unit%");
 			if(d.key==="CORTE_SELETIVO") {
-				t=graph.utils.mappingClassNames(d.key) + "*: " + v + " " + graph.utils.wildcardExchange(" %unit%") + " ("+Translation[Lang.language].warning_class+")";
+				t=utils.mappingClassNames(d.key) + "*: " + v + " " + utils.wildcardExchange(" %unit%") + " ("+Translation[Lang.language].warning_class+")";
 			}
 			return (d.key!='empty')?(t):(Translation[Lang.language].without);
 		});
@@ -790,7 +685,7 @@ var graph={
 			.filterPrinter(function(f) {
 				var t=[];
 				f.forEach(function(cl) {
-					t.push(graph.utils.mappingClassNames(cl));
+					t.push(utils.mappingClassNames(cl));
 				});
 				return (f.length)?(t):([Translation[Lang.language].without]);
 		});
@@ -806,7 +701,7 @@ var graph={
 	        .minAngleForLabel(0.5);
 
 		this.ringTotalizedByClass.label(function(d) {
-			var txtLabel=(d.key!='empty')?(graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
+			var txtLabel=(d.key!='empty')?(utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
 			if(graph.ringTotalizedByClass.hasFilter()) {
 				var f=graph.ringTotalizedByClass.filters();
 				return (f.indexOf(d.key)>=0)?(txtLabel):('');
@@ -825,12 +720,12 @@ var graph={
 		}
 		
 		// build top areas or alerts by ucs
-		graph.utils.setTitle('ucs', Translation[Lang.language].title_top_uc);
+		utils.setTitle('ucs', Translation[Lang.language].title_top_uc);
 
 		this.histTopByUCs
 			.height(graph.defaultHeight)
-		    .dimension(dimensions["uc"])
-		    .group(this.utils.removeLittlestValues(groups["uc"]))
+		    .dimension(graph.dimensions["uc"])
+		    .group(utils.removeLittlestValues(groups["uc"]))
 		    .elasticX(true)
 		    .ordering(function(d) { return d.uc; })
 			.controlsUseVisibility(true)
@@ -871,19 +766,19 @@ var graph={
 				});
 			});
 			
-		this.histTopByUCs.xAxis().tickFormat(function(d) {return d+graph.utils.wildcardExchange(" %unit%");});
+		this.histTopByUCs.xAxis().tickFormat(function(d) {return d+utils.wildcardExchange(" %unit%");});
 		this.histTopByUCs.data(function (group) {
 				var fakeGroup=[];
 				fakeGroup.push({key:Translation[Lang.language].without,value:0});
 				return (group.all().length>0)?(group.top(10)):(fakeGroup);
 			});
-		this.histTopByUCs.title(function(d) {return d.key + ': ' + graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%");});
-		this.histTopByUCs.label(function(d) {return d.key + ': ' + graph.utils.numberByUnit(d.value) + graph.utils.wildcardExchange(" %unit%");});
+		this.histTopByUCs.title(function(d) {return d.key + ': ' + utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%");});
+		this.histTopByUCs.label(function(d) {return d.key + ': ' + utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%");});
 
 		// build download data
 		d3.select('#download-csv-daily-all')
 	    .on('click', function() {
-	    	graph.utils.download=function(data) {
+	    	utils.download=function(data) {
 						var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
 		        saveAs(blob, downloadCtrl.getProject()+'-daily-'+downloadCtrl.getDownloadTime()+'.csv');
 	    	};
@@ -903,19 +798,19 @@ var graph={
 				    o.municipio = d.county;
 				    data.push(o);
 				});
-		    	graph.utils.download(data);
+		    	utils.download(data);
 	    	}, 200);
 	    });
 
 		d3.select('#download-csv-daily')
 	    .on('click', function() {
-	    	graph.utils.download=function(data) {
+	    	utils.download=function(data) {
 		        var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
 		        saveAs(blob, downloadCtrl.getProject()+'-daily-'+downloadCtrl.getDownloadTime()+'.csv');
 	    	};
 	    	window.setTimeout(function() {
 	    		var data=[];
-	    		var filteredData=graph.utils.dimensions["class"].top(Infinity);
+	    		var filteredData=graph.dimensions["class"].top(Infinity);
 	    		filteredData.forEach(function(d) {
 		    		var o={};
 		    		var dt = new Date(d.timestamp);
@@ -927,7 +822,7 @@ var graph={
 				    o.municipio = d.county;
 				    data.push(o);
 				});
-		    	graph.utils.download(data);
+		    	utils.download(data);
 	    	}, 200);
 		});
 		
@@ -943,7 +838,7 @@ var graph={
 	    });
 		
 		graph.doResize();
-		window.onresize=this.utils.onResize;
+		window.onresize=utils.onResize;
 		this.ctlFirstLoading=true;// to config for exec only once
 	},
 	preparePrint: function() {
@@ -969,6 +864,7 @@ var graph={
 
 window.onload=function(){
 	graph.configurePrintKeys();
+	utils.datePicker.initComponent();//For enable datepicker with bootstrap and jquery
 	Lang.init();
 	graph.startLoadData();
 	Authentication.init(Lang.language, function(){
