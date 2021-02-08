@@ -56,7 +56,7 @@ var utils={
   },
 
   displayLoginExpiredMessage() {
-    if(Authentication.isExpiredToken()){
+    if((typeof Authentication!="undefined") && Authentication.isExpiredToken()){
       Authentication.setExpiredToken(false);
       d3.select('#expired_token_box').style('display','');
     }else{

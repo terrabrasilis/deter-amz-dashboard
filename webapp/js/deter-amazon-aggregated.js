@@ -112,10 +112,13 @@ var graph={
 
 	loadData: function(url, type) {
 		d3.json(url)
-		.header("Authorization", "Bearer "+Authentication.getToken())
+		.header("Authorization", "Bearer "+((typeof Authentication!="undefined")?(Authentication.getToken()):("")) )
 		.get(function(error, root) {
 			if(error && error.status==401) {
-				Autentication.logout();
+				if(typeof Authentication!="undefined"){
+					Authentication.logout();
+					Authentication.setExpiredToken(true);
+				}
 			}else{
 				if(type=='deforestation')	graph.processData(root);
 				else graph.processCloudData(root);
@@ -631,10 +634,10 @@ var graph={
 
 	startLoadData() {
 		Lang.apply();
-		//var dataUrl = "./data/deter-amazon-month.json";
 		let dataUrl="./data/deter-amazon-cloud-month.json";
 		graph.loadData(dataUrl, 'cloud');
 		dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/monthly";
+		dataUrl = "./data/deter-amazon-month.json";
 		graph.loadData(dataUrl, 'deforestation');
 		utils.attachEventListeners();
 	},
@@ -768,8 +771,10 @@ window.onload=function(){
 	utils.btnChangeCalendar();
 	Lang.init();
 	graph.init();
-	Authentication.init(Lang.language, function(){
-		graph.resetFilters();
-		graph.restart();
-	});
+	if(typeof Authentication!="undefined"){
+		Authentication.init(Lang.language, function(){
+			graph.resetFilters();
+			graph.restart();
+		});
+	}
 };

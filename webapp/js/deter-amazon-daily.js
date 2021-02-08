@@ -97,11 +97,13 @@ var graph={
 				}
 			};
 			d3.json(dataUrl)
-			.header("Authorization", "Bearer "+Authentication.getToken())
+			.header("Authorization", "Bearer "+((typeof Authentication!="undefined")?(Authentication.getToken()):("")) )
 			.get(function(error, body) {
 				if(error && error.status==401) {
-					Authentication.logout();
-					Authentication.setExpiredToken(true);
+					if(typeof Authentication!="undefined"){
+						Authentication.logout();
+						Authentication.setExpiredToken(true);
+					}
 				}else{
 					afterLoadData(body);
 				}
@@ -867,8 +869,10 @@ window.onload=function(){
 	utils.datePicker.initComponent();//For enable datepicker with bootstrap and jquery
 	Lang.init();
 	graph.startLoadData();
-	Authentication.init(Lang.language, function(){
-		graph.resetFilters();
-		graph.restart();
-	});
+	if(typeof Authentication!="undefined"){
+		Authentication.init(Lang.language, function(){
+			graph.resetFilters();
+			graph.restart();
+		});
+	}
 };
