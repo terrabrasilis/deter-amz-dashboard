@@ -4,6 +4,7 @@ var graph={
 	alertsCrossFilter:{},
 	config:{},
 	selectedFilters:{},
+	dateFilterRange:null,
 	dimensions:{},
 	ctlFirstLoading:false,
 	
@@ -109,6 +110,12 @@ var graph={
 		var dt=new Date(updated_date+'T21:00:00.000Z');
 		d3.select("#updated_date").html(' '+dt.toLocaleDateString());
 	},
+
+	displayWaitingChanges: function(enable) {
+		if(enable===undefined) enable=true;
+		d3.select('#loading_data_info').style('display',((enable)?(''):('none')));
+		d3.select('#info_container').style('display',((enable)?(''):('none')));
+	},
 	
 	displayWaiting: function(enable) {
 		if(enable===undefined) enable=true;
@@ -139,25 +146,42 @@ var graph={
 		}
 	},
 
-	setDateInterval: function(){
-		let dt0=new Date((utils.datePicker.getStartDate())._d);
-		let dt1=new Date((utils.datePicker.getEndDate())._d);
-		dt1.setDate(dt1.getDate()+1);
+	onDateRangeChange: function(){
+		graph.displayWaitingChanges();
+		window.setTimeout(()=>{
+			let dt0=new Date((utils.datePicker.getStartDate())._d);
+			let dt1=new Date((utils.datePicker.getEndDate())._d);
+			// apply filter on dataset
+			graph.setDateRangeOnDataset(dt0, dt1);
+			graph.build();
+			graph.displayCustomValues();
+		
+			graph.displayWaitingChanges(false);
+		},100);
+	},
+
+	setDateRangeOnDataset(dt0, dt1){
 		// reset old filters
-		graph.lineDistributionByMonth.filterAll();
+		if(graph.lineDistributionByMonth) graph.lineDistributionByMonth.filterAll();
 		graph.dimensions["date"].filterAll();
-		graph.dimensions["date"].filterRange([Date.parse(dt0),Date.parse(dt1)]);
-		graph["dateFilterRange"]=[Date.parse(dt0),Date.parse(dt1)];
-		graph.build();
+
+		let dt1_=new Date(dt1);
+		dt1_.setDate(dt1_.getDate()+1);
+		graph.dimensions["date"].filterRange([Date.parse(dt0),Date.parse(dt1_)]);
+		graph.dateFilterRange=[Date.parse(dt0),Date.parse(dt1)];
 	},
 	
 	setDataDimension: function(d) {
-		this.config.defaultDataDimension=d;
-		this.storeSelectedFilter();
-		this.resetFilters();
-		this.build();
-		this.updateToSelectedFilter();
-		this.setDateInterval();
+		graph.displayWaitingChanges();
+		window.setTimeout(()=>{
+			graph.config.defaultDataDimension=d;
+			graph.storeSelectedFilter();
+			graph.resetFilters();
+			graph.build();
+			graph.updateToSelectedFilter();
+			graph.onDateRangeChange();
+			graph.displayWaitingChanges(false);
+		}, 100);
 	},
 
 	storeSelectedFilter: function() {
@@ -236,14 +260,13 @@ var graph={
 				}else {
 					utils.highlightClassFilterButtons('custom');
 				}
-			dc.redrawAll();
-			graph.displayCustomValues();
+				dc.redrawAll();
+				graph.displayCustomValues();
 			}
 	},
 	
 	resetFilters:function() {
 		if(!graph.jsonData) return;
-		graph.dimensions["date"].filterAll();
 		graph.lineDistributionByMonth.filterAll();
 		graph.ringTotalizedByClass.filterAll();
 		graph.histTopByCounties.filterAll();
@@ -252,11 +275,19 @@ var graph={
 		SearchEngine.applyCountyFilter();
 	},
 
+	resetFilter() {
+		/** Reset main chart filter */
+		//graph.lineDistributionByMonth.filterAll();
+		//dc.redrawAll();
+		graph.onDateRangeChange();
+	},
+
 	displayCustomValues: function() {
-		var area=0;
-		var htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
-		var data=graph.ringTotalizedByClass.data();
-		var filters=graph.ringTotalizedByClass.filters();
+		let area=0;
+		let htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
+		//var data=graph.ringTotalizedByClass.data();
+		let data = graph.areaByClass.all();
+		let filters=graph.ringTotalizedByClass.filters();
 		data.forEach(
 			(d) => {
 				if(!filters.length) {
@@ -311,8 +342,13 @@ var graph={
 		//this.dimensions["month"] = this.alertsCrossFilter.dimension(function(d) {return d.month;});
 
 		let endDate=new Date(graph.dimensions["date"].top(1)[0].timestamp),
-		startDate=new Date(graph.dimensions["date"].bottom(1)[0].timestamp);
+		startDate=new Date(endDate);
+		// define initial interval
+		startDate.setDate(startDate.getDate()-365);
+		startDate.setHours(startDate.getHours()-6);
 		utils.datePicker.setInterval(startDate,endDate);
+		// apply filter on dataset
+		this.setDateRangeOnDataset(startDate,endDate);
 	},
 	
 	build:function() {
@@ -385,6 +421,9 @@ var graph={
 			groups["uc"] = graph.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(1):(0);});
 			//groups["month"] = graph.dimensions["month"].group().reduceCount(function(d) {return +d.month;});
 		}
+
+		// to fill the custom box with all classes even count dimension is selected
+		this["areaByClass"] = graph.dimensions["class"].group().reduceSum(function(d) {return +d.areaKm;});
 
 		var htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
 
@@ -683,7 +722,7 @@ var graph={
 		// .externalLabels(30) and .drawPaths(true) to enable external labels
 		this.ringTotalizedByClass
 			.renderLabel(true)
-	        .minAngleForLabel(0.5);
+			.minAngleForLabel(0.5);
 
 		this.ringTotalizedByClass.label(function(d) {
 			var txtLabel=(d.key!='empty')?(utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);

@@ -93,6 +93,10 @@ body{
 }
 #info_container{
 	padding: 25%;
+	background-color: #8080807a;
+	position: fixed;
+	z-index: 99999;
+	top: 0px;
 }
 #totalized-area {
 	background: rgb(255, 212, 0);

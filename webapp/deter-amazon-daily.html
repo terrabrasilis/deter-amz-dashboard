@@ -307,7 +307,7 @@
 										<b><span id="txt9" class="filter-info">Intervalo de tempo:</span></b>
 										<span class="filter highlight-time filter-info"></span>
 										<span class="highlight-time filter-info" id="highlight-time"></span>
-										<a href="javascript:graph.lineDistributionByMonth.filterAll();dc.redrawAll();">
+										<a href="javascript:graph.resetFilter();">
 											<span aria-hidden="true" id="txt9a" title="Limpar este filtro.">
 												<i class="material-icons md-icon-16 icongreen">delete</i>
 											</span>
@@ -337,7 +337,7 @@
 									<div class="main-chart-bar-bt">
 										<div class="btn btn-primary btn-success btn-dp" id="txt9c"
 											title="Carregar dados para este intervalo."
-											onclick="graph.setDateInterval()">
+											onclick="graph.onDateRangeChange()">
 											<i class="material-icons md-icon-22">published_with_changes</i>
 										</div>
 									</div>
