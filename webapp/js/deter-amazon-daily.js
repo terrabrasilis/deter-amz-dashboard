@@ -6,7 +6,6 @@ var graph={
 	selectedFilters:{},
 	dimensions:{},
 	ctlFirstLoading:false,
-	cssDefault:true,
 	
 	totalizedDeforestationArea:null,
 	totalizedDegradationArea:null,
@@ -23,11 +22,8 @@ var graph={
 	degradation:["CICATRIZ_DE_QUEIMADA", "CORTE_SELETIVO", "CS_DESORDENADO", "CS_GEOMETRICO", "DEGRADACAO"],
 	
 	histogramColor: ["#0000FF","#57B4F0"],
-	darkHistogramColor: ["#ffd700","#fc9700"],
 	pallet: ["#FF0000","#FF6A00","#FF8C00","#FFA500","#FFD700","#FFFF00","#DA70D6","#BA55D3","#7B68EE"],
-	darkPallet: ["#FF0000","#FF6A00","#FF8C00","#FFA500","#FFD700","#FFFF00","#DA70D6","#BA55D3","#7B68EE"],
 	barTop10Color: "#b8b8b8",
-	darkBarTop10Color: "#232323",
 
 	/**
 	 * Load configuration file before loading data.
@@ -35,11 +31,8 @@ var graph={
 	setConfigurations: function(conf) {
 		if(conf) {
 			graph.pallet=conf.pallet?conf.pallet:graph.pallet;
-			graph.darkPallet=conf.darkPallet?conf.darkPallet:graph.darkPallet;
 			graph.histogramColor=conf.histogramColor?conf.histogramColor:graph.histogramColor;
-			graph.darkHistogramColor=conf.darkHistogramColor?conf.darkHistogramColor:graph.darkHistogramColor;
 			graph.barTop10Color=conf.barTop10Color?conf.barTop10Color:graph.barTop10Color;
-			graph.darkBarTop10Color=conf.darkBarTop10Color?conf.darkBarTop10Color:graph.darkBarTop10Color;
 			graph.defaultHeight=conf.defaultHeight?conf.defaultHeight:utils.getDefaultHeight();
 		}else{
 			console.log("Didn't load config file. Using default options.");
@@ -133,15 +126,6 @@ var graph={
 		document.getElementById("warning_data_info").style.display=((enable)?(''):('none'));
 		document.getElementById("warning_data_info").innerHTML='<h3><span id="txt8">'+Translation[Lang.language].txt8+'</span></h3>';
 		document.getElementById("loading_data_info").style.display=((enable)?('none'):(''));
-	},
-	
-	changeCss: function(bt) {
-		graph.cssDefault=!graph.cssDefault;
-		document.getElementById('stylesheet_dash').href='../theme/css/dashboard'+((graph.cssDefault)?(''):('-dark'))+'.css';
-		graph.lineDistributionByMonth.colors(d3.scale.ordinal().range([((graph.cssDefault)?('black'):('gold'))]));
-		graph.lineDistributionByMonth.redraw();
-		bt.style.display='none';
-		setTimeout(bt.style.display='',200);
 	},
 	
 	loadData: function(error, data) {
@@ -289,7 +273,6 @@ var graph={
 	doResize:function() {
 		graph.defaultHeight = utils.getDefaultHeight();
 		dc.renderAll();
-		//setTimeout(function(){graph.addGenerationDate();},300);
 	},
 	// gid as a, fake_point as b, areatotalkm as d, areamunkm as e, areauckm as f, date as g, uf as h, county as i, uc as j 
 	normalizeData:function() {
@@ -476,7 +459,7 @@ var graph={
 			.x(x)
 			.renderHorizontalGridLines(true)
 			.renderVerticalGridLines(true)
-			.colors(d3.scale.ordinal().range([((graph.cssDefault)?('black'):('gold'))]));
+			.colors(d3.scale.ordinal().range(['black']));
 
 		this.lineDistributionByMonth.on('filtered', function(chart) {
 			graph.displayCustomValues();
@@ -542,14 +525,14 @@ var graph={
 		utils.setTitle('counties', Translation[Lang.language].title_top_county);
 		
 		this.histTopByCounties
-	        .height(graph.defaultHeight)
-		    .dimension(graph.dimensions["county"])
-		    .group(utils.removeLittlestValues(groups["county"]))
-		    .elasticX(true)
-		    .ordering(function(d) {return d.county;})
+			.height(graph.defaultHeight)
+			.dimension(graph.dimensions["county"])
+			.group(utils.removeLittlestValues(groups["county"]))
+			.elasticX(true)
+			.ordering(function(d) {return d.county;})
 			.controlsUseVisibility(true)
-			.ordinalColors([(graph.cssDefault)?(graph.barTop10Color):(graph.darkBarTop10Color)]);
-		    //.ordinalColors(["#FF4500","#FF8C00","#FFA500","#FFD700","#FFFF00","#BA55D3","#9932CC","#8A2BE2","#3182BD","#6BAED6"]);
+			.ordinalColors([graph.barTop10Color]);
+			//.ordinalColors(["#FF4500","#FF8C00","#FFA500","#FFD700","#FFFF00","#BA55D3","#9932CC","#8A2BE2","#3182BD","#6BAED6"]);
 
 		this.histTopByCounties.on('filtered', function(chart) {
 			graph.displayCustomValues();
@@ -601,12 +584,12 @@ var graph={
 		
 		this.ringTotalizedByState
 			.height(graph.defaultHeight)
-	        .innerRadius(10)
+			.innerRadius(10)
 			.externalRadiusPadding(30)
-	        .dimension(graph.dimensions["uf"])
+			.dimension(graph.dimensions["uf"])
 			.group(utils.removeLittlestValues(groups["uf"]))
 			.ordering(dc.pluck('key'))
-			.ordinalColors((graph.cssDefault)?(graph.pallet):(graph.darkPallet))
+			.ordinalColors(graph.pallet)
 			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35));
 		
 		this.ringTotalizedByState.on('filtered', function(chart) {
@@ -650,10 +633,10 @@ var graph={
 		utils.setTitle('class',Translation[Lang.language].title_tot_class);
 
 		this.ringTotalizedByClass
-	        .height(graph.defaultHeight)
-	        .innerRadius(10)
+			.height(graph.defaultHeight)
+			.innerRadius(10)
 			.externalRadiusPadding(30)
-	        .dimension(graph.dimensions["class"])
+			.dimension(graph.dimensions["class"])
 			.group(utils.removeLittlestValues(groups["class"]))
 			.ordinalColors(["#FFD700","#FF4500","#FF8C00","#FFA500","#6B8E23","#8B4513","#D2691E","#FF0000"])
 			.legend(dc.legend().x(20).y(10).itemHeight(13).gap(7).horizontal(0).legendWidth(50).itemWidth(35).legendText(
@@ -726,13 +709,13 @@ var graph={
 
 		this.histTopByUCs
 			.height(graph.defaultHeight)
-		    .dimension(graph.dimensions["uc"])
-		    .group(utils.removeLittlestValues(groups["uc"]))
-		    .elasticX(true)
-		    .ordering(function(d) { return d.uc; })
+			.dimension(graph.dimensions["uc"])
+			.group(utils.removeLittlestValues(groups["uc"]))
+			.elasticX(true)
+			.ordering(function(d) { return d.uc; })
 			.controlsUseVisibility(true)
-			.ordinalColors([(graph.cssDefault)?(graph.barTop10Color):(graph.darkBarTop10Color)]);
-		    //.ordinalColors(["#FF4500","#FF8C00","#FFA500","#FFD700","#FFFF00","#BA55D3","#9932CC","#8A2BE2","#3182BD","#6BAED6"]);
+			.ordinalColors([graph.barTop10Color]);
+			//.ordinalColors(["#FF4500","#FF8C00","#FFA500","#FFD700","#FFFF00","#BA55D3","#9932CC","#8A2BE2","#3182BD","#6BAED6"]);
 
 		this.histTopByUCs
 			.on('preRender', function(chart) {
