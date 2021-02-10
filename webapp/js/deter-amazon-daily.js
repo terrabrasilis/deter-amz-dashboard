@@ -213,25 +213,30 @@ var graph={
 	},
 
 	filterByClassGroup: function(ref) {
-		utils.highlightClassFilterButtons(ref);
-		
-		graph.ringTotalizedByClass.filterAll();
+		graph.displayWaitingChanges();
+		window.setTimeout(()=>{
 
-		if(ref=='deforestation') {
+			utils.highlightClassFilterButtons(ref);
+			
+			graph.ringTotalizedByClass.filterAll();
 
-			graph.deforestation.forEach(
-				(cl) => {
-					graph.ringTotalizedByClass.filter(cl);
-				}
-			);
-		}else if(ref=='degradation') {
-			graph.degradation.forEach(
-				(cl) => {
-					graph.ringTotalizedByClass.filter(cl);
-				}
-			);
-		}
-		dc.redrawAll();
+			if(ref=='deforestation') {
+
+				graph.deforestation.forEach(
+					(cl) => {
+						graph.ringTotalizedByClass.filter(cl);
+					}
+				);
+			}else if(ref=='degradation') {
+				graph.degradation.forEach(
+					(cl) => {
+						graph.ringTotalizedByClass.filter(cl);
+					}
+				);
+			}
+			dc.redrawAll();
+			graph.displayWaitingChanges(false);
+		},100);
 	},
 
 	filterByClass: function(){
@@ -342,11 +347,17 @@ var graph={
 		//this.dimensions["month"] = this.alertsCrossFilter.dimension(function(d) {return d.month;});
 
 		let endDate=new Date(graph.dimensions["date"].top(1)[0].timestamp),
-		startDate=new Date(endDate);
-		// define initial interval
+		startDate=new Date(endDate),
+		minDate=new Date(graph.dimensions["date"].bottom(1)[0].timestamp);
+		minDate.setHours(minDate.getHours()-1);
+		// define initial interval and limits based on dataset date range
 		startDate.setDate(startDate.getDate()-365);
 		startDate.setHours(startDate.getHours()-6);
 		utils.datePicker.setInterval(startDate,endDate);
+		utils.datePicker.setStartMaxDate(endDate);
+		utils.datePicker.setStartMinDate(minDate);
+		utils.datePicker.setEndMaxDate(endDate);
+		utils.datePicker.setEndMinDate(minDate);
 		// apply filter on dataset
 		this.setDateRangeOnDataset(startDate,endDate);
 	},
