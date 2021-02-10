@@ -161,14 +161,12 @@ var graph={
 	},
 
 	setDateRangeOnDataset(dt0, dt1){
-		// reset old filters
-		if(graph.lineDistributionByMonth) graph.lineDistributionByMonth.filterAll();
 		graph.dimensions["date"].filterAll();
 
 		let dt1_=new Date(dt1);
 		dt1_.setDate(dt1_.getDate()+1);
 		graph.dimensions["date"].filterRange([Date.parse(dt0),Date.parse(dt1_)]);
-		graph.dateFilterRange=[Date.parse(dt0),Date.parse(dt1)];
+		graph.dateFilterRange=[dt0,dt1];// to use after reset filter
 	},
 	
 	setDataDimension: function(d) {
@@ -280,10 +278,12 @@ var graph={
 		SearchEngine.applyCountyFilter();
 	},
 
-	resetFilter() {
-		/** Reset main chart filter */
-		//graph.lineDistributionByMonth.filterAll();
-		//dc.redrawAll();
+	resetLineDistributionByMonthFilter() {
+		/** Reset filter from lineDistributionByMonth chart */
+		// reset old filters
+		if(graph.lineDistributionByMonth && graph.lineDistributionByMonth.hasFilter()){
+			graph.lineDistributionByMonth.filterAll();
+		}
 		graph.onDateRangeChange();
 	},
 
@@ -291,6 +291,9 @@ var graph={
 		let area=0;
 		let htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
 		//var data=graph.ringTotalizedByClass.data();
+		if(!graph.dimensions["date"].hasCurrentFilter()){
+			graph.setDateRangeOnDataset(graph.dateFilterRange[0],graph.dateFilterRange[1]);
+		}
 		let data = graph.areaByClass.all();
 		let filters=graph.ringTotalizedByClass.filters();
 		data.forEach(
