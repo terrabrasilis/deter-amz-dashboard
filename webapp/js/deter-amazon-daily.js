@@ -327,12 +327,8 @@ var graph={
 			o.areaKm = numberFormat(d.properties.e)*1;// area municipio
 			o.areaUcKm = ((d.properties.f)?(numberFormat(d.properties.f)*1):(0));
 			o.className = d.properties.c;
-			//o.month = d.properties.k; (used when we will implement the complete time line to work with all data by demand)
 			json.push(o);
 		});
-
-		// o.areaKm = (+d.properties.e)*1;// area municipio
-		// o.areaUcKm = ((d.properties.f)?((+d.properties.f)*1):(0));
 		
 		this.jsonData=json;
 		delete json;
@@ -348,7 +344,6 @@ var graph={
 		this.dimensions["date"] = this.alertsCrossFilter.dimension(function(d) {return d.timestamp;});
 		this.dimensions["uf"] = this.alertsCrossFilter.dimension(function(d) {return d.uf;});
 		this.dimensions["uc"] = this.alertsCrossFilter.dimension(function(d) {return d.uc+"/"+d.uf;});
-		//this.dimensions["month"] = this.alertsCrossFilter.dimension(function(d) {return d.month;});
 
 		let endDate=new Date(graph.dimensions["date"].top(1)[0].timestamp),
 		startDate=new Date(endDate),
@@ -427,14 +422,12 @@ var graph={
 			groups["uf"] = graph.dimensions["uf"].group().reduceSum(function(d) {return +d.areaKm;});
 			groups["date"] = graph.dimensions["date"].group().reduceSum(function(d) {return +d.areaKm;});
 			groups["uc"] = graph.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(+d.areaUcKm):(0);});
-			//groups["month"] = graph.dimensions["month"].group().reduceSum(function(d) {return +d.areaKm;});
 		}else{
 			groups["class"] = graph.dimensions["class"].group().reduceCount(function(d) {return d.className;});
 			groups["county"] = graph.dimensions["county"].group().reduceCount(function(d) {return d.county;});
 			groups["uf"] = graph.dimensions["uf"].group().reduceCount(function(d) {return d.uf;});
 			groups["date"] = graph.dimensions["date"].group().reduceCount(function(d) {return +d.timestamp;});
 			groups["uc"] = graph.dimensions["uc"].group().reduceSum(function(d) {return (d.uc!='null')?(1):(0);});
-			//groups["month"] = graph.dimensions["month"].group().reduceCount(function(d) {return +d.month;});
 		}
 
 		// to fill the custom box with all classes even count dimension is selected
