@@ -175,9 +175,10 @@ var graph={
 			graph.config.defaultDataDimension=d;
 			graph.storeSelectedFilter();
 			graph.resetFilters();
-			graph.build();
-			graph.updateToSelectedFilter();
+			//graph.build();
+			//graph.updateToSelectedFilter();
 			graph.onDateRangeChange();
+			graph.updateToSelectedFilter();
 			graph.displayWaitingChanges(false);
 		}, 100);
 	},
@@ -201,12 +202,12 @@ var graph={
 			while(graph.selectedFilters.byCounty.length) {graph.histTopByCounties.filter(graph.selectedFilters.byCounty.pop());}
 		if(graph.selectedFilters.byClass)
 			while(graph.selectedFilters.byClass.length) {graph.ringTotalizedByClass.filter(graph.selectedFilters.byClass.pop());}
-		if(graph.selectedFilters.byMonth)
-			while(graph.selectedFilters.byMonth.length) {graph.lineDistributionByMonth.filter(graph.selectedFilters.byMonth.pop());}
 		if(graph.selectedFilters.byState)
 			while(graph.selectedFilters.byState.length) {graph.ringTotalizedByState.filter(graph.selectedFilters.byState.pop());}
 		if(graph.selectedFilters.byUCs)
 			while(graph.selectedFilters.byUCs.length) {graph.histTopByUCs.filter(graph.selectedFilters.byUCs.pop());}
+		// if(graph.selectedFilters.byMonth)
+		// 	while(graph.selectedFilters.byMonth.length) {graph.lineDistributionByMonth.filter(graph.selectedFilters.byMonth.pop());}
 		dc.redrawAll();
 	},
 
