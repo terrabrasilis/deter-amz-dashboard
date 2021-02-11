@@ -562,7 +562,8 @@ var graph={
 	startLoadData() {
 		Lang.apply();
 
-		let cloudDataUrl="./data/deter-amazon-cloud-month.json";
+		let cloudDataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/cloud";
+		// cloudDataUrl = "./data/deter-amazon-cloud-month.json";// to use in localhost
 		let deforDataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/monthly";
 		// deforDataUrl = "./data/deter-amazon-month.json";// to use in localhost
 

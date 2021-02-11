@@ -79,8 +79,8 @@ var graph={
 			utils.displayLoginExpiredMessage();
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
-			var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/daily";
-			dataUrl = "./data/deter-amazon-daily.json";
+			var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/all_daily";
+			// dataUrl = "./data/deter-amazon-daily.json";// to use in localhost
 			var afterLoadData=function(json) {
 				Lang.apply();
 				if(!json || !json.features) {
