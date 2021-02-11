@@ -291,8 +291,17 @@ var graph={
 	displayCustomValues: function() {
 		let area=0;
 		let htmlBox="<div class='icon-left'><i class='fa fa-leaf fa-2x' aria-hidden='true'></i></div><span class='number-display'>";
-		//var data=graph.ringTotalizedByClass.data();
-		if(!graph.dimensions["date"].hasCurrentFilter()){
+		/**
+		 * The correct way for this comparison is to use the hasCurrentFilter
+		 * of the dimension, but when I try to use the crossfilter version +1.4.5
+		 * where this method is implemented, i find a problem in the pie chart by state,
+		 * so I use a hack to solve this comparison.
+		 * 
+		 * This method exists only in the +1.4.5 cross filter version
+		 */
+		// if(!graph.dimensions["date"].hasCurrentFilter()){
+		
+		if(new Date(graph.dimensions.date.bottom(1)[0].timestamp)<graph.dateFilterRange[0]){
 			graph.setDateRangeOnDataset(graph.dateFilterRange[0],graph.dateFilterRange[1]);
 		}
 		let data = graph.areaByClass.all();
