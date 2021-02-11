@@ -93,6 +93,10 @@ body{
 }
 #info_container{
 	padding: 25%;
+	background-color: #8080807a;
+	position: fixed;
+	z-index: 99999;
+	top: 0px;
 }
 #totalized-area {
 	background: rgb(255, 212, 0);
@@ -231,4 +235,32 @@ div .dc-chart {
 }
 .info_classes{
 	display: none;
+}
+/** used to change the datepicker */
+.input-group{
+	display: inline-flex;
+	width: 30%;
+}
+.main-chart-bar{
+	display: flex; background-color: #f2f2f2;
+}
+.main-chart-bar .form-group {
+	margin-bottom: 0.3rem;
+  margin-top: 0.3rem;
+}
+.main-chart-bar-p1{
+	width: 49%; text-align: initial;
+}
+.main-chart-bar-p2{
+	width: 49%; text-align: end;
+}
+.main-chart-bar-bt{
+	text-align: center;
+	padding: 5px;
+}
+.btn-dp {
+	line-height: normal;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	margin-left: 5px;
 }

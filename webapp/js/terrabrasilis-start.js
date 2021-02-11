@@ -54,6 +54,5 @@ $(document).ready(function () {
             console.log(version);
             versionDiv.append('ver: '+version);
         });
-        
     }
 });

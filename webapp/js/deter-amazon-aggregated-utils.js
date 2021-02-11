@@ -9,7 +9,7 @@ var utils = {
 	    });
 	},
 	displayLoginExpiredMessage() {
-		if (Authentication.isExpiredToken()) {
+		if ((typeof Authentication!="undefined") && Authentication.isExpiredToken()) {
 			d3.select('#expired_token_box').style('display', '');
 			Authentication.removeExpiredToken();
 		} else {
