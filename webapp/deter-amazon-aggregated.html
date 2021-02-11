@@ -34,7 +34,7 @@
 	<link rel="stylesheet" href="./libs/fontawesome/v5.3.1/all.css">
 	<!-- Font Material design google -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="./libs/dc-2.1/dc.min.css" />
+	<link rel="stylesheet" type="text/css" href="./libs/dc-2.2/dc.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated.css" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated-print.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-print.css" media="print" />
@@ -293,6 +293,22 @@
 										<span id="title-chart-agreg-amz">Variação mensal de área do projeto DETER</span>
 									</div>
 									<div class="justify-content-end ctrl-change-calendar">
+										<div style="padding-right: 5px;"
+											class="btn-group btn-group-toggle btn-group-sm selecao"
+											data-toggle="buttons">
+											<label class="btn btn-outline-secondary">
+												<input type="checkbox" id="cloud-selector"
+													autocomplete="off" checked><span id="txt-cloud">Ver nuvem</span>
+											</label>
+										</div>
+										<div style="padding-right: 5%;"
+											class="btn-group btn-group-toggle btn-group-sm selecao"
+											data-toggle="buttons">
+											<label class="btn btn-outline-secondary active">
+												<input type="checkbox" id="defor-selector"
+													autocomplete="off" checked><span id="txt-defor">Ver desmatamento</span>
+											</label>
+										</div>
 										<div id="change-calendar"
 											class="btn-group btn-group-toggle btn-group-sm selecao"
 											data-toggle="buttons">
@@ -311,7 +327,8 @@
 								<div>
 									<b><span id="txt8b" class="filter-info">Intervalo de tempo:</span></b><span
 										class="highlight-time filter-info" id="highlight-time"></span>
-									<a href="javascript:graph.resetFilter('agreg','agrega');">
+									<!-- <a href="javascript:graph.resetFilter('agreg','agrega');"> -->
+										<a href="javascript:graph.resetFilter('year');">
 										<span aria-hidden="true" id="txt18" title="Limpar este filtro.">
 											<i class="material-icons md-icon-16 icongreen">delete</i>
 										</span>
@@ -325,7 +342,7 @@
 							</div>
 						</div>
 						<div>
-							<div class="row box months_box" id="months_chooser">
+							<div class="months_box" id="months_chooser">
 							</div>
 						</div>
 					</div>
@@ -788,8 +805,8 @@
 	<!-- already minified -->
 	<script type="text/javascript" src="./libs/d3/v3/d3.min.js"></script>
 	<script type="text/javascript" src="./libs/d3/d3js.pt-br.js"></script>
-	<script type="text/javascript" src="./libs/crossfilter/crossfilter.min.js"></script>
-	<script type="text/javascript" src="./libs/dc-2.1/dc.min.js"></script>
+	<script type="text/javascript" src="./libs/crossfilter/crossfilter-1.3.12.min.js"></script>
+	<script type="text/javascript" src="./libs/dc-2.2/dc.min.js"></script>
 	<script type="text/javascript" src="./libs/mousetrap/mousetrap.min.js"></script>
 	<script type="text/javascript" src="./libs/filesaver/FileSaver.min.js"></script>
 	<script type="text/javascript" src="./libs/jquery/jquery-3.5.1.min.js"></script>
@@ -803,6 +820,7 @@
 	<script type="text/javascript" src="./js/deter-amazon-aggregated-translation.js"></script>
 	<script type="text/javascript" src="./js/deter-amazon-change-lang.js"></script>
 	<script type="text/javascript" src="./js/deter-amazon-aggregated-utils.js"></script>
+	<script type="text/javascript" src="./js/build-charts.js"></script>
 	<script type="text/javascript" src="./js/deter-amazon-aggregated.js"></script>
 	<script type="text/javascript" src="./js/easy-cookie.js"></script>
 	<script type="text/javascript" src="./js/downloadSHP.js"></script>

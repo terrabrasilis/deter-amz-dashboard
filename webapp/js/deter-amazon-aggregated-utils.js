@@ -8,6 +8,7 @@ var utils = {
 	    	utils.preparePrint();
 	    });
 	},
+	
 	displayLoginExpiredMessage() {
 		if ((typeof Authentication!="undefined") && Authentication.isExpiredToken()) {
 			d3.select('#expired_token_box').style('display', '');
@@ -18,6 +19,9 @@ var utils = {
 	},
 	getDefaultHeight:function() {
 		return ((window.innerHeight*0.4).toFixed(0))*1;
+	},
+	getSeriesChartWidth:function() {
+		return $("#agreg").width();
 	},
 	btnDownload:function() {
 		// without filters
@@ -47,6 +51,16 @@ var utils = {
 	    	window.print();
 	    });
 	},
+	btnOnOffCloudDefor:function() {
+		$('#cloud-selector')
+	    .on('change', function() {
+	    	graph.changeCloudStatus($('#cloud-selector')[0].checked);
+			});
+		$('#defor-selector')
+	    .on('change', function() {
+	    	graph.changeDeforStatus($('#defor-selector')[0].checked);
+	    });
+	},
 	btnChangeCalendar: function() {
 		$('#change-calendar input').on('change', function() {
 			graph.changeCalendar($('input[name=calendars]:checked', '#change-calendar').attr('id'));
@@ -55,13 +69,14 @@ var utils = {
 	attachEventListeners:function() {
 		utils.btnPrintPage();
 		utils.btnDownload();
+		utils.btnOnOffCloudDefor();
 	},
 
 	attachListenersToLegend: function() {
 		var legendItems=$('#agreg .dc-legend-item');
 		for(var i=0;i<legendItems.length;i++) {
 			$(legendItems[i]).on('click', function (ev) {
-				graph.barAreaByYear.filter(ev.currentTarget.textContent);
+				graph.barAreaByYear.filter(ev.currentTarget.textContent.split(" ")[0]);
 			});
 		}
 	},
@@ -71,6 +86,9 @@ var utils = {
 		utils.config.resizeTimeout = setTimeout(graph.doResize, 200);
 	},
 	renderAll:function() {
+		/**
+		 * This method keeping data points at the vertices of the lines on render calls.
+		 */
 		dc.renderAll("agrega");
 		dc.renderAll("filtra");
 		d3.selectAll("circle")
@@ -237,14 +255,38 @@ var utils = {
 		}
 	},
 
+	moveBars: (chart)=> {
+		/** Space adjust between bars group for months. Larger numbers smaller space and vice versa. */
+		let offsetBars=18;
+		let years=graph.yearGroup0.all();
+		let mr=graph.lineSeriesMonthly.margins().right;
+		let ml=graph.lineSeriesMonthly.margins().left;
+		let wl=(graph.lineSeriesMonthly.width()-mr-ml)/offsetBars;
+		
+		let l=years.length, l2 = parseInt(wl/l), start=parseInt(wl-(wl/2) )*-1;
+
+		chart.selectAll("g.sub").selectAll("rect.bar").forEach(
+			(sub,i)=>{
+				if(sub.length){
+					chart.selectAll("g.sub._"+i).attr("transform", "translate("+start+", 0)");
+					start=start+l2;
+				}
+			}
+		);
+	},
+
 	makeMonthsChooserList: function() {
-		let template='';
+		let magicNumber=14;// this number is the number of ticks used in series chart. It's equal to 12 or 14. See the chart to define.
+		let width=parseInt(utils.getSeriesChartWidth()/magicNumber);
+		let template='',extra='<div style="width:'+width+'px;"></div>';
 		let iMin=(graph.calendarConfiguration=='prodes')?(8):(1);
 		let iMax=(graph.calendarConfiguration=='prodes')?(20):(13);
 		for (var i=iMin;i<iMax;i++) {
-			template+='<div id="month_'+i+'" class="col-md-1 month_box" onclick="graph.applyMonthFilter('+i+')"></div>';
+			template+='<div style="width:'+width+'px;" id="month_'+i+'" class="month_box" onclick="graph.applyMonthFilter('+i+')"></div>';
 		}
+		template=magicNumber==14?extra+template+extra:template
 		$('#months_chooser').html(template);
+		utils.setMonthNamesFilterBar();
 	},
 
 	highlightClassFilterButtons: function(ref) {
