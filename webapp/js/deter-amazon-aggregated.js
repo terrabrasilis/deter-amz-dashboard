@@ -687,7 +687,7 @@ var graph={
 		
 		// this call is an important method for keeping data points at the vertices of the lines
 		utils.renderAll();
-		dc.redrawAll("agrega");
+		// dc.redrawAll("agrega");
 		// graph.displayCustomValues();
 	},
 

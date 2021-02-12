@@ -32,7 +32,8 @@ let buildCompositeChart=(context)=>{
   
   let makeChartLine=(mainChart,dim,group,groupName,colors,isCloud)=>{
     
-    let gn=groupName+" ("+( (isCloud)?("cl"):("de") )+")";
+    // do not remove this space! If removed, the Y-axis for cloud percentage will be rendered incorrectly.
+    let gn=groupName+( (isCloud)?(" "):("") );
     let l=dc.lineChart(mainChart)
     .dimension(dim)
     .group(group,gn)
@@ -69,7 +70,8 @@ let buildCompositeChart=(context)=>{
 
   let makeChartBar=(mainChart,dim,group,groupName,colors,isCloud)=>{
     
-    let gn=groupName+" ("+( (isCloud)?("cl"):("de") )+")";
+    // do not remove this space! If removed, the Y-axis for cloud percentage will be rendered incorrectly.
+    let gn=groupName+( (isCloud)?(" "):("") );
     let l=dc.barChart(mainChart)
     //.gap(100)
     //.centerBar(true)
@@ -182,8 +184,19 @@ let buildCompositeChart=(context)=>{
       }
     );
 
+    context.lineSeriesMonthly.on('filtered', function(c) {
+      if(c.filter()) {
+        let fn=(d) => {return graph.monthFilters.includes(d);};
+        graph.monthDimension.filterFunction(fn);
+        graph.monthDimension0.filterFunction(fn);
+        graph.monthDimension2.filterFunction(fn);
+        dc.redrawAll("filtra");
+        graph.displayCustomValues();
+      }
+    });
+
     lineSeriesRenderlet(context);
-};
+};// end build composite chart
 
 /**
  * The series chart with only alerts by months
@@ -241,7 +254,6 @@ let buildSeriesChart=(context)=>{
     return utils.xaxis(d);
   });
 
-
   context.lineSeriesMonthly.on('filtered', function(c) {
     if(c.filter()) {
       graph.monthDimension.filterFunction(
@@ -270,7 +282,7 @@ let buildSeriesChart=(context)=>{
       i++;
     }
   });
-};
+};// end build series chart
 
 let lineSeriesRenderlet=(context)=>{
   context.lineSeriesMonthly.on('renderlet', function(c) {
@@ -317,4 +329,4 @@ let lineSeriesRenderlet=(context)=>{
       }
     }
   });
-}
+};
