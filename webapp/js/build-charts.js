@@ -302,9 +302,9 @@ let lineSeriesRenderlet=(context)=>{
       $('#txt8b').html(Translation[Lang.language].allTime);
       $('#highlight-time').html("&nbsp;" +  years.join(", ") );
     }else{
-      if(c.group()){// TODO: implements the logic to list filtered month on filterPrinter
-
-        var fp="", allData=c.group().top(Infinity);
+      // the logic to list filtered month on filterPrinter
+      if(graph.monthDimension0){
+        var fp="", allData=graph.monthDimension0.group().all();
         graph.monthFilters.forEach(
           (monthNumber) => {
             var ys=[];
@@ -312,8 +312,8 @@ let lineSeriesRenderlet=(context)=>{
               (d)=> {
                 years.forEach(
                   (year) => {
-                    if(d.key.includes(monthNumber) && d.key.includes(year)) {
-                      ys.push(year);
+                    if(d.key==monthNumber) {
+                      if(!ys.includes(year)) ys.push(year);
                       return true;
                     }
                   }
