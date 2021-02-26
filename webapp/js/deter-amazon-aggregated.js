@@ -50,7 +50,6 @@ var graph={
 
 	ringPallet: null,
 	defPallet: null,
-	/** "cldPallet":["#fff7fb","#ece7f2","#d0d1e6","#a6bddb","#74a9cf","#3690c0","#0570b0","#045a8d","#023858"], */
 	cldPallet: null,
 
 	defaultHeight: null,

@@ -1,7 +1,7 @@
 {
 	"ringPallet": ["#d39b59","#fc755f","#bea3f6","#a75145","#ffa500","#ff1b38","#ffe000","#00c700","#44acdb","#ffff00","#999966","#7FD8BE","#F26AD2"],
 	"defPallet": ["#ffffcc","#ffeda0","#fed976","#feb24c","#fd8d3c","#fc4e2a","#e31a1c","#bd0026","#800026"],
-	"cldPallet": ["#023858", "#045a8d", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#ece7f2", "#fff7fb"],
+	"cldPallet": ["#fff7fb", "#ece7f2", "#d0d1e6", "#a6bddb", "#74a9cf", "#3690c0", "#0570b0", "#045a8d", "#023858"],
 	"defaultHeight": 400,
 	"legendOriginal":["CICATRIZ_DE_QUEIMADA","CORTE_SELETIVO","CS_DESORDENADO","CS_GEOMETRICO","DEGRADACAO","DESMATAMENTO_CR","DESMATAMENTO_VEG","MINERACAO"],
 	"legendOverlay":{
