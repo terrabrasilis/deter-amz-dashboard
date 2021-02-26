@@ -131,7 +131,7 @@ let buildCompositeChart=(context)=>{
     return charts;
   };
 
-  let legendItemWidth=100, legendWidth=context.yearGroup0.all().length*legendItemWidth;
+  let legendItemWidth=80, legendWidth=context.yearGroup0.all().length*legendItemWidth;
   legendWidth=(legendWidth<utils.getSeriesChartWidth())?(+legendWidth.toFixed(0)):(utils.getSeriesChartWidth());
 
   let fxDomain=d3.scale.linear().domain( (context.calendarConfiguration=='prodes')?([7,20]):([0,13]) );
@@ -148,7 +148,7 @@ let buildCompositeChart=(context)=>{
     .shareTitle(false)
     .yAxisPadding('10%')
     .clipPadding(10)
-    .legend(dc.legend().x(100).y(10).itemHeight(15).gap(5).horizontal(1).legendWidth(legendWidth).itemWidth(legendItemWidth))
+    .legend(dc.legend().x(100).y(10).itemHeight(13).gap(5).horizontal(1).legendWidth(legendWidth).itemWidth(legendItemWidth))
     .margins({top: 40, right: 65, bottom: 30, left: 65})
     //.childOptions ({ renderDataPoints: {fillOpacity: 0.8} })
     .compose(composeCharts());
@@ -165,6 +165,18 @@ let buildCompositeChart=(context)=>{
       const svg = c.select('svg');
       // new class to define width of bars when split bars on bar charts
       svg.selectAll("rect.bar").attr("class", "bar bar1");
+      
+      let legItens={};
+      c.selectAll('.dc-legend-item')[0].forEach((it)=>{
+        let i=it.textContent.trim();
+        if(!legItens[i]) legItens[i]=it.getAttribute('transform');
+        else {
+          let p1=legItens[i].split(",");
+          let p2=it.getAttribute('transform').split(",");
+          it.setAttribute("transform", p1[0]+","+p2[1]);
+        }
+      });
+
 		}).on("preRedraw", function (c) {
 			c.rescale();
 		}).on("preRender", function (c) {
