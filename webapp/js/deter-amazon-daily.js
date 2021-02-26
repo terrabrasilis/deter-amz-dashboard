@@ -151,10 +151,14 @@ var graph={
 		window.setTimeout(()=>{
 			let dt0=new Date((utils.datePicker.getStartDate())._d);
 			let dt1=new Date((utils.datePicker.getEndDate())._d);
-			// apply filter on dataset
-			graph.setDateRangeOnDataset(dt0, dt1);
-			graph.build();
-			graph.displayCustomValues();
+			if(dt1-dt0<0) {
+				alert(Translation[Lang.language].invalidRange);
+			}else{
+				// apply filter on dataset
+				graph.setDateRangeOnDataset(dt0, dt1);
+				graph.build();
+				graph.displayCustomValues();
+			}
 		
 			graph.displayWaitingChanges(false);
 		},100);
@@ -512,7 +516,10 @@ var graph={
 			.group(groups["date"])
 			.transitionDuration(300)
 			.elasticY(true)
+			//.elasticX(true)
 			.x(x)
+			.brushOn(false)
+			.centerBar(true)
 			.renderHorizontalGridLines(true)
 			.renderVerticalGridLines(true)
 			.colors(d3.scale.ordinal().range(['black']));
@@ -528,7 +535,7 @@ var graph={
 				.xAxis(d3.svg.axis()
 					.scale(x)
 					.orient("bottom")
-					.ticks(d3.time.months)
+					.ticks(( utils.getNumberOfDaysForRangeDate(firstDate,lastDate)<30 )?(d3.time.days):(d3.time.months))
 					.tickFormat( function(d) {
 						var dt=d.toLocaleDateString();
 						var adt=d.toLocaleDateString().split("/");
@@ -554,12 +561,12 @@ var graph={
 			if(!chart.hasFilter()){
 				$('#txt9a').css('display','none');
 				$('#highlight-time').css('display','');
-				$('#txt9').html(Translation[Lang.language].allTime);
+				//$('#txt9').html(Translation[Lang.language].allTime);
 				$('#highlight-time').html(" " + dateFormat(new Date(alertsMinDate[0].timestamp)) + " - " + dateFormat(new Date(alertsMaxDate[0].timestamp)) );
 			}else{
 				$('#txt9a').css('display','');
 				$('#highlight-time').css('display','none');
-				$('#txt9').html(Translation[Lang.language].txt9);
+				//$('#txt9').html(Translation[Lang.language].txt9);
 			}
 		});
 		
@@ -575,6 +582,11 @@ var graph={
 					return " - ";
 				}
 		});
+
+		this.lineDistributionByMonth
+			.title(function(d) { 
+				return (d.key!='empty')?((new Date(d.key)).toLocaleDateString() + ': ' + utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%")):(Translation[Lang.language].without);
+			});
 		// -----------------------------------------------------------------------
 		
 		// build top areas or alerts by county

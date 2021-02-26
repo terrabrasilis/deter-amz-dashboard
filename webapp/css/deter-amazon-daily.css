@@ -239,7 +239,7 @@ div .dc-chart {
 /** used to change the datepicker */
 .input-group{
 	display: inline-flex;
-	width: 30%;
+	width: 280px;
 }
 .main-chart-bar{
 	display: flex; background-color: #f2f2f2;
@@ -249,15 +249,16 @@ div .dc-chart {
   margin-top: 0.3rem;
 }
 .main-chart-bar-p1{
-	width: 49%; text-align: initial;
+	width: 0px; text-align: initial;
+	display: none;
 }
 .main-chart-bar-p2{
-	width: 49%; text-align: end;
+	width: 100%; text-align: initial;
 }
-.main-chart-bar-bt{
+/* .main-chart-bar-bt{
 	text-align: center;
 	padding: 5px;
-}
+} */
 .btn-dp {
 	line-height: normal;
 	padding-bottom: 5px;

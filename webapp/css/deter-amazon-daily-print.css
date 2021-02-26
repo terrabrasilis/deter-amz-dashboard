@@ -59,4 +59,9 @@
 	.main-chart-bar-p2, .main-chart-bar-bt{
 		display: none;
 	}
+	.main-chart-bar-p1{
+		width: 100%;
+		text-align: initial;
+		display: initial;
+	}
 }

@@ -313,10 +313,10 @@ a span .md-icon-16 {
 
 .btn-primary:hover,
 .btn-primary:focus {
-    background-color: #006950;
-    border-color: #108d6f;
-    box-shadow: none;
-    outline: none;
+  background-color: #006950;
+  border-color: #108d6f;
+  box-shadow: none;
+  outline: none;
 	color: #fff !important;
 }
 
@@ -324,6 +324,7 @@ a span .md-icon-16 {
     color: #fff;
     background-color: #108d6f;
     border-color: #108d6f;
+    height: 38px;
 }
 
 .ferramentas { padding: 10px; background-color: #14757e; color: #fff;}

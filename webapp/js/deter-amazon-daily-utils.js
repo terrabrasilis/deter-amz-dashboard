@@ -178,6 +178,14 @@ var utils={
       }
     }
     return cl;
+  },
+  getNumberOfDaysForRangeDate: function(dt1,dt2){
+    // The number of milliseconds in one day
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+    // Calculate the difference in milliseconds
+    const differenceMs = Math.abs(dt1 - dt2);
+    // Convert back to days and return
+    return Math.round(differenceMs / ONE_DAY);
   }
 /** End of utils object */
 }

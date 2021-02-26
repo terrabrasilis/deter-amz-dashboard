@@ -1,6 +1,6 @@
 var Translation={
 	'pt-br':{
-		/* texts into HTML entities */
+		'invalidRange':'Intervalo inválido.',
 		'allTime':'Exibindo dados para todo o intervalo do gráfico:',
 		'goto_about':'Ver informações sobre o projeto e a equipe.',
 		'goto_video':'Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.',
@@ -143,7 +143,7 @@ var Translation={
 		'option-modal':'Não mostrar novamente.'
 	},
 	'en':{
-		/* texts into HTML entities */
+		'invalidRange':'Invalid date range.',
 		'allTime':'Displaying data for entire chart range:',
 		'goto_about':'See informations about the project and team.',
 		'goto_video':'Watch the introductory video to see how an user interact with dashboard tools.',
