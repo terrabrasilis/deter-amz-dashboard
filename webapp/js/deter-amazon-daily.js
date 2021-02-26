@@ -528,6 +528,12 @@ var graph={
 			graph.displayCustomValues();
 		});
 
+		let customTicks=d3.time.months;
+		let numDays=utils.getNumberOfDaysForRangeDate(firstDate,lastDate);
+		if(numDays<45) customTicks= d3.time.days;
+		else if(numDays<90) customTicks= d3.time.weeks;
+		else customTicks= d3.time.months;
+
 		this.lineDistributionByMonth
 			.on('preRender', function(chart) {
 				chart
@@ -535,7 +541,7 @@ var graph={
 				.xAxis(d3.svg.axis()
 					.scale(x)
 					.orient("bottom")
-					.ticks(( utils.getNumberOfDaysForRangeDate(firstDate,lastDate)<30 )?(d3.time.days):(d3.time.months))
+					.ticks(customTicks)
 					.tickFormat( function(d) {
 						var dt=d.toLocaleDateString();
 						var adt=d.toLocaleDateString().split("/");
