@@ -59,6 +59,13 @@ body{
 	text-decoration: underline;
 	color: black;
 }
+.main-chart-bar{
+	display: flex;
+}
+.main-chart-bar-p1{
+	width: 85%;
+	text-align: initial;
+}
 .dc-chart path.line {
 	stroke-width: 3px;
 }
