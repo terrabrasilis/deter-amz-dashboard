@@ -88,13 +88,15 @@ a, a:hover, a:focus {
 .updated{
   font-size: small;
   color: gray;
-  width: -webkit-fill-available;
-  min-width: fit-content;
-  text-align: end;
+  width: 15%;
+  position: relative;
 }
 .updated-date{
   font-size: small;
   color: gray;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }
 
 .disable{

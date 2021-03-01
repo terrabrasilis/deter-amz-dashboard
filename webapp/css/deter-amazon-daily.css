@@ -253,12 +253,8 @@ div .dc-chart {
 	display: none;
 }
 .main-chart-bar-p2{
-	width: 100%; text-align: initial;
+	width: 85%; text-align: initial;
 }
-/* .main-chart-bar-bt{
-	text-align: center;
-	padding: 5px;
-} */
 .btn-dp {
 	line-height: normal;
 	padding-bottom: 5px;
