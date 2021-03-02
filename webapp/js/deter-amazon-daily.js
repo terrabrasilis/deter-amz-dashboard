@@ -495,8 +495,8 @@ var graph={
 
 		var lastDate=new Date(alertsMaxDate[0].timestamp),
 		firstDate=new Date(alertsMinDate[0].timestamp);
-		lastDate=new Date(lastDate.setDate(lastDate.getDate()+1));
-		firstDate=new Date(firstDate.setDate(firstDate.getDate()-1));
+		// lastDate=new Date(lastDate.setDate(lastDate.getDate()+1));
+		// firstDate=new Date(firstDate.setDate(firstDate.getDate()-1));
 		// lastDate=new Date(lastDate.setMonth(lastDate.getMonth()+1));
 		// lastDate=new Date(lastDate.setDate(lastDate.getDate()+7));
 		// firstDate=new Date(firstDate.setDate(firstDate.getDate()-7));
@@ -516,7 +516,6 @@ var graph={
 			.group(groups["date"])
 			.transitionDuration(300)
 			.elasticY(true)
-			//.elasticX(true)
 			.x(x)
 			.brushOn(false)
 			.centerBar(true)
