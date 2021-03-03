@@ -1,5 +1,14 @@
 $(document).ready(function () {
-    //$('#myModal').modal('show');
+    $("#notice").click(function () {
+        EasyCookie.create("firstNotice", "Not show modal again", 30);
+    });
+    /**
+    * Show the main TerraBrasilis modal
+    */
+    let cookieFirstNotice = EasyCookie.read("firstNotice");
+    if (cookieFirstNotice === null) {
+        $('#firstNotice').modal('show');
+    }
     
     //carousel
     $('.carousel').carousel({

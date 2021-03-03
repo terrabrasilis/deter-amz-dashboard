@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br, en, es">
+<html lang="pt-br, en">
 
 <head>
 	<title id="page-title-amz">Amazônia Legal - Avisos de Desmatamento</title>
@@ -9,31 +9,24 @@
 	<meta http-equiv='pragma' content='no-cache'>
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<meta http-equiv="Content-Language" content="pt-br, en, es">
+	<meta http-equiv="Content-Language" content="pt-br, en">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=0">
-	<meta name="description" content="Avisos de desmatamento, projeto DETER, INPE">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Avisos de desmatamento no Cerrado - DETER/INPE">
+	<meta name="keywords" content="INPE, DETER, avisos, alertas, desmatamento, Amazônia">
+  <meta name="author" content="André Carvalho - andre.carvalho@inpe.br">
 	<!-- favicon -->
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77404603-3"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
 
-		gtag('config', 'UA-77404603-3');
-	</script>
-
-	<!-- Bootstrap CSS CDN -->
+	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" type="text/css" href="./libs/bootstrap/bootstrap-4.1.3.min.css" />
 	<!-- Scrollbar Custom CSS -->
-	<link rel="stylesheet" href="./libs/jquery/plugin/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" type="text/css" href="./libs/jquery/plugin/jquery.mCustomScrollbar.min.css">
 	<!-- Font-awesome -->
-	<link rel="stylesheet" href="./libs/fontawesome/v5.3.1/all.css">
+	<link rel="stylesheet" type="text/css" href="./libs/fontawesome/v5.3.1/all.css">
 	<!-- Font Material design google -->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" type="text/css" href="./libs/dc-2.2/dc.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated.css" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-aggregated-print.css" media="print" />
@@ -421,6 +414,8 @@
 
 	</div><!-- Fim do painel de gráficos -->
 
+
+	<!-- start footer and modals -->
 	<div class="container">
 		<div class="row box">
 			<div class="col-md-12">
@@ -670,140 +665,141 @@
 					</div>
 				</div>
 
-			</div>
-		</div>
-	</div>
-
-	<!-- modal window to display the email contact -->
-	<div class="modal fade" id="modal-container-contact">
-		<div class="modal-dialog">
-			<div class="modal-content modalinf">
-				<div class="modal-header fechar">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
-							class="material-icons">clear</i></button>
-				</div>
-				<!-- / modal-header -->
-				<div class="modal-body">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title"><span id="tt-contactus">Envie sugestões ou perguntas para:</span>
-							</h5>
-							<p class="card-text"><a href="mailto:terrabrasilis@inpe.br">terrabrasilis@inpe.br</a></p>
-						</div>
-					</div>
-				</div>
-				<!--/ modal-footer -->
-			</div>
-			<!-- / modal-content -->
-		</div>
-		<!--/ modal-dialog -->
-	</div>
-	<!-- / modal -->
-
-	<!-- modal window to first notice -->
-	<div class="modal fade" id="firstNotice">
-		<div class="modal-dialog firstnotice">
-			<div class="modal-content modalinf">
-				<div class="modal-header fechar">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
-							class="material-icons">clear</i></button>
-				</div>
-				<!-- / modal-header -->
-				<div class="modal-body ">
-					<div id="carouselExampleIndicators" class="carousel slide sobre" data-ride="carousel">
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img class="d-block w-100" src="img/slider7.jpg" alt="Primeiro slide">
-								<h1 class="titulo"><span id="about-modal">Sobre </span><span
-										class="amarelo">Terra</span><span class="verde">Brasilis</span></h1>
-								<p class="descricaoslide" id="description-modal">O TerraBrasilis é uma plataforma
-									desenvolvida pelo INPE para organização, acesso e uso através de um portal web dos
-									dados geográficos produzidos pelos seus programas de monitoramento ambiental.</p>
+				<!-- modal window to display the email contact -->
+				<div class="modal fade" id="modal-container-contact">
+					<div class="modal-dialog">
+						<div class="modal-content modalinf">
+							<div class="modal-header fechar">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+										class="material-icons">clear</i></button>
 							</div>
+							<!-- / modal-header -->
+							<div class="modal-body">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title"><span id="tt-contactus">Envie sugestões ou perguntas para:</span>
+										</h5>
+										<p class="card-text"><a href="mailto:terrabrasilis@inpe.br">terrabrasilis@inpe.br</a></p>
+									</div>
+								</div>
+							</div>
+							<!--/ modal-footer -->
 						</div>
-						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-							data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-							data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
+						<!-- / modal-content -->
 					</div>
+					<!--/ modal-dialog -->
 				</div>
-				<!-- / modal-body -->
-				<div class="modal-footer">
-					<div class="checkbox pull-right">
-						<label>
-							<input id="notice" class="modal-check" name="modal-check" type="checkbox"><span
-								class="textoc" id="option-modal">Não mostrar novamente.</span>
-						</label>
+				<!-- / modal -->
+
+				<!-- modal window to first notice -->
+				<div class="modal fade" id="firstNotice">
+					<div class="modal-dialog firstnotice">
+						<div class="modal-content modalinf">
+							<div class="modal-header fechar">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+										class="material-icons">clear</i></button>
+							</div>
+							<!-- / modal-header -->
+							<div class="modal-body ">
+								<div id="carouselExampleIndicators" class="carousel slide sobre" data-ride="carousel">
+									<div class="carousel-inner">
+										<div class="carousel-item active">
+											<img class="d-block w-100" src="img/slider7.jpg" alt="Primeiro slide">
+											<h1 class="titulo"><span id="about-modal">Sobre </span><span
+													class="amarelo">Terra</span><span class="verde">Brasilis</span></h1>
+											<p class="descricaoslide" id="description-modal">O TerraBrasilis é uma plataforma
+												desenvolvida pelo INPE para organização, acesso e uso através de um portal web dos
+												dados geográficos produzidos pelos seus programas de monitoramento ambiental.</p>
+										</div>
+									</div>
+									<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+										data-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="sr-only">Previous</span>
+									</a>
+									<a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+										data-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="sr-only">Next</span>
+									</a>
+								</div>
+							</div>
+							<!-- / modal-body -->
+							<div class="modal-footer">
+								<div class="checkbox pull-right">
+									<label>
+										<input id="notice" class="modal-check" name="modal-check" type="checkbox"><span
+											class="textoc" id="option-modal">Não mostrar novamente.</span>
+									</label>
+								</div>
+								<!--/ checkbox -->
+							</div>
+							<!--/ modal-footer -->
+						</div>
+						<!-- / modal-content -->
 					</div>
-					<!--/ checkbox -->
+					<!--/ modal-dialog -->
 				</div>
-				<!--/ modal-footer -->
+				<!-- / modal -->
+
+				<div id="display_loading"><span id="inner_display_loading"></span></div>
+
+				<!-- Modal print -->
+				<div class="modal fade" id="print_information">
+					<div class="modal-dialog">
+						<div class="modal-content modalinf">
+							<div class="modal-header fechar">
+								<h5 class="modal-title boxtitletable"> <span id="txt4p">Imprimir Gráficos</span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
+										class="material-icons">clear</i></button>
+							</div>
+							<!-- / modal-header -->
+							<div class="modal-body ">
+								<div class="alert alert-success" role="alert"> <span id="txt30">
+
+										A impressão deste documento utiliza os recursos do navegador e pode apresentar diferenças
+										entre eles.<br />
+										A impressão acomoda bem os gráficos quando as configurações são as seguintes:<br />
+										&nbsp;&nbsp;&nbsp;- A orientação do papel é do tipo paisagem;<br />
+										&nbsp;&nbsp;&nbsp;- O tamanho de papel é A4;<br />
+										&nbsp;&nbsp;&nbsp;- E margens padrão do navegador.<br />
+									</span>
+								</div>
+
+							</div>
+
+							<!-- / modal-body -->
+							<div class="modal-footer">
+								<div class="checkbox pull-right">
+									<label>
+										<button type="button" class="btn btngreen" data-dismiss="modal" id="print_page"
+											style="color: #fff;">
+											<span id="txt1ea">Fechar</span>
+										</button>
+									</label>
+								</div>
+								<!--/ checkbox -->
+							</div>
+							<!--/ modal-footer -->
+						</div>
+						<!-- / modal-content -->
+					</div>
+					<!--/ modal-dialog -->
+				</div>
+				<!-- / modal -->
+				<!--Footer-->
+				<footer class="footer">
+					<p><a href="http://terrabrasilis.dpi.inpe.br"> TerraBrasilis</a>&nbsp;<a rel="license"
+							href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licença Creative Commons"
+								style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a></p>
+					<div class="version_style" id="version"></div>
+				</footer>
+				<!--/.Footer-->
+
 			</div>
-			<!-- / modal-content -->
 		</div>
-		<!--/ modal-dialog -->
 	</div>
-	<!-- / modal -->
-
-	<div id="display_loading"><span id="inner_display_loading"></span></div>
-
-	<!-- Modal print -->
-	<div class="modal fade" id="print_information">
-		<div class="modal-dialog">
-			<div class="modal-content modalinf">
-				<div class="modal-header fechar">
-					<h5 class="modal-title boxtitletable"> <span id="txt4p">Imprimir Gráficos</span></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
-							class="material-icons">clear</i></button>
-				</div>
-				<!-- / modal-header -->
-				<div class="modal-body ">
-					<div class="alert alert-success" role="alert"> <span id="txt30">
-
-							A impressão deste documento utiliza os recursos do navegador e pode apresentar diferenças
-							entre eles.<br />
-							A impressão acomoda bem os gráficos quando as configurações são as seguintes:<br />
-							&nbsp;&nbsp;&nbsp;- A orientação do papel é do tipo paisagem;<br />
-							&nbsp;&nbsp;&nbsp;- O tamanho de papel é A4;<br />
-							&nbsp;&nbsp;&nbsp;- E margens padrão do navegador.<br />
-						</span>
-					</div>
-
-				</div>
-
-				<!-- / modal-body -->
-				<div class="modal-footer">
-					<div class="checkbox pull-right">
-						<label>
-							<button type="button" class="btn btngreen" data-dismiss="modal" id="print_page"
-								style="color: #fff;">
-								<span id="txt1ea">Fechar</span>
-							</button>
-						</label>
-					</div>
-					<!--/ checkbox -->
-				</div>
-				<!--/ modal-footer -->
-			</div>
-			<!-- / modal-content -->
-		</div>
-		<!--/ modal-dialog -->
-	</div>
-	<!-- / modal -->
-	<!--Footer-->
-	<footer class="footer">
-		<p><a href="http://terrabrasilis.dpi.inpe.br"> TerraBrasilis</a>&nbsp;<a rel="license"
-				href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licença Creative Commons"
-					style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a></p>
-		<div class="version_style" id="version"></div>
-	</footer>
-	<!--/.Footer-->
+	<!-- end footer and modals -->
 
 	<!-- already minified -->
 	<script type="text/javascript" src="./libs/d3/v3/d3.min.js"></script>
@@ -829,19 +825,15 @@
 	<script type="text/javascript" src="./js/downloadSHP.js"></script>
 	<script type="text/javascript" src="http://terrabrasilis.dpi.inpe.br/oauth-api/getoauthjs"></script>
 
-	<script type="text/javascript">
-		$("#notice").click(function () {
-			EasyCookie.create("firstNotice", "Not show modal again", 30);
-		});
-		/**
-		* Show the main TerraBrasilis modal
-		*/
-		let cookieFirstNotice = EasyCookie.read("firstNotice");
-		if (cookieFirstNotice === null) {
-			$('#firstNotice').modal('show');
-		}
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77404603-3"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-77404603-3');
 	</script>
 
 </body>
-
 </html>

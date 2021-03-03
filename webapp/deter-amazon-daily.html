@@ -9,30 +9,24 @@
 	<meta http-equiv='pragma' content='no-cache'>
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<meta http-equiv="Content-Language" content="pt-br, en, es">
+	<meta http-equiv="Content-Language" content="pt-br, en">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=0">
-	<meta name="description" content="Avisos de desmatamento, projeto DETER, INPE">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Avisos de desmatamento no Cerrado - DETER/INPE">
+	<meta name="keywords" content="INPE, DETER, avisos, alertas, desmatamento, Amazônia">
+  <meta name="author" content="André Carvalho - andre.carvalho@inpe.br">
 	<!-- favicon -->
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77404603-3"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-
-		gtag('config', 'UA-77404603-3');
-	</script>
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" type="text/css" href="./libs/bootstrap/bootstrap-4.1.3.min.css" />
 	<!-- Scrollbar Custom CSS -->
 	<link rel="stylesheet" href="./libs/jquery/plugin/jquery.mCustomScrollbar.min.css">
 	<!-- Font-awesome -->
 	<link rel="stylesheet" href="./libs/fontawesome/v5.3.1/all.css">
-
 	<!-- Font Material design google -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="./libs/bootstrap/bootstrap-4.1.3.min.css" />
 	<link rel="stylesheet" type="text/css" href="./libs/datepicker/5.39.0/tempusdominus-bootstrap-4.min.css" />
 	<link rel="stylesheet" type="text/css" href="./libs/dc-2.2/dc.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-daily.css" />
@@ -455,6 +449,7 @@
 
 	</div><!-- Fim do painel de gráficos -->
 
+	<!-- start footer and modals -->
 	<div class="container">
 		<div class="row box">
 			<div class="col-md-12">
@@ -827,46 +822,47 @@
 					<div class="version_style" id="version"></div>
 				</footer>
 				<!--/.Footer-->
+			
+			</div>
+		</div>
+	</div>
+	<!-- end footer and modals -->
 
-				<!-- already minified -->
-				<script type="text/javascript" src="./libs/d3/v3/d3.min.js"></script>
-				<script type="text/javascript" src="./libs/d3/d3js.pt-br.js"></script>
-				<script type="text/javascript" src="./libs/crossfilter/crossfilter-1.3.12.min.js"></script>
-				<script type="text/javascript" src="./libs/dc-2.2/dc.min.js"></script>
-				<script type="text/javascript" src="./libs/mousetrap/mousetrap.min.js"></script>
-				<script type="text/javascript" src="./libs/filesaver/FileSaver.min.js"></script>
-				<script type="text/javascript" src="./libs/jquery/jquery-3.5.1.min.js"></script>
-				<script type="text/javascript" src="./libs/moment/moment-2.29.0-with-locales.min.js"></script>
-				<script type="text/javascript" src="./libs/datepicker/5.39.0/tempusdominus-bootstrap-4.min.js"></script>
-				<script type="text/javascript" src="./libs/bootstrap/bootstrap-4.1.3.min.js"></script>
-				<script type="text/javascript" src="./libs/popper/1.14.3/popper.min.js"></script>
-				<!-- jQuery Custom Scroller -->
-				<script type="text/javascript" src="./libs/jquery/plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-				<!-- worked to minify / using to minify: https://www.minifier.org/ -->
-				<script type="text/javascript" src="./js/svg-to-image.min.js"></script>
-				<script type="text/javascript" src="./js/terrabrasilis-start.js"></script>
-				<script type="text/javascript" src="./js/deter-amazon-daily-translation.js"></script>
-				<script type="text/javascript" src="./js/deter-amazon-change-lang.js"></script>
-				<script type="text/javascript" src="./js/deter-amazon-daily-utils.js"></script>
-				<script type="text/javascript" src="./js/deter-amazon-daily.js"></script>
-				<script type="text/javascript" src="./js/mun-search-engine.js"></script>
-				<script type="text/javascript" src="./js/easy-cookie.js"></script>
-				<script type="text/javascript" src="./js/downloadSHP.js"></script>
-				<script type="text/javascript" src="http://terrabrasilis.dpi.inpe.br/oauth-api/getoauthjs"></script>
+	<!-- already minified -->
+	<script type="text/javascript" src="./libs/d3/v3/d3.min.js"></script>
+	<script type="text/javascript" src="./libs/d3/d3js.pt-br.js"></script>
+	<script type="text/javascript" src="./libs/crossfilter/crossfilter-1.3.12.min.js"></script>
+	<script type="text/javascript" src="./libs/dc-2.2/dc.min.js"></script>
+	<script type="text/javascript" src="./libs/mousetrap/mousetrap.min.js"></script>
+	<script type="text/javascript" src="./libs/filesaver/FileSaver.min.js"></script>
+	<script type="text/javascript" src="./libs/jquery/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" src="./libs/moment/moment-2.29.0-with-locales.min.js"></script>
+	<script type="text/javascript" src="./libs/datepicker/5.39.0/tempusdominus-bootstrap-4.min.js"></script>
+	<script type="text/javascript" src="./libs/bootstrap/bootstrap-4.1.3.min.js"></script>
+	<script type="text/javascript" src="./libs/popper/1.14.3/popper.min.js"></script>
+	<!-- jQuery Custom Scroller -->
+	<script type="text/javascript" src="./libs/jquery/plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- worked to minify / using to minify: https://www.minifier.org/ -->
+	<script type="text/javascript" src="./js/svg-to-image.min.js"></script>
+	<script type="text/javascript" src="./js/terrabrasilis-start.js"></script>
+	<script type="text/javascript" src="./js/deter-amazon-daily-translation.js"></script>
+	<script type="text/javascript" src="./js/deter-amazon-change-lang.js"></script>
+	<script type="text/javascript" src="./js/deter-amazon-daily-utils.js"></script>
+	<script type="text/javascript" src="./js/deter-amazon-daily.js"></script>
+	<script type="text/javascript" src="./js/mun-search-engine.js"></script>
+	<script type="text/javascript" src="./js/easy-cookie.js"></script>
+	<script type="text/javascript" src="./js/downloadSHP.js"></script>
+	<script type="text/javascript" src="http://terrabrasilis.dpi.inpe.br/oauth-api/getoauthjs"></script>
 
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77404603-3"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
 
-				<script type="text/javascript">
-					$("#notice").click(function () {
-						EasyCookie.create("firstNotice", "Not show modal again", 30);
-					});
-					/**
-					* Show the main TerraBrasilis modal
-					*/
-					let cookieFirstNotice = EasyCookie.read("firstNotice");
-					if (cookieFirstNotice === null) {
-						$('#firstNotice').modal('show');
-					}
-				</script>
+		gtag('config', 'UA-77404603-3');
+	</script>
 
 </body>
 
