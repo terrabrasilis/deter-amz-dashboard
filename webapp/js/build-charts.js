@@ -1,7 +1,7 @@
 let buildCompositeChart=(context)=>{
   context.lineSeriesMonthly = dc.compositeChart("#agreg", "agrega");
-  let maxUf=graph.areaUfGroup2.top(1)[0].value;// max area of all selected UFs
-  let maxA=graph.areaGroup2.top(1)[0].value;
+  let maxUf=graph.areaUfGroupCloud.top(1)[0].value;// max area of all selected UFs
+  let maxA=graph.areaGroupCloud.top(1)[0].value;
 
   let makeAreaGroup=(dim,k)=>{
     let g=dim.group()
@@ -120,11 +120,11 @@ let buildCompositeChart=(context)=>{
 
     // prepare cloud charts
     let	cldColors = context.getOrdinalColorsToYears(graph.cldPallet);
-    context.yearGroup2.all().forEach(
+    context.yearGroupCloud.all().forEach(
       (d)=>{
         let colors=[]; cldColors.some((c)=>{if(d.key==c.key) colors.push(c.color)});
-        let cloudGroupByYear = makePercentGroup(context.monthDimension2,d);
-        let l=makeChartLine(context.lineSeriesMonthly,context.monthDimension2,cloudGroupByYear,d.key,colors,true);
+        let cloudGroupByYear = makePercentGroup(context.monthDimensionCloud,d);
+        let l=makeChartLine(context.lineSeriesMonthly,context.monthDimensionCloud,cloudGroupByYear,d.key,colors,true);
         if(graph._cloudStatus) charts.push(l);
         context._cloudSubCharts.push(l);// used to control the composite chart groups
       });
@@ -201,7 +201,7 @@ let buildCompositeChart=(context)=>{
         let fn=(d) => {return graph.monthFilters.includes(d);};
         graph.monthDimension.filterFunction(fn);
         graph.monthDimension0.filterFunction(fn);
-        graph.monthDimension2.filterFunction(fn);
+        graph.monthDimensionCloud.filterFunction(fn);
         dc.redrawAll("filtra");
         graph.displayCustomValues();
       }

@@ -20,12 +20,13 @@ var graph={
 	ufDimension0: null,
 	monthDimension0: null,
 	
-	temporalDimension2: null,
-	areaGroup2: null,
-	areaUfGroup2: null,
-	yearDimension2: null,
-	ufDimension2: null,
-	monthDimension2: null,
+	temporalDimensionCloud: null,
+	areaGroupCloud: null,
+	areaUfGroupCloud: null,
+	yearDimensionCloud: null,
+	yearGroupCloud:null,
+	ufDimensionCloud: null,
+	monthDimensionCloud: null,
 
 	monthDimension: null,
 	numPolDimension: null,
@@ -46,7 +47,6 @@ var graph={
 	_deforestationSubCharts:[],
 	_deforestationStatus:true,
 	_cloudStatus:false,
-
 
 	ringPallet: null,
 	defPallet: null,
@@ -196,31 +196,28 @@ var graph={
 		cloud = crossfilter(graph.cloudData);
 
 		/** register cloud data */
-		this.temporalDimension2 = cloud.dimension(function(d) {
+		this.temporalDimensionCloud = cloud.dimension(function(d) {
 			var m=utils.fakeMonths(d.month);
 			return [d.year, m];
 		});
-		this.areaUfGroup2 = this.temporalDimension2.group().reduceSum(function(d) {
+		this.areaUfGroupCloud = this.temporalDimensionCloud.group().reduceSum(function(d) {
 			return +d.au;
 		});
-		this.areaGroup2 = this.temporalDimension2.group().reduceSum(function(d) {
+		this.areaGroupCloud = this.temporalDimensionCloud.group().reduceSum(function(d) {
 			return +d.a;
 		});
-		this.yearDimension2 = cloud.dimension(function(d) {
+		this.yearDimensionCloud = cloud.dimension(function(d) {
 			return d.year;
 		});
-		this.yearGroup2 = this.yearDimension2.group().reduceSum(function(d) {
+		this.yearGroupCloud = this.yearDimensionCloud.group().reduceSum(function(d) {
 			return d.au;
 		});
-		this.ufDimension2 = cloud.dimension(function(d) {
+		this.ufDimensionCloud = cloud.dimension(function(d) {
 			return d.uf;
 		});
-		this.monthDimension2 = cloud.dimension(function(d) {
+		this.monthDimensionCloud = cloud.dimension(function(d) {
 			var m=utils.fakeMonths(d.month);
 			return m;
-		});
-		this.areaDimension2 = cloud.dimension(function(d) {
-			return d.a;
 		});
 		/** end register cloud data */
 		
@@ -250,9 +247,6 @@ var graph={
 		this.monthDimension0 = ndx0.dimension(function(d) {
 			var m=utils.fakeMonths(d.month);
 			return m;
-		});
-		this.monthGroup0 = this.monthDimension0.group().reduceSum(function(d) {
-			return d.area;
 		});
 
 		this.numPolDimension = ndx1.dimension(function(d) {
@@ -477,8 +471,6 @@ var graph={
 			})
 			.margins({top: 20, right: 35, bottom: 50, left: 55});
 
-		//this.barAreaByYear.margins().left += 30;
-
 		dc.chartRegistry.list("filtra").forEach(function(c,i){
 			c.on('filtered', function(chart, filter) {
 				var filters = chart.filters();
@@ -497,19 +489,19 @@ var graph={
 				if(chart.anchorName()=="chart-by-year"){
 					if(!filters.length) {
 						graph.yearDimension0.filterAll();
-						graph.yearDimension2.filterAll();
+						graph.yearDimensionCloud.filterAll();
 					}else {
 						graph.yearDimension0.filterFunction(commonFilterFunction);
-						graph.yearDimension2.filterFunction(commonFilterFunction);
-					}// class="justify-content-end ctrl-change-calendar"
+						graph.yearDimensionCloud.filterFunction(commonFilterFunction);
+					}
 				}
 				if(chart.anchorName()=="chart-by-state"){
 					if(!filters.length) {
 						graph.ufDimension0.filterAll();
-						graph.ufDimension2.filterAll();
+						graph.ufDimensionCloud.filterAll();
 					}else {
 						graph.ufDimension0.filterFunction(commonFilterFunction);
-						graph.ufDimension2.filterFunction(commonFilterFunction);
+						graph.ufDimensionCloud.filterFunction(commonFilterFunction);
 					}
 				}
 				if(chart.anchorName()=="chart-by-class"){
