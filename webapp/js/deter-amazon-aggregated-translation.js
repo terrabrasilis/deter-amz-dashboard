@@ -1,6 +1,22 @@
 var Translation={
 	'pt-br':{
 		/* texts into HTML entities */
+		'cloud-info':'Informações sobre os dados de cobertura de nuvens.',
+		'cloud-btn':'Cobertura de nuvens',
+		'cloud-header':'Sobre os dados de cobertura de nuvens',
+		'cloud-main-info':'A estação de processamento das imagens CBERS 4/4A gera '+
+		'sistematicamente/automaticamente, como um dos seus produtos, '+
+		'uma imagem de cobertura de nuvens e suas sombras para cada cena '+
+		'do sensor WFI recebida (cloud mask).'+
+		'<br/><br/>'+
+		'Uma rotina seleciona todas as cenas WFI/CBERS 4 '+
+		'utilizadas no DETER em determinado mês e gera um mosaico '+
+		'mensal das áreas cobertas por nuvens.'+
+		'<br/><br/>'+
+		'Em seguida uma segunda rotina calcula a porcentagem de nuvem '+
+		'em cada estado da Amazônia Legal e Cerrado e alimenta o dashboard '+
+		'do TerraBrasilis.',
+		'cloud-close':'Fechar',
 		'page-title-amz': 'Amazônia Legal - Avisos de Desmatamento',
 		'txt-civil':'Ano Civil',
 		'txt-prodes':'Ano Referência',
@@ -148,6 +164,19 @@ var Translation={
 	},
 	'en':{
 		/* texts into HTML entities */
+		'cloud-info':'Information about cloud coverage data.',
+		'cloud-btn':'Cloud cover',
+		'cloud-header':'About cloud coverage data.',
+		'cloud-main-info':'The CBERS 4/4A image processing station generates, '+
+		'automatically/systematically, as one of the products, an image of cloud '+
+		'cover and its shadows for each scene of the WFI sensor (cloud mask).'+
+		'<br/><br/>'+
+		'A routine selects all the WFI/CBERS 4 scenes used in the DETER interpretation '+
+		'process for a month and generates a cloud cover mosaic.'+
+		'<br/><br/>'+
+		'Then, another routine calculates the percentage of cloud from each state of the '+
+		'Legal Amazon and Cerrado to feed the TerraBrasilis panels.',
+		'cloud-close':'Close',
 		'page-title-amz': 'Legal Amazon - Deforestation Notices',
 		'txt-civil':'Civil Year',
 		'txt-prodes':'Reference Year',
