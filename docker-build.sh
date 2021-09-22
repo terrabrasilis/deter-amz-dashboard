@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=$(cat webapp/PROJECT_VERSION | grep -oP '(?<="version": ")[^"]*')
+VERSION=$(git describe --tags --abbrev=0)
 export VERSION
 # Stopping all containers
 #docker container stop terrabrasilis_amazon_alert_daily
