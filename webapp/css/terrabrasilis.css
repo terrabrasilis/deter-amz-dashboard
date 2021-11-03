@@ -92,7 +92,8 @@ width: 15%;
 position: relative;
 }
 .updated-date{
-font-size: small;
+white-space: nowrap;
+font-size: 1vw;
 color: gray;
 position: absolute;
 bottom: 0px;
