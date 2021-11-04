@@ -1,9 +1,0 @@
-AddCharset UTF-8 .html
-AddType 'text/html; charset=UTF-8' html
-
-Options -Indexes
-
-#AuthType Basic
-#AuthName "Restricted Content"
-#AuthUserFile /home/www/fipcerrado/dashboard/.htpasswd
-#Require valid-user
