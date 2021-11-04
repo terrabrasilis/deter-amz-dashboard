@@ -27,7 +27,8 @@ LABEL description="This container provides an http server including the webapp v
 #-------------Application Specific Stuff ----------------------------------------------------
 
 ## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
+RUN rm -rf /usr/share/nginx/html/* \
+&& echo "{\"version\":\"${VERSION}\"}" > /usr/share/nginx/html/PROJECT_VERSION
 
 COPY environment/config/nginx.conf /etc/nginx/nginx.conf
 COPY environment/config/403.html /usr/share/nginx/html/403.html
