@@ -7,14 +7,14 @@ export VERSION
 #docker container stop terrabrasilis_amazon_alert_aggregated
 
 # build all images
-docker build -t terrabrasilis/amazon-alert-daily:v$VERSION --build-arg VERSION=$VERSION --build-arg INDEX_FILE=deter-amazon-daily -f environment/Dockerfile .
-docker build -t terrabrasilis/amazon-alert-aggregated:v$VERSION --build-arg VERSION=$VERSION --build-arg INDEX_FILE=deter-amazon-aggregated -f environment/Dockerfile .
+docker build -t terrabrasilis/amazon-alert-daily:$VERSION --build-arg VERSION=$VERSION --build-arg INDEX_FILE=deter-amazon-daily -f environment/Dockerfile .
+docker build -t terrabrasilis/amazon-alert-aggregated:$VERSION --build-arg VERSION=$VERSION --build-arg INDEX_FILE=deter-amazon-aggregated -f environment/Dockerfile .
 
 # send to dockerhub
 ## docker login
-docker push terrabrasilis/amazon-alert-daily:v$VERSION
-docker push terrabrasilis/amazon-alert-aggregated:v$VERSION
+docker push terrabrasilis/amazon-alert-daily:$VERSION
+docker push terrabrasilis/amazon-alert-aggregated:$VERSION
 
 # If you want run containers, uncomment this lines
-#docker run -d --rm -p 83:80 --name terrabrasilis_amazon_alert_daily terrabrasilis/amazon-alert-daily:v$VERSION
-#docker run -d --rm -p 84:80 --name terrabrasilis_amazon_alert_aggregated terrabrasilis/amazon-alert-aggregated:v$VERSION
+#docker run -d --rm -p 83:80 --name terrabrasilis_amazon_alert_daily terrabrasilis/amazon-alert-daily:$VERSION
+#docker run -d --rm -p 84:80 --name terrabrasilis_amazon_alert_aggregated terrabrasilis/amazon-alert-aggregated:$VERSION
