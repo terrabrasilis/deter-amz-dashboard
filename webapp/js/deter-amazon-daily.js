@@ -926,6 +926,7 @@ window.onload=function(){
 	Lang.init();
 	graph.startLoadData();
 	if(typeof Authentication!="undefined"){
+		Authentication.serverURL='/oauth-api/';
 		Authentication.init(Lang.language, function(){
 			graph.resetFilters();
 			graph.restart();
