@@ -65,9 +65,9 @@
 						<i class="material-icons">insert_chart</i><span id="nv-daily-amz">Amazônia Legal</span></a>
 				</li>
 				<li>
-					<a href="/app/dashboard/alerts/biomes/cerrado/daily/" id="toDailyChart-cer"
-						title="Abrir o painel de avisos diários para o Bioma Cerrado." aria-expanded="false">
-						<i class="material-icons">insert_chart</i><span id="nv-daily-cer">Bioma Cerrado</span></a>
+					<a href="/app/dashboard/alerts/biomes/cerrado-nb/daily/" id="toDailyChart-cer-nb"
+						title="Abrir o painel avisos diários para o Bioma Cerrado." aria-expanded="false">
+						<i class="material-icons">insert_chart</i><span id="nv-daily-cer-nb">Bioma Cerrado</span></a>
 				</li>
 			</ul>
 
@@ -86,9 +86,9 @@
 						<i class="material-icons">insert_chart</i><span id="nv-aggreg-amz">Amazônia Legal</span></a>
 				</li>
 				<li>
-					<a href="/app/dashboard/alerts/biomes/cerrado/aggregated/" id="toAggregatedChart-cer"
+					<a href="/app/dashboard/alerts/biomes/cerrado-nb/aggregated/" id="toAggregatedChart-cer-nb"
 						title="Abrir o painel agregado mensal de avisos para o Bioma Cerrado." aria-expanded="false">
-						<i class="material-icons">insert_chart</i><span id="nv-aggreg-cer">Bioma Cerrado</span></a>
+						<i class="material-icons">insert_chart</i><span id="nv-aggreg-cer-nb">Bioma Cerrado</span></a>
 				</li>
 			</ul>
 
@@ -114,7 +114,11 @@
 						title="Informações sobre os dados de cobertura de nuvens." data-toggle="modal">
 						<i class="material-icons">info</i><span id="cloud-btn">Cobertura de nuvens</span></a>
 				</li>
-
+				<li>
+					<a href="#modal-container-general-info" id="old-biome-info"
+						title="Informações sobre os dados no antigo limite do bioma." data-toggle="modal">
+						<i class="material-icons" style="color:red;">warning</i><span id="old-biome-btn">Dados congelados</span></a>
+				</li>
 			</ul>
 		</nav>
 	</div>
@@ -433,6 +437,35 @@
 		<div class="row box">
 			<div class="col-md-12">
 				<div id="footer_print"></div>
+
+					<!-- modal window for General informations -->
+					<div class="modal fade" id="modal-container-general-info" role="dialog" aria-labelledby="general-info" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content modalinf">
+								<div class="modal-header fechar">
+									<h5 class="modal-title boxtitletable"><span id="txt2a">Informação de alteração nos dados</span></h5>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+								</div>
+								<div class="modal-body">
+									<div class="alert alert-warning">
+										<span id="txt2b">O limite dos biomas brasileiros foram alterados <a href="https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/25798-ibge-lanca-mapa-inedito-de-biomas-e-sistema-costeiro-marinho" target="_blank">conforme publicação do IBGE</a> de 30/10/2019. Os dados de supressão e/ou degradação de vegetação publicados na plataforma TerraBrasilis foram ajustados para o novo recorte em fevereiro de 2022.
+											Acesse <a href='/app/dashboard/alerts/biomes/cerrado/aggregated/'>aqui</a> os resultados congelados até o dia 31/01/2022, relativos ao antigo limite.</span>
+									</div>
+								</div>
+								
+								<div class="modal-footer">
+									<div class="checkbox pull-right">
+										<label>
+											<button type="button" class="btn btngreen" data-dismiss="modal">
+												<span id="txt2c">Fechar</span>
+											</button>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end modal -->
 
 				<!-- Start of modal information about classes -->
 				<div class="modal fade" id="modal-container-718053">

@@ -1,6 +1,8 @@
 var Translation={
 	'pt-br':{
 		/* texts into HTML entities */
+		'old-biome-info':'Informações sobre os dados no antigo limite do bioma.',
+		'old-biome-btn':'Dados congelados',
 		'cloud-info':'Informações sobre os dados de cobertura de nuvens.',
 		'cloud-btn':'Cobertura de nuvens',
 		'cloud-header':'Sobre os dados de cobertura de nuvens',
@@ -29,16 +31,8 @@ var Translation={
 		'txt1e':'Fechar',
 		'txt1':'Painel DETER - mensal',
 		'txt2':'Abrir o Painel Diário',
-		'txt2a':'Informações gerais',
-		'txt2b':'<h3>Sobreposição PRODES Amazônia x Cerrado</h3>'+
-		'<br /><br />'+
-		'O Mapeamento do cerrado é realizado para toda extensão do Bioma, o que inclui uma zona de sobreposição com os limites da Amazônia Legal Brasileira. Ocorre que as áreas de florestas, dentro da zona de sobreposição entre os limites do Bioma Cerrado e os limites da Amazônia Legal, 7% da área total, já são mapeadas, desde 1988, pelo projeto PRODES Amazônia. Nesta área de sobreposição o INPE utilizou os dados  já mapeados pelo PRODES Amazônia, para evitar resultados discrepantes entre os dois produtos. Apesar dos dois mapeamentos possuírem a mesma legenda (i.e. desmatamento do tipo corte raso) existe uma peculiaridade em relação ao início de suas séries históricas e frequências de mapeamento.'+
-		'<br /><br />'+
-		'O PRODES Cerrado tem uma série histórica com início no ano 2000 e possui frequência de mapeamento bianual até 2012 e anual desde 2013 até 2017. O PRODES Amazônia tem sua série histórica com início em 1988 e possui frequência anual de mapeamento, entretanto durante esse período foi necessário fazer um ajuste geométrico na máscara de desmatamento para corrigir deslocamentos causados por diferentes processos de georreferenciamento das imagens adotados ao longo da vida do projeto. <a href="http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes/pdfs/nt_deslocamentomascara.pdf" target="_blank">Acesse este link para mais detalhes.</a>'+
-		'<br /><br />'+
-		'Este ajuste na máscara de desmatamento do PRODES Amazônia resultou em uma agregação de todos os anos mapeados até 2008 em um único plano de informação, não sendo possível separar a geometria do desmatamento dos anos anteriores. Uma vez que os números computados pelo PRODES Cerrado são referentes ao desmatamento mapeado a partir da máscara agregada do ano 2000, início de sua série histórica, os mesmos não consideram a área de desmatamento acumulado até o ano 2000.'+
-		'<br /><br />'+
-		'Por essa razão, ainda que esta diferença ocorra apenas na área de sobreposição (7% da área total), os números do desmatamento anual publicados no dashboard do TerraBrasilis (www.dpi.inpe.br/fipcerrado/dashboard/) não são iguais aos dados geográficos disponibilizados para download no mesmo site, exclusivamente para os anos 2000 até 2008.',
+		'txt2a':'Informação de alteração nos dados',
+		'txt2b':'O limite dos biomas brasileiros foram alterados <a href="https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/25798-ibge-lanca-mapa-inedito-de-biomas-e-sistema-costeiro-marinho" target="_blank">conforme publicação do IBGE</a> de 30/10/2019. Os dados de supressão e/ou degradação de vegetação publicados na plataforma TerraBrasilis foram ajustados para o novo recorte em fevereiro de 2022. Acesse <a href="/app/dashboard/alerts/biomes/cerrado/aggregated/">aqui</a> os resultados congelados até o dia 31/01/2022, relativos ao antigo limite.',
 		'txt2c':'Fechar',
 		'txt3':'Baixar Dados',
 		'downloadBtn':'Baixar os dados em formato CSV.',
@@ -143,8 +137,8 @@ var Translation={
 		'nv-daily-amz':'Amazônia Legal',
 		'nv-aggreg-amz':'Amazônia Legal',
 		'nv-chart-agg':'Gráficos - Agregado Mensal',
-		'nv-daily-cer':'Bioma Cerrado',
-		'nv-aggreg-cer':'Bioma Cerrado',
+		'nv-daily-cer-nb':'Bioma Cerrado',
+		'nv-aggreg-cer-nb':'Bioma Cerrado',
 		'nv-home':'Home TerraBrasilis',
 		'nv-sites':'Páginas relacionadas',
 		'nv-map':'Mapa de Avisos',
@@ -156,8 +150,8 @@ var Translation={
 		'contactus-menu':'Contato',
 		'toDailyChart-amz':'Abrir o painel avisos diários para a Amazônia Legal.',
 		'toAggregatedChart-amz':'Abrir o painel agregado mensal de avisos para a Amazônia Legal.',
-		'toDailyChart-cer':'Abrir o painel avisos diários para o Bioma Cerrado.',
-		'toAggregatedChart-cer':'Abrir o painel agregado mensal de avisos para o Bioma Cerrado.',
+		'toDailyChart-cer-nb':'Abrir o painel avisos diários para o Bioma Cerrado.',
+		'toAggregatedChart-cer-nb':'Abrir o painel agregado mensal de avisos para o Bioma Cerrado.',
 		'tituloprint-amz': ' | Variação mensal de área do projeto DETER - ano referência (Agosto a Julho)',
 		'about-modal':'Sobre ',
 		'description-modal':'O TerraBrasilis é uma plataforma desenvolvida pelo INPE para organização, acesso e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento ambiental.',
@@ -165,6 +159,8 @@ var Translation={
 	},
 	'en':{
 		/* texts into HTML entities */
+		'old-biome-info':'Information about data in the old biome boundary.',
+		'old-biome-btn':'Frozen data',
 		'cloud-info':'Information about cloud coverage data.',
 		'cloud-btn':'Cloud cover',
 		'cloud-header':'About cloud coverage data.',
@@ -190,6 +186,9 @@ var Translation={
 		'txt1e':'Close',
 		'txt1':'DETER panel - monthly',
 		'txt2':'Open the Daily Panel',
+		'txt2a':'Data change information',
+		'txt2b':'The Brazilian biome borders have been changed <a href="https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/25798-ibge-lanca-mapa-inedito-de-biomas-e-sistema-costeiro-marinho" target="_blank">according to IBGE publication</a> at 10/30/2019. The vegetation suppression and/or degradation data published on the TerraBrasilis platform were adjusted for the new clipping in February 2022. Access <a href="/app/dashboard/alerts/biomes/cerrado/aggregated/">here</a> the results frozen until 01/31/2022, related to the old limit.',
+		'txt2c':'Close',
 		'downloadBtn':'Download data in CSV format.',
 		'txt3':'Download Data',
 		'txt4':'Print Graphs',
@@ -293,8 +292,8 @@ var Translation={
 		'nv-daily-amz':'Legal Amazon',
 		'nv-aggreg-amz':'Legal Amazon',
 		'nv-chart-agg':'Graphs - Monthly Aggregate',
-		'nv-daily-cer':'Cerrado Biome',
-		'nv-aggreg-cer':'Cerrado Biome',
+		'nv-daily-cer-nb':'Cerrado Biome',
+		'nv-aggreg-cer-nb':'Cerrado Biome',
 		'nv-home':'Home TerraBrasilis',
 		'nv-sites':'Related pages',
 		'nv-map':'Notices Map',
@@ -306,8 +305,8 @@ var Translation={
 		'contactus-menu':'Contact',
 		'toDailyChart-amz':'Open the panel daily notices for Legal Amazon.',
 		'toAggregatedChart-amz':'Open the panel aggregate monthly notices for Legal Amazon.',
-		'toDailyChart-cer':'Open the panel daily notices for Cerrado Biome.',
-		'toAggregatedChart-cer':'Open the panel aggregate monthly notices for Cerrado Biome.',
+		'toDailyChart-cer-nb':'Open the panel daily notices for Cerrado Biome.',
+		'toAggregatedChart-cer-nb':'Open the panel aggregate monthly notice for Cerrado Biome.',
 		'tituloprint-amz': ' | Monthly variation of DETER project area - reference year (August to July)',
 		'about-modal':'About ',
 		'description-modal':'TerraBrasilis is a platform developed by INPE for the organization, access and use through a web portal of the geographic data produced by its environmental monitoring programs.',

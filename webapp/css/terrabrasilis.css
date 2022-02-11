@@ -726,7 +726,10 @@ height: 8px;
 .sobre .carousel-indicators .active {
 background: #707070;
 }
-
+#txt2b a{
+  text-decoration: underline;
+  color: #0099ff;
+}
 /* -------------------------------------------------------
 FOOTER
 ---------------------------------------------------------*/	
