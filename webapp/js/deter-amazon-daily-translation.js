@@ -3,6 +3,7 @@ var Translation={
 		'old-biome-info':'Informações sobre os dados no antigo limite do bioma.',
 		'old-biome-btn':'Dados congelados',
 		'invalidRange':'Intervalo inválido.',
+		'noData':'Não há dados para o intervalo selecionado.',
 		'allTime':'Exibindo dados para todo o intervalo do gráfico:',
 		'goto_about':'Ver informações sobre o projeto e a equipe.',
 		'goto_video':'Veja o vídeo introdutório que mostra a interação de um usuário com as ferramentas do painel.',
@@ -151,7 +152,8 @@ var Translation={
 	'en':{
 		'old-biome-info':'Information about data in the old biome boundary.',
 		'old-biome-btn':'Frozen data',
-		'invalidRange':'Invalid date range.',
+		'invalidRange':'There is no data for the selected range.',
+		'noData':'Não há dados para o intervalo selecionado.',
 		'allTime':'Displaying data for entire chart range:',
 		'goto_about':'See informations about the project and team.',
 		'goto_video':'Watch the introductory video to see how an user interact with dashboard tools.',

@@ -155,9 +155,16 @@ var graph={
 				alert(Translation[Lang.language].invalidRange);
 			}else{
 				// apply filter on dataset
-				graph.setDateRangeOnDataset(dt0, dt1);
-				graph.build();
-				graph.displayCustomValues();
+				let isOk=graph.setDateRangeOnDataset(dt0, dt1);
+				// if do not apply filter, abort and add info to user
+				if(!isOk){
+					alert(Translation[Lang.language].noData);
+					// restore the previous interval
+					graph.setDateRangeOnDataset(graph.dateFilterRange[0],graph.dateFilterRange[1]);
+				}else{
+					graph.build();
+					graph.displayCustomValues();
+				}
 			}
 		
 			graph.displayWaitingChanges(false);
@@ -170,7 +177,12 @@ var graph={
 		let dt1_=new Date(dt1);
 		dt1_.setDate(dt1_.getDate()+1);
 		graph.dimensions["date"].filterRange([Date.parse(dt0),Date.parse(dt1_)]);
+		// if selected interval do not result in valid data
+		if(graph.dimensions["date"].top(1).length==0){
+			return false;
+		}
 		graph.dateFilterRange=[dt0,dt1];// to use after reset filter
+		return true;
 	},
 	
 	setDataDimension: function(d) {
