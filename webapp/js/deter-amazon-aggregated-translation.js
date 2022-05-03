@@ -50,7 +50,7 @@ var Translation={
 		'&nbsp;&nbsp;&nbsp;- A orientação do papel é do tipo paisagem;<br />'+
 		'&nbsp;&nbsp;&nbsp;- O tamanho de papel é A4;<br />'+
 		'&nbsp;&nbsp;&nbsp;- E margens padrão do navegador.<br />',
-		'txt31':'A porcentagem de cobertura de nuvens para o mês de abril de 2022 foi calculada usando dados de apenas 15 dias. O satélite teve um problema ao gerar dados de cobertura de nuvem.',
+		'txt31':'A porcentagem de cobertura de nuvem para o mês de abril de 2022 foi calculada com dados referentes somente a segunda quinzena do mes devido a problemas na geração da mascara de nuvens.',
 		'txt13':'Aviso',
 		'txt14':'Este painel não é afetado pelos filtros definidos no mapa.',
 		'title-chart-amz':'Análise - Amazônia Legal',
@@ -207,7 +207,7 @@ var Translation={
 		'&nbsp;&nbsp;&nbsp;- The paper orientation is landscape;<br />'+
 		'&nbsp;&nbsp;&nbsp;- The paper size is A4;<br />'+
 		'&nbsp;&nbsp;&nbsp;- And the margins is the default of the browser.<br />',
-		'txt31':'The percentage of cloud cover for the month of April 2022 was calculated using data for just 15 days. The satellite had a problem to generating the cloud coverage data.',
+		'txt31':'The percentage of cloud coverage for the month of April 2022 was calculated with data referring only to the second half of the month due to problems in generating the cloud mask.',
 		'txt13':'Warning',
 		'txt14':'The map filters isn\'t applied in this panel.',
 		'title-chart-amz':'Analyses - Legal Amazon',
