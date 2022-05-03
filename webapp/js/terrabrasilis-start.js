@@ -2,6 +2,9 @@ $(document).ready(function () {
     $("#notice").click(function () {
         EasyCookie.create("firstNotice", "Not show modal again", 30);
     });
+    $("#notice-cloud").click(function () {
+        EasyCookie.create("cloudNotice", "Not show modal again", 30);
+    });
     /**
     * Show the main TerraBrasilis modal
     */

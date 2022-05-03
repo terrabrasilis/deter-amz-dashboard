@@ -50,6 +50,7 @@ var Translation={
 		'&nbsp;&nbsp;&nbsp;- A orientação do papel é do tipo paisagem;<br />'+
 		'&nbsp;&nbsp;&nbsp;- O tamanho de papel é A4;<br />'+
 		'&nbsp;&nbsp;&nbsp;- E margens padrão do navegador.<br />',
+		'txt31':'A porcentagem de cobertura de nuvens para o mês de abril de 2022 foi calculada usando dados de apenas 15 dias. O satélite teve um problema ao gerar dados de cobertura de nuvem.',
 		'txt13':'Aviso',
 		'txt14':'Este painel não é afetado pelos filtros definidos no mapa.',
 		'title-chart-amz':'Análise - Amazônia Legal',
@@ -155,7 +156,8 @@ var Translation={
 		'tituloprint-amz': ' | Variação mensal de área do projeto DETER - ano referência (Agosto a Julho)',
 		'about-modal':'Sobre ',
 		'description-modal':'O TerraBrasilis é uma plataforma desenvolvida pelo INPE para organização, acesso e uso através de um portal web dos dados geográficos produzidos pelos seus programas de monitoramento ambiental.',
-		'option-modal':'Não mostrar novamente.'
+		'option-modal':'Não mostrar novamente.',
+		'option-modal-cloud':'Não mostrar novamente.'
 	},
 	'en':{
 		/* texts into HTML entities */
@@ -205,6 +207,7 @@ var Translation={
 		'&nbsp;&nbsp;&nbsp;- The paper orientation is landscape;<br />'+
 		'&nbsp;&nbsp;&nbsp;- The paper size is A4;<br />'+
 		'&nbsp;&nbsp;&nbsp;- And the margins is the default of the browser.<br />',
+		'txt31':'The percentage of cloud cover for the month of April 2022 was calculated using data for just 15 days. The satellite had a problem to generating the cloud coverage data.',
 		'txt13':'Warning',
 		'txt14':'The map filters isn\'t applied in this panel.',
 		'title-chart-amz':'Analyses - Legal Amazon',
@@ -310,6 +313,7 @@ var Translation={
 		'tituloprint-amz': ' | Monthly variation of DETER project area - reference year (August to July)',
 		'about-modal':'About ',
 		'description-modal':'TerraBrasilis is a platform developed by INPE for the organization, access and use through a web portal of the geographic data produced by its environmental monitoring programs.',
-		'option-modal':'Do not show again.'
+		'option-modal':'Do not show again.',
+		'option-modal-cloud':'Do not show again.'
 	}
 };

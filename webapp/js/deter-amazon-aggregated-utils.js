@@ -54,8 +54,12 @@ var utils = {
 	btnOnOffCloudDefor:function() {
 		$('#cloud-selector')
 	    .on('change', function() {
+			let cookieCloudNotice = EasyCookie.read("cloudNotice");
+			if($('#cloud-selector')[0].checked && cookieCloudNotice === null){
+				$('#cloudNotice').modal('show');
+			}
 	    	graph.changeCloudStatus($('#cloud-selector')[0].checked);
-			});
+		});
 		$('#defor-selector')
 	    .on('change', function() {
 	    	graph.changeDeforStatus($('#defor-selector')[0].checked);
