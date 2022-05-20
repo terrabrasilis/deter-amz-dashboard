@@ -50,7 +50,7 @@ var Translation={
 		'&nbsp;&nbsp;&nbsp;- A orientação do papel é do tipo paisagem;<br />'+
 		'&nbsp;&nbsp;&nbsp;- O tamanho de papel é A4;<br />'+
 		'&nbsp;&nbsp;&nbsp;- E margens padrão do navegador.<br />',
-		'txt31':'A porcentagem de cobertura de nuvem para o mês de abril de 2022 foi calculada com dados referentes somente a segunda quinzena do mes devido a problemas na geração da mascara de nuvens.',
+		'txt31':'A porcentagem de cobertura de nuvem para o mês de abril de 2022 foi calculada com dados referentes somente a segunda quinzena do mês devido a problemas na geração da máscara de nuvens.',
 		'txt13':'Aviso',
 		'txt14':'Este painel não é afetado pelos filtros definidos no mapa.',
 		'title-chart-amz':'Análise - Amazônia Legal',
