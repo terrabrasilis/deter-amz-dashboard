@@ -448,11 +448,11 @@ var graph={
 				v=localeBR.numberFormat(',1f')(v);
 				return Translation[Lang.language].area+": " + v + " "+Translation[Lang.language].unit;
 			})
-			// .label(function(d) {
-			// 	var v=Math.abs(+(parseFloat(d.data.value).toFixed(0)));
-			// 	v=localeBR.numberFormat(',1f')(v)+ " "+Translation[Lang.language].unit;
-			// 	return v;
-			// })
+			.label(function(d) {
+				var v=Math.abs(+(parseFloat(d.data.value).toFixed(0)));
+				v=localeBR.numberFormat(',1f')(v)+ " "+Translation[Lang.language].unit;
+				return v;
+			})
 			.elasticY(true)
 			.yAxisPadding('10%')
 			.x(d3.scale.ordinal())
