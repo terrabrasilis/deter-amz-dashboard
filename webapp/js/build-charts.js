@@ -142,7 +142,7 @@ let buildCompositeChart=(context)=>{
     .renderHorizontalGridLines(true)
     .renderVerticalGridLines(true)
     .brushOn(false)
-    .yAxisLabel(Translation[Lang.language].alerts_y_label)
+    .yAxisLabel(Translation[Lang.language].mainbar_y_label)
     .rightYAxisLabel(Translation[Lang.language].clouds_y_label)
     .elasticY(true)
     .shareTitle(false)
@@ -226,7 +226,7 @@ let buildSeriesChart=(context)=>{
     .renderHorizontalGridLines(true)
     .renderVerticalGridLines(true)
     .brushOn(false)
-    .yAxisLabel(Translation[Lang.language].alerts_y_label)
+    .yAxisLabel(Translation[Lang.language].mainbar_y_label)
     .elasticY(true)
     .yAxisPadding('10%')
     .clipPadding(10)
@@ -316,6 +316,8 @@ let lineSeriesRenderlet=(context)=>{
     }else{
       // the logic to list filtered month on filterPrinter
       if(graph.monthDimension0){
+        // sort months before to make the filter label
+        graph.monthFilters=graph.monthFilters.sort(function(a,b){return a-b;});
         var fp="", allData=graph.monthDimension0.group().all();
         graph.monthFilters.forEach(
           (monthNumber) => {
