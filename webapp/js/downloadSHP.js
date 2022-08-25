@@ -6,7 +6,7 @@ let downloadCtrl = {
 
 	getFileDeliveryURL() {
 		this.inferHomologationByURI();
-		this.serviceBaseUrl = "/" + this.homologation + "file-delivery";
+		this.serviceBaseUrl = this.inferLocalhost()+"/" + this.homologation + "file-delivery";
 		return this.serviceBaseUrl;
 	},
 
@@ -38,6 +38,15 @@ let downloadCtrl = {
 		if (URL.includes("homologation")) {
 			this.homologation = "homologation/";
 		}
+	},
+
+	inferLocalhost() {
+		let orig=document.location.origin;
+		let u="";
+		if(orig.includes('localhost') || orig.includes('127'))
+			u="http://terrabrasilis.dpi.inpe.br";
+
+		return u;
 	},
 
 	startDownload() {
