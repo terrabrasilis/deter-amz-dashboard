@@ -450,7 +450,7 @@ var graph={
 			})
 			.label(function(d) {
 				var v=Math.abs(+(parseFloat(d.data.value).toFixed(0)));
-				v=localeBR.numberFormat(',1f')(v)+ " "+Translation[Lang.language].unit;
+				v=localeBR.numberFormat(',1f')(v);
 				return v;
 			})
 			.elasticY(true)

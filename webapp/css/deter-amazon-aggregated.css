@@ -53,6 +53,9 @@ fill: black;
 font-weight: normal;
 font-size: 13px;
 }
+.barLabel{
+font-size: 0.6vw !important;
+}
 .all-charts-title {
 text-align: center;
 font-weight: bold;
