@@ -171,36 +171,26 @@ var utils = {
 		fy.sort();
 		return month+"/("+fy.join(", ")+")";
 	},
-	nameMonthsById: function(id) {
-		var list={};
+	/**
+	 * Used to map a chart's month index to the month name,
+	 * depending on whether the chart is based on calendar year or prodes year.
+	 * 
+	 * @param {integer} id number of month index on chart
+	 * @returns The name of month by index
+	 */
+	 nameMonthsById: function(id) {
+		let list={},month_names=[],offset=0;
 		if(graph.calendarConfiguration=='prodes') {
-			list[13]='Jan';
-			list[14]='Fev';
-			list[15]='Mar';
-			list[16]='Abr';
-			list[17]='Mai';
-			list[18]='Jun';
-			list[19]='Jul';
-			list[8]='Ago';
-			list[9]='Set';
-			list[10]='Out';
-			list[11]='Nov';
-			list[12]='Dez';
+			month_names=Translation[Lang.language].months_of_prodes_year;
+			offset=8;
+			
 		}else{
-			list[1]='Jan';
-			list[2]='Fev';
-			list[3]='Mar';
-			list[4]='Abr';
-			list[5]='Mai';
-			list[6]='Jun';
-			list[7]='Jul';
-			list[8]='Ago';
-			list[9]='Set';
-			list[10]='Out';
-			list[11]='Nov';
-			list[12]='Dez';
+			month_names=Translation[Lang.language].months_of_civil_year;
+			offset=1;
 		}
-		
+		for(let i=0;i<12;i++){
+			list[i+offset]=month_names[i];
+		}
 		return list[id];
 	},
 	fakeMonths: function(d) {

@@ -469,7 +469,17 @@ var graph={
 					i++;
 				}
 			})
-			.margins({top: 20, right: 35, bottom: 50, left: 55});
+			.margins({top: 20, right: 35, bottom: ( graph.calendarConfiguration=='prodes'?75:60 ), left: 55});
+
+			
+		this.barAreaByYear
+			.on("renderlet.a",function (chart) {
+				// rotate x-axis labels
+				if(graph.calendarConfiguration=='prodes')
+					chart.selectAll('g.x text').attr('transform', 'translate(-25,18) rotate(315)');
+				else
+					chart.selectAll('g.x text').attr('transform', 'translate(-15,8) rotate(315)');
+			});
 
 		dc.chartRegistry.list("filtra").forEach(function(c,i){
 			c.on('filtered', function(chart, filter) {
