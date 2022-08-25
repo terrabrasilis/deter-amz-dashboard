@@ -93,7 +93,6 @@ position: relative;
 }
 .updated-date{
 white-space: nowrap;
-font-size: 1vw;
 color: gray;
 position: absolute;
 bottom: 0px;
@@ -110,10 +109,9 @@ background-color: #ffd76d;
 text-align: left;
 color: #6c757d !important;
 width: 100%;
-font-size: 1vw;
 padding-top: 1em;
 }
-.number-display span {font-size: 1vw;}
+/* .number-display span {font-size: 1vw;} */
 .generalinfo i {color: #00796b; font-size: 24px !important; margin:10px;}
 .number-display .numberinf {line-height: 20px; font-weight: bold;}
 .icon-left {float: left; padding-left: 5px;}
@@ -127,7 +125,6 @@ height: 88px;
 .bt_generalinfo{
 display: inline-table;
 min-width: 90%;
-font-size: 1vw;
 }
 .filter-info{
 font-size: 14px;
@@ -181,8 +178,8 @@ padding-top: 20px;
 
 .groupbox { width: 100%!important; margin-right: 15px;}
 
-.boxtitlepanel { text-align: left; color: #00796b; font-size: 0.9vw; text-decoration: none; border-bottom: 1px solid #49bc95;  margin:90px 5px 0px 20px;}
-.boxtitle { text-align: left; color: #00796b; font-size: 1vw; text-decoration: none; border-bottom: 1px solid #eeeeee; margin: 25px;} 
+.boxtitlepanel { text-align: left; color: #00796b; text-decoration: none; border-bottom: 1px solid #49bc95;  margin:90px 5px 0px 20px;}
+.boxtitle { text-align: left; color: #00796b; text-decoration: none; border-bottom: 1px solid #eeeeee; margin: 25px; font-size: medium;} 
 .and-border, .boxtitle {margin-bottom: 0px; border-bottom: 1px solid #49bc95;}
 .boxtitletable { text-align: left !important; color: #00796b; font-size: 18px; text-decoration: none; border-bottom: 1px solid #eeeeee; margin:25px 0px 25px 0px; width: 100%;} 
 .boxtitletable a[aria-expanded="true"] {color: #00796b; background-color:transparent!important;}
