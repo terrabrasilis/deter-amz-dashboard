@@ -1,7 +1,5 @@
 let buildCompositeChart=(context)=>{
   context.lineSeriesMonthly = dc.compositeChart("#agreg", "agrega");
-  let maxUf=graph.areaUfGroupCloud.top(1)[0].value;// max area of all selected UFs
-  let maxA=graph.areaGroupCloud.top(1)[0].value;
 
   let makeAreaGroup=(dim,k)=>{
     let g=dim.group()
@@ -20,7 +18,7 @@ let buildCompositeChart=(context)=>{
     let g=dim.group()
     .reduceSum(
       (v) => {
-        return (v.year==d.key)?(v.a*100/maxUf):(0);
+        return (v.year==d.key)?(v.a):(0);
       }
     );
     // ordered by months
@@ -40,7 +38,7 @@ let buildCompositeChart=(context)=>{
     .colorCalculator(()=>{return colors[0];})
     .renderDataPoints({radius: 5, fillOpacity: 0.8, strokeOpacity: 0.9})
     .title((v)=>{
-      let v1=Math.abs(+(parseFloat(v.value).toFixed(2)));
+      let v1=Math.abs(+(parseFloat(v.value*100/graph.areaUfGroupCloud.top(1)[0].value).toFixed(2)));
       v1=localeBR.numberFormat(',1f')(v1);
       return utils.xaxis(v.key) + " - " + gn
       + "\n" + ((isCloud)?(Translation[Lang.language].percentage+" "+v1+"%"):(Translation[Lang.language].area+" "+v1+Translation[Lang.language].unit));
@@ -50,10 +48,10 @@ let buildCompositeChart=(context)=>{
     })
     .valueAccessor(function(dd) {
       if(!mainChart.hasFilter()) {
-        return +(dd.value.toFixed(2));
+        return +((dd.value*100/graph.areaUfGroupCloud.top(1)[0].value).toFixed(2));
       }else{
         if(graph.monthFilters.indexOf(dd.key)>=0) {
-          return +(dd.value.toFixed(2));
+          return +((dd.value*100/graph.areaUfGroupCloud.top(1)[0].value).toFixed(2));
         }else{
           return 0;
         }
@@ -183,16 +181,10 @@ let buildCompositeChart=(context)=>{
 			c.rescale();
 		});
 
-    let tv=[], percMax=(maxA*100/maxUf);
-    for (let d=0; d <= 1; d+=0.1) {
-      tv.push(percMax*d);
-    }
     context.lineSeriesMonthly.rightYAxis()
-    .tickSize(tv.length)
-    .tickValues(tv)
     .tickFormat(
       (a)=>{
-        return parseInt(a)+"%";
+        return a+"%";
       }
     );
 
