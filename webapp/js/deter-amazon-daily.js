@@ -80,17 +80,17 @@ var graph={
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
 			var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/all_daily";
-			// dataUrl = "./data/deter-amazon-daily.json";// to use in localhost
-			var afterLoadData=function(json) {
+			//dataUrl = "./data/deter-amazon-daily.csv";// to use in localhost
+			var afterLoadData=function(csv) {
 				Lang.apply();
-				if(!json || !json.features) {
+				if(!csv) {
 					graph.displayWarning(true);
 				}else{
-					graph.setUpdatedDate(json.updated_date);
-					graph.init(configDashboard, json.features);
+					graph.setUpdatedDate();
+					graph.init(configDashboard, csv);
 				}
 			};
-			d3.json(dataUrl)
+			d3.csv(dataUrl)
 			.header("Authorization", "Bearer "+((typeof Authentication!="undefined")?(Authentication.getToken()):("")) )
 			.get(function(error, body) {
 				if(error && error.status==401) {
@@ -106,9 +106,13 @@ var graph={
 		d3.json("./config/deter-amazon-daily.json", afterLoadConfiguration);
 	},
 
-	setUpdatedDate: function(updated_date) {
-		var dt=new Date(updated_date+'T21:00:00.000Z');
-		d3.select("#updated_date").html(' '+dt.toLocaleDateString());
+	setUpdatedDate: function() {
+		let layer_name=(typeof Authentication!="undefined"&&Authentication.hasToken())?("last_date"):("updated_date");
+		let url="http://terrabrasilis.dpi.inpe.br/geoserver/deter-amz/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+layer_name+"&OUTPUTFORMAT=application%2Fjson";
+		d3.json(url, function(jsonResponse){
+			let dt=((jsonResponse&&jsonResponse.features[0].properties)?( (new Date(jsonResponse.features[0].properties.updated_date+'T21:00:00.000Z')).toLocaleDateString(Lang.language) ):('?') );
+			d3.select("#updated_date").html(' '+dt);
+		});
 	},
 
 	displayWaitingChanges: function(enable) {
@@ -339,19 +343,19 @@ var graph={
 		graph.defaultHeight = utils.getDefaultHeight();
 		dc.renderAll();
 	},
-	// gid as a, fake_point as b, areatotalkm as d, areamunkm as e, areauckm as f, date as g, uf as h, county as i, uc as j 
+	// gid as a, geocod_ibge as b, class_name as c, areatotalkm as d, areamunkm as e, areauckm as f, date as g, uf as h, county as i, uc as j 
 	normalizeData:function() {
 		var numberFormat = d3.format('.2f');
 		var json=[];
 		// normalize/parse data
 		this.jsonData.forEach(function(d) {
-			var o={uf:d.properties.h,ocl:d.properties.c,county:d.properties.i};
-			o.uc = (d.properties.j)?(d.properties.j):('null');
-			var auxDate = new Date(d.properties.g + 'T04:00:00.000Z');
+			var o={uf:d.h,ocl:d.c,county:d.i,codIbge:d.b};
+			o.uc = (d.j)?(d.j):('null');
+			var auxDate = new Date(d.g + 'T04:00:00.000Z');
 			o.timestamp = auxDate.getTime();
-			o.areaKm = numberFormat(d.properties.e)*1;// area municipio
-			o.areaUcKm = ((d.properties.f)?(numberFormat(d.properties.f)*1):(0));
-			o.className = d.properties.c;
+			o.areaKm = numberFormat(d.e)*1;// area municipio
+			o.areaUcKm = ((d.f)?(numberFormat(d.f)*1):(0));
+			o.className = d.c;
 			json.push(o);
 		});
 		
@@ -845,56 +849,35 @@ var graph={
 		this.histTopByUCs.title(function(d) {return d.key + ': ' + utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%");});
 		this.histTopByUCs.label(function(d) {return d.key + ': ' + utils.numberByUnit(d.value) + utils.wildcardExchange(" %unit%");});
 
-		// build download data
-		d3.select('#download-csv-daily-all')
-	    .on('click', function() {
+		let downloadCsvFnc=function(inpudata) {
 	    	utils.download=function(data) {
 						var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
 		        saveAs(blob, downloadCtrl.getProject()+'-daily-'+downloadCtrl.getDownloadTime()+'.csv');
 	    	};
 	    	window.setTimeout(function() {
 	    		var data=[];
-		    	graph.jsonData.forEach(function(d) {
+		    	inpudata.forEach(function(d) {
 		    		var o={};
 		    		var dt = new Date(d.timestamp);
 		    		o.viewDate = dt.toLocaleDateString();
-		    		//o.mes = dt.getMonth()+1;
-		    		//o.ano = dt.getFullYear();
-		    		//o.totalAlertas = d.k;
 				    o.areaMunKm = parseFloat(d.areaKm.toFixed(4));
 			    	o.areaUcKm = parseFloat(d.areaUcKm.toFixed(4));
 				    o.uc = ((d.uc!='null')?(d.uc):(''));
 				    o.uf = d.uf;
 				    o.municipio = d.county;
+					o.geocod = d.codIbge;
 				    data.push(o);
 				});
 		    	utils.download(data);
 	    	}, 200);
-	    });
+	    };
+
+		// build download data
+		d3.select('#download-csv-daily-all')
+	    .on('click', function() {let inpudata=graph.jsonData; downloadCsvFnc(inpudata);});
 
 		d3.select('#download-csv-daily')
-	    .on('click', function() {
-	    	utils.download=function(data) {
-		        var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
-		        saveAs(blob, downloadCtrl.getProject()+'-daily-'+downloadCtrl.getDownloadTime()+'.csv');
-	    	};
-	    	window.setTimeout(function() {
-	    		var data=[];
-	    		var filteredData=graph.dimensions["class"].top(Infinity);
-	    		filteredData.forEach(function(d) {
-		    		var o={};
-		    		var dt = new Date(d.timestamp);
-		    		o.viewDate = dt.toLocaleDateString();
-				    o.areaMunKm = parseFloat(d.areaKm.toFixed(4));
-			    	o.areaUcKm = parseFloat(d.areaUcKm.toFixed(4));
-				    o.uc = ((d.uc!='null')?(d.uc):(''));
-				    o.uf = d.uf;
-				    o.municipio = d.county;
-				    data.push(o);
-				});
-		    	utils.download(data);
-	    	}, 200);
-		});
+	    .on('click', function() {let inpudata=graph.dimensions["class"].top(Infinity); downloadCsvFnc(inpudata);});
 		
 		// shapefile 
 		d3.select('#download-shp')
