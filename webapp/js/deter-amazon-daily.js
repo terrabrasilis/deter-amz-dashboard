@@ -1,6 +1,6 @@
 var graph={
 		
-	jsonData:[],
+	rawData:[],
 	alertsCrossFilter:{},
 	config:{},
 	selectedFilters:{},
@@ -80,7 +80,7 @@ var graph={
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
 			var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/all_daily";
-			//dataUrl = "./data/deter-amazon-daily.csv";// to use in localhost
+			if(downloadCtrl.isLocalhost()) dataUrl = "./data/deter-amazon-daily.csv";// to use in localhost run the curl_get_json.sh in data dir
 			var afterLoadData=function(csv) {
 				Lang.apply();
 				if(!csv) {
@@ -108,7 +108,7 @@ var graph={
 
 	setUpdatedDate: function() {
 		let layer_name=(typeof Authentication!="undefined"&&Authentication.hasToken())?("last_date"):("updated_date");
-		let url="http://terrabrasilis.dpi.inpe.br/geoserver/deter-amz/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+layer_name+"&OUTPUTFORMAT=application%2Fjson";
+		let url="http://terrabrasilis.dpi.inpe.br/geoserver/"+downloadCtrl.getProject()+"/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+layer_name+"&OUTPUTFORMAT=application%2Fjson";
 		d3.json(url, function(jsonResponse){
 			let dt=((jsonResponse&&jsonResponse.features[0].properties)?( (new Date(jsonResponse.features[0].properties.updated_date+'T21:00:00.000Z')).toLocaleDateString(Lang.language) ):('?') );
 			d3.select("#updated_date").html(' '+dt);
@@ -144,7 +144,7 @@ var graph={
 	    	console.log(error);
 	    	return false;
 		}else{
-			graph.jsonData = data;
+			graph.rawData = data;
 			graph.normalizeData();
 			return true;
 		}
@@ -290,7 +290,7 @@ var graph={
 	},
 	
 	resetFilters:function() {
-		if(!graph.jsonData) return;
+		if(!graph.rawData) return;
 		graph.lineDistributionByMonth.filterAll();
 		graph.ringTotalizedByClass.filterAll();
 		graph.histTopByCounties.filterAll();
@@ -348,8 +348,8 @@ var graph={
 		var numberFormat = d3.format('.2f');
 		var json=[];
 		// normalize/parse data
-		this.jsonData.forEach(function(d) {
-			var o={uf:d.h,ocl:d.c,county:d.i,codIbge:d.b};
+		this.rawData.forEach(function(d) {
+			var o={uf:d.h,county:d.i,codIbge:d.b};
 			o.uc = (d.j)?(d.j):('null');
 			var auxDate = new Date(d.g + 'T04:00:00.000Z');
 			o.timestamp = auxDate.getTime();
@@ -359,14 +359,14 @@ var graph={
 			json.push(o);
 		});
 		
-		this.jsonData=json;
+		this.rawData=json;
 		delete json;
 		this.initCrossFilter();
 	},
 
 	initCrossFilter:function(){
 		// set crossfilter
-		this.alertsCrossFilter = crossfilter(this.jsonData);
+		this.alertsCrossFilter = crossfilter(this.rawData);
 		this.dimensions["area"] = this.alertsCrossFilter.dimension(function(d) {return d.areaKm;});
 		this.dimensions["county"] = this.alertsCrossFilter.dimension(function(d) {return d.county+"/"+d.uf;});
 		this.dimensions["class"] = this.alertsCrossFilter.dimension(function(d) {return d.className;});
@@ -851,7 +851,7 @@ var graph={
 
 		let downloadCsvFnc=function(inpudata) {
 	    	utils.download=function(data) {
-						var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
+				var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
 		        saveAs(blob, downloadCtrl.getProject()+'-daily-'+downloadCtrl.getDownloadTime()+'.csv');
 	    	};
 	    	window.setTimeout(function() {
@@ -860,13 +860,14 @@ var graph={
 		    		var o={};
 		    		var dt = new Date(d.timestamp);
 		    		o.viewDate = dt.toLocaleDateString();
-				    o.areaMunKm = parseFloat(d.areaKm.toFixed(4));
-			    	o.areaUcKm = parseFloat(d.areaUcKm.toFixed(4));
+				    o.areaMunKm = d.areaKm;
+			    	o.areaUcKm = d.areaUcKm;
 				    o.uc = ((d.uc!='null')?(d.uc):(''));
 				    o.uf = d.uf;
 				    o.municipio = d.county;
 					o.geocod = d.codIbge;
-				    data.push(o);
+					o.className = d.className;
+				    if(d.areaKm) data.push(o);
 				});
 		    	utils.download(data);
 	    	}, 200);
@@ -874,7 +875,7 @@ var graph={
 
 		// build download data
 		d3.select('#download-csv-daily-all')
-	    .on('click', function() {let inpudata=graph.jsonData; downloadCsvFnc(inpudata);});
+	    .on('click', function() {let inpudata=graph.rawData; downloadCsvFnc(inpudata);});
 
 		d3.select('#download-csv-daily')
 	    .on('click', function() {let inpudata=graph.dimensions["class"].top(Infinity); downloadCsvFnc(inpudata);});
