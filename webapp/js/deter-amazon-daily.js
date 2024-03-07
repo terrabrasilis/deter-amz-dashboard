@@ -375,6 +375,7 @@ var graph={
 		this.alertsCrossFilter = crossfilter(this.rawData);
 		this.dimensions["area"] = this.alertsCrossFilter.dimension(function(d) {return d.areaKm;});
 		this.dimensions["county"] = this.alertsCrossFilter.dimension(function(d) {return d.county+"/"+d.uf;});
+		this.dimensions["codibge"] = this.alertsCrossFilter.dimension(function(d) {return {codibge:d.codIbge,mun:d.county+"/"+d.uf};});
 		this.dimensions["class"] = this.alertsCrossFilter.dimension(function(d) {return d.className;});
 		this.dimensions["date"] = this.alertsCrossFilter.dimension(function(d) {return d.timestamp;});
 		this.dimensions["uf"] = this.alertsCrossFilter.dimension(function(d) {return d.uf;});

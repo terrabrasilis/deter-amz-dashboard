@@ -44,10 +44,10 @@ var SearchEngine = {
                     '</div>'+
                     '<div class="modal-body">'+
                         '<span id="txt1g">Encontre um município.</span>'+
-                        '<div class="input-group input-group-sm" style="margin-bottom: 15px;">'+
+                        '<div class="input-group input-group-sm search-form">'+
                             '<input autofocus id="search-county" onkeypress="SearchEngine.searchCountyByEnterKey(event)" type="text" class="form-control" placeholder="Search">'+
                             '<label>'+
-                                '<button class="btn btngreen" data-dismiss="modal" onclick="SearchEngine.searchCounty()" style="padding:0px;"><i class="material-icons">search</i></button>'+
+                                '<button class="btn btngreen btnsearch" onclick="SearchEngine.searchCounty()"><i class="material-icons">search</i></button>'+
                             '</label>'+
                         '</div>'+
                         '<span id="txt1h" style="display:none;">Selecione um item na lista de municípios encontrados.</span>'+
@@ -159,4 +159,20 @@ var SearchEngine = {
 			dc.redrawAll();
 		}
 	},
+    loadMunicipalityList: function() {
+        /**
+         * Used to read the JSON data as a municipality list from backend
+         */
+
+    },
+    selectByList: function(){
+        /**
+         * Used to filter the municipalities from the ibge code as municipality list
+         * and apply as filter on panel.
+         */
+        // used to apply the priority municipalities filter
+        let filtered=graph.dimensions["codibge"].filterFunction(function(d) { return d.codibge == '1300409'; });
+		let groups_codibge = filtered.group().reduceCount(function(d) {return d.codIbge;});
+        
+    }
 }

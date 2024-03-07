@@ -246,7 +246,7 @@ div .dc-chart {
 }
 .main-chart-bar .form-group {
 	margin-bottom: 0.3rem;
-  margin-top: 0.3rem;
+	margin-top: 0.3rem;
 }
 .main-chart-bar-p1{
 	width: 0px; text-align: initial;
@@ -260,4 +260,17 @@ div .dc-chart {
 	padding-bottom: 5px;
 	padding-top: 5px;
 	margin-left: 5px;
+}
+.search-form{
+	display: flex;
+	width: 80%;
+	margin-bottom: 15px;
+}
+.btnsearch{
+    height: 31px;
+    width: 38px;
+	padding:0px;
+}
+.btnsearch i{
+	vertical-align: text-top;
 }
