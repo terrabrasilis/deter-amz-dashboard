@@ -80,17 +80,17 @@ var graph={
 			graph.displayWaiting();
 			var configDashboard={defaultDataDimension:'area', resizeTimeout:0, minWidth:250, dataConfig:cfg};
 			var dataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/all_daily";
-			if(downloadCtrl.isLocalhost()) dataUrl = "./data/deter-amazon-daily.csv";// to use in localhost run the curl_get_json.sh in data dir
-			var afterLoadData=function(csv) {
+			if(downloadCtrl.isLocalhost()) dataUrl = "./data/deter-amazon-daily.json";// to use in localhost run the curl_get_json.sh in data dir
+			var afterLoadData=function(json) {
 				Lang.apply();
-				if(!csv) {
+				if(!json || !json.features) {
 					graph.displayWarning(true);
 				}else{
-					graph.setUpdatedDate();
-					graph.init(configDashboard, csv);
+					graph.setUpdatedDate(json.updated_date);
+					graph.init(configDashboard, json.features);
 				}
 			};
-			d3.csv(dataUrl)
+			d3.json(dataUrl)
 			.header("Authorization", "Bearer "+((typeof Authentication!="undefined")?(Authentication.getToken()):("")) )
 			.get(function(error, body) {
 				if(error && error.status==401) {
@@ -106,13 +106,18 @@ var graph={
 		d3.json("./config/deter-amazon-daily.json", afterLoadConfiguration);
 	},
 
-	setUpdatedDate: function() {
-		let layer_name=(typeof Authentication!="undefined"&&Authentication.hasToken())?("last_date"):("updated_date");
-		let url="http://terrabrasilis.dpi.inpe.br/geoserver/"+downloadCtrl.getProject()+"/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+layer_name+"&OUTPUTFORMAT=application%2Fjson";
-		d3.json(url, function(jsonResponse){
-			let dt=((jsonResponse&&jsonResponse.features[0].properties)?( (new Date(jsonResponse.features[0].properties.updated_date+'T21:00:00.000Z')).toLocaleDateString(Lang.language) ):('?') );
-			d3.select("#updated_date").html(' '+dt);
-		});
+	setUpdatedDate: function(updated_date) {
+		if(typeof updated_date!="undefined") {
+			d3.select("#updated_date").html(' '+(new Date(updated_date+'T21:00:00.000Z')).toLocaleDateString(Lang.language));
+		}
+		else{
+			let layer_name=(typeof Authentication!="undefined"&&Authentication.hasToken())?("last_date"):("updated_date");
+			let url="http://terrabrasilis.dpi.inpe.br/geoserver/"+downloadCtrl.getProject()+"/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+layer_name+"&OUTPUTFORMAT=application%2Fjson";
+			d3.json(url, function(jsonResponse){
+				let dt=((jsonResponse&&jsonResponse.features[0].properties)?( (new Date(jsonResponse.features[0].properties.updated_date+'T21:00:00.000Z')).toLocaleDateString(Lang.language) ):('?') );
+				d3.select("#updated_date").html(' '+dt);
+			});
+		}
 	},
 
 	displayWaitingChanges: function(enable) {
@@ -348,7 +353,8 @@ var graph={
 		var numberFormat = d3.format('.2f');
 		var json=[];
 		// normalize/parse data
-		this.rawData.forEach(function(d) {
+		this.rawData.forEach(function(rd) {
+			d=rd.properties;
 			var o={uf:d.h,county:d.i,codIbge:d.b};
 			o.uc = (d.j)?(d.j):('null');
 			var auxDate = new Date(d.g + 'T04:00:00.000Z');
