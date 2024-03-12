@@ -26,7 +26,17 @@ var Translation={
 		'txt4p':'Imprimir Gráficos',
 		'txt4s':'Imprimir Gráficos',
 		'downloadBtn':'Baixar os dados em formato CSV.',
-		'txt5':'Imprimir',
+		'txt5':'Municípios prioritários',
+		'txt5t':'Seleção de Municípios Prioritários',
+		'txt5b':'A lista dos municípios prioritários definidos por lei e atualizados todos os anos.<br />'+
+		'Sobre a seleção automática dos Municípios prioritários:<br />'+
+		'&nbsp;&nbsp;&nbsp;- A seleção irá configurar o painel para apresentar os dados apenas dos Municípios prioritários;<br />'+
+		'&nbsp;&nbsp;&nbsp;- O critério de ordenação dos Municípios prioritários será pelo valor decrescente de área ou número de alertas;<br />'+
+		'&nbsp;&nbsp;&nbsp;- ...<br />',
+		'txt5bt1':'Aplicar',
+		'txt5bt2':'Fechar',
+		'ttapply':'Aplicar o filtro de municípios prioritários no painel.',
+		'ttclose':'Desistir de aplicar o filtro de municípios prioritários no painel.',
 		'txt6':'Escurecer/clarear',
 		'txt7':'Entrar',
 		'txt8':'Problema na comunicação com o servidor.<br>Aguarde alguns minutos e recarregue a página.',
@@ -176,7 +186,19 @@ var Translation={
 		'txt4p':'Print Graphs',
 		'txt4s':'Print Graphs',
 		'downloadBtn':'Download data in CSV format.',
-		'txt5':'Print',
+		'txt5':'Priority Municipalities',
+		'txt5t':'Priority Municipalities Selection',
+		
+		'txt5b':'A lista dos municípios prioritários definidos por lei e atualizados todos os anos.<br />'+
+		'Sobre a seleção automática dos Municípios prioritários:<br />'+
+		'&nbsp;&nbsp;&nbsp;- A seleção irá configurar o painel para apresentar os dados apenas dos Municípios prioritários;<br />'+
+		'&nbsp;&nbsp;&nbsp;- O critério de ordenação dos Municípios prioritários será pelo valor decrescente de área ou número de alertas;<br />'+
+		'&nbsp;&nbsp;&nbsp;- ...<br />',
+		'txt5bt1':'Apply',
+		'txt5bt2':'Close',
+		'ttapply':'Aplicar o filtro de municípios prioritários no painel.',
+		'ttclose':'Desistir de aplicar o filtro de municípios prioritários no painel.',
+		
 		'txt6':'Darken/Enlighten',
 		'txt7':'Login',
 		'txt8':'Failure on loading data from server.<br>Try reload after some minutes.',

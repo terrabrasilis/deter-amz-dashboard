@@ -52,6 +52,7 @@ var SearchEngine = {
                         '</div>'+
                         '<span id="txt1h" style="display:none;">Selecione um item na lista de municípios encontrados.</span>'+
                         '<div class="counties-list"><ul id="filtered-list"></ul></div>'+
+                        '<span id="txt1w" style="display:none; color: red;">* Municípios sem valor a apresentar. Área ou número de alertas é zero.</span>'+
                     '</div>'+
                     '<div class="modal-footer">'+
                         '<div class="checkbox pull-right">'+
@@ -89,11 +90,14 @@ var SearchEngine = {
         }
     },
     showFilteredItems: function(r) {
-        (r.length==0)?($('#txt1h').hide()):($('#txt1h').show());
+        (r.length==0)?($('#txt1h').hide() && $('#txt1w').hide()):($('#txt1h').show() && $('#txt1w').show());
         document.getElementById("filtered-list").innerHTML=(r.length==0)?(Translation[Lang.language].not_found):("");
         r.forEach(function(o){
             var m=o.key.replace("'","´");
-            document.getElementById("filtered-list").innerHTML+="<li><a href=\"javascript:SearchEngine.selectedItem('"+m+"',"+o.value+");\">"+m+"</a></li>";
+            if(o.value)
+                document.getElementById("filtered-list").innerHTML+="<li><a href=\"javascript:SearchEngine.selectedItem('"+m+"',"+o.value+");\">"+m+"</a></li>";
+            else
+                document.getElementById("filtered-list").innerHTML+="<li>"+m+" <span style='color: red;'>*</span></li>";
         });
         $('#modal-container-filtered').modal('show');
     },
@@ -121,8 +125,11 @@ var SearchEngine = {
 		})
 		return found;
     },
-    applyCountyFilter: function(d){
-		if(!d || !d.length) {
+    applyCountyFilter: function(d, multiselection){
+        multiselection=( (typeof multiselection=='undefined')?(false):(true) );
+
+		if(!multiselection && (!d || !d.length)){
+            // used to reset data function when reset all filter was called
 			this.top10ByMunChartReference.data(function (group) {
 				var fakeGroup=[];
 				fakeGroup.push({key:Translation[Lang.language].no_value,value:0});
@@ -131,8 +138,9 @@ var SearchEngine = {
 		}else{
 			this.top10ByMunChartReference.data(function (group) {
 				var filteredGroup=[], index,allItems=group.top(Infinity);
+                let dkey=( (multiselection)?(d[0][d[0].length-1]):(d[d.length-1].key) );
 				allItems.findIndex(function(item,i){
-					if(item.key==d[0].key){
+					if(item.key==dkey){
 						index=i;
 						filteredGroup.push({key:item.key,value:item.value});
 					}
@@ -152,27 +160,58 @@ var SearchEngine = {
 				return filteredGroup;
 			});
 			// -----------------------------------------------------------------
-			// enable this line if you want to clean municipalities of the previous selections.
-			//this.top10ByMunChartReference.filterAll();
-			// -----------------------------------------------------------------
-			this.top10ByMunChartReference.filter(d[0].key);
-			dc.redrawAll();
+			// to clean municipalities of the previous selections.
+			if(multiselection){
+                this.top10ByMunChartReference.filterAll();
+
+                d[0].forEach((f)=>{
+                    SearchEngine.top10ByMunChartReference.filter(f);
+                });
+            }else{
+                this.top10ByMunChartReference.filter(d[d.length-1].key);
+            }
+            dc.redrawAll();
 		}
 	},
     loadMunicipalityList: function() {
         /**
          * Used to read the JSON data as a municipality list from backend
          */
+        let url=downloadCtrl.getTerraBrasilisHref()+"/geoserver/prodes-brasil-nb/ows?OUTPUTFORMAT=application/json&SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&exceptions=text/xml&srsName=EPSG:4326&TYPENAME=prodes-brasil-nb:priority_municipalities";
+        let responseJson=function(error, body) {
+            if(error) {
+                console.log(error.status);
+            }else{
+                SearchEngine.selectByList(body);
+            }
+        };
+        d3.json(url, responseJson);
 
     },
-    selectByList: function(){
+    selectByList: function(munlist){
         /**
          * Used to filter the municipalities from the ibge code as municipality list
          * and apply as filter on panel.
          */
         // used to apply the priority municipalities filter
-        let filtered=graph.dimensions["codibge"].filterFunction(function(d) { return d.codibge == '1300409'; });
-		let groups_codibge = filtered.group().reduceCount(function(d) {return d.codIbge;});
-        
+        let codes=munlist.features[0].properties.codes.split(',');
+        let allMun=SearchEngine.munGroup.all();
+        // multiselection filter
+        let msf=[];
+        codes.forEach(function(mun){
+            let filtered=graph.dimensions["codibge"].filterFunction(function(d) { return d.codibge == mun; });
+            if(filtered.top(1).length){
+                let r=filtered.top(1);
+                let found=allMun.find( (mg)=>{
+                    return (mg.key.toLowerCase()==(r[0].county+"/"+r[0].uf).toLowerCase());
+                } );
+                if (typeof found!='undefined' && found.value)
+                    msf.push(found.key);
+            }
+        });
+        graph.dimensions["codibge"].filterAll();
+        window.setTimeout(()=>{
+            SearchEngine.applyCountyFilter([msf], true);
+        },100);
     }
 }
