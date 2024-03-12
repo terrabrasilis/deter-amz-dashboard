@@ -164,6 +164,8 @@ div .dc-chart {
 	font-weight: bold;
 	font-size: 10px;
     text-align: initial;
+	height: 30px;
+    overflow-y: auto;
 }
 .keep-space{
 	position: relative;

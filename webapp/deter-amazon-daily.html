@@ -99,6 +99,11 @@
 						<span id="tools">Ferramentas</span></a>
 				</li>
 				<li>
+					<a href="#modal-container-pm" id="munPriorityBtn" data-toggle="modal"
+						title="Selecionar os municípios prioritários do ano corrente.">
+						<i class="material-icons">check_box</i><span id="txt5">Municípios prioritários</span></a>
+				</li>
+				<li>
 					<a href="#modal-container-download" id="downloadBtn" data-toggle="modal"
 						title="Baixar a tabela de avisos de desmatamento.">
 						<i class="material-icons">cloud_download</i><span id="txt4">Baixar Dados</span></a>
@@ -733,6 +738,55 @@
 				</div>
 				<!-- / modal -->
 
+
+				<!-- Start of priority municipalities modal -->
+				<div class="modal fade" id="modal-container-pm">
+					<div class="modal-dialog">
+						<div class="modal-content modalinf">
+							<div class="modal-header fechar">
+								<h5 class="modal-title boxtitletable"> <span id="txt5t">Municípios prioritários</span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">clear</i>
+								</button>
+							</div>
+							<!-- / modal-header -->
+							<div class="modal-body ">
+								<div class="alert alert-success" role="alert"> <span id="txt5b">
+
+										A lista dos municípios prioritários definidos por lei e atualizados todos os anos.<br />
+										Sobre a seleção automática dos Municípios prioritários:<br />
+										&nbsp;&nbsp;&nbsp;- A seleção irá configurar o painel para apresentar os dados apenas dos Municípios prioritários;<br />
+										&nbsp;&nbsp;&nbsp;- O critério de ordenação dos Municípios prioritários será pelo valor decrescente de área ou número de alertas;<br />
+										&nbsp;&nbsp;&nbsp;- ...<br />
+									</span>
+								</div>
+
+							</div>
+
+							<!-- / modal-body -->
+							<div class="modal-footer">
+								<div class="checkbox pull-right">
+									<label>
+										<button type="button" class="btn btngreen" data-dismiss="modal" id="ttapply"
+											style="color: #fff;" title="Selecionar municípios prioritários" onclick="SearchEngine.loadMunicipalityList()">
+											<span id="txt5bt1">Aplicar</span>
+										</button>
+										<button type="button" class="btn btngreen" data-dismiss="modal" id="ttclose"
+											style="color: #fff;" title="Desistir da seleção de municípios prioritários">
+											<span id="txt5bt2">Fechar</span>
+										</button>
+									</label>
+								</div>
+								<!--/ checkbox -->
+							</div>
+							<!--/ modal-footer -->
+						</div>
+						<!-- / modal-content -->
+					</div>
+					<!--/ modal-dialog -->
+				</div>
+				<!-- / end of priority municipalities modal -->
+
 				<!-- modal window with an introductory video of this panel -->
 				<div class="modal fade" id="modal-container-video">
 					<div class="modal-dialog">
@@ -890,7 +944,7 @@
 	<script type="text/javascript" src="./js/deter-amazon-change-lang.min.js"></script>
 	<script type="text/javascript" src="./js/deter-amazon-daily-utils.min.js"></script>
 	<script type="text/javascript" src="./js/deter-amazon-daily.min.js"></script>
-	<script type="text/javascript" src="./js/mun-search-engine.js"></script>
+	<script type="text/javascript" src="./js/mun-search-engine.min.js"></script>
 	<script type="text/javascript" src="./js/easy-cookie.min.js"></script>
 	<script type="text/javascript" src="./js/downloadSHP.min.js"></script>
 	<script type="text/javascript" src="/oauth-api/getoauthjs"></script>
