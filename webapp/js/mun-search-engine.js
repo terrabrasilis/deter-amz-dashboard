@@ -163,10 +163,7 @@ var SearchEngine = {
 			// to clean municipalities of the previous selections.
 			if(multiselection){
                 this.top10ByMunChartReference.filterAll();
-
-                d[0].forEach((f)=>{
-                    SearchEngine.top10ByMunChartReference.filter(f);
-                });
+                SearchEngine.top10ByMunChartReference.filter(d);
             }else{
                 this.top10ByMunChartReference.filter(d[d.length-1].key);
             }
