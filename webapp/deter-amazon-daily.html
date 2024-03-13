@@ -34,6 +34,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/deter-print.min.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="./css/terrabrasilis.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/deter-amazon-common.min.css" />
+
 </head>
 
 <body>
@@ -99,8 +100,8 @@
 						<span id="tools">Ferramentas</span></a>
 				</li>
 				<li>
-					<a href="#modal-container-pm" id="munPriorityBtn" data-toggle="modal"
-						title="Selecionar os municípios prioritários do ano corrente.">
+					<a href="#modal-container-filtered" id="munPriorityBtn" data-toggle="modal"
+						title="Selecionar os municípios prioritários do ano corrente." onclick="SearchEngine.setPriorityMode()">
 						<i class="material-icons">check_box</i><span id="txt5">Municípios prioritários</span></a>
 				</li>
 				<li>
@@ -416,9 +417,9 @@
 
 							<div style="position:relative;">
 								<div id="title-chart-counties" class="all-charts-title boxtitle"></div>
-								<a href="#modal-container-filtered" role="button" data-toggle="modal" class="search-mun boxsearch">
-									<span aria-hidden="true" id="txt33" title="Procurar um município."><i class="material-icons"
-											style="color:gray">pageview</i></span>
+								<a href="#modal-container-filtered" role="button" data-toggle="modal" class="search-mun boxsearch" onclick="SearchEngine.showContextMuns()">
+									<span aria-hidden="true" id="txt33" title="Procurar um município.">
+										<i class="material-icons" style="color:gray">pageview</i></span>
 								</a>
 							</div>
 							<div class="keep-space">
@@ -768,7 +769,7 @@
 								<div class="checkbox pull-right">
 									<label>
 										<button type="button" class="btn btngreen" data-dismiss="modal" id="ttapply"
-											style="color: #fff;" title="Selecionar municípios prioritários" onclick="SearchEngine.loadMunicipalityList()">
+											style="color: #fff;" title="Selecionar municípios prioritários" onclick="SearchEngine.loadPriorityMunicipalityList()">
 											<span id="txt5bt1">Aplicar</span>
 										</button>
 										<button type="button" class="btn btngreen" data-dismiss="modal" id="ttclose"
@@ -935,6 +936,7 @@
 	<script type="text/javascript" src="./libs/datepicker/5.39.0/tempusdominus-bootstrap-4.min.js"></script>
 	<script type="text/javascript" src="./libs/bootstrap/bootstrap-4.1.3.min.js"></script>
 	<script type="text/javascript" src="./libs/popper/1.14.3/popper.min.js"></script>
+	
 	<!-- jQuery Custom Scroller -->
 	<script type="text/javascript" src="./libs/jquery/plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<!-- worked to minify / using to minify: https://www.minifier.org/ -->

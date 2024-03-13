@@ -20,6 +20,11 @@ var SearchEngine = {
     top10ByMunChartReference: null,
     stateChartReference: null,
     munGroup: null,
+    msf_ui:[], // multiselection itens to display on UI
+    msf:[], // multiselection filter
+    msf_pm:[], // used as complete priority municipalities list
+    msf_all:[], // used as complete list to search function
+    enableCtl: false,
 
     /**
      * @param munChart is the reference to dcjs chart object for top 10 municipality.
@@ -43,23 +48,38 @@ var SearchEngine = {
                         '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>'+
                     '</div>'+
                     '<div class="modal-body">'+
-                        '<span id="txt1g">Encontre um município.</span>'+
+                        '<span class="txtgreen" id="txt1tg">Filtrar por Municípios Prioritários </span>'+    
+                        '<input type="checkbox" id="btnPriorityMun" onclick="SearchEngine.showContextMuns()"><br/>'+
+
+                        // '<span class="txtgreen" id="txt1g">Digite um termo para pesquisa.</span>'+
                         '<div class="input-group input-group-sm search-form">'+
                             '<input autofocus id="search-county" onkeypress="SearchEngine.searchCountyByEnterKey(event)" type="text" class="form-control" placeholder="Search">'+
                             '<label>'+
-                                '<button class="btn btngreen btnsearch" onclick="SearchEngine.searchCounty()"><i class="material-icons">search</i></button>'+
+                                '<button class="btn btngreen btnsearch" onclick="SearchEngine.search()"><i class="material-icons">search</i></button>'+
                             '</label>'+
                         '</div>'+
-                        '<span id="txt1h" style="display:none;">Selecione um item na lista de municípios encontrados.</span>'+
+                        '<div id="selectool" style="display:none;">'+
+                            '<input type="checkbox" id="btnSelectool" onclick="SearchEngine.enableDisableAll()">'+
+                            '<span class="txtgreen" id="txt1h"> Marcar/desmarcar todos ou selecione item a item na lista.</span>'+
+                        '</div>'+
                         '<div class="counties-list"><ul id="filtered-list"></ul></div>'+
-                        '<span id="txt1w" style="display:none; color: red;">* Municípios sem valor a apresentar. Área ou número de alertas é zero.</span>'+
+                        '<div id="missing_area" style="display:none;">'+
+                            '<br/><span style="color: red;">*</span>'+
+                            '<span id="txt1w" class="disable-li"> Municípios sem valor a apresentar. Área ou número de alertas é zero.</span>'+
+                        '</div>'+    
                     '</div>'+
                     '<div class="modal-footer">'+
                         '<div class="checkbox pull-right">'+
                             '<label>'+
+                                '<button type="button" class="btn btngreen" onclick="SearchEngine.selectPriorityMuns();">'+
+                                    '<span id="txt1p">Aplicar</span>'+
+                                '</button>'+
+                            '</label>'+
+                            '&nbsp;'+
+                            '<label>'+
                                 '<button type="button" class="btn btngreen" data-dismiss="modal">'+
-                                '<span id="txt1i">Fechar</span>'+
-                            '</button>'+
+                                    '<span id="txt1i">Fechar</span>'+
+                                '</button>'+
                             '</label>'+
                         '</div>'+
                     '</div>'+
@@ -70,41 +90,113 @@ var SearchEngine = {
         $('#'+idModal).html(modalHTML);
 
     },
+
+    enableDisableAll: function(){
+        SearchEngine.enableCtl=!SearchEngine.enableCtl;
+        let fl=$('#filtered-list li');
+        if(fl.length){
+            fl.each((i,li)=>{
+                li.className=(SearchEngine.enableCtl)?('enable-li'):('');
+            });
+        }
+
+        SearchEngine.msf=[];// reset multiselection filter
+        if(SearchEngine.enableCtl && SearchEngine.msf_ui.length){
+            SearchEngine.msf_ui.forEach( (item)=>{
+                SearchEngine.msf.push(item.key);
+            });
+        }
+    },
+
+    enableDisableItem: function(id){
+        let li=$('#idmun_'+id);
+        if(!li.length) return;
+        li=li[0];
+        li.className=(li.className=='')?('enable-li'):('');
+
+        if(li.className==''){
+            // to be remove from the selected list, if any
+            if(SearchEngine.msf.length){
+                let ids=SearchEngine.msf.findIndex((it)=>{
+                    return it==SearchEngine.msf_ui[id].key;
+                });
+                SearchEngine.msf.splice(ids, 1);
+            }
+
+        }else{
+            // to be add from the selected list
+            SearchEngine.msf.push(SearchEngine.msf_ui[id].key);
+        }
+    },
+
     searchCountyByEnterKey: function(key){
         if(key.keyCode==13){
-            SearchEngine.searchCounty();
+            SearchEngine.search();
         }
         return key;
     },
-    searchCounty:function(){
-        var r=SearchEngine.findInArray(this.munGroup.all(), $('#search-county')[0].value);
-        // filter with previously selected states.
-        if(r.length>0 && this.stateChartReference.hasFilter()){
-            r=SearchEngine.findUsingStates(r, this.stateChartReference.filters());
-        }
-        // display results, if find only one result then hide modal and apply result directly
-        if(r.length==1) {
-            SearchEngine.selectedItem(r[0].key,r[0].value);
+    preSearchFromPriority: function(munlist){
+        /**
+         * Used to filter the municipalities from the ibge code as municipality list
+         * and display as list on search window.
+         */
+        let codes=munlist.features[0].properties.codes.split(',');
+        if (SearchEngine.msf_pm.length){
+            SearchEngine.msf_ui=SearchEngine.msf_pm;
         }else{
-            this.showFilteredItems(r);
+            let allMun=this.munGroup.all();
+            this.msf_ui=[];// reset multiselection list to display
+            codes.forEach(function(mun){
+                let filtered=graph.dimensions["codibge"].filterFunction(function(d) { return d.codibge == mun; });
+                if(filtered.top(1).length){
+                    let r=filtered.top(1);
+                    let found=allMun.find( (mg)=>{
+                        return (mg.key.toLowerCase()==(r[0].county+"/"+r[0].uf).toLowerCase());
+                    } );
+                    if (typeof found!='undefined'){
+                        SearchEngine.msf_ui.push({key:found.key,value:found.value});
+                    }
+                }
+            });
+            SearchEngine.msf_ui.sort((a,b)=>{
+                return a.key.toLowerCase() > b.key.toLowerCase() ? 1 : -1
+            });
+            SearchEngine.msf_pm=SearchEngine.msf_ui;
+            graph.dimensions["codibge"].filterAll();
         }
+        SearchEngine.msf_all=SearchEngine.msf_pm;
+        this.showFilteredItems();
     },
-    showFilteredItems: function(r) {
-        (r.length==0)?($('#txt1h').hide() && $('#txt1w').hide()):($('#txt1h').show() && $('#txt1w').show());
-        document.getElementById("filtered-list").innerHTML=(r.length==0)?(Translation[Lang.language].not_found):("");
-        r.forEach(function(o){
+
+    search: function(){
+        var r=SearchEngine.findInArray(SearchEngine.msf_all, $('#search-county')[0].value);
+        // filter with previously selected states.
+        if(r.length>0){
+            this.msf_ui=r;
+        }else{
+            this.msf_ui=[]; //reset ui list
+        }
+
+        this.showFilteredItems();
+    },
+
+    showFilteredItems: function() {
+        $('#missing_area').hide();
+        (this.msf_ui.length==0)?($('#selectool').hide()):($('#selectool').show());
+        document.getElementById("filtered-list").innerHTML=(this.msf_ui.length==0)?(Translation[Lang.language].without):("");
+        this.msf_ui.forEach(function(o,id){
             var m=o.key.replace("'","´");
-            if(o.value)
-                document.getElementById("filtered-list").innerHTML+="<li><a href=\"javascript:SearchEngine.selectedItem('"+m+"',"+o.value+");\">"+m+"</a></li>";
-            else
-                document.getElementById("filtered-list").innerHTML+="<li>"+m+" <span style='color: red;'>*</span></li>";
+            let clazz=(( SearchEngine.msf.includes(o.key) )?('enable-li'):(''));
+            if(o.value){
+                document.getElementById("filtered-list").innerHTML+="<li id='idmun_"+id+"' class='"+clazz+"'><a href=\"javascript:SearchEngine.enableDisableItem('"+id+"');\">"+(id+1)+": "+m+"</a></li>";
+            }else{
+                $('#missing_area').show();
+                document.getElementById("filtered-list").innerHTML+="<li id='idmun_"+id+"' class='disable-li'>"+(id+1)+": "+m+" <span style='color: red;'>*</span></li>";
+            }
         });
         $('#modal-container-filtered').modal('show');
     },
-    selectedItem: function(key,value) {
-		$('#modal-container-filtered').modal('hide');
-		SearchEngine.applyCountyFilter([{key:key.replace("´","'"),value:value}]);
-	},
+    
     /**
 	 * anArray contains the array of objects gathering from crossfilter group.
 	 * substring is string that you want
@@ -135,6 +227,8 @@ var SearchEngine = {
 				fakeGroup.push({key:Translation[Lang.language].no_value,value:0});
 				return (group.all().length>0)?(group.top(10)):(fakeGroup);
 			});
+            this.top10ByMunChartReference.filterAll();
+            this.msf=[];//reset selected list
 		}else{
 			this.top10ByMunChartReference.data(function (group) {
 				var filteredGroup=[], index,allItems=group.top(Infinity);
@@ -167,48 +261,96 @@ var SearchEngine = {
             }else{
                 this.top10ByMunChartReference.filter(d[d.length-1].key);
             }
-            dc.redrawAll();
 		}
+        dc.redrawAll();
 	},
-    loadMunicipalityList: function() {
+    loadPriorityMunicipalityList: function() {
         /**
          * Used to read the JSON data as a municipality list from backend
          */
-        let url=downloadCtrl.getTerraBrasilisHref()+"/geoserver/prodes-brasil-nb/ows?OUTPUTFORMAT=application/json&SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&exceptions=text/xml&srsName=EPSG:4326&TYPENAME=prodes-brasil-nb:priority_municipalities";
-        let responseJson=function(error, body) {
-            if(error) {
-                console.log(error.status);
-            }else{
-                SearchEngine.selectByList(body);
-            }
-        };
-        d3.json(url, responseJson);
+        let priorityMunData=sessionStorage.getItem("priorityMunData");
+        if(priorityMunData){
+            priorityMunData=JSON.parse(priorityMunData);
+            SearchEngine.preSearchFromPriority(priorityMunData);
+        }else{
 
+            let url=downloadCtrl.getTerraBrasilisHref()+"/geoserver/prodes-brasil-nb/ows?OUTPUTFORMAT=application/json&SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&exceptions=text/xml&srsName=EPSG:4326&TYPENAME=prodes-brasil-nb:priority_municipalities";
+            let responseJson=function(error, body) {
+                if(error) {
+                    console.log(error.status);
+                    document.getElementById("filtered-list").innerHTML="<li><span>"+Translation[Lang.language].without+"</span></li>";
+                }else{
+                    sessionStorage.setItem("priorityMunData", JSON.stringify(body));
+                    SearchEngine.preSearchFromPriority(body);
+                }
+            };
+            d3.json(url, responseJson);
+        }
     },
-    selectByList: function(munlist){
-        /**
-         * Used to filter the municipalities from the ibge code as municipality list
-         * and apply as filter on panel.
-         */
-        // used to apply the priority municipalities filter
-        let codes=munlist.features[0].properties.codes.split(',');
-        let allMun=SearchEngine.munGroup.all();
-        // multiselection filter
-        let msf=[];
-        codes.forEach(function(mun){
-            let filtered=graph.dimensions["codibge"].filterFunction(function(d) { return d.codibge == mun; });
-            if(filtered.top(1).length){
-                let r=filtered.top(1);
-                let found=allMun.find( (mg)=>{
-                    return (mg.key.toLowerCase()==(r[0].county+"/"+r[0].uf).toLowerCase());
-                } );
-                if (typeof found!='undefined' && found.value)
-                    msf.push(found.key);
-            }
+
+    showAllMunicipalityList: function() {
+        // clean UI list
+        document.getElementById("filtered-list").innerHTML="";
+        let allMun=this.munGroup.all();
+        this.msf_ui=[];// reset multiselection list to display
+        allMun.forEach( (mg)=>{
+            SearchEngine.msf_ui.push({key:mg.key,value:mg.value});
         });
-        graph.dimensions["codibge"].filterAll();
-        window.setTimeout(()=>{
-            SearchEngine.applyCountyFilter([msf], true);
-        },100);
+        SearchEngine.msf_all=SearchEngine.msf_ui;
+        this.showFilteredItems();
+    },
+
+    selectPriorityMuns: function() {
+        if(SearchEngine.msf.length){
+            SearchEngine.applyCountyFilter([SearchEngine.msf], true);
+            $('#modal-container-filtered').modal('hide');
+        }else{
+            // no have selected data
+            SearchEngine.applyCountyFilter();
+        }
+    },
+
+    setPriorityMode: function(){
+        /** Called from the main window menu option */
+        $('#btnPriorityMun')[0].checked=true;
+        this.showContextMuns();
+    },
+
+    showContextMuns: function(){
+        /** Called from the search window, priority municipalities pre-selection button. */
+        $('#search-county')[0].value="";// reset search box
+        
+
+        if($('#btnPriorityMun')[0].checked){
+            this.loadPriorityMunicipalityList();
+        }else{
+            this.showAllMunicipalityList();
+        }
+    },
+
+    updateSelectedList: function() {
+        /**
+         * Used to sync the selected itens on chart with selected list on search UI.
+         * It's called from filtered event over chart.
+         */
+        if(SearchEngine.top10ByMunChartReference.hasFilter()){
+            let sfc=SearchEngine.top10ByMunChartReference.filters();// selection from chart
+            if(sfc.length){
+                // to be add from the select on chart
+                sfc.forEach((o)=>{
+                    if(!SearchEngine.msf.includes(o))
+                        SearchEngine.msf.push(o);
+                });
+            }
+            if(SearchEngine.msf.length){
+                // to be remove from the remove on chart
+                SearchEngine.msf.forEach((o,i)=>{
+                    if(!sfc.includes(o))
+                        SearchEngine.msf.splice(i,1);
+                });
+            }
+        }else{
+            SearchEngine.msf=[];
+        }
     }
 }

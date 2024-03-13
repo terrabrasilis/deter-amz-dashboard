@@ -633,6 +633,7 @@ var graph={
 
 		this.histTopByCounties.on('filtered', function(chart) {
 			graph.displayCustomValues();
+			SearchEngine.updateSelectedList();
 		});
 
 		this.histTopByCounties

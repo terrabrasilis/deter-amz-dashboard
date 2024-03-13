@@ -276,3 +276,26 @@ div .dc-chart {
 .btnsearch i{
 	vertical-align: text-top;
 }
+.txtgreen {
+	text-align: left;
+    color: #00796b;
+    text-decoration: none;
+    font-size: 16px;
+}
+#filtered-list li{
+    display: table;
+    padding: 3px;
+	margin-bottom: 2px;
+	width: max-content;
+}
+.enable-li{
+	background-color: #98e7a2;
+}
+.disable-li{
+	background-color: #d1d3d1;
+	color: #333;
+}
+.counties-list{
+	height: 350px;
+    overflow-y: auto;
+}
