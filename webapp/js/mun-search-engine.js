@@ -34,7 +34,7 @@ var SearchEngine = {
     init: function(munChart, stateChart, idModal) {
         this.top10ByMunChartReference=munChart;
         this.stateChartReference=stateChart;
-        this.munGroup = this.top10ByMunChartReference.dimension().group().reduceCount(function(d) {return d;});
+        this.munGroup = this.top10ByMunChartReference.group().all();
         this.injectSearchModalWindow(idModal);
     },
     injectSearchModalWindow: function(idModal) {
@@ -144,7 +144,7 @@ var SearchEngine = {
         if (SearchEngine.msf_pm.length){
             SearchEngine.msf_ui=SearchEngine.msf_pm;
         }else{
-            let allMun=this.munGroup.all();
+            let allMun=this.munGroup;
             this.msf_ui=[];// reset multiselection list to display
             codes.forEach(function(mun){
                 let filtered=graph.dimensions["codibge"].filterFunction(function(d) { return d.codibge == mun; });
@@ -291,7 +291,7 @@ var SearchEngine = {
     showAllMunicipalityList: function() {
         // clean UI list
         document.getElementById("filtered-list").innerHTML="";
-        let allMun=this.munGroup.all();
+        let allMun=this.munGroup;
         this.msf_ui=[];// reset multiselection list to display
         allMun.forEach( (mg)=>{
             SearchEngine.msf_ui.push({key:mg.key,value:mg.value});
