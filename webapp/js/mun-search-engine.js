@@ -44,14 +44,12 @@ var SearchEngine = {
             '<div class="modal-dialog logo-card">'+
                 '<div class="modal-content modalinf">'+
                     '<div class="modal-header fechar">'+
-                        '<h5 class="modal-title boxtitletable"> <span id="txt1f">Pesquisa de municípios</span></h5>'+
+                        '<h5 class="modal-title boxtitletable"><span>'+Translation[Lang.language].txt1f+'</span></h5>'+
                         '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>'+
                     '</div>'+
                     '<div class="modal-body">'+
-                        '<span class="txtgreen" id="txt1tg">Filtrar por Municípios Prioritários </span>'+    
+                        '<span class="txtgreen">'+Translation[Lang.language].txt1tg+'</span>'+    
                         '<input type="checkbox" id="btnPriorityMun" onclick="SearchEngine.showContextMuns()"><br/>'+
-
-                        // '<span class="txtgreen" id="txt1g">Digite um termo para pesquisa.</span>'+
                         '<div class="input-group input-group-sm search-form">'+
                             '<input autofocus id="search-county" onkeypress="SearchEngine.searchCountyByEnterKey(event)" type="text" class="form-control" placeholder="Search">'+
                             '<label>'+
@@ -60,25 +58,25 @@ var SearchEngine = {
                         '</div>'+
                         '<div id="selectool" style="display:none;">'+
                             '<input type="checkbox" id="btnSelectool" onclick="SearchEngine.enableDisableAll()">'+
-                            '<span class="txtgreen" id="txt1h"> Marcar/desmarcar todos ou selecione item a item na lista.</span>'+
+                            '<span class="txtgreen"> '+Translation[Lang.language].txt1h+'</span>'+
                         '</div>'+
                         '<div class="counties-list"><ul id="filtered-list"></ul></div>'+
                         '<div id="missing_area" style="display:none;">'+
                             '<br/><span style="color: red;">*</span>'+
-                            '<span id="txt1w" class="disable-li"> Municípios sem valor a apresentar. Área ou número de alertas é zero.</span>'+
+                            '<span class="disable-li"> '+Translation[Lang.language].txt1w+'</span>'+
                         '</div>'+    
                     '</div>'+
                     '<div class="modal-footer">'+
                         '<div class="checkbox pull-right">'+
                             '<label>'+
                                 '<button type="button" class="btn btngreen" onclick="SearchEngine.selectPriorityMuns();">'+
-                                    '<span id="txt1p">Aplicar</span>'+
+                                    '<span>'+Translation[Lang.language].txt1p+'</span>'+
                                 '</button>'+
                             '</label>'+
                             '&nbsp;'+
                             '<label>'+
                                 '<button type="button" class="btn btngreen" data-dismiss="modal">'+
-                                    '<span id="txt1i">Fechar</span>'+
+                                    '<span>'+Translation[Lang.language].txt1i+'</span>'+
                                 '</button>'+
                             '</label>'+
                         '</div>'+
