@@ -112,7 +112,7 @@ var graph={
 		}
 		else{
 			let layer_name=(typeof Authentication!="undefined"&&Authentication.hasToken())?("last_date"):("updated_date");
-			let url="http://terrabrasilis.dpi.inpe.br/geoserver/"+downloadCtrl.getProject()+"/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+layer_name+"&OUTPUTFORMAT=application%2Fjson";
+			let url=downloadCtrl.getTerraBrasilisHref()+"/geoserver/"+downloadCtrl.getProject()+"/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME="+layer_name+"&OUTPUTFORMAT=application%2Fjson";
 			d3.json(url, function(jsonResponse){
 				let dt=((jsonResponse&&jsonResponse.features[0].properties)?( (new Date(jsonResponse.features[0].properties.updated_date+'T21:00:00.000Z')).toLocaleDateString(Lang.language) ):('?') );
 				d3.select("#updated_date").html(' '+dt);
@@ -302,6 +302,7 @@ var graph={
 		graph.ringTotalizedByState.filterAll();
 		graph.histTopByUCs.filterAll();
 		SearchEngine.applyCountyFilter();
+		SearchEngine.rebuildModalWindow();
 	},
 
 	resetLineDistributionByMonthFilter() {
@@ -326,7 +327,8 @@ var graph={
 		 */
 		// if(!graph.dimensions["date"].hasCurrentFilter()){
 		
-		if(new Date(graph.dimensions.date.bottom(1)[0].timestamp)<graph.dateFilterRange[0]){
+		if(graph.dimensions.date.bottom(1).length &&
+		new Date(graph.dimensions.date.bottom(1)[0].timestamp)<graph.dateFilterRange[0]){
 			graph.setDateRangeOnDataset(graph.dateFilterRange[0],graph.dateFilterRange[1]);
 		}
 		let data = graph.areaByClass.all();
@@ -375,6 +377,7 @@ var graph={
 		this.alertsCrossFilter = crossfilter(this.rawData);
 		this.dimensions["area"] = this.alertsCrossFilter.dimension(function(d) {return d.areaKm;});
 		this.dimensions["county"] = this.alertsCrossFilter.dimension(function(d) {return d.county+"/"+d.uf;});
+		this.dimensions["codibge"] = this.alertsCrossFilter.dimension(function(d) {return {codibge:d.codIbge,mun:d.county+"/"+d.uf};});
 		this.dimensions["class"] = this.alertsCrossFilter.dimension(function(d) {return d.className;});
 		this.dimensions["date"] = this.alertsCrossFilter.dimension(function(d) {return d.timestamp;});
 		this.dimensions["uf"] = this.alertsCrossFilter.dimension(function(d) {return d.uf;});
@@ -631,6 +634,7 @@ var graph={
 
 		this.histTopByCounties.on('filtered', function(chart) {
 			graph.displayCustomValues();
+			SearchEngine.updateSelectedList();
 		});
 
 		this.histTopByCounties

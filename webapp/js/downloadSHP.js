@@ -39,12 +39,21 @@ let downloadCtrl = {
 	},
 
 	inferLocalhost() {
-		return ((this.isLocalhost())?("http://terrabrasilis.dpi.inpe.br"):(""));
+		return ((this.isLocalhost())?(this.getTerraBrasilisHref()):(""));
+	},
+
+	inferProtocol() {
+		return document.location.protocol;
 	},
 
 	isLocalhost() {
 		let orig=document.location.origin;
 		return (orig.includes('localhost') || orig.includes('127'));
+	},
+
+	getTerraBrasilisHref() {
+		let baseurl="terrabrasilis.dpi.inpe.br";
+		return this.inferProtocol()+"//"+baseurl;
 	},
 
 	startDownload() {
