@@ -14,7 +14,8 @@ var Translation={
 		'txt1e':'Fechar',
 		'txt1':'Painel DETER - diário',
 		'txt1f':'Procure por Municípios',
-		'txt1tg':'Exibir apenas municípios prioritários.',
+		'txt1g':'Digite um termo para pesquisa',
+		'txt1tg':'Exibir apenas municípios prioritários ',
 		'txt1h':'Marcar/desmarcar todos ou selecione item a item na lista.',
 		'txt1w':'Municípios sem valor a apresentar.',
 		'txt1p':'Aplicar',
@@ -30,17 +31,6 @@ var Translation={
 		'downloadBtn':'Baixar os dados em formato CSV.',
 		'munPriorityBtn':'Selecionar os municípios prioritários do ano corrente.',
 		'txt5':'Municípios prioritários',
-		'txt5t':'Seleção de Municípios Prioritários',
-		'txt5b':'A lista dos municípios prioritários definidos por lei e atualizados todos os anos.<br />'+
-		'Sobre a seleção automática dos Municípios prioritários:<br />'+
-		'&nbsp;&nbsp;&nbsp;- A seleção irá configurar o painel para apresentar os dados apenas dos Municípios prioritários;<br />'+
-		'&nbsp;&nbsp;&nbsp;- O critério de ordenação dos Municípios prioritários será pelo valor decrescente de área ou número de alertas;<br />'+
-		'&nbsp;&nbsp;&nbsp;- ...<br />',
-		'txt5bt1':'Aplicar',
-		'txt5bt2':'Fechar',
-		'ttapply':'Aplicar o filtro de municípios prioritários no painel.',
-		'ttclose':'Desistir de aplicar o filtro de municípios prioritários no painel.',
-		'txt6':'Escurecer/clarear',
 		'txt7':'Entrar',
 		'txt8':'Problema na comunicação com o servidor.<br>Aguarde alguns minutos e recarregue a página.',
 		'txt9':'Exibindo dados para o intervalo de tempo selecionado:',
@@ -179,7 +169,8 @@ var Translation={
 		'txt1e':'Close',
 		'txt1':'DETER panel - daily',
 		'txt1f':'Search for Municipalities',
-		'txt1tg':'Display only priority municipalities.',
+		'txt1g':'Enter a term to search',
+		'txt1tg':'Display only priority municipalities ',
 		'txt1h':'Check/uncheck all or select item by item in the list.',
 		'txt1w':'Municipalities with no value to present.',
 		'txt1p':'Apply',
@@ -195,19 +186,6 @@ var Translation={
 		'downloadBtn':'Download data in CSV format.',
 		'munPriorityBtn':'Select the priority municipalities for the current year.',
 		'txt5':'Priority Municipalities',
-		'txt5t':'Priority Municipalities Selection',
-		
-		'txt5b':'A lista dos municípios prioritários definidos por lei e atualizados todos os anos.<br />'+
-		'Sobre a seleção automática dos Municípios prioritários:<br />'+
-		'&nbsp;&nbsp;&nbsp;- A seleção irá configurar o painel para apresentar os dados apenas dos Municípios prioritários;<br />'+
-		'&nbsp;&nbsp;&nbsp;- O critério de ordenação dos Municípios prioritários será pelo valor decrescente de área ou número de alertas;<br />'+
-		'&nbsp;&nbsp;&nbsp;- ...<br />',
-		'txt5bt1':'Apply',
-		'txt5bt2':'Close',
-		'ttapply':'Aplicar o filtro de municípios prioritários no painel.',
-		'ttclose':'Desistir de aplicar o filtro de municípios prioritários no painel.',
-		
-		'txt6':'Darken/Enlighten',
 		'txt7':'Login',
 		'txt8':'Failure on loading data from server.<br>Try reload after some minutes.',
 		'txt9':'Displaying data for selected time range:',

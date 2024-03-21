@@ -22,7 +22,7 @@ var Lang={
 			this.language=l;
 		}
 		this.apply();
-		if(AuthenticationTranslation) AuthenticationTranslation.changeLanguage(l);
+		if(typeof AuthenticationTranslation != 'undefined') AuthenticationTranslation.changeLanguage(l);
 		graph.resetFilters();
 		graph.build();
 	},

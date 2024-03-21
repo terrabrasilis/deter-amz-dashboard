@@ -302,6 +302,7 @@ var graph={
 		graph.ringTotalizedByState.filterAll();
 		graph.histTopByUCs.filterAll();
 		SearchEngine.applyCountyFilter();
+		SearchEngine.rebuildModalWindow();
 	},
 
 	resetLineDistributionByMonthFilter() {

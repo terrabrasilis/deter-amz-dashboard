@@ -20,6 +20,7 @@ var SearchEngine = {
     top10ByMunChartReference: null,
     stateChartReference: null,
     munGroup: null,
+    modalContent: null,
     msf_ui:[], // multiselection itens to display on UI
     msf:[], // multiselection filter
     msf_pm:[], // used as complete priority municipalities list
@@ -32,12 +33,13 @@ var SearchEngine = {
      * @param idModal is the id for the div element to insert the html code for inject the search modal window.
      */
     init: function(munChart, stateChart, idModal) {
+        this.modalContent=idModal;
         this.top10ByMunChartReference=munChart;
         this.stateChartReference=stateChart;
         this.munGroup = this.top10ByMunChartReference.group().all();
-        this.injectSearchModalWindow(idModal);
+        this.rebuildModalWindow();
     },
-    injectSearchModalWindow: function(idModal) {
+    rebuildModalWindow: function() {
 
         var modalHTML=''+
         '<div class="modal fade" id="modal-container-filtered">'+
@@ -51,7 +53,7 @@ var SearchEngine = {
                         '<span class="txtgreen">'+Translation[Lang.language].txt1tg+'</span>'+    
                         '<input type="checkbox" id="btnPriorityMun" onclick="SearchEngine.showContextMuns()"><br/>'+
                         '<div class="input-group input-group-sm search-form">'+
-                            '<input autofocus id="search-county" onkeypress="SearchEngine.searchCountyByEnterKey(event)" type="text" class="form-control" placeholder="Search">'+
+                            '<input autofocus id="search-county" onkeypress="SearchEngine.searchCountyByEnterKey(event)" type="text" class="form-control" placeholder="'+Translation[Lang.language].txt1g+'">'+
                             '<label>'+
                                 '<button class="btn btngreen btnsearch" onclick="SearchEngine.search()"><i class="material-icons">search</i></button>'+
                             '</label>'+
@@ -85,7 +87,7 @@ var SearchEngine = {
             '</div>'+
         '</div>';
 
-        $('#'+idModal).html(modalHTML);
+        $('#'+SearchEngine.modalContent).html(modalHTML);
 
     },
 
@@ -186,10 +188,10 @@ var SearchEngine = {
             var m=o.key.replace("'","´");
             let clazz=(( SearchEngine.msf.includes(o.key) )?('enable-li'):(''));
             if(o.value){
-                document.getElementById("filtered-list").innerHTML+="<li id='idmun_"+id+"' class='"+clazz+"'><a href=\"javascript:SearchEngine.enableDisableItem('"+id+"');\">"+(id+1)+": "+m+"</a></li>";
+                document.getElementById("filtered-list").innerHTML+="<li id='idmun_"+id+"' class='"+clazz+"'><a href=\"javascript:SearchEngine.enableDisableItem('"+id+"');\">"+m+"</a></li>";
             }else{
                 $('#missing_area').show();
-                document.getElementById("filtered-list").innerHTML+="<li id='idmun_"+id+"' class='disable-li'>"+(id+1)+": "+m+" <span style='color: red;'>*</span></li>";
+                document.getElementById("filtered-list").innerHTML+="<li id='idmun_"+id+"' class='disable-li'>"+m+" <span style='color: red;'>*</span></li>";
             }
         });
         $('#modal-container-filtered').modal('show');
