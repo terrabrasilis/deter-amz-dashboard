@@ -52,8 +52,7 @@ let downloadCtrl = {
 	},
 
 	getTerraBrasilisHref() {
-		let baseurl="terrabrasilis.dpi.inpe.br";
-		return this.inferProtocol()+"//"+baseurl;
+		return document.location.protocol+'//'+document.location.hostname;
 	},
 
 	startDownload() {
