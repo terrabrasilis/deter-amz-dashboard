@@ -23,7 +23,7 @@ LABEL br.inpe.dpi.terrabrasilis="application"
 LABEL version=${VERSION}
 LABEL author="Andre Carvalho"
 LABEL author.email="andre.carvalho@inpe.br"
-LABEL description="This container provides an http server including the webapp version for deploy the DETER Legal Amazon dashboards."
+LABEL description="This container provides an http server including the webapp version for deploy the DETER Amazônia biome dashboards."
 #-------------Application Specific Stuff ----------------------------------------------------
 
 ## Remove default nginx website

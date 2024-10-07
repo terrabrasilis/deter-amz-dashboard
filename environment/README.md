@@ -1,4 +1,4 @@
-# Docker for serve the dashboards for DETER Legal Amazon
+# Docker for serve the dashboards for DETER Amazônia biome
 
 Defines the environment to run a server for dashboard webapp.
 

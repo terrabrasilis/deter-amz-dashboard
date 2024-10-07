@@ -2,7 +2,7 @@
 
 This project is old dashboards with new visual based in new TerraBrasilis styles.
 
-Here we have pure JavaScript code from old dashboard format only for Alerts of Legal Amazon.
+Here we have pure JavaScript code from old dashboard format only for Alerts of Amazônia biome.
 
 Including dockerized environment to run it into our swarm cluster.
 
@@ -11,5 +11,5 @@ Including dockerized environment to run it into our swarm cluster.
 
 Link to online instance for alerts dashboard:
 
-- http://terrabrasilis.dpi.inpe.br/app/dashboard/alerts/legal/amazon/daily/
-- http://terrabrasilis.dpi.inpe.br/app/dashboard/alerts/legal/amazon/aggregated/
+- http://terrabrasilis.dpi.inpe.br/app/dashboard/alerts/biomes/amazonia-nb/daily/
+- http://terrabrasilis.dpi.inpe.br/app/dashboard/alerts/biomes/amazonia-nb/aggregated/
