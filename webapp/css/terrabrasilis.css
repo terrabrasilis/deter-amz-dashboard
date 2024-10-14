@@ -919,3 +919,7 @@ right: 5px;
 color: white;
 font-size: small;
 }
+#munPriorityBtn
+{
+  cursor: pointer;
+}

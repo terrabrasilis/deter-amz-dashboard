@@ -135,7 +135,7 @@ var SearchEngine = {
         }
         return key;
     },
-    preSearchFromPriority: function(munlist){
+    preSearchFromPriority: function(munlist, showGui=true){
         /**
          * Used to filter the municipalities from the ibge code as municipality list
          * and display as list on search window.
@@ -165,7 +165,10 @@ var SearchEngine = {
             graph.dimensions["codibge"].filterAll();
         }
         SearchEngine.msf_all=SearchEngine.msf_pm;
-        this.showFilteredItems();
+        if(showGui==true)
+        {
+            this.showFilteredItems();
+        }        
     },
 
     search: function(){
@@ -264,14 +267,18 @@ var SearchEngine = {
 		}
         dc.redrawAll();
 	},
-    loadPriorityMunicipalityList: function() {
+    loadPriorityMunicipalityList: function(callback=null, showGui=true) {
         /**
          * Used to read the JSON data as a municipality list from backend
          */
         let priorityMunData=sessionStorage.getItem("priorityMunData");
         if(priorityMunData){
             priorityMunData=JSON.parse(priorityMunData);
-            SearchEngine.preSearchFromPriority(priorityMunData);
+            SearchEngine.preSearchFromPriority(priorityMunData, showGui);
+            if(callback)
+            {
+                callback(priorityMunData);
+            }
         }else{
 
             let url=downloadCtrl.getTerraBrasilisHref()+"/geoserver/prodes-brasil-nb/ows?OUTPUTFORMAT=application/json&SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&exceptions=text/xml&srsName=EPSG:4326&TYPENAME=prodes-brasil-nb:priority_municipalities";
@@ -281,7 +288,11 @@ var SearchEngine = {
                     document.getElementById("filtered-list").innerHTML="<li><span>"+Translation[Lang.language].without+"</span></li>";
                 }else{
                     sessionStorage.setItem("priorityMunData", JSON.stringify(body));
-                    SearchEngine.preSearchFromPriority(body);
+                    SearchEngine.preSearchFromPriority(body, showGui);
+                    if(callback)
+                    {
+                        callback(body);
+                    }
                 }
             };
             d3.json(url, responseJson);
@@ -313,7 +324,20 @@ var SearchEngine = {
     setPriorityMode: function(){
         /** Called from the main window menu option */
         $('#btnPriorityMun')[0].checked=true;
-        this.showContextMuns();
+        //this.showContextMuns();
+        this.loadPriorityMunicipalityList(function(body)
+        {
+            console.log(body);
+            if(SearchEngine.msf_pm)
+            {
+                SearchEngine.msf = [];
+
+                SearchEngine.msf_pm.forEach(m => {
+                    SearchEngine.msf.push(m.key);
+                });
+                SearchEngine.applyCountyFilter([SearchEngine.msf], true);
+            }            
+        }, false);
     },
 
     showContextMuns: function(){
