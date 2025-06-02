@@ -565,9 +565,9 @@ var graph={
 		Lang.apply();
 
 		let cloudDataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/cloud";
-		// cloudDataUrl = "./data/deter-amazon-cloud-month.json";// to use in localhost
+		if(downloadCtrl.isLocalhost()) cloudDataUrl = "./data/deter-amazon-cloud-month.json"; // to use in localhost run the curl_get_json.sh in data dir
 		let deforDataUrl = downloadCtrl.getFileDeliveryURL()+"/download/"+downloadCtrl.getProject()+"/monthly";
-		// deforDataUrl = "./data/deter-amazon-month.json";// to use in localhost
+		if(downloadCtrl.isLocalhost()) deforDataUrl = "./data/deter-amazon-month.json"; // to use in localhost run the curl_get_json.sh in data dir
 
 		graph.loadData(cloudDataUrl, 'cloud', ()=>{
 			graph.loadData(deforDataUrl, 'deforestation',null);

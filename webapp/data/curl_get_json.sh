@@ -1,5 +1,5 @@
 #!/bin/bash
-BASE_URL="http://terrabrasilis.dpi.inpe.br/geoserver/deter-amz"
+BASE_URL="https://terrabrasilis.dpi.inpe.br/geoserver/deter-amz"
 
 # to test cloud monthly data
 URL="${BASE_URL}/wfs?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=cloud_m_d&OUTPUTFORMAT=application%2Fjson"
