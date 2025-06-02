@@ -478,53 +478,87 @@
 									<i class="material-icons">clear</i></button>
 							</div>
 							<div class="modal-body">
-								<div id="info_classes_en" class="alert alert-info info_classes">
-									<p>
-										<h3>DEFORESTATION CLASSES</h3>
-										<ul>
-											<li><b>Deforestation with exposed soil:</b> is the total removal of forest cover, regardless of the use for the deforested area. The deforestation process can take place by clear cutting, when the forest cover is abruptly removed in a single intervention, or it can be the result of recursive degradation events that lead to the complete collapse of the vegetation's forest structure.</li>
-											<li><b>Deforestation with vegetation:</b> these are areas where there is evidence of deforestation, but the deforested area is showing signs of vegetation cover. These are cases in which there is a time lag between the occurrence of the clear cut and its detection, caused by the cloud cover between one event and another, or the final result of recurrent degradation.</li>
-											<li><b>Mining:</b> deforestation caused by mineral extraction activity. Artisanal mining activities predominate in this class.</li>
-										</ul>
-									</p>
-									<p>
-										<h3>DEGRADATION CLASSES</h3>
-										<ul>
-											<li><b>Wildfire scar:</b> it is characterized by the presence of areas affected by fire, with or without tree vegetation.</li>
-											<li><b>Degradation:</b> it is characterized by the loss of forest canopy and consequent exposure of the soil, where vegetation is usually found in arboreal individuals in the initial and intermediate stages of succession.</li>
-										</ul>
-									</p>
-									<p>
-										<h3>WOOD EXPLORATION CLASSES</h3>
-										<ul>
-											<li><b>Selective cut type 1:</b> it is considered a conventional exploration, where individuals of commercial interest are removed without prior planning, denoted by the disordered shape of roads and road branches within the forest and with the presence of storage yards with irregular dimensions and disposed of random way.</li>
-											<li><b>Selective cut type 2:</b> it is considered an exploration based on a management plan, in which the previous planning is evidenced by the regular pattern between the roads and storage yards within the forest.</li>
-										</ul>
-									</p>
+								<div id="info_classes_en" class="alert alert-success info_classes">
+									<div class="wp-block-cover__inner-container is-layout-constrained wp-block-cover-is-layout-constrained">
+										<p class="has-text-align-center has-white-color has-text-color has-link-color has-large-font-size wp-elements-ee4522d2bdd13a528b764b116f16c8b7"><strong>CLASSES – Deter</strong></p>
+										<p class="has-text-align-center has-white-color has-text-color has-link-color wp-elements-a8faabdc9ba16f4573596fbd8cbb2afc">The deforestation process occurs through clear-cutting, when the vegetation cover is completely removed in a single intervention, or it can be the result of recurring degradation events that progressively compromise the original structure of the vegetation.&nbsp;</p>
+										<p class="has-text-align-center has-white-color has-text-color has-link-color wp-elements-8dc149fafbc62ce05e0bb4f7fa7412f1">To map the alerts, images from the Landsat satellite or similar are used to locate areas associated with the following classes: </p>
+										<br>
+										<div style="background-color:#eeeff7">
+										<div class="content-items-biomas d-flex align-items-start justify-content-center pt-5 pb-5">
+										<div class="item-about-biomas d-flex flex-column"><h1 class="text-center mb-1">I</h1>
+										<h5 class="text-center" style="color:#000"><strong>Deforestation</strong>: Clear-cut deforestation, Vegetated deforestation and Mining;</h5>
+										</div>
+										<div class="item-about-biomas d-flex flex-column"><h1 class="text-center mb-1">II</h1><h5 class="text-center" style="color:#000"><strong>Degradation</strong>: Degradation and scarring from wildfires;</h5></div>
+										<div class="item-about-biomas d-flex flex-column"><h1 class="text-center mb-1">III</h1><h5 class="text-center" style="color:#000"><strong>Wood exploration</strong>:&nbsp; Selective Cutting Type 1 and 2, based on the following definitions:</h5></div>
+										</div>
+										</div>
+										<br>
+										<div class="wp-block-coblocks-accordion">
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Clear-cut deforestation (DESMATAMENTO_CR)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-28ce89e68b6076d62f0d8bf629badf01">Areas where complete suppression of native vegetation is observed, regardless of any evidence of subsequent use.&nbsp;&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Deforestation with vegetation (DESMATAMENTO_VEG)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-27289f52782a0eead6f3f1f22b3a4a52">Areas where there is evidence of suppression of native vegetation and, at the same time, of other vegetation cover.&nbsp; This class refers to areas of progressive degradation, or which, due to the presence of cloud cover, were only detected some time after the suppression of the original cover.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Mining (MINERACAO)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-a16d8cf6d21eba378d17a053712a500c">Areas of native vegetation that have been converted to areas for mineral extraction activities. Artisanal mining activities predominate in this class.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Degradation (DEGRADACAO)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-a91cc45445bf09bffb4ae8524dd3c983">These are areas where there has been incomplete loss of the forest canopy and consequent exposure of the soil, with vegetation persisting with tree individuals and/or with a structure similar to the initial and initial intermediate stages of forest succession.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Forest fire scar (CICATRIZ_DE_QUEIMADA)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-6c87252847c3d73b31db979da945f6cc">Areas where signs of changes in vegetation cover due to the action of fire are identified, with or without tree vegetation persisting.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Disorderly selective cutting (CS_DESORDENADO)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-7d14606327413159738f21a84583ef62">Areas associated with conventional logging, where trees of commercially valuable species are removed without planning. They are characterized by irregular roads, branches and storage yards with irregular dimensions and arranged randomly within the forest.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Geometric selective cutting (CS_GEOMETRICO)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-b72940d336006a19a15a06a413fe2eca">Areas associated with logging with a management plan, characterized by the regular and geometric layout of roads and storage yards within the forest.&nbsp;&nbsp;</p>
+										</div></details></div>
+										</div>
+									</div>
 								</div>
-								<div id="info_classes_pt-br" class="alert alert-info info_classes">
-									<p>
-										<h3>CLASSES DE DESMATAMENTO</h3>
-										<ul>
-											<li><b>Desmatamento:</b> é a remoção total da cobertura florestal, independentemente do uso destinado para a área desmatada. O processo do desmatamento pode se dar por corte raso, quando a cobertura florestal é abruptamente removida em uma única intervenção, ou pode ser o resultado de eventos de degradação recursivos que levam ao colapso completo da estrutura florestal da vegetação.</li>
-											<li><b>Desmatamento com vegetação:</b> são áreas em que há evidência de desmatamento, mas a área desmatada se encontra com sinais de uma cobertura vegetal. São casos em que há um lapso de tempo entre a ocorrência do corte raso e a sua detecção, ocasionado pela cobertura de nuvens entre um evento e outro, ou o resultado final da degradação recursiva.</li>
-											<li><b>Mineração:</b> desmatamento causado por atividade de extração mineral. Predomina nesta classe atividades de garimpo artesanal.</li>
-										</ul>
-									</p>
-									<p>
-										<h3>CLASSE DE DEGRADAÇÃO</h3>
-										<ul>
-											<li><b>Cicatriz de incêndio florestal:</b> é caracterizada pela presença de áreas atingidas por fogo, podendo ou não haver vegetação arbórea.</li>
-											<li><b>Degradação:</b> é caracterizado pela perda de dossel florestal e consequente exposição do solo, onde há vegetação geralmente indivíduos arbóreos em estágios iniciais e intermediário inicial de sucessão.</li>
-										</ul>
-									</p>
-									<p>
-										<h3>CLASSES DE EXPLORAÇÃO MADEIREIRA</h3>
-										<ul>
-											<li><b>Corte seletivo tipo 1:</b> é considerado uma exploração convencional, onde os indivíduos de interesse comercial são removidos sem planejamento prévio, denotado pela forma desordenada de estradas e ramais no interior da floresta e com a presença de pátios de estocagem com dimensões irregulares e dispostos de forma aleatória.</li>
-											<li><b>Corte seletivo tipo 2:</b> é considerado uma exploração baseada em um plano de manejo, em que percebe-se o planejamento prévio evidenciado pelo padrão regular entre as estradas e pátios de estocagem no interior da floresta.</li>
-										</ul>
-									</p>
+								<div id="info_classes_pt-br" class="alert alert-success info_classes">
+									<div class="wp-block-cover__inner-container is-layout-constrained wp-block-cover-is-layout-constrained">
+										<p class="has-text-align-center has-white-color has-text-color has-link-color has-large-font-size wp-elements-ee4522d2bdd13a528b764b116f16c8b7"><strong>CLASSES – Deter</strong></p>
+										<p class="has-text-align-center has-white-color has-text-color has-link-color wp-elements-a8faabdc9ba16f4573596fbd8cbb2afc">O processo do desmatamento acontece por corte raso, quando a cobertura da vegetação é totalmente removida em uma única intervenção, ou pode ser o resultado de eventos de degradação recorrentes que progressivamente comprometem a estrutura original da vegetação.&nbsp;</p>
+										<p class="has-text-align-center has-white-color has-text-color has-link-color wp-elements-8dc149fafbc62ce05e0bb4f7fa7412f1">Para o mapeamento dos alertas são utilizadas imagens do satélite Landsat ou similares, para localizar áreas associadas às classes de: </p>
+										<br>
+										<div style="background-color:#eeeff7">
+										<div class="content-items-biomas d-flex align-items-start justify-content-center pt-5 pb-5">
+										<div class="item-about-biomas d-flex flex-column"><h1 class="text-center mb-1">I</h1>
+										<h5 class="text-center" style="color:#000"><strong>Desmatamento</strong>: Desmatamento corte raso, Desmatamento com vegetação e Mineração;</h5>
+										</div>
+										<div class="item-about-biomas d-flex flex-column"><h1 class="text-center mb-1">II</h1><h5 class="text-center" style="color:#000"><strong>Degradação</strong>: Degradação e Cicatriz de incêndio florestal;</h5></div>
+										<div class="item-about-biomas d-flex flex-column"><h1 class="text-center mb-1">III</h1><h5 class="text-center" style="color:#000"><strong>Exploração madeireira</strong>:&nbsp; Corte Seletivo Tipo1 e 2, a partir das seguintes definições:</h5></div>
+										</div>
+										</div>
+										<br>
+										<div class="wp-block-coblocks-accordion">
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Desmatamento corte raso (DESMATAMENTO_CR)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-28ce89e68b6076d62f0d8bf629badf01">Áreas em que se observa a supressão completa da vegetação nativa, independentemente de qualquer evidência de uso posterior.&nbsp;&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Desmatamento com vegetação (DESMATAMENTO_VEG)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-27289f52782a0eead6f3f1f22b3a4a52">Áreas em que há evidência de supressão da vegetação nativa e ao mesmo tempo, de outra cobertura vegetal.&nbsp; Esta classe refere-se a áreas de degradação progressiva, ou que pela presença de cobertura de nuvens foram apenas detectadas algum tempo após a supressão da cobertura original.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Mineração (MINERACAO)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-a16d8cf6d21eba378d17a053712a500c">Áreas de vegetação nativa que foi convertida para áreas de atividade de extração mineral. Predominam nesta classe as atividades de garimpo artesanal.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Degradação (DEGRADACAO)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-a91cc45445bf09bffb4ae8524dd3c983">São áreas onde houve perda incompleta do dossel florestal e consequente exposição do solo, persistindo uma vegetação com indivíduos arbóreos e/ou com estrutura semelhante a estágios inicial e intermediário inicial de sucessão florestal.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Cicatriz de incêndio florestal (CICATRIZ_DE_QUEIMADA)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-6c87252847c3d73b31db979da945f6cc">Áreas onde se identificam sinais de alterações na cobertura vegetal em decorrência da ação do fogo, podendo ou não persistir vegetação arbórea.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Corte seletivo Desordenado (CS_DESORDENADO)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-7d14606327413159738f21a84583ef62">Áreas associadas à exploração madeireira convencional, em que os indivíduos arbóreos de espécies de interesse comercial são removidos sem planejamento. Caracterizam-se pela irregular das estradas, ramais e pátios de estocagem com dimensões irregulares e dispostos de forma aleatória no interior da floresta.&nbsp;</p>
+										</div></details></div>
+										<div class="wp-block-coblocks-accordion-item"><details><summary class="wp-block-coblocks-accordion-item__title has-text-color has-white-color">Corte seletivo Geométrico (CS_GEOMETRICO)</summary><div class="wp-block-coblocks-accordion-item__content">
+										<p class="has-white-color has-text-color has-link-color wp-elements-b72940d336006a19a15a06a413fe2eca">Áreas associadas à exploração madeireira com plano de manejo, caraterizadas pela disposição regular e geométrica das estradas e pátios de estocagem no interior da floresta.&nbsp;&nbsp;</p>
+										</div></details></div>
+										</div>
+									</div>
 								</div>
 								<div class="alert alert-warning">
 									<strong><span>* </span></strong><span id="txt22b">A classe <strong>Corte
